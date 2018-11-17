@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="进行误差分析：  通过人工check，找出标记错误的样本和总数的百分比，选出比较较大的错误类型进行分析，通常能够帮你找到优化的灵感 深度学习算法对训练集中的随机错误是相对健壮的，如果数据够随机，那么不用花太多时间去修正它们 但是如果这些错误比较理解大，严重影响到你再开发集上的评估能力，那才真有必要去修正下标注 Dev/Test集的分布一定要一致，如果需要更改标注，也是一样。训练集倒可以不一致 最">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第三门课-第二周">
+<meta property="og:url" content="http://yoursite.com/2018/10/10/dl/第三门课-第二周/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="进行误差分析：  通过人工check，找出标记错误的样本和总数的百分比，选出比较较大的错误类型进行分析，通常能够帮你找到优化的灵感 深度学习算法对训练集中的随机错误是相对健壮的，如果数据够随机，那么不用花太多时间去修正它们 但是如果这些错误比较理解大，严重影响到你再开发集上的评估能力，那才真有必要去修正下标注 Dev/Test集的分布一定要一致，如果需要更改标注，也是一样。训练集倒可以不一致 最">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-11-17T02:59:15.826Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="第三门课-第二周">
+<meta name="twitter:description" content="进行误差分析：  通过人工check，找出标记错误的样本和总数的百分比，选出比较较大的错误类型进行分析，通常能够帮你找到优化的灵感 深度学习算法对训练集中的随机错误是相对健壮的，如果数据够随机，那么不用花太多时间去修正它们 但是如果这些错误比较理解大，严重影响到你再开发集上的评估能力，那才真有必要去修正下标注 Dev/Test集的分布一定要一致，如果需要更改标注，也是一样。训练集倒可以不一致 最">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '雷哥'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/10/10/dl/第三门课-第二周/">
+
+
+
+
+
+  <title>第三门课-第二周 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/10/dl/第三门课-第二周/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yuancl">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">第三门课-第二周</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-10T10:00:09+08:00">
+                2018-10-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/深度学习/" itemprop="url" rel="index">
+                    <span itemprop="name">深度学习</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/深度学习/吴恩达课程总结/" itemprop="url" rel="index">
+                    <span itemprop="name">吴恩达课程总结</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <ul>
+<li><p>进行误差分析：</p>
+<ul>
+<li>通过人工check，找出标记错误的样本和总数的百分比，选出比较较大的错误类型进行分析，通常能够帮你找到优化的灵感</li>
+<li>深度学习算法对训练集中的随机错误是相对<strong>健壮</strong>的，如果数据够随机，那么不用花太多时间去修正它们</li>
+<li>但是如果这些错误比较理解大，<strong>严重影响</strong>到你再开发集上的评估能力，那才真有必要去修正下标注</li>
+<li>Dev/Test集的分布一定要一致，如果需要更改标注，也是一样。训练集倒可以不一致</li>
+<li>最后，深度学习工作者一般很少去人工干预，但是建议也看下误差的影响面</li>
+</ul>
+</li>
+<li><p>快速搭建你的第一个系统：</p>
+<ul>
+<li>如果面对的是新应用，这个时候你的<strong>目标</strong>是得到一个可用的系统，所以可以快速搭建你的系统，然后进行误差分析，找到后面的方向</li>
+<li>如果你是老司机，那么可以参考已有的学术论文，已有的架构等构建你的网络</li>
+</ul>
+</li>
+<li><p>训练集和测试集不同分布：</p>
+<ul>
+<li>如果关系App中的图片,即使App的数据很少,也不建议train：webapp，dev/test：app。而建议把一部分收集到的真实数据放入训练集使用train：<strong>webapp+app</strong>, dev/test:app</li>
+<li>例如音频数据训练集有500,000条数据，收集到的真实数据是20,000条，那么组合方式有：<br>$\begin{cases}<br>train:500,000+10,000\<br>dev:5000\<br>test:5000\<br>\end{cases}<br>$ 或者是：<br>$\begin{cases}<br>train:500,000\<br>dev:10,000\<br>test:10,000\<br>\end{cases}<br>$</li>
+</ul>
+</li>
+<li><p>Train/dev数据不同分布带来的偏差和方差问题</p>
+<ul>
+<li>问题现象：如果Train/dev数据不同分布，那么如果发现实际dev loss比train大，那么到底是<strong>数据不同分布</strong>导致？还是<strong>方差问题</strong>导致呢？</li>
+<li>解决方案：建设一个Train-dev数据集，此数据集合Train数据同分布，来排除是否是<strong>方差的问题</strong>的问题：<br>$\begin{cases}<br>Bias:Human level,Train\<br>Variance:Train,Train-dev\<br>Datamatch:Train-dev,dev\<br>\end{cases}<br>$</li>
+<li>这个时候就有三类问题:<strong>1.bias 2.variance 3.数据不同分布</strong>,对分布不同问题，没有很好的办法，但有一些建议如下: <ul>
+<li>人工合成，让你的训练集数据分布接近你的Dev集(比如图像合成) <ul>
+<li>问题：可能出现数据集局部过拟合</li>
+</ul>
+</li>
+<li>所以如果是数据分布问题导致，一般分析步骤： <ul>
+<li>仔细观察下Train/dev/test数据特点</li>
+<li>想办法收集更多想dev/test的数据</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>迁移学习</p>
+<ul>
+<li>预训练(pre-training)：如果你数据比较多，进行全部参数的重新训练，这时你在用图像识别数据去预先初始化，就叫做预训练，或者预训练神经网络权重</li>
+<li>微调(fine tuning)：如果以后更新所有权重，然后在其他地方训练，有时这个过程也叫微调</li>
+<li>如果没有这么多的数据，也可以选择只替换输出层，或者最后两层等</li>
+<li>为什么可以这样迁移？ <ul>
+<li>有很多低层次的特征，比如说边缘检测，曲线检测，阳性对象检测等，图像都可以共用的</li>
+<li>学到了这些低层次的特征，就能够进一步学习到线条，点，曲面这些知识</li>
+</ul>
+</li>
+<li>适用场景：迁移后的场景，你没有这么多的数据</li>
+<li>A->B条件: <ul>
+<li>A和B都要有同样的输入，比如都是图像，都是语音等</li>
+<li>B的数据远小于A</li>
+<li>如果觉得A的低层次的特征能够帮助到B</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>多任务学习(Multi-task learning)</p>
+<ul>
+<li>什么叫多任务学习？ <ul>
+<li>一个输入会有多个输出flag：比如CV中，自驾驾驶领域，对一个图片的识别既要判断图片是否有交通灯，又要判断行人，车辆等</li>
+</ul>
+</li>
+<li>多任务学习的条件及意义 <ul>
+<li>类比迁移学习，如果多任务中有共用的低层次的特征，就能够大大提升你的性能，并且比单独每个任务都训练独立的网络效果好很多</li>
+<li>类比迁移学习，你多个任务叠加的数据量要比单个任务数据量大很多</li>
+<li>要求神经网络足够大，如果过小，那么不见得会比但任务学习有好的性能</li>
+</ul>
+</li>
+<li>应用情况 <ul>
+<li>实际应用中，迁移学习的使用频率比多任务会大很多，可能多任务在CV领域应用得比较多</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>端到端学习:</p>
+<ul>
+<li>什么是端到端学习？ <ul>
+<li>比如说语音识别，从音频输入->特征提取->…->找到音位->…->构成听写文本，中间有多个阶段。端到端学习就是直接x->y的映射，这里就是音频输入->构成听写文本</li>
+</ul>
+</li>
+<li>使用条件: <ul>
+<li>数据量(x->y)直接映射的数据量足够大</li>
+</ul>
+</li>
+<li>优点: <ul>
+<li>组件少，中间过程省时省力</li>
+</ul>
+</li>
+<li>缺点: <ul>
+<li>很多场景x->y直接映射的数据量很少，不好收集</li>
+<li>可能会排除了中间很多人为设计的有用的组件，觉得学习算法的指数来源主要有数据和人工设计的东西</li>
+</ul>
+</li>
+<li>例子: <ul>
+<li>人脸识别的系统，并没有直接使用x->y(门禁照片->身份确认)的识别，因为端到端的直接数据并没有这么多数据集。所以拆分为两步：1.识别人脸照片，2.照片和身份的对应。这种方式是因为拆分后的两步都有大量的数据集</li>
+<li>X射线评估孩子年龄，直接的数据x->(x摄像图像->孩子年龄)也没有这么多数据，也需要拆分</li>
+<li>机器翻译：端到端方法就使用很广泛，因为存在<strong>大量的数据</strong>，比如英文->法文….</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/27/dl/吴恩达课程习题/" rel="next" title="吴恩达课程习题">
+                <i class="fa fa-chevron-left"></i> 吴恩达课程习题
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/10/14/dl/第四门课-第一周/" rel="prev" title="第四门课-第一周">
+                第四门课-第一周 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/favicon.ico" alt="yuancl">
+          <p class="site-author-name" itemprop="name">yuancl</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-雷哥"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yuancl</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Gemini
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

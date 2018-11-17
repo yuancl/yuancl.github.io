@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="第一周 卷积神经网络边缘检测 浅层特征可能是是垂直检测，水平检测等初级特征，后面层可能是人眼等高级特征，最后是整个人形等 理解垂直边缘过滤核：$\begin{cases}1-0–1\1-0–1\1-0–1\\end{cases}$  (1)(3)列正负相互抵消，只能在差异相差很大的不同区域可能保留比较大的特征值，比如在黑白过渡区域等    更多边缘检测过滤核 Sobel过滤器  增加了中间的一行元">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第四门课-第一周">
+<meta property="og:url" content="http://yoursite.com/2018/10/14/dl/第四门课-第一周/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="第一周 卷积神经网络边缘检测 浅层特征可能是是垂直检测，水平检测等初级特征，后面层可能是人眼等高级特征，最后是整个人形等 理解垂直边缘过滤核：$\begin{cases}1-0–1\1-0–1\1-0–1\\end{cases}$  (1)(3)列正负相互抵消，只能在差异相差很大的不同区域可能保留比较大的特征值，比如在黑白过渡区域等    更多边缘检测过滤核 Sobel过滤器  增加了中间的一行元">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2018/10/14/dl/第四门课-第一周/resources/A34E4968C781FBBF7EE500ECE577EE92">
+<meta property="og:image" content="http://yoursite.com/2018/10/14/dl/第四门课-第一周/resources/A2DE0F8C6458579436F140074B5FE193">
+<meta property="og:image" content="http://yoursite.com/2018/10/14/dl/第四门课-第一周/resources/4DDA682D49EE988BEF6230C1A1EFB3D2">
+<meta property="og:image" content="http://yoursite.com/2018/10/14/dl/第四门课-第一周/resources/EA6A4DE2FF731A127BE54D7B0109DEFA">
+<meta property="og:image" content="http://yoursite.com/2018/10/14/dl/第四门课-第一周/resources/B5D93F420A7D874EB6AF156E7E1127F6">
+<meta property="og:updated_time" content="2018-11-17T03:00:48.168Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="第四门课-第一周">
+<meta name="twitter:description" content="第一周 卷积神经网络边缘检测 浅层特征可能是是垂直检测，水平检测等初级特征，后面层可能是人眼等高级特征，最后是整个人形等 理解垂直边缘过滤核：$\begin{cases}1-0–1\1-0–1\1-0–1\\end{cases}$  (1)(3)列正负相互抵消，只能在差异相差很大的不同区域可能保留比较大的特征值，比如在黑白过渡区域等    更多边缘检测过滤核 Sobel过滤器  增加了中间的一行元">
+<meta name="twitter:image" content="http://yoursite.com/2018/10/14/dl/第四门课-第一周/resources/A34E4968C781FBBF7EE500ECE577EE92">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '雷哥'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/10/14/dl/第四门课-第一周/">
+
+
+
+
+
+  <title>第四门课-第一周 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/14/dl/第四门课-第一周/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yuancl">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">第四门课-第一周</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-14T19:30:09+08:00">
+                2018-10-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/深度学习/" itemprop="url" rel="index">
+                    <span itemprop="name">深度学习</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/深度学习/吴恩达课程总结/" itemprop="url" rel="index">
+                    <span itemprop="name">吴恩达课程总结</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="第一周-卷积神经网络"><a href="#第一周-卷积神经网络" class="headerlink" title="第一周 卷积神经网络"></a>第一周 卷积神经网络</h3><h5 id="边缘检测"><a href="#边缘检测" class="headerlink" title="边缘检测"></a>边缘检测</h5><ul>
+<li>浅层特征可能是是垂直检测，水平检测等初级特征，后面层可能是人眼等高级特征，最后是整个人形等</li>
+<li>理解垂直边缘过滤核：<br>$<br>\begin{cases}<br>1-0–1\<br>1-0–1\<br>1-0–1\<br>\end{cases}<br>$ <ul>
+<li><strong>(1)(3)列正负相互抵消</strong>，只能在差异相差很大的不同区域可能保留比较大的特征值，比如在黑白过渡区域等</li>
+</ul>
+</li>
+</ul>
+<h5 id="更多边缘检测过滤核"><a href="#更多边缘检测过滤核" class="headerlink" title="更多边缘检测过滤核"></a>更多边缘检测过滤核</h5><ul>
+<li>Sobel过滤器 <ul>
+<li>增加了中间的一行元素的权重，这样使得结果的鲁棒性更会高一些</li>
+</ul>
+<ul>
+<li>$\begin{cases}<br>1-0–1\<br>2-0–2\<br>1-0–1\<br>\end{cases}<br>$ </li>
+</ul>
+</li>
+<li>Scharr过滤器(CV中经常使用) <ul>
+<li>$\begin{cases}<br>3-0–3\<br>10-0–10\<br>3-0–3\<br>\end{cases}<br>$ </li>
+</ul>
+</li>
+</ul>
+<h5 id="Padding"><a href="#Padding" class="headerlink" title="Padding"></a>Padding</h5><ul>
+<li>解决问题： <ul>
+<li>每次做卷积的时候，他的图像都会缩小，多做几次卷积就输出的图像会很小</li>
+<li>图像边缘的像素，只有一个卷积核会计算到，这样一来角落或者图像边缘的信息发挥的作用就会很小</li>
+</ul>
+</li>
+<li>通常Padding设置： <ul>
+<li>Valid(无padding),normal,same(使输出和输入尺寸一致)</li>
+<li>一般考虑到对称性和中心点位置，padding值一般使用奇数值</li>
+</ul>
+</li>
+</ul>
+<h5 id="卷积步长-Strided"><a href="#卷积步长-Strided" class="headerlink" title="卷积步长(Strided)"></a>卷积步长(Strided)</h5><h5 id="三维卷积"><a href="#三维卷积" class="headerlink" title="三维卷积"></a>三维卷积</h5><ul>
+<li><img src="/2018/10/14/dl/第四门课-第一周/resources/A34E4968C781FBBF7EE500ECE577EE92"></li>
+<li>多filter=通道数=特征数=深度(多种叫法)</li>
+</ul>
+<h5 id="单层卷积网络"><a href="#单层卷积网络" class="headerlink" title="单层卷积网络"></a>单层卷积网络</h5><ul>
+<li>类似神经网络(x->z->(ReLU+b)->a…),可以看出，图像无论多大，卷积核参数都是不变的(这样一定程度能避免过拟合)</li>
+<li><img src="/2018/10/14/dl/第四门课-第一周/resources/A2DE0F8C6458579436F140074B5FE193">
+</li>
+</ul>
+<h5 id="池化层"><a href="#池化层" class="headerlink" title="池化层"></a>池化层</h5><ul>
+<li>可以理解为卷积核，但是没有参数，比如max pooling,min pooling</li>
+<li>max pooling理解： <ul>
+<li>提取最大的数字，可以理解为最突出的特征提取出来，同时如果该局部图像不存在此特征，提取出的值依然很小</li>
+<li>4x4就可以看做是特征的集合，最后提取出的9可能就表示然人眼…<img src="/2018/10/14/dl/第四门课-第一周/resources/4DDA682D49EE988BEF6230C1A1EFB3D2"></li>
+<li>超参数(f,s)，一般设置(f=2,s=3)或(f=3,s=2),一般很少会用到Padding，只有超参数并没有其他的参数，没有什么需要学习的，可以理解为只是一个<strong>静态属性</strong></li>
+</ul>
+</li>
+</ul>
+<h5 id="卷积网络示例"><a href="#卷积网络示例" class="headerlink" title="卷积网络示例"></a>卷积网络示例</h5><ul>
+<li>一般分类： <ul>
+<li>卷积层+池化层 为一层</li>
+<li>或者不考虑无参数，无权重的池化层，一层卷积层就为一层</li>
+</ul>
+</li>
+<li>常见模式：<br>CONV-POOL-CONV-POOL-FC-FC-FC-SOFTMAX</li>
+<li>特点： <ul>
+<li>nh​,nw​会逐渐减小，但是信道会增加</li>
+<li>激活值也是逐渐减小，但是不能让减小太快，否则会影响网络性能</li>
+<li>parameters数量不随输入图片的大小而改变，只能卷积核和全连接层有关系(其中parametr数(208=5x5x8+8)(416=5x5x16+16)不和具体输入图像相关)</li>
+<li>CV研究的工作就是研究如何整合卷积层，池化层，全连接层</li>
+<li>网络架构(类似LetNet5)<img src="/2018/10/14/dl/第四门课-第一周/resources/EA6A4DE2FF731A127BE54D7B0109DEFA">
+过程参数变化情况：<br>其中parametr数(208=5x5x8+8)(416=5x5x16+16)不和具体输入图像相关<img src="/2018/10/14/dl/第四门课-第一周/resources/B5D93F420A7D874EB6AF156E7E1127F6">
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="卷积优点"><a href="#卷积优点" class="headerlink" title="卷积优点"></a>卷积优点</h5><ul>
+<li>减小参数</li>
+<li>稀疏连接</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/10/dl/第三门课-第二周/" rel="next" title="第三门课-第二周">
+                <i class="fa fa-chevron-left"></i> 第三门课-第二周
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/11/14/dl/第四门课-第二周/" rel="prev" title="第四门课-第二周">
+                第四门课-第二周 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/favicon.ico" alt="yuancl">
+          <p class="site-author-name" itemprop="name">yuancl</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#第一周-卷积神经网络"><span class="nav-number">1.</span> <span class="nav-text">第一周 卷积神经网络</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#边缘检测"><span class="nav-number">1.0.1.</span> <span class="nav-text">边缘检测</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#更多边缘检测过滤核"><span class="nav-number">1.0.2.</span> <span class="nav-text">更多边缘检测过滤核</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Padding"><span class="nav-number">1.0.3.</span> <span class="nav-text">Padding</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#卷积步长-Strided"><span class="nav-number">1.0.4.</span> <span class="nav-text">卷积步长(Strided)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#三维卷积"><span class="nav-number">1.0.5.</span> <span class="nav-text">三维卷积</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#单层卷积网络"><span class="nav-number">1.0.6.</span> <span class="nav-text">单层卷积网络</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#池化层"><span class="nav-number">1.0.7.</span> <span class="nav-text">池化层</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#卷积网络示例"><span class="nav-number">1.0.8.</span> <span class="nav-text">卷积网络示例</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#卷积优点"><span class="nav-number">1.0.9.</span> <span class="nav-text">卷积优点</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-雷哥"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yuancl</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Gemini
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
