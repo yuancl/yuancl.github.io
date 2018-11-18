@@ -94,16 +94,17 @@
 
 
 
-<meta name="description" content="LeNet5 它是针对灰色图片训练的 架构：CONV-POOL-CONV-POOL-FC-FC-SOFTMAX CONV使用5x5 filter，POOL使用2x2，padding都为0，图片宽高在逐渐减小，信道数在逐渐增大 还有一种模型多卷积，一个池化，多卷积，一个池化…现在也经常使用 经典LeNet5使用了非常复杂的计算方式，每个过滤器都采用和输入模块一样的通道数量，现在一般不会这么做了 使用">
+<meta name="description" content="习题代码 LeNet5 它是针对灰色图片训练的 架构：CONV-POOL-CONV-POOL-FC-FC-SOFTMAX CONV使用5x5 filter，POOL使用2x2，padding都为0，图片宽高在逐渐减小，信道数在逐渐增大 还有一种模型多卷积，一个池化，多卷积，一个池化…现在也经常使用 经典LeNet5使用了非常复杂的计算方式，每个过滤器都采用和输入模块一样的通道数量，现在一般不会这么">
 <meta property="og:type" content="article">
 <meta property="og:title" content="第四门课-第二周">
 <meta property="og:url" content="http://yoursite.com/2018/11/14/dl/第四门课-第二周/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="LeNet5 它是针对灰色图片训练的 架构：CONV-POOL-CONV-POOL-FC-FC-SOFTMAX CONV使用5x5 filter，POOL使用2x2，padding都为0，图片宽高在逐渐减小，信道数在逐渐增大 还有一种模型多卷积，一个池化，多卷积，一个池化…现在也经常使用 经典LeNet5使用了非常复杂的计算方式，每个过滤器都采用和输入模块一样的通道数量，现在一般不会这么做了 使用">
+<meta property="og:description" content="习题代码 LeNet5 它是针对灰色图片训练的 架构：CONV-POOL-CONV-POOL-FC-FC-SOFTMAX CONV使用5x5 filter，POOL使用2x2，padding都为0，图片宽高在逐渐减小，信道数在逐渐增大 还有一种模型多卷积，一个池化，多卷积，一个池化…现在也经常使用 经典LeNet5使用了非常复杂的计算方式，每个过滤器都采用和输入模块一样的通道数量，现在一般不会这么">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2018/11/14/dl/第四门课-第二周/resources/FFB32954180F01A43DAE62D2E79B442D">
 <meta property="og:image" content="http://yoursite.com/2018/11/14/dl/第四门课-第二周/resources/95ED2FBAA8AEC165904C8B9DE4A6670A">
 <meta property="og:image" content="http://yoursite.com/2018/11/14/dl/第四门课-第二周/resources/2C14B193C833B6DFE0463405C9D003D5">
+<meta property="og:image" content="http://yoursite.com/2018/11/14/dl/第四门课-第二周/resources/61F21AE03F6475441BFAE38139170DFE.jpg">
 <meta property="og:image" content="http://yoursite.com/2018/11/14/dl/第四门课-第二周/resources/2BDA2C468464C84C78603227B52C78E3">
 <meta property="og:image" content="http://yoursite.com/2018/11/14/dl/第四门课-第二周/resources/7F98489A2561372FB25FC4939CA2F778">
 <meta property="og:image" content="http://yoursite.com/2018/11/14/dl/第四门课-第二周/resources/59405B33A45ED9994661CC21A765DDC6">
@@ -113,10 +114,10 @@
 <meta property="og:image" content="http://yoursite.com/2018/11/14/dl/第四门课-第二周/resources/CF1D396466A7E5FD698DDE8160C77CF0">
 <meta property="og:image" content="http://yoursite.com/2018/11/14/dl/第四门课-第二周/resources/B4825BB37EAF8E3586791DEDE6D02E25">
 <meta property="og:image" content="http://yoursite.com/2018/11/14/dl/第四门课-第二周/resources/0885F9F3C1D49D58CB4CA297DC68E67B">
-<meta property="og:updated_time" content="2018-11-17T03:01:06.025Z">
+<meta property="og:updated_time" content="2018-11-18T10:02:51.018Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="第四门课-第二周">
-<meta name="twitter:description" content="LeNet5 它是针对灰色图片训练的 架构：CONV-POOL-CONV-POOL-FC-FC-SOFTMAX CONV使用5x5 filter，POOL使用2x2，padding都为0，图片宽高在逐渐减小，信道数在逐渐增大 还有一种模型多卷积，一个池化，多卷积，一个池化…现在也经常使用 经典LeNet5使用了非常复杂的计算方式，每个过滤器都采用和输入模块一样的通道数量，现在一般不会这么做了 使用">
+<meta name="twitter:description" content="习题代码 LeNet5 它是针对灰色图片训练的 架构：CONV-POOL-CONV-POOL-FC-FC-SOFTMAX CONV使用5x5 filter，POOL使用2x2，padding都为0，图片宽高在逐渐减小，信道数在逐渐增大 还有一种模型多卷积，一个池化，多卷积，一个池化…现在也经常使用 经典LeNet5使用了非常复杂的计算方式，每个过滤器都采用和输入模块一样的通道数量，现在一般不会这么">
 <meta name="twitter:image" content="http://yoursite.com/2018/11/14/dl/第四门课-第二周/resources/FFB32954180F01A43DAE62D2E79B442D">
 
 
@@ -405,7 +406,8 @@
       
 
       
-        <h5 id="LeNet5"><a href="#LeNet5" class="headerlink" title="LeNet5"></a>LeNet5</h5><ul>
+        <p><a href="https://github.com/yuancl/dl-algorithm/tree/master/4-ConvolutionNeuralNetworks/Week2/ResNets" target="_blank" rel="noopener">习题代码</a></p>
+<h5 id="LeNet5"><a href="#LeNet5" class="headerlink" title="LeNet5"></a>LeNet5</h5><ul>
 <li>它是针对灰色图片训练的</li>
 <li>架构：CONV-POOL-CONV-POOL-FC-FC-SOFTMAX</li>
 <li>CONV使用5x5 filter，POOL使用2x2，padding都为0，图片宽高在逐渐减小，信道数在逐渐增大</li>
@@ -432,7 +434,12 @@
 <li>还有VGG-19，是更庞大的网络，但效果其实和VGG-16差不多<img src="/2018/11/14/dl/第四门课-第二周/resources/2C14B193C833B6DFE0463405C9D003D5">
 </li>
 </ul>
-<h5 id="ResNets"><a href="#ResNets" class="headerlink" title="ResNets"></a>ResNets</h5><ul>
+<h5 id="ResNets"><a href="#ResNets" class="headerlink" title="ResNets"></a>ResNets</h5><p><a href="https://github.com/yuancl/dl-algorithm/tree/master/4-ConvolutionNeuralNetworks/Week2/ResNets" target="_blank" rel="noopener">可参看习题</a></p>
+<ul>
+<li><strong>解决问题</strong><br>网络越深，越容易出现梯度消失问题，因为在反向传播算法就是梯度的时候，和各个层级的系数相关，相乘，所以很容易出现接近于0去情况，所以一开始就很快出现梯度消失问题，导致学习(learning speed)非常慢，性能很差(图上可以看见，越是前面的层级问题越严重)<img src="/2018/11/14/dl/第四门课-第二周/resources/61F21AE03F6475441BFAE38139170DFE.jpg">
+</li>
+</ul>
+<ul>
 <li><p><strong>网络结构：</strong></p>
 <ul>
 <li>a[l+2]=g(z[l+2]+a[l]),其中a[l]就是残差块,是插在非线性变换前</li>
