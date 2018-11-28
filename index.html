@@ -290,6 +290,281 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/27/dl/第五门课-第一周/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/27/dl/第五门课-第一周/" itemprop="url">第五门课-第一周</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-27T08:37:09+08:00">
+                2018-11-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/深度学习/" itemprop="url" rel="index">
+                    <span itemprop="name">深度学习</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/深度学习/吴恩达课程总结/" itemprop="url" rel="index">
+                    <span itemprop="name">吴恩达课程总结</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="循环神经网络基础"><a href="#循环神经网络基础" class="headerlink" title="循环神经网络基础"></a>循环神经网络基础</h3><h4 id="RNN背景"><a href="#RNN背景" class="headerlink" title="RNN背景"></a>RNN背景</h4><ul>
+<li>什么是序列问题？<br>比如语音识别，输入是一段音频，要求输出是一段文字Y。或者情感分析，输入评论，要求输出几颗星等。本质输入都是一段序列内容，其实就是X-&gt;Y的映射问题</li>
+<li>序列问题特点？<br>可以看见，有些序列问题X,Y长度一致，有些不一致…</li>
+<li>为什么不用标准神经网络处理序列问题：<ul>
+<li>输入输出不定长</li>
+<li>序列上一些位置已经学到的文本信息内容不能在其他位置共享<ul>
+<li>比如如果神经网络已经学习到了在位置 1 出现的 Harry 可能是人名的一部分，那么如果 Harry 出现在其他位置，比如$x^{<t>}$时，它也能够<font color="blue">自动识别其为人名的一部分的话</font>，这就很棒了。这可能类似于你在卷积神经网络中看到的,<font color="red">你希望将部分图片里学到的内容快速推广到图片的其他部分</font>，而我们希望对序列数据也有相似的效果。和你在卷积网络中学到的类似，用一个更好的表达方式也能够让你减少模型中参数的数量</t></li>
+<li>RNN传递一个激活值到下一个时间步中进行计算，所以能够解决这个问题，适用于序列问题<img src="/2018/11/27/dl/第五门课-第一周/resources/5E6CE23C6A2573459E4A0E31A919B9B9.jpg"></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>注意项：<ul>
+<li>$a^{<0>}$通常使用零向量作为零时刻的伪激活值</0></li>
+<li>注意多种不同的参数$W_{ax},W_{aa},W_{ya}$<img src="/2018/11/27/dl/第五门课-第一周/resources/EE130B0446706C75A520D2DA216849A0.jpg">
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="前向后向计算"><a href="#前向后向计算" class="headerlink" title="前向后向计算"></a>前向后向计算</h4><ul>
+<li>RNN cell<img src="/2018/11/27/dl/第五门课-第一周/resources/E522B44F0437902AC27802C6327A1E05.jpg"></li>
+<li><p>前向传播</p>
+<ul>
+<li>t时刻：<br>$a^{<t>}=g_1(W_{aa}a^{t-1} + W_{ax}x^{t} + b_a)$<br>$\hat y^{t} = g_2(W_{ya}a^{<t>} + b_y)$</t></t></li>
+<li>激活函数通常使用tanh，y输出激活函数视情况而定<img src="/2018/11/27/dl/第五门课-第一周/resources/65006F27B61C583E368EE798ADB80414.jpg">
+</li>
+</ul>
+</li>
+<li><p>后向传播</p>
+<ul>
+<li>对于一个元素的损失函数：<br>$L^{<t>}(\hat y^{<t>},y^{t}) = -y^{<t>}log\hat y^{<t>} - (1-y^{<t>})log(1-\hat y^{<t>})$</t></t></t></t></t></t></li>
+<li>整体序列的损失函数，就是将各时间步的损失值函数相加<br>$L(\hat y,y) = \sum_{t-1}^{T_x}L^{<t>}(\hat y^{<t>},y^{t})$<img src="/2018/11/27/dl/第五门课-第一周/resources/4D96ADA1B3420E7CC0849AA6FC92D737.jpg"></t></t></li>
+<li>同样也是使用bp算法求偏导，进行后向计算，不用的是RNN会有多个输出$\hat y$
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="不同类型的RNN"><a href="#不同类型的RNN" class="headerlink" title="不同类型的RNN"></a>不同类型的RNN</h4><ul>
+<li>输入输出长度分类：<ul>
+<li>many-to-many：机器翻译</li>
+<li>many-to-one：情感分类</li>
+<li>one-to-one：小型标准神经网络<img src="/2018/11/27/dl/第五门课-第一周/resources/9865F55A9CD63F0A3BAFBC9F28380036.jpg"></li>
+<li>one-to-many：音乐作曲<img src="/2018/11/27/dl/第五门课-第一周/resources/23C80D48C0008D0B3730BC7EE8A8A6E8.jpg">
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="语言模型和序列生成"><a href="#语言模型和序列生成" class="headerlink" title="语言模型和序列生成"></a>语言模型和序列生成</h4><ul>
+<li><p>语言模型:语言模型就是它会告诉你某个特定的句子它出现的概率是多少</p>
+<ul>
+<li>语言模型做的最基本工作就是输入一个句子，准确地说是一个文本序列,然后语言模型会估计某个句子序列中各个单词出现的可能性。</li>
+</ul>
+</li>
+<li><p>RNN模型基础结构</p>
+<ul>
+<li>将每个单词都转换成对应的one-hot向量，也就是词典中的索引，其中也要注意EOS(结尾符),UNK(未知单词),标点符号</li>
+<li>每一层$\hat y$的输出，都是预测该层输入词在字典中出现的概率</li>
+<li>最后的输出是每层条件概率的乘积<img src="/2018/11/27/dl/第五门课-第一周/resources/0499490A2E7A743A094E4A97B5DB3E28.jpg">
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="对新序列采样"><a href="#对新序列采样" class="headerlink" title="对新序列采样"></a>对新序列采样</h4><ul>
+<li>作用：一个序列模型之后，要想了解到这个模型学到了什么，一种非正式的方法就是对新序列采样</li>
+<li>方法：序列模型模拟了任意特定单词序列的概率，我们要做的就是对这些<font color="red">概率分布</font>进行采样来生成一个新的单词序列</li>
+<li>如何结束：1.字典中有EOS，2.时间步的多少</li>
+<li>基于词汇和字符的模型，各有优缺点</li>
+</ul>
+<h4 id="RNN中的梯度问题"><a href="#RNN中的梯度问题" class="headerlink" title="RNN中的梯度问题"></a>RNN中的梯度问题</h4><ul>
+<li>梯度消失：<ul>
+<li>网络的输出$\hat y$得到的梯度很难传播回去，很难影响靠前层的权重，很难影响前面层(编号 5 所示的层)的计算<img src="/2018/11/27/dl/第五门课-第一周/resources/81FC8B8F333615A20A24E065D6ED2A80.jpg"></li>
+<li>基础RNN也同样存在这个问题：前一层名词的单复数和难影响到厚层的动词单复数，很难传递(也是因为输出很难传到前层)</li>
+<li>如何解决：<font color="blue">看后面的GRU和LSTM</font></li>
+</ul>
+</li>
+<li>梯度爆炸：<ul>
+<li>比较容易发现，比如看见很多NaN，或者不是数字的情况，意味着数值溢出</li>
+<li>解决方法：梯度修剪，就是观察你的梯度向量，如果它大于某个阈 值，缩放梯度向量，保证它不会太大，这就是通过一些最大值来修剪的方法，并且具有好的鲁棒性</li>
+</ul>
+</li>
+</ul>
+<h3 id="GRU-门控制单元"><a href="#GRU-门控制单元" class="headerlink" title="GRU(门控制单元)"></a>GRU(门控制单元)</h3><h4 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h4><ul>
+<li>新增变量：记忆细胞cell<ul>
+<li>计算逻辑：如下图3标记中，$\hat C^{<t>} = tanh(W_c[C^{<t-1>}, x^{<t>}] + b_c)$</t></t-1></t></li>
+<li>作用：提供了记忆的能力，比如说一只猫是单数还是复数，所以当它看到之后的句子的时候，它仍能够判断句子的主语是单数还是复数</li>
+</ul>
+</li>
+<li>新增变量：门控制变量<ul>
+<li>计算逻辑：如下图3标记中，$\Gamma _u^{<t>} = tanh(W_u[C^{<t-1>}, x^{<t>}] + b_u)$</t></t-1></t></li>
+<li>作用：决定什么更新记忆细胞，是由sigmoid激活，如果为1，才更新C值，所以前面层次的值就可以一直保持到后面<img src="/2018/11/27/dl/第五门课-第一周/resources/50749AC4B17773F4D8BC728B49BD2529.jpg"></li>
+</ul>
+</li>
+<li><p>记忆细胞更新逻辑：<br>如下图5标记中,逻辑门为1才更新C值(或者接近1值，新值C的权重更大)<br>$C^{<t>} = \Gamma _u<em>\hat C^{<t>} + (1-\Gamma _u)</t></em> C^{<t-1>}$</t-1></t></p>
+</li>
+<li><p>如何有效控制梯度消失问题<br>因为 sigmoid的值，现在因为门很容易取到 0 值，只要这个值是一个很大的负数, $\Gamma_u$值很容易为0，这种情况，就会变成$C^{<t>}=C^{<t-1>}$，所以记忆细胞的值很好的被维持了。<font color="red">这就是缓解梯度消失的关键</font></t-1></t></p>
+</li>
+</ul>
+<h4 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h4><ul>
+<li>同时记忆细胞c可以是多维向量，这样可以记忆很多的内容</li>
+<li>通过完成的GRU还会有一个相关门:这个相关门告诉你计算出的候选值$\hat C$和$C^{<t-1>}$有多大的相关性</t-1></li>
+<li>$\Gamma _r^{<t>} = tanh(W_r[C^{<t-1>}, x^{<t>}] + b_r)$<img src="/2018/11/27/dl/第五门课-第一周/resources/FC1F67CE7DCFC22BF11941ED49367937.jpg">
+</t></t-1></t></li>
+</ul>
+<h3 id="LSTM-Long-short-term-memory"><a href="#LSTM-Long-short-term-memory" class="headerlink" title="LSTM(Long short term memory)"></a>LSTM(Long short term memory)</h3><h4 id="基础-1"><a href="#基础-1" class="headerlink" title="基础"></a>基础</h4><ul>
+<li>LSTM-cell<img src="/2018/11/27/dl/第五门课-第一周/resources/77E989F6FDDCB09EB5933E4BDEBA51EF.jpg"></li>
+<li>遗忘门($\Gamma_f$)，让记忆细胞去选择更新新的候选值还是遗忘旧的值<br>$C^{<t>} = \Gamma _u<em>\hat C^{<t>} + (1-\Gamma_f)</t></em> C^{<t-1>}$</t-1></t></li>
+<li>输出门($\Gamma_o$), $a^{<t>} = \Gamma_o*tanh(c^{<t>})$</t></t></li>
+<li><p>LSTM重要公式及前向传播：</p>
+<img src="/2018/11/27/dl/第五门课-第一周/resources/30F5B97C5D3CB3434341F30985EE7EFB.jpg">  
+</li>
+<li><p>反向传播：就是BP算法，由后向前，对每一个参数求偏导数，对门$\Gamma$,参数W,偏置b，以及最后的隐藏状态，记忆细胞，输入x</p>
+</li>
+<li>GRU与LSTM<br>都能够捕获更加深层的神经网络，GRU的优点是比LSTM简单一点的模型，只有两个门，在计算上也运行得更快。但LSTM在历史上是更优的选择</li>
+</ul>
+<h3 id="双向RNN"><a href="#双向RNN" class="headerlink" title="双向RNN"></a>双向RNN</h3><ul>
+<li>背景：有些场景不仅需要参考过去，还应该参考未来<img src="/2018/11/27/dl/第五门课-第一周/resources/7AFE741D0C96EA2412793884699E29E2.jpg">
+<img src="/2018/11/27/dl/第五门课-第一周/resources/549D1FAC5CCCD530211F4855989CC5E3.jpg"></li>
+<li>缺点：总数需要一段完整的内容<ul>
+<li>NLP一般就比较适合，应该经常能够获得完整的文章</li>
+<li>语音翻译等就不是很适合了，因为要获得已经完整的一段话语通常不是很现实</li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/26/dl/第四门课-第四周/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1389,30 +1664,22 @@ code:<img src="/2018/11/26/dl/第四门课-第四周/resources/BD74761FA9DA43CE2
       
         
           
-            <ul>
-<li><p>进行误差分析：</p>
-<ul>
+            <h4 id="进行误差分析："><a href="#进行误差分析：" class="headerlink" title="进行误差分析："></a>进行误差分析：</h4><ul>
 <li>通过人工check，找出标记错误的样本和总数的百分比，选出比较较大的错误类型进行分析，通常能够帮你找到优化的灵感</li>
 <li>深度学习算法对训练集中的随机错误是相对<strong>健壮</strong>的，如果数据够随机，那么不用花太多时间去修正它们</li>
 <li>但是如果这些错误比较理解大，<strong>严重影响</strong>到你再开发集上的评估能力，那才真有必要去修正下标注</li>
 <li>Dev/Test集的分布一定要一致，如果需要更改标注，也是一样。训练集倒可以不一致</li>
 <li>最后，深度学习工作者一般很少去人工干预，但是建议也看下误差的影响面</li>
 </ul>
-</li>
-<li><p>快速搭建你的第一个系统：</p>
-<ul>
+<h4 id="快速搭建你的第一个系统："><a href="#快速搭建你的第一个系统：" class="headerlink" title="快速搭建你的第一个系统："></a>快速搭建你的第一个系统：</h4><ul>
 <li>如果面对的是新应用，这个时候你的<strong>目标</strong>是得到一个可用的系统，所以可以快速搭建你的系统，然后进行误差分析，找到后面的方向</li>
 <li>如果你是老司机，那么可以参考已有的学术论文，已有的架构等构建你的网络</li>
 </ul>
-</li>
-<li><p>训练集和测试集不同分布：</p>
-<ul>
+<h4 id="训练集和测试集不同分布："><a href="#训练集和测试集不同分布：" class="headerlink" title="训练集和测试集不同分布："></a>训练集和测试集不同分布：</h4><ul>
 <li>如果关系App中的图片,即使App的数据很少,也不建议train：webapp，dev/test：app。而建议把一部分收集到的真实数据放入训练集使用train：<strong>webapp+app</strong>, dev/test:app</li>
 <li>例如音频数据训练集有500,000条数据，收集到的真实数据是20,000条，那么组合方式有：<br>$\begin{cases}<br>train:500,000+10,000\<br>dev:5000\<br>test:5000\<br>\end{cases}<br>$ 或者是：<br>$\begin{cases}<br>train:500,000\<br>dev:10,000\<br>test:10,000\<br>\end{cases}<br>$</li>
 </ul>
-</li>
-<li><p>Train/dev数据不同分布带来的偏差和方差问题</p>
-<ul>
+<h4 id="Train-dev数据不同分布带来的偏差和方差问题"><a href="#Train-dev数据不同分布带来的偏差和方差问题" class="headerlink" title="Train/dev数据不同分布带来的偏差和方差问题"></a>Train/dev数据不同分布带来的偏差和方差问题</h4><ul>
 <li>问题现象：如果Train/dev数据不同分布，那么如果发现实际dev loss比train大，那么到底是<strong>数据不同分布</strong>导致？还是<strong>方差问题</strong>导致呢？</li>
 <li>解决方案：建设一个Train-dev数据集，此数据集合Train数据同分布，来排除是否是<strong>方差的问题</strong>的问题：<br>$\begin{cases}<br>Bias:Human level,Train\<br>Variance:Train,Train-dev\<br>Datamatch:Train-dev,dev\<br>\end{cases}<br>$</li>
 <li>这个时候就有三类问题:<strong>1.bias 2.variance 3.数据不同分布</strong>,对分布不同问题，没有很好的办法，但有一些建议如下: <ul>
@@ -1428,9 +1695,7 @@ code:<img src="/2018/11/26/dl/第四门课-第四周/resources/BD74761FA9DA43CE2
 </ul>
 </li>
 </ul>
-</li>
-<li><p>迁移学习</p>
-<ul>
+<h4 id="迁移学习"><a href="#迁移学习" class="headerlink" title="迁移学习"></a>迁移学习</h4><ul>
 <li>预训练(pre-training)：如果你数据比较多，进行全部参数的重新训练，这时你在用图像识别数据去预先初始化，就叫做预训练，或者预训练神经网络权重</li>
 <li>微调(fine tuning)：如果以后更新所有权重，然后在其他地方训练，有时这个过程也叫微调</li>
 <li>如果没有这么多的数据，也可以选择只替换输出层，或者最后两层等</li>
@@ -1447,9 +1712,7 @@ code:<img src="/2018/11/26/dl/第四门课-第四周/resources/BD74761FA9DA43CE2
 </ul>
 </li>
 </ul>
-</li>
-<li><p>多任务学习(Multi-task learning)</p>
-<ul>
+<h4 id="多任务学习-Multi-task-learning"><a href="#多任务学习-Multi-task-learning" class="headerlink" title="多任务学习(Multi-task learning)"></a>多任务学习(Multi-task learning)</h4><ul>
 <li>什么叫多任务学习？ <ul>
 <li>一个输入会有多个输出flag：比如CV中，自驾驾驶领域，对一个图片的识别既要判断图片是否有交通灯，又要判断行人，车辆等</li>
 </ul>
@@ -1465,9 +1728,7 @@ code:<img src="/2018/11/26/dl/第四门课-第四周/resources/BD74761FA9DA43CE2
 </ul>
 </li>
 </ul>
-</li>
-<li><p>端到端学习:</p>
-<ul>
+<h4 id="端到端学习"><a href="#端到端学习" class="headerlink" title="端到端学习:"></a>端到端学习:</h4><ul>
 <li>什么是端到端学习？ <ul>
 <li>比如说语音识别，从音频输入->特征提取->…->找到音位->…->构成听写文本，中间有多个阶段。端到端学习就是直接x->y的映射，这里就是音频输入->构成听写文本</li>
 </ul>
@@ -1489,8 +1750,6 @@ code:<img src="/2018/11/26/dl/第四门课-第四周/resources/BD74761FA9DA43CE2
 <li>人脸识别的系统，并没有直接使用x->y(门禁照片->身份确认)的识别，因为端到端的直接数据并没有这么多数据集。所以拆分为两步：1.识别人脸照片，2.照片和身份的对应。这种方式是因为拆分后的两步都有大量的数据集</li>
 <li>X射线评估孩子年龄，直接的数据x->(x摄像图像->孩子年龄)也没有这么多数据，也需要拆分</li>
 <li>机器翻译：端到端方法就使用很广泛，因为存在<strong>大量的数据</strong>，比如英文->法文….</li>
-</ul>
-</li>
 </ul>
 </li>
 </ul>
@@ -2335,185 +2594,6 @@ code:<img src="/2018/11/26/dl/第四门课-第四周/resources/BD74761FA9DA43CE2
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/01/dl/第二门课-第一周/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="雷哥">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/favicon.ico">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="雷哥的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/09/01/dl/第二门课-第一周/" itemprop="url">第二门课-第一周</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-01T22:49:03+08:00">
-                2018-09-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/深度学习/" itemprop="url" rel="index">
-                    <span itemprop="name">深度学习</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/深度学习/吴恩达课程总结/" itemprop="url" rel="index">
-                    <span itemprop="name">吴恩达课程总结</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="第一周"><a href="#第一周" class="headerlink" title="第一周"></a>第一周</h3><h4 id="1-1-训练-验证-测试集"><a href="#1-1-训练-验证-测试集" class="headerlink" title="1.1 训练,验证,测试集"></a>1.1 训练,验证,测试集</h4><p>1.训练,验证,测试集 数据一定需要同分布<br> 2.训练,验证,测试集 能够更好的衡量偏差和方差</p>
-<h4 id="1-2-amp-1-3-偏差-方差-Bias-Variance"><a href="#1-2-amp-1-3-偏差-方差-Bias-Variance" class="headerlink" title="1.2&amp;1.3 偏差,方差(Bias/Variance)"></a>1.2&amp;1.3 偏差,方差(Bias/Variance)</h4><p>1.偏差,方差最终的值都是基于人眼的,如果人眼误差也比较高的话,那么训练测试误差比较高也比较正常<br> 2.训练集,测试集数据来自同分布<br> 3.高方差可以解释为：拟合了数据集中的错误样本和中间的一些活跃数据<br> 4.首先看偏差，偏差可以接受后，然后评估下验证集的性能来评估方差<br> 5.一般可以根据训练，测试cost曲线来判断高偏差或者高方差,具体可以参考我<a href="https://github.com/yuancl/ml-algorithm/tree/master/exe5-Regularized-LinearR-and-Bias-Variance" target="_blank" rel="noopener">github:正则化以及偏差方差检测</a></p>
-<h4 id="1-4-amp-1-5-正则化"><a href="#1-4-amp-1-5-正则化" class="headerlink" title="1.4&amp;1.5 正则化"></a>1.4&amp;1.5 正则化</h4><p>1.解决高方差一般有两种方法：一个是正则化，另外是准备更多的数据<br> 2.L2正则化有时候也称为”权重衰减”，因为在用梯度下降计算参数的时候会在前面乘以小于1的数值<br> 3.疑问：为什么很少使用L2做正则化<br> 3.为什么能防止过拟合？(过拟合的本质就是参数过多，参数过大，维数过高)</p>
-<ul>
-<li>a.直观上理解当lambda足够大的时候，权重矩阵w接近于0，就把很多隐藏单元给消除了一样</li>
-<li>b.sigmoid,tanh激活函数的曲线可以发现，当x值在0附件的时候，曲线接近于直线，呈现直线的性质，并不是非直线</li>
-</ul>
-<h4 id="1-6-amp-1-7-正则化-Dropout"><a href="#1-6-amp-1-7-正则化-Dropout" class="headerlink" title="1.6&amp;1.7 正则化(Dropout)"></a>1.6&amp;1.7 正则化(Dropout)</h4><p>1.为了不影响Z[4]的期望值，我们需要用Z[4]a[3]/0.8来修正或弥补我们所需要的那20%<br> 2.在测试阶段不能用dropout，因为我们不需要在测试阶段结果是随机的<br> 3.直观理解Dropout和L2正则比较像<br> 4.不能只依赖任何一个特征，因为都有可能被删除<br> 5.根据过拟合的程度设置keep-prob的值，比如W[1]：7x3，W[2]：7x7,W[3]：7x3,所以W[2]层参数最多，可以设置keep-prob稍小一些，比如0.7，第一层可以设置为1，第一层不应该dropout。<br> 6.过拟合才用Dropout方法，CV上通常没有足够多的数据，所以经常会用到<br> 7.Dropout<strong>缺点</strong>：使代价函数J不再被明确定义，个人理解因为中间的神经元不确定是否被dropout，所以每次都神经元个数什么的都不一样</p>
-<h4 id="1-8-其他正则化方法"><a href="#1-8-其他正则化方法" class="headerlink" title="1.8 其他正则化方法"></a>1.8 其他正则化方法</h4><p>1.数据扩展(通过旋转，缩放，裁剪等)<br> 2.early stoping</p>
-<ul>
-<li><strong>为什么能工作：</strong> 因为随机初始的w值都是比较小的，在刚开始训练的时候也不会很大，在后面迭代次数多的时候，w值就会比较大了，这就会使Loss比较大，这个时候stoping是比较好的</li>
-<li><strong>缺点:</strong> 如果提早停止了梯度下降，也就停止了J的继续优化，不能得到更小的代价函数J</li>
-<li><strong>与正则化lambda比较:</strong> lambda会尝试多轮的值，进行选择</li>
-</ul>
-<h4 id="1-9-归一化输入"><a href="#1-9-归一化输入" class="headerlink" title="1.9 归一化输入"></a>1.9 归一化输入</h4><p>1.标准化:零均值，归一化方差<br> 2.为什么能归一化效果更好</p>
-<ul>
-<li><strong>a.从Loss效果图分析：</strong> 归一化后数据更均匀，可以从任何一点入手进行GD迭代，否则曲线就比较凌乱<br><img src="resources/C9C7B619F7FAA0D0649EA455EA4710A8" alt=""></li>
-<li><strong>b.从sigmoid或者tanh的曲线图分析：</strong> 归一化后区间在0附件的时候，梯度变化最大的<br><img src="resources/9273406DEF474A8262863E9EDDD8598F" alt=""></li>
-</ul>
-<p>3.<strong>不用Normalize：</strong> 如果数据本身就处于相似范围，比如已经是1–2，或者0–1，区别不大：1–100</p>
-<h4 id="1-10-梯度消失或爆炸"><a href="#1-10-梯度消失或爆炸" class="headerlink" title="1.10 梯度消失或爆炸"></a>1.10 梯度消失或爆炸</h4><p>1.这里只讨论了激活函数的指数级数增长或下降，但它也适用于L相关的导数或者梯度问题，比如另一篇文章<a href="https://app.yinxiang.com/shard/s48/nl/12303615/fbbe860b-d780-4ea0-86e2-b3281095f018/" target="_blank" rel="noopener">梯度问题</a>就是讨论的梯度指数问题<br> <img src="resources/A6E21F3566635A3FFFFD3E6CFF2F3A9E" alt=""></p>
-<p>2.见另一篇<a href="https://app.yinxiang.com/shard/s48/nl/12303615/fbbe860b-d780-4ea0-86e2-b3281095f018/" target="_blank" rel="noopener">梯度问题</a></p>
-<h4 id="1-11-神经网络权重初始化"><a href="#1-11-神经网络权重初始化" class="headerlink" title="1.11 神经网络权重初始化"></a>1.11 神经网络权重初始化</h4><p>见权重初始化练习：<a href="https://github.com/yuancl/dl-algorithm/blob/master/2-ImprovingDeepNeuralNetworks/Week1/1.Initialization.ipynb" target="_blank" rel="noopener">Initialization</a><br> <img src="resources/3FA08AC1BC944F534A96C4DD711D4E86" alt=""></p>
-<p>In general, initializing all the weights to zero results in the network failing to break symmetry. This means that every neuron in each layer will learn the same thing<br> 初始化参数全部为0的时候，每一层的梯度变化的一样的，有就是每一层学习到的是一样的，就不会有比较好的结果</p>
-<p>The cost starts very high. This is because with large random-valued weights, the last activation (sigmoid) outputs results that are very close to 0 or 1 for some examples, and when it gets that example wrong it incurs a very high loss for that example. Indeed, when log(a[3])=log(0)log⁡(a[3])=log⁡(0) , the loss goes to infinity.<br> Poor initialization can lead to vanishing/exploding gradients, which also slows down the optimization algorithm.<br> If you train this network longer you will see better results, but initializing with overly large random numbers slows down the optimization.<br> 当随机初始值比较大的时候，最后的输出sigmoid就是0或者1，这个时候如果碰见是0，那么计算lost的时候log(0)就是无限大，所以第一次迭代 Cost after iteration 0: inf<br> 初始化参数过大会使开始训练的时候梯度下降得比较慢，Loss比较大，迭代会比较慢，当然最后也会收敛</p>
-<p>Different initializations lead to different results<br> Random initialization is used to break symmetry and make sure different hidden units can learn different things<br> Don’t intialize to values that are too large<br> He initialization works well for networks with ReLU activations.</p>
-<h4 id="1-12-amp-1-13-梯度的数值逼近及注意项"><a href="#1-12-amp-1-13-梯度的数值逼近及注意项" class="headerlink" title="1.12&amp;1.13 梯度的数值逼近及注意项"></a>1.12&amp;1.13 梯度的数值逼近及注意项</h4><p>1.双边误差比单边误差小<br> 2.误差值如果小于10−7是比较安全的，如果大于10−5就需要多注意下，如果大于10−3那么应该是有bug<br> 3.如果J包含了正则项，那么求梯度D的时候也一定要包含正则项，感觉这个不用担心，因为有正则项的J，用数学公式求梯度函数一定会有正则项<br> 4.Dropout和梯度逼近不能同时使用，个人理解是因为梯度逼近是对最终的<strong>真实</strong>的J做的梯度逼近，而Dropout国产中个的J′去掉了多个神经元并不是真实的J<br> 5.参考<a href="https://github.com/yuancl/ml-algorithm/blob/master/exe4-NeuralNetwork/nn_cost_fun.py" target="_blank" rel="noopener">NeuralNetwork</a>中的梯度的数值逼近计算</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2562,7 +2642,7 @@ code:<img src="/2018/11/26/dl/第四门课-第四周/resources/BD74761FA9DA43CE2
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-count">12</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

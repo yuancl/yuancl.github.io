@@ -94,17 +94,17 @@
 
 
 
-<meta name="description" content="进行误差分析：  通过人工check，找出标记错误的样本和总数的百分比，选出比较较大的错误类型进行分析，通常能够帮你找到优化的灵感 深度学习算法对训练集中的随机错误是相对健壮的，如果数据够随机，那么不用花太多时间去修正它们 但是如果这些错误比较理解大，严重影响到你再开发集上的评估能力，那才真有必要去修正下标注 Dev/Test集的分布一定要一致，如果需要更改标注，也是一样。训练集倒可以不一致 最">
+<meta name="description" content="进行误差分析： 通过人工check，找出标记错误的样本和总数的百分比，选出比较较大的错误类型进行分析，通常能够帮你找到优化的灵感 深度学习算法对训练集中的随机错误是相对健壮的，如果数据够随机，那么不用花太多时间去修正它们 但是如果这些错误比较理解大，严重影响到你再开发集上的评估能力，那才真有必要去修正下标注 Dev/Test集的分布一定要一致，如果需要更改标注，也是一样。训练集倒可以不一致 最后，">
 <meta property="og:type" content="article">
 <meta property="og:title" content="第三门课-第二周">
 <meta property="og:url" content="http://yoursite.com/2018/10/10/dl/第三门课-第二周/index.html">
 <meta property="og:site_name" content="雷哥的博客">
-<meta property="og:description" content="进行误差分析：  通过人工check，找出标记错误的样本和总数的百分比，选出比较较大的错误类型进行分析，通常能够帮你找到优化的灵感 深度学习算法对训练集中的随机错误是相对健壮的，如果数据够随机，那么不用花太多时间去修正它们 但是如果这些错误比较理解大，严重影响到你再开发集上的评估能力，那才真有必要去修正下标注 Dev/Test集的分布一定要一致，如果需要更改标注，也是一样。训练集倒可以不一致 最">
+<meta property="og:description" content="进行误差分析： 通过人工check，找出标记错误的样本和总数的百分比，选出比较较大的错误类型进行分析，通常能够帮你找到优化的灵感 深度学习算法对训练集中的随机错误是相对健壮的，如果数据够随机，那么不用花太多时间去修正它们 但是如果这些错误比较理解大，严重影响到你再开发集上的评估能力，那才真有必要去修正下标注 Dev/Test集的分布一定要一致，如果需要更改标注，也是一样。训练集倒可以不一致 最后，">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-11-17T02:59:15.826Z">
+<meta property="og:updated_time" content="2018-11-26T10:52:27.033Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="第三门课-第二周">
-<meta name="twitter:description" content="进行误差分析：  通过人工check，找出标记错误的样本和总数的百分比，选出比较较大的错误类型进行分析，通常能够帮你找到优化的灵感 深度学习算法对训练集中的随机错误是相对健壮的，如果数据够随机，那么不用花太多时间去修正它们 但是如果这些错误比较理解大，严重影响到你再开发集上的评估能力，那才真有必要去修正下标注 Dev/Test集的分布一定要一致，如果需要更改标注，也是一样。训练集倒可以不一致 最">
+<meta name="twitter:description" content="进行误差分析： 通过人工check，找出标记错误的样本和总数的百分比，选出比较较大的错误类型进行分析，通常能够帮你找到优化的灵感 深度学习算法对训练集中的随机错误是相对健壮的，如果数据够随机，那么不用花太多时间去修正它们 但是如果这些错误比较理解大，严重影响到你再开发集上的评估能力，那才真有必要去修正下标注 Dev/Test集的分布一定要一致，如果需要更改标注，也是一样。训练集倒可以不一致 最后，">
 
 
 
@@ -392,30 +392,22 @@
       
 
       
-        <ul>
-<li><p>进行误差分析：</p>
-<ul>
+        <h4 id="进行误差分析："><a href="#进行误差分析：" class="headerlink" title="进行误差分析："></a>进行误差分析：</h4><ul>
 <li>通过人工check，找出标记错误的样本和总数的百分比，选出比较较大的错误类型进行分析，通常能够帮你找到优化的灵感</li>
 <li>深度学习算法对训练集中的随机错误是相对<strong>健壮</strong>的，如果数据够随机，那么不用花太多时间去修正它们</li>
 <li>但是如果这些错误比较理解大，<strong>严重影响</strong>到你再开发集上的评估能力，那才真有必要去修正下标注</li>
 <li>Dev/Test集的分布一定要一致，如果需要更改标注，也是一样。训练集倒可以不一致</li>
 <li>最后，深度学习工作者一般很少去人工干预，但是建议也看下误差的影响面</li>
 </ul>
-</li>
-<li><p>快速搭建你的第一个系统：</p>
-<ul>
+<h4 id="快速搭建你的第一个系统："><a href="#快速搭建你的第一个系统：" class="headerlink" title="快速搭建你的第一个系统："></a>快速搭建你的第一个系统：</h4><ul>
 <li>如果面对的是新应用，这个时候你的<strong>目标</strong>是得到一个可用的系统，所以可以快速搭建你的系统，然后进行误差分析，找到后面的方向</li>
 <li>如果你是老司机，那么可以参考已有的学术论文，已有的架构等构建你的网络</li>
 </ul>
-</li>
-<li><p>训练集和测试集不同分布：</p>
-<ul>
+<h4 id="训练集和测试集不同分布："><a href="#训练集和测试集不同分布：" class="headerlink" title="训练集和测试集不同分布："></a>训练集和测试集不同分布：</h4><ul>
 <li>如果关系App中的图片,即使App的数据很少,也不建议train：webapp，dev/test：app。而建议把一部分收集到的真实数据放入训练集使用train：<strong>webapp+app</strong>, dev/test:app</li>
 <li>例如音频数据训练集有500,000条数据，收集到的真实数据是20,000条，那么组合方式有：<br>$\begin{cases}<br>train:500,000+10,000\<br>dev:5000\<br>test:5000\<br>\end{cases}<br>$ 或者是：<br>$\begin{cases}<br>train:500,000\<br>dev:10,000\<br>test:10,000\<br>\end{cases}<br>$</li>
 </ul>
-</li>
-<li><p>Train/dev数据不同分布带来的偏差和方差问题</p>
-<ul>
+<h4 id="Train-dev数据不同分布带来的偏差和方差问题"><a href="#Train-dev数据不同分布带来的偏差和方差问题" class="headerlink" title="Train/dev数据不同分布带来的偏差和方差问题"></a>Train/dev数据不同分布带来的偏差和方差问题</h4><ul>
 <li>问题现象：如果Train/dev数据不同分布，那么如果发现实际dev loss比train大，那么到底是<strong>数据不同分布</strong>导致？还是<strong>方差问题</strong>导致呢？</li>
 <li>解决方案：建设一个Train-dev数据集，此数据集合Train数据同分布，来排除是否是<strong>方差的问题</strong>的问题：<br>$\begin{cases}<br>Bias:Human level,Train\<br>Variance:Train,Train-dev\<br>Datamatch:Train-dev,dev\<br>\end{cases}<br>$</li>
 <li>这个时候就有三类问题:<strong>1.bias 2.variance 3.数据不同分布</strong>,对分布不同问题，没有很好的办法，但有一些建议如下: <ul>
@@ -431,9 +423,7 @@
 </ul>
 </li>
 </ul>
-</li>
-<li><p>迁移学习</p>
-<ul>
+<h4 id="迁移学习"><a href="#迁移学习" class="headerlink" title="迁移学习"></a>迁移学习</h4><ul>
 <li>预训练(pre-training)：如果你数据比较多，进行全部参数的重新训练，这时你在用图像识别数据去预先初始化，就叫做预训练，或者预训练神经网络权重</li>
 <li>微调(fine tuning)：如果以后更新所有权重，然后在其他地方训练，有时这个过程也叫微调</li>
 <li>如果没有这么多的数据，也可以选择只替换输出层，或者最后两层等</li>
@@ -450,9 +440,7 @@
 </ul>
 </li>
 </ul>
-</li>
-<li><p>多任务学习(Multi-task learning)</p>
-<ul>
+<h4 id="多任务学习-Multi-task-learning"><a href="#多任务学习-Multi-task-learning" class="headerlink" title="多任务学习(Multi-task learning)"></a>多任务学习(Multi-task learning)</h4><ul>
 <li>什么叫多任务学习？ <ul>
 <li>一个输入会有多个输出flag：比如CV中，自驾驾驶领域，对一个图片的识别既要判断图片是否有交通灯，又要判断行人，车辆等</li>
 </ul>
@@ -468,9 +456,7 @@
 </ul>
 </li>
 </ul>
-</li>
-<li><p>端到端学习:</p>
-<ul>
+<h4 id="端到端学习"><a href="#端到端学习" class="headerlink" title="端到端学习:"></a>端到端学习:</h4><ul>
 <li>什么是端到端学习？ <ul>
 <li>比如说语音识别，从音频输入->特征提取->…->找到音位->…->构成听写文本，中间有多个阶段。端到端学习就是直接x->y的映射，这里就是音频输入->构成听写文本</li>
 </ul>
@@ -492,8 +478,6 @@
 <li>人脸识别的系统，并没有直接使用x->y(门禁照片->身份确认)的识别，因为端到端的直接数据并没有这么多数据集。所以拆分为两步：1.识别人脸照片，2.照片和身份的对应。这种方式是因为拆分后的两步都有大量的数据集</li>
 <li>X射线评估孩子年龄，直接的数据x->(x摄像图像->孩子年龄)也没有这么多数据，也需要拆分</li>
 <li>机器翻译：端到端方法就使用很广泛，因为存在<strong>大量的数据</strong>，比如英文->法文….</li>
-</ul>
-</li>
 </ul>
 </li>
 </ul>
@@ -585,8 +569,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image" src="/images/favicon.ico" alt="雷哥">
           <p class="site-author-name" itemprop="name">雷哥</p>
@@ -599,7 +592,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-count">12</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -637,6 +630,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#进行误差分析："><span class="nav-number">1.</span> <span class="nav-text">进行误差分析：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#快速搭建你的第一个系统："><span class="nav-number">2.</span> <span class="nav-text">快速搭建你的第一个系统：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#训练集和测试集不同分布："><span class="nav-number">3.</span> <span class="nav-text">训练集和测试集不同分布：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Train-dev数据不同分布带来的偏差和方差问题"><span class="nav-number">4.</span> <span class="nav-text">Train/dev数据不同分布带来的偏差和方差问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#迁移学习"><span class="nav-number">5.</span> <span class="nav-text">迁移学习</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#多任务学习-Multi-task-learning"><span class="nav-number">6.</span> <span class="nav-text">多任务学习(Multi-task learning)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#端到端学习"><span class="nav-number">7.</span> <span class="nav-text">端到端学习:</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
