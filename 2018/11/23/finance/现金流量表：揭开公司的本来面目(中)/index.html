@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="如果在企业高速扩张的过程中，即便账面的净利润是亏损的，只要有足够的现金周转，那么建立在这个基础上的商业王国就能健康发展这里的现金流指经营活动现金流量净额，「销售商品、提供劳务收到的现金」更是重中之中 营业收入与销售商品、提供劳务收到的现金并不相等销售商品、提供劳务收到的现金主要包括： 收到以前的钱，比如说上期卖出的东西这一期才收到钱，只要是在本期收到的钱，不管是什么时候卖出的货，都会算到这个项目当">
+<meta property="og:type" content="article">
+<meta property="og:title" content="现金流量表:揭开公司的本来面目(中)">
+<meta property="og:url" content="http://yoursite.com/2018/11/23/finance/现金流量表：揭开公司的本来面目(中)/index.html">
+<meta property="og:site_name" content="雷哥的博客">
+<meta property="og:description" content="如果在企业高速扩张的过程中，即便账面的净利润是亏损的，只要有足够的现金周转，那么建立在这个基础上的商业王国就能健康发展这里的现金流指经营活动现金流量净额，「销售商品、提供劳务收到的现金」更是重中之中 营业收入与销售商品、提供劳务收到的现金并不相等销售商品、提供劳务收到的现金主要包括： 收到以前的钱，比如说上期卖出的东西这一期才收到钱，只要是在本期收到的钱，不管是什么时候卖出的货，都会算到这个项目当">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2018/11/23/finance/现金流量表：揭开公司的本来面目(中)/resources/EA4BDE6377E6E012B39E1FF283BEA129.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/11/23/finance/现金流量表：揭开公司的本来面目(中)/resources/7C3784C6B22C1C7249587EA34CAF5B6F.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/11/23/finance/现金流量表：揭开公司的本来面目(中)/resources/1828EC4B6AB133679423113CD97A35BB.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/11/23/finance/现金流量表：揭开公司的本来面目(中)/resources/02DB59FB87E46BB1D3483F478EAD7FF1.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/11/23/finance/现金流量表：揭开公司的本来面目(中)/resources/323685796F13AD9011A5229B343E88E0.jpg">
+<meta property="og:updated_time" content="2018-12-08T01:27:04.498Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="现金流量表:揭开公司的本来面目(中)">
+<meta name="twitter:description" content="如果在企业高速扩张的过程中，即便账面的净利润是亏损的，只要有足够的现金周转，那么建立在这个基础上的商业王国就能健康发展这里的现金流指经营活动现金流量净额，「销售商品、提供劳务收到的现金」更是重中之中 营业收入与销售商品、提供劳务收到的现金并不相等销售商品、提供劳务收到的现金主要包括： 收到以前的钱，比如说上期卖出的东西这一期才收到钱，只要是在本期收到的钱，不管是什么时候卖出的货，都会算到这个项目当">
+<meta name="twitter:image" content="http://yoursite.com/2018/11/23/finance/现金流量表：揭开公司的本来面目(中)/resources/EA4BDE6377E6E012B39E1FF283BEA129.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '雷哥'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/11/23/finance/现金流量表：揭开公司的本来面目(中)/">
+
+
+
+
+
+  <title>现金流量表:揭开公司的本来面目(中) | 雷哥的博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">雷哥的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/23/finance/现金流量表：揭开公司的本来面目(中)/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">现金流量表:揭开公司的本来面目(中)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-23T22:29:09+08:00">
+                2018-11-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/金融/" itemprop="url" rel="index">
+                    <span itemprop="name">金融</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/金融/财务报表/" itemprop="url" rel="index">
+                    <span itemprop="name">财务报表</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>如果在企业高速扩张的过程中，即便账面的净利润是亏损的，只要有足够的现金周转，那么建立在这个基础上的商业王国就能健康发展<br>这里的现金流指经营活动现金流量净额，<font color="red">「销售商品、提供劳务收到的现金」更是重中之中</font></p>
+<h3 id="营业收入与销售商品、提供劳务收到的现金并不相等"><a href="#营业收入与销售商品、提供劳务收到的现金并不相等" class="headerlink" title="营业收入与销售商品、提供劳务收到的现金并不相等"></a>营业收入与销售商品、提供劳务收到的现金并不相等</h3><h4 id="销售商品、提供劳务收到的现金主要包括："><a href="#销售商品、提供劳务收到的现金主要包括：" class="headerlink" title="销售商品、提供劳务收到的现金主要包括："></a>销售商品、提供劳务收到的现金主要包括：</h4><ul>
+<li><font color="blue">收到以前的钱</font>，比如说上期卖出的东西这一期才收到钱，只要是在本期收到的钱，不管是什么时候卖出的货，都会算到这个项目当中。</li>
+<li><font color="blue">收到现在的钱</font>：本期卖出的货物本期收到货款。这一部分与营业收入是重合的。</li>
+<li><font color="blue">收到未来的钱</font>：第三种情况是预收货款，比如说我提供的商品非常牛逼，供不应求，客户为了能拿到货不得不提前付款。但是在这个时候你还不能确认收入，因为你还没有将货物发出去。当你在实际确认收入的下一年，销售商品、提供劳务收到的现金不会随着收入同比再增加一次，这里就会产生差异。</li>
+<li><p><font color="blue">收到的税款</font>：即便一家企业的收入全部是现销（一手交钱一手交货），销售商品、提供劳务收到的现金与营业收入仍然还是不相等的。<font color="blue">因为销售收入不含增值税款，我们收到的现金是含税的</font>。比如说我卖出了1170元的包子，其中只有那1000元我能确认收入，还有170元应该作为应交增值税进行核算，但是在销售商品、提供劳务收到的<font color="blue">现金中记录的就是全部的1170元</font>。</p>
+<img src="/2018/11/23/finance/现金流量表：揭开公司的本来面目(中)/resources/EA4BDE6377E6E012B39E1FF283BEA129.jpg">
+</li>
+<li><p>你的账面收入和实际收到的钱不能相差太多，最差的情况，你必须保证上一年的白条在本年都能如期收回来</p>
+</li>
+</ul>
+<h4 id="一家企业的收入和利润质量"><a href="#一家企业的收入和利润质量" class="headerlink" title="一家企业的收入和利润质量"></a>一家企业的<font color="red">收入和利润质量</font></h4><ul>
+<li>企业收入含金量指数=销售商品、提供劳务收到的现金/营业收入，这个指数以1.17作为判断标准<ul>
+<li>企业收入含金量指数越高，企业营业收入面临的风险越小，营业收入的质量越高</li>
+</ul>
+</li>
+<li>利润含金量指数=经营活动产生的现金流量净额/净利润</li>
+<li>案例<ul>
+<li>大家必须重视以现金流量为基础的指标体系，这样才能揭示公司盈利中可能存在的猫腻，真实、客观地反映其财务状况</li>
+<li>公司这几年营业收入和净利润与现金流发生了严重的背离，这说明它业绩含金量很低，<font color="red">虽然有那么多收入和利润，但压根没见到钱</font><img src="/2018/11/23/finance/现金流量表：揭开公司的本来面目(中)/resources/7C3784C6B22C1C7249587EA34CAF5B6F.jpg"></li>
+<li>那这些收入都去哪了呢？<ul>
+<li>绝大多数的收入都是以欠条的形式存在于资产负债表中，即<font color="blue">应收账款和应收票据，还有一部分都压在存货里面</font></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="为什么有些财务造假不易察觉？"><a href="#为什么有些财务造假不易察觉？" class="headerlink" title="为什么有些财务造假不易察觉？"></a>为什么有些财务造假不易察觉？</h3><ul>
+<li><font color="blue">「在建工程」</font>这个报表项目来搞出利润，真是妙不可言<ul>
+<li>例如：如果你在资产中夸大了在建工程，然后跟投资者们说：老乡们啊，我今年把所有赚到的钱都投入到在建工程里了，等以后这些工程造好了，未来利润起码翻一番</li>
+</ul>
+</li>
+<li>如果你通过<font color="blue">应收账款虚增收入</font>，即只有收入但没见到钱流入企业，将在第一时间被投资者关注</li>
+<li><font color="blue">要警惕经营活动净现金流量大额为正，同时伴随大额负数的投资活动现金流量</font><ul>
+<li>因为你在增加在建工程的瞬间，一定会显示为投资活动现金流量流出企业，甚至流出的金额与当年记在利润表里的营业收入极为接近</li>
+</ul>
+</li>
+</ul>
+<h3 id="自由现金流"><a href="#自由现金流" class="headerlink" title="自由现金流"></a>自由现金流</h3><p>如果说净利润在很多时候是虚无缥缈的，那么对于衡量投资者真正回报而言更重要的是什么呢？</p>
+<ul>
+<li><font color="blue">自由现金流量</font>:即企业扣减维持持续发展所需的固定资产投资以及营运资金投资后的现金流量。</li>
+<li>因为从长期来看，股价与企业创造自由现金流的能力必然是正相关的</li>
+<li>这里的所谓<font color="blue">「自由」</font>，是指这部分现金如果拿来向投资者分红，不会对企业的正常经营产生任何影响</li>
+<li>放在生活中，就有点类似<font color="blue">可支配收入</font>的概念</li>
+<li><p>计算公式</p>
+<ul>
+<li>教科书上关于自由现金流的算法一般表示为：<br>自由现金流量=税后净营业利润+折旧和摊销-资本性支出-营运资金支出</li>
+<li>看不懂没关系，因为自由现金流还有一个比较简约的算法。<br>自由现金流=经营现金流量净额-购建固定资产无形资产和其他长期资产的现金流出</li>
+<li>是不是有老铁反应还是看不懂？<br>那就继续简化。（这个计算方法不是非常严谨，但对于小白可以拿来就用）<font color="blue">自由现金流=经营活动产生的现金净流量+投资活动产生的现金净流量</font></li>
+<li>举例<ul>
+<li>贵州茅台<ul>
+<li>从投资活动的现金流量净额可以看出这家公司不需要进行太高的资本开支，而经营性现金流充沛，说明它已经进入了一个非常稳定的成熟期，在市场上地位非常稳固，因此他积累下来了很多自由现金流量，可以每年用来回馈股东（分红），简直就是一台造血的机器<img src="/2018/11/23/finance/现金流量表：揭开公司的本来面目(中)/resources/1828EC4B6AB133679423113CD97A35BB.jpg"></li>
+</ul>
+</li>
+<li>比亚迪<ul>
+<li>从这家公司的自由现金流来看，它一直挺差钱的，他的自由现金流量一直是负的</li>
+<li>即使他把每年赚到的钱全部再投入，也不够他在投资上的开支。显然他是没有能力来给股东进行大额的分红的<img src="/2018/11/23/finance/现金流量表：揭开公司的本来面目(中)/resources/02DB59FB87E46BB1D3483F478EAD7FF1.jpg"></li>
+<li>差这么多钱，哪里找缺口？只有从现金流量表中的筹资活动</li>
+<li>筹资活动产生的现金流量这个分类<font color="blue">主要揭示当企业资金出现缺口时，都是通过什么方式</font>（吸收投资——增发或配股，取得借款，发行债券）来获得资金<img src="/2018/11/23/finance/现金流量表：揭开公司的本来面目(中)/resources/323685796F13AD9011A5229B343E88E0.jpg">
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>我只能说在专业的长期投资者眼里，他们会紧紧盯着<font color="red">企业持续创造价值的能力</font>，而这个价值换个说法就是<font color="blue">自由现金流</font></p>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/22/finance/现金流量表：揭开公司的本来面目(上)/" rel="next" title="现金流量表:揭开公司的本来面目(上)">
+                <i class="fa fa-chevron-left"></i> 现金流量表:揭开公司的本来面目(上)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/11/26/dl/第四门课-第四周/" rel="prev" title="第四门课-第三周">
+                第四门课-第三周 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/favicon.ico" alt="雷哥">
+          <p class="site-author-name" itemprop="name">雷哥</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#营业收入与销售商品、提供劳务收到的现金并不相等"><span class="nav-number">1.</span> <span class="nav-text">营业收入与销售商品、提供劳务收到的现金并不相等</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#销售商品、提供劳务收到的现金主要包括："><span class="nav-number">1.1.</span> <span class="nav-text">销售商品、提供劳务收到的现金主要包括：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一家企业的收入和利润质量"><span class="nav-number">1.2.</span> <span class="nav-text">一家企业的收入和利润质量</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么有些财务造假不易察觉？"><span class="nav-number">2.</span> <span class="nav-text">为什么有些财务造假不易察觉？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自由现金流"><span class="nav-number">3.</span> <span class="nav-text">自由现金流</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-雷哥"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">雷哥</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Gemini
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
