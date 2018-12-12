@@ -278,6 +278,580 @@
   <section id="posts" class="posts-expand">
     
 	
+      	    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/06/dl/第五门课-第三周/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/06/dl/第五门课-第三周/" itemprop="url">第五门课-第三周</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-06T08:17:19+08:00">
+                2018-12-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/深度学习/" itemprop="url" rel="index">
+                    <span itemprop="name">深度学习</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/深度学习/吴恩达课程总结/" itemprop="url" rel="index">
+                    <span itemprop="name">吴恩达课程总结</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><a href="https://github.com/yuancl/dl-algorithm/tree/master/5-RecurrentNeuralNetworks/Week3/Machine-Translation" target="_blank" rel="noopener">习题代码:Machine-Translation</a><br><a href="https://github.com/yuancl/dl-algorithm/tree/master/5-RecurrentNeuralNetworks/Week3/Trigger-word-detection" target="_blank" rel="noopener">习题代码:Trigger-word-detection</a></p>
+<h4 id="序列结构的各种序列"><a href="#序列结构的各种序列" class="headerlink" title="序列结构的各种序列"></a>序列结构的各种序列</h4><ul>
+<li><p>seq2seq<br>分为编码网络的解码网络</p>
+<img src="/2018/12/06/dl/第五门课-第三周/resources/4A4F9C5B535DDB65265853ACD2EDC912.jpg">
+</li>
+<li><p>应用场景</p>
+<ul>
+<li>机器翻译，比如英文和法文的互相翻译</li>
+<li>Image-to-seq<br>例子中使用的AlexNet网络，将最后的softmax输出替换为RNN网络，输出为一个序列<img src="/2018/12/06/dl/第五门课-第三周/resources/49BD4A13FE8A1C4571A631492527A168.jpg">
+</li>
+</ul>
+</li>
+<li><p>选择最可能的句子</p>
+<ul>
+<li>语言模型和翻译模型比较<ul>
+<li>语言模型总是以零向量开始$(P(y^{&lt; 1 &gt;},y^{&lt; 2 &gt;},y^{&lt; 3 &gt;}…y^{&lt; n &gt;}))$</li>
+<li>而翻译模型输入是法语的encoder，可以理解为条件模型:$P(y^{&lt; 1 &gt;},y^{&lt; 2 &gt;},y^{&lt; 3 &gt;}…y^{&lt; n &gt;}|x^{&lt; 1 &gt;},x^{&lt; 2 &gt;},x^{&lt; 3 &gt;}…x^{&lt; n &gt;})$</li>
+<li>所以一个是随机输出seq，另一个是需要概率最大的seq<img src="/2018/12/06/dl/第五门课-第三周/resources/BB67CF9637B51A081225158E964A74BA.jpg"></li>
+<li>如何保证翻译模型中的条件概率最大<ul>
+<li>贪心算法：没一个输出都保证当前一个term($y^{<i>}$)概率最大，但是并不能保证<font color="red">整个序列概率最大</font>，所以一次挑选一个词并不是最佳的选择</i></li>
+<li>穷举法：将所有句子进行穷举测试，但由单词生成的句子量太大，无法穷举</li>
+<li>集束算法</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>集束算法(Beam Search)</p>
+<ul>
+<li>贪婪算法只会挑出最可能的那一个单词，然后继续。而集束搜索则会考虑多个选择，选择数量就是集束宽(Beam width)</li>
+<li>第一步：<br>需要 输入法语句子到编码网络，然后会解码这个网络，这个 softmax 层(上图编号 3 所示)会输 出 10,000 个概率值，得到这 10,000 个输出的概率值，取前三个存起来</li>
+<li>第二步：<ul>
+<li>选择第一步中的一个词$P(y^{<2>}|x, y^{<1>})$如下图3，输入为第一步的输出和x</1></2></li>
+<li>不仅仅 是第二个单词有最大的概率，而是第一个、第二个单词对有最大的概率</li>
+<li>$P(y^{<1>},y^{<2>}|x)=P(y^{<1>}|x)P(y^{<2>}|x, y^{<1>})$</1></2></1></2></1></li>
+</ul>
+</li>
+<li>后面的步骤也是模仿第二步进行计算</li>
+<li>重复第二步，选择第一步中的其他词进行计算<img src="/2018/12/06/dl/第五门课-第三周/resources/09E08ACC8EC0182CF63C63DD96E9F0EC.jpg">
+<img src="/2018/12/06/dl/第五门课-第三周/resources/D81DFB526C95CD2E4362B500F8E26472.jpg"></li>
+<li>可以看见，如果集束宽为1，那么其实就是贪心算法</li>
+</ul>
+</li>
+<li><p>改进集束搜索</p>
+<ul>
+<li>问题1：$P(y^{<1>}|x)P(y^{<2>}|x, y^{<1>})$…..由于每一步概率值都小于0，所以比容易造成数值下溢，也就是导致电脑的浮点表示不能精确的存储</1></2></1></li>
+<li><p>解决方案：<br>我们总是记录概率的对数和，而不是概率的乘积，就用到了对数函数乘积的性质</p>
+<img src="/2018/12/06/dl/第五门课-第三周/resources/A0E79789CBD92DE575602B479DAD35D3.jpg">
+</li>
+<li><p>问题2：由于每一项乘积都小于1，并且目标函数是最大概率的输出，所以一般会偏向于比较短的句子，这样乘积项就比较少</p>
+</li>
+<li>解决方案：<br>通过除以翻译结果的单词数量。这样就是取每个单词的概率对数值的平均了，这样很明显地 减少了对输出长的结果的惩罚</li>
+<li><p>更柔和的方法：并不直接除以单词数，而是会乘上一个超参数a,比如a=0.7，如果a=1那么就相当于完全用长度来做归一化</p>
+</li>
+<li><p>集束宽选择<br>集束宽越大效果当然越好，但是计算也越复杂。在产品中，经常可以看到把束宽设到 10</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="集束搜索误差分析"><a href="#集束搜索误差分析" class="headerlink" title="集束搜索误差分析"></a>集束搜索误差分析</h4><h4 id="Bleu得分"><a href="#Bleu得分" class="headerlink" title="Bleu得分"></a>Bleu得分</h4><ul>
+<li>背景：比如机器翻译会得到很多都不错的答案，那么如何选择呢？Bleu得分算法，就是解决这个问题，它做的是；给定一个机器生成的翻译，能够自动地计算一个粉丝来衡量好坏</li>
+</ul>
+<h4 id="注意力模型"><a href="#注意力模型" class="headerlink" title="注意力模型"></a>注意力模型</h4><ul>
+<li>背景：从Bleu评分可以看出，长句的效果比较差<img src="/2018/12/06/dl/第五门课-第三周/resources/37CDD1E8D8F3D180CB8C734953DD30E0.jpg"></li>
+<li>原理：模仿人工翻译，不会一次性把整个文章都读完再翻译，会读一部分内容，翻译一部分</li>
+<li>理解：在计算当前时间步的时候，会花多少精力去关注多少当前词附近的词语<ul>
+<li>这些是注意力权重，即$a^{&lt;t,t’&gt;}$告诉你，当你尝试生成第𝑡个英文词，它应该花多少注意力在第𝑡个法语词上面。当生成一个 特定的英文词时，这允许它在每个时间步去看周围词距内的法语词要花多少注意力<img src="/2018/12/06/dl/第五门课-第三周/resources/EEBE423431B34A94171A26BDFA7882A4.jpg"></li>
+</ul>
+</li>
+<li><p>编程练习：</p>
+<ul>
+<li>将人工理解(Tuesday 09 Oct 1993)的日期翻译为机器理解的日期(1993-10-09)</li>
+<li>这里前一个时间步的输出不用喂给后一个输入，并不像前面练习的恐龙名字一样，前后两个单词是有关联的</li>
+<li>在训练过程中，每一个时间步的注意力长度是不一样的<img src="/2018/12/06/dl/第五门课-第三周/resources/691EABB718941C596A7B2C25AF3B853D.jpg"></li>
+<li><p>model：<br>总体分为2步，1：右边，one “Attention”如何计算,2:左边，整体的attention模型<br>In this part, you will implement the attention mechanism presented in the lecture videos. Here is a figure to remind you how the model works. The diagram on the left shows the attention model. The diagram on the right shows what one “Attention” step does to calculate the attention variables $\alpha^{\langle t, t’ \rangle}$, which are used to compute the context variable $context^{\langle t \rangle}$ for each timestep in the output ($t=1, \ldots, T_y$).</p>
+<img src="/2018/12/06/dl/第五门课-第三周/resources/2868A3ED41699CAA4210EAF9E26E0328.jpg">
+<p>Here are some properties of the model that you may notice: </p>
+<ul>
+<li><p>模型分两个LSTM层，下面一个双向LSTM跟进前向后向计算的激活值a，然后匹配上各个时间步的注意力的长度，产出context，第二层LSTM是用context和前一个时间步的输出$S^{<t-1>}$输出最终值<br>There are two separate LSTMs in this model (see diagram on the left). Because the one at the bottom of the picture is a Bi-directional LSTM and comes <em>before</em> the attention mechanism, we will call it <em>pre-attention</em> Bi-LSTM. The LSTM at the top of the diagram comes <em>after</em> the attention mechanism, so we will call it the <em>post-attention</em> LSTM. The pre-attention Bi-LSTM goes through $T_x$ time steps; the post-attention LSTM goes through $T_y$ time steps. </t-1></p>
+</li>
+<li><p>The post-attention LSTM passes $s^{\langle t \rangle}, c^{\langle t \rangle}$ from one time step to the next. In the lecture videos, we were using only a basic RNN for the post-activation sequence model, so the state captured by the RNN output activations $s^{\langle t\rangle}$. But since we are using an LSTM here, the LSTM has both the output activation $s^{\langle t\rangle}$ and the hidden cell state $c^{\langle t\rangle}$. However, unlike previous text generation examples (such as Dinosaurus in week 1), in this model the post-activation LSTM at time $t$ does will not take the specific generated $y^{\langle t-1 \rangle}$ as input; it only takes $s^{\langle t\rangle}$ and $c^{\langle t\rangle}$ as input. We have designed the model this way, because (unlike language generation where adjacent characters are highly correlated) there isn’t as strong a dependency between the previous character and the next character in a YYYY-MM-DD date. </p>
+</li>
+<li><p>We use $a^{\langle t \rangle} = [\overrightarrow{a}^{\langle t \rangle}; \overleftarrow{a}^{\langle t \rangle}]$ to represent the concatenation of the activations of both the forward-direction and backward-directions of the pre-attention Bi-LSTM. </p>
+</li>
+<li><p>The diagram on the right uses a <code>RepeatVector</code> node to copy $s^{\langle t-1 \rangle}$’s value $T_x$ times, and then <code>Concatenation</code> to concatenate $s^{\langle t-1 \rangle}$ and $a^{\langle t \rangle}$ to compute $e^{\langle t, t’}$, which is then passed through a softmax to compute $\alpha^{\langle t, t’ \rangle}$. We’ll explain how to use <code>RepeatVector</code> and <code>Concatenation</code> in Keras below. </p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="语音模型"><a href="#语音模型" class="headerlink" title="语音模型"></a>语音模型</h4><ul>
+<li>CTC cost<ul>
+<li>背景：很多时候语音输入比输出会错很多，如何在RNN中相同输入输出的模型中使用呢？</li>
+<li>CTC 损失函数的一个基本规则是 将空白符之间的重复的字符折叠起来，再说清楚一些，我这里用下划线来表示这个特殊的空 白符(a special blank character)，这样就可以让输出和输入相同数量了</li>
+</ul>
+</li>
+</ul>
+<h4 id="触发字检测"><a href="#触发字检测" class="headerlink" title="触发字检测"></a>触发字检测</h4><ul>
+<li>生谱图特征得到特征向量$x^{<1>},x^{<2>,…}$</2></1></li>
+<li>训练集如何标注：检测到关键词的以后就标注为1，未检测到就标注为0<img src="/2018/12/06/dl/第五门课-第三周/resources/EBCF128EB7F18F6FFFC673EA682EAFE1.jpg"></li>
+<li>问题：这样导致0和1的数量很不平衡，简单的处理方式：比 起只在一个时间步上去输出 1，其实你可以在输出变回 0 之前，多次输出 1，或说在固定的 一段时间内输出多个 1</li>
+<li>练习题：<ul>
+<li>网络架构<img src="/2018/12/06/dl/第五门课-第三周/resources/3927A66C61616AB5B8F15E0F82790B80.jpg"></li>
+<li>首先通过生谱图将声音转换为特征向量</li>
+<li>然后开始使用了CNN，使5511时间步减小到1375，这个在RNN中大量减小了复杂大</li>
+<li>然后用两层RNN，进行0，1预测输出，注意并没有使用双向RNN，因为语音说完就要快速给出结果，并不是等10s说完后才给</li>
+<li>Here’s what you should remember:<ul>
+<li>Data synthesis is an effective way to create a large training set for speech problems, specifically trigger word detection. </li>
+<li>Using a spectrogram and optionally a 1D conv layer is a common pre-processing step prior to passing audio data to an RNN, GRU or LSTM.</li>
+<li>An end-to-end deep learning approach can be used to built a very effective trigger word detection system. </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+	
+    
+	
+      	    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/01/dl/第五门课-第二周/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/01/dl/第五门课-第二周/" itemprop="url">第五门课-第二周</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-01T18:37:09+08:00">
+                2018-12-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/深度学习/" itemprop="url" rel="index">
+                    <span itemprop="name">深度学习</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/深度学习/吴恩达课程总结/" itemprop="url" rel="index">
+                    <span itemprop="name">吴恩达课程总结</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><a href="https://github.com/yuancl/dl-algorithm/tree/master/5-RecurrentNeuralNetworks/Week2" target="_blank" rel="noopener">习题代码:Operations-on-word- vectors</a></p>
+<h4 id="词嵌入"><a href="#词嵌入" class="headerlink" title="词嵌入"></a>词嵌入</h4><ul>
+<li>背景：one-hot的方式不能表示相近词之间的相似度，比如用语言模型得到 i want a glass of orange juice,如果换成 i want a glass of apple …，  如果是one-hot就不能得到好的结果</li>
+<li>原因：one-hot向量通常只有一位为非0，所以它们之间的内积为0，多维空间表示就是垂直的，没有相关性</li>
+<li>词嵌入：把之前的10000+维度的one-hot转换为300维的相关特征，把该词嵌入300维的空间中<img src="/2018/12/01/dl/第五门课-第二周/resources/C41732C6B42FCD3CC1C0DF349DDA0403.jpg">
+<img src="/2018/12/01/dl/第五门课-第二周/resources/A21F2659F855954FA841C05F9E5F0FB7.jpg"></li>
+<li>t-SNE算法，将多维空间映射到2为空间中，如上图左图</li>
+</ul>
+<h4 id="使用词嵌入-命名实体识别"><a href="#使用词嵌入-命名实体识别" class="headerlink" title="使用词嵌入(命名实体识别)"></a>使用词嵌入(命名实体识别)</h4><ul>
+<li>背景：Robert Lin is an apple farmer 与 Robert Lin is a durian cultivator(Robert Lin 是一个榴莲培育家)榴莲培育家训练样本很少包含该词，很可能不能做到命名实体的识别</li>
+<li>词嵌入做迁移学习优点及步骤<ul>
+<li>泛化性比较好</li>
+<li>先从大量的文本集中学习词嵌入。一个非常大的文本集，这个可以解决你的训练样本比较少，比如根本没有durian(榴莲)这个词汇的训练样本</li>
+<li>你可以用这些词嵌入模型把它迁移到你的新的只有少量标注训练集的任务中，比如说用这个300维的词嵌入来表示你的单词，比one-hot更低维</li>
+<li>是否进行微调？如果你有大量的训练数据集可以考虑微调已有的嵌入词</li>
+<li>通常迁移任务 A-&gt;B，通常是A中有大量数据集，B中只有少量数据集这种情况效果比较好<ul>
+<li>比如在机器翻译领域词嵌入用得比较少，原因就是我们有大量的翻译样本</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>词嵌入和人脸编码类比<ul>
+<li>相同点，都是通俗理解都是通过编码，得到标识一个物体的唯一向量</li>
+<li>不同点，词嵌入是固定的词汇，而人脸编码是给定任意的图片都可以进行编码<img src="/2018/12/01/dl/第五门课-第二周/resources/DA8D7754F10BE0DAA530258811F9AC1E.jpg">
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="词嵌入的特性"><a href="#词嵌入的特性" class="headerlink" title="词嵌入的特性"></a>词嵌入的特性</h4><ul>
+<li>类比推理<ul>
+<li>解决问题：man对应woman，那么king对应什么？</li>
+<li>目标函数：$e_{man}-e_{woman}\approx e_{king}-e_?$,也就是Find work w：argmax sim($e_w, e_{king}-e_{man}+e_{woman}$)</li>
+<li>实现算法：<ul>
+<li>该场景的四个词如果映射为二维空间，一般会是平行四边形，通常只有一维数据有一定差异<img src="/2018/12/01/dl/第五门课-第二周/resources/52B643F271BBA6B8880FF8C6499D3894.jpg"></li>
+<li>余弦相识度：<ul>
+<li>公式：sim(u,v)=$\frac{u^T*v}{||u||_2||v||_2}$=cos($\theta$)</li>
+<li>理解：两个向量之间的角度的余弦是衡量它们有多相似的指标，这里就是衡量两个词嵌入向量的相似度<img src="/2018/12/01/dl/第五门课-第二周/resources/CAD5599965AB00A4C6BFCD3BBFC387F5.jpg">
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="嵌入矩阵-Embedding-Matrix"><a href="#嵌入矩阵-Embedding-Matrix" class="headerlink" title="嵌入矩阵(Embedding Matrix)"></a>嵌入矩阵(Embedding Matrix)</h4><ul>
+<li>当你应用算法来学习词嵌入时，实际上是学习一个嵌入矩阵，我们的目标就是学习一个嵌入矩阵E</li>
+<li>有了嵌入矩阵，然后乘以one-hot向量，就能够得到$E*o_j=e_j$,$e_j$就是表示我们想要的词嵌入</li>
+<li>但实践中一般不会$E*o_j=e_j$,$e_j$这样计算，一般会有一个专门的函数来单独查找矩阵E的某列<img src="/2018/12/01/dl/第五门课-第二周/resources/C6433150B98AB53156F78848934AB4F2.jpg">
+</li>
+</ul>
+<h4 id="学习词嵌入"><a href="#学习词嵌入" class="headerlink" title="学习词嵌入"></a>学习词嵌入</h4><p>建立一个语言模型是学习词嵌入的好方法</p>
+<ul>
+<li>方法1：<br>$Eo_j=e_j$使用这种方法来学习词嵌入矩阵，训练集中有很多序列语句，然后放入神经网络中，来学习E，这种方法比较复杂，最后会有1800维300*6的向量进入隐藏层，然后进入10000维的softmax层<img src="/2018/12/01/dl/第五门课-第二周/resources/34DABF58D294A16191D22C8DED48AEBB.jpg"></li>
+<li>方法2(采用固定窗口)：<br>只取前4个词(作为一个窗口)来训练，用一个固定的历史窗口就意味着你可以处理任意长度的句子，因为输入的维度(1200)总是固定的<img src="/2018/12/01/dl/第五门课-第二周/resources/97D2B0D30C4C77C50ADF9A5BB86C1C70.jpg"></li>
+<li>方法3(前后数量不固定)<br>可以前后个4个词，<br>或者就附件一个词等(Skip-Gram思想)…<img src="/2018/12/01/dl/第五门课-第二周/resources/74CF627BF0907DB5F4DD4F0A47FC905E.jpg"></li>
+<li>总结：<br>如果你真想<font color="red">建立一个语言模型</font>，用目标词的前几个单词作为上下文是常见做法(上图编号9所示)。但如果你的<font color="red">目标是学习词嵌入</font>，那么你就可以用这些其他类型的上下文(上图编号10所示)，它们也能得到很好的词嵌入</li>
+</ul>
+<h4 id="Word2Vec"><a href="#Word2Vec" class="headerlink" title="Word2Vec"></a>Word2Vec</h4><p>上面都是讲的通过学习一个神经语言模型来得到更好的词嵌入，而<br>Word2Vec是更简单高效的方式来学习这种类型的嵌入</p>
+<ul>
+<li><p>Skip-Gram</p>
+<ul>
+<li>在 Skip-Gram模型中，我们要做的是抽取上下文和目标词配对，来构造一个<font color="red">监督学习问题</font></li>
+<li>步骤：我们随机选择一个词作为上下文c，然后在随机抽取一个词作为target y，然后就是建立x(c)–&gt;y的映射<ul>
+<li>c和E相乘，得到c的词嵌入向量，然后此向量通过softmax进行预测，最后和target建立Loss function来达到学校E的目的</li>
+</ul>
+</li>
+<li>softmax模型，预测不同目标词的概率:softmax:p(t|c)=$\frac{e^{\theta^{T}_{t}e_c}}{\sum^{10,000}_{j=1}e^{\theta{^T_je_c}}}$输出是10000(词典中单词数量)为的向量<ul>
+<li>$\theta_t$是一个与输出t有关的参数，即某个词t和标签相符的概率是多少</li>
+</ul>
+</li>
+<li>softmax损失函数：$L(\hat y,y)=-\sum^{10,000}_{i=1}y_ilog\hat y_i$ <font color="red">其中y是one-hot向量，$\hat y$是10.000维的各个词的预测输出概率</font></li>
+<li>缺点(problem)：<br>在 softmax 模型中，每次你想要计算这个概率，你需要对你词汇表中的所有 10,000 个词做求和计算</li>
+<li>优化方案：<ul>
+<li>分级softmax分类器：不用一下子告诉属于10,000类中的哪一类，可以先告诉属于左边的5000中的一类还是右边5000中的，然后是2500….,这样来构造一颗分类树<img src="/2018/12/01/dl/第五门课-第二周/resources/95F9428AAE4FEA373515DBC5F8A622B8.jpg">
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>CBOW模型</p>
+<ul>
+<li>不同版本的 Word2Vec模型，Skip-Gram只是其中的一个，另一个叫做 CBOW，即连续词袋模型(Continuous Bag-Of-Words Model)，它获得中间词两边的的上下 文，然后用周围的词去预测中间的词</li>
+<li><font color="red">CBOW 是从原始语句推测目标字词;而Skip-Gram正好相反，是从目标字词推 测出原始语句</font></li>
+<li>CBOW对小型数据库比较合适，而Skip-Gram在大型语料中表现更好<img src="/2018/12/01/dl/第五门课-第二周/resources/FF2E1F1A0F94A8221B8B801595C6D5EC.jpg">
+</li>
+</ul>
+</li>
+<li><p>负采样(Negative Sampling)</p>
+<ul>
+<li>背景：之前的softmax分类器中，解决每次都要计算所有样本的问题</li>
+<li>Model：选择一个正样本和K个负样本，将softmax的分类转化为一系列二分类问题，只计算其中的正负样本的二分类问题<ul>
+<li>正负样本作为输入x，然后用$P(y=1|c,t)=sigmoid(\theta^T_te_c)$进行二分类计算<img src="/2018/12/01/dl/第五门课-第二周/resources/7D0E816C9C5C70572D286ADC59924886.jpg"></li>
+</ul>
+</li>
+<li>负样本k的选取<ul>
+<li>语库中的经验频率进行采样，这种会有很多like，the等高频词出现</li>
+<li>另一个极端就是1除以词汇表总词数，均匀的抽取样本，但这样对英语单词的分布是没有代表性的</li>
+<li>采用一种处于完全独立分布和训练集的观测分布两个极端之间<img src="/2018/12/01/dl/第五门课-第二周/resources/5A531D6FD207171B174D364AF500C77F.jpg">
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="Glove-Glove-word-vectors"><a href="#Glove-Glove-word-vectors" class="headerlink" title="Glove(Glove word vectors)"></a>Glove(Glove word vectors)</h4><ul>
+<li>定义：定义上下文和目标词为任意两个位置相近的单词，假设是左右各 10 词的距离，那么$X_{ij}$就是一个能够获取单词𝑖和单词𝑗出现位置相近时或是彼此接近的频率的计数器。</li>
+<li>Glove模型就是进行优化，将他们之间的差距最小化处理<img src="/2018/12/01/dl/第五门课-第二周/resources/E4BFB45184A8FE9F410D8920BDD53ED4.jpg"></li>
+<li>函数f选择原则：对加权函数f的选择有着启发性的原则，就是既不给这些词(this，is，of，a)过分的权重，也不给这些不常用词(durion)太小的权值</li>
+<li>问题：<ul>
+<li>你不能保证嵌入向量的独立组成部分是能够理解的</li>
+<li>你不能保证这些用来表示特征的轴能够等同于人类可能简单理解的轴，具体而言，第一个特征 可能是个Gender、Roya、Age、Food Cost 和 Size的组合<font color="red">(并不是我们所理解的单纯的Gender维)</font>，它也许是名词或是一个行为动词 和其他所有特征的组合，所以很难看出独立组成部分<img src="/2018/12/01/dl/第五门课-第二周/resources/31256B83B3F1A2CF14D942BFECB3ADFB.jpg">
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="情感分类"><a href="#情感分类" class="headerlink" title="情感分类"></a>情感分类</h4><ul>
+<li>定义：情感分类任务就是看一段文本，然后分辨这个人是否喜欢他们在讨论的这个东西</li>
+<li>简单模型：采用的是平均值单元，适合任意长度的评论<img src="/2018/12/01/dl/第五门课-第二周/resources/3769B484BF94E06ABF4038346AA63078.jpg">
+<ul>
+<li>问题：没有考虑词序，<font color="red">因为均值模型就是把各个单词各个维数值相加然后再平均</font></li>
+</ul>
+</li>
+<li>RNN模型解决词序问题 <ul>
+<li>此模型是一个one-many的模型<img src="/2018/12/01/dl/第五门课-第二周/resources/62FD68B5D4C30C44B61209A772F5BD86.jpg">
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="词嵌入除偏"><a href="#词嵌入除偏" class="headerlink" title="词嵌入除偏"></a>词嵌入除偏</h4><ul>
+<li>定义：比如通过词嵌入，Man:Computer Programmer， 同时输出 Woman:Homemaker</li>
+<li><p>解决方法：主要是在词向量中寻找出哪些维度的偏见相关的维度(bias axis)，然后在这些维度上进行调整</p>
+<ul>
+<li>找出偏见趋势<ul>
+<li>确定哪些轴(哪些维度)，对于性别歧视这种情况来说，我们能做的是$𝑒<em>{he} − 𝑒</em>{she}$，因为它们的性别不同，然后 将$𝑒<em>{male} − 𝑒</em>{female}$，然后将这些值取平均(上图编号2所示)，将这些差简单地求平均。这个趋势(上图编号3所示)看起来就是性别趋势或说是偏见趋势<img src="/2018/12/01/dl/第五门课-第二周/resources/FE259E9589DE8B2F3259660CB076E522.jpg"></li>
+</ul>
+</li>
+<li><p>中和步骤：某些无性别歧视的词语，让他们在non bias轴上进行靠拢，尽量减少映射在bias轴上的距离来减少性别歧视问题</p>
+<img src="/2018/12/01/dl/第五门课-第二周/resources/761E18C6CBBE247CE32CCD5CE15F5E54.jpg">
+</li>
+<li><p>均衡步：<br>让有偏见的词进行，移动与中轴线等距的一些点上，这样让它们在bias轴上都有一致的相似度，图中由1移到图2的两点</p>
+<img src="/2018/12/01/dl/第五门课-第二周/resources/18EA7A252EAD3B3F90796A808AAAC7F5.jpg">
+<ul>
+<li>经过统计这种偏见词实际上是很少的，需要均衡的词是很少的</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+	
+    
+	
     
 	
       	    
@@ -397,40 +971,38 @@
       
         
           
-            <h3 id="循环神经网络基础"><a href="#循环神经网络基础" class="headerlink" title="循环神经网络基础"></a>循环神经网络基础</h3><h4 id="RNN背景"><a href="#RNN背景" class="headerlink" title="RNN背景"></a>RNN背景</h4><ul>
+            <p>[习题练习]<br><a href="https://github.com/yuancl/dl-algorithm/commit/76c81b18acdc941663d3c59cced76bf837384958" target="_blank" rel="noopener">Building+a+Recurrent+Neural+Network+-+Step+by+Step,主要讲是一步一步构建RNN基础网络和LSTM网络，理解运作原</a><br><a href="https://github.com/yuancl/dl-algorithm/tree/master/5-RecurrentNeuralNetworks/Week1/dinosaurus-island" target="_blank" rel="noopener">dinosaurus-island(character-level language model,练习使用基础RNN模型或者LSTM模型，学习一些文本，然后生成新的文)</a><br><a href="https://github.com/yuancl/dl-algorithm/tree/master/5-RecurrentNeuralNetworks/Week1/Jazz-improvisation-with-LSTM" target="_blank" rel="noopener">Improvise-music with an LSTM network,主要使用LSTM网络生成音</a></p>
+<h3 id="循环神经网络基础"><a href="#循环神经网络基础" class="headerlink" title="循环神经网络基础"></a>循环神经网络基础</h3><h4 id="RNN背景"><a href="#RNN背景" class="headerlink" title="RNN背景"></a>RNN背景</h4><ul>
 <li>什么是序列问题？<br>比如语音识别，输入是一段音频，要求输出是一段文字Y。或者情感分析，输入评论，要求输出几颗星等。本质输入都是一段序列内容，其实就是X-&gt;Y的映射问题</li>
 <li>序列问题特点？<br>可以看见，有些序列问题X,Y长度一致，有些不一致…</li>
 <li>为什么不用标准神经网络处理序列问题：<ul>
 <li>输入输出不定长</li>
 <li>序列上一些位置已经学到的文本信息内容不能在其他位置共享<ul>
 <li>比如如果神经网络已经学习到了在位置 1 出现的 Harry 可能是人名的一部分，那么如果 Harry 出现在其他位置，比如$x^{&lt; t &gt;}$时，它也能够<font color="blue">自动识别其为人名的一部分的话</font>，这就很棒了。这可能类似于你在卷积神经网络中看到的,<font color="red">你希望将部分图片里学到的内容快速推广到图片的其他部分</font>，而我们希望对序列数据也有相似的效果。和你在卷积网络中学到的类似，用一个更好的表达方式也能够让你减少模型中参数的数量</li>
-<li>RNN传递一个激活值到下一个时间步中进行计算，所以能够解决这个问题，适用于序列问题<img src="/2018/11/27/dl/第五门课-第一周/resources/5E6CE23C6A2573459E4A0E31A919B9B9.jpg"></li>
+<li>RNN传递一个激活值到下一个时间步中进行计算，所以能够解决这个问题，适用于序列问题<br><img src="resources/5E6CE23C6A2573459E4A0E31A919B9B9.jpg =703x385" alt="IMAGE"></li>
 </ul>
 </li>
 </ul>
 </li>
 <li>注意项：<ul>
 <li>$a^{<0>}$通常使用零向量作为零时刻的伪激活值</0></li>
-<li>注意多种不同的参数$W_{ax},W_{aa},W_{ya}$<img src="/2018/11/27/dl/第五门课-第一周/resources/EE130B0446706C75A520D2DA216849A0.jpg">
-</li>
+<li>注意多种不同的参数$W_{ax},W_{aa},W_{ya}$<br><img src="resources/EE130B0446706C75A520D2DA216849A0.jpg =702x407" alt="IMAGE"></li>
 </ul>
 </li>
 </ul>
 <h4 id="前向后向计算"><a href="#前向后向计算" class="headerlink" title="前向后向计算"></a>前向后向计算</h4><ul>
-<li>RNN cell<img src="/2018/11/27/dl/第五门课-第一周/resources/E522B44F0437902AC27802C6327A1E05.jpg"></li>
+<li>RNN cell<br><img src="resources/E522B44F0437902AC27802C6327A1E05.jpg =701x309" alt="IMAGE"></li>
 <li><p>前向传播</p>
 <ul>
 <li>t时刻：<br>$a^{&lt; t &gt;}=g_1(W_{aa}a^{t-1} + W_{ax}x^{t} + b_a)$<br>$\hat y^{t} = g_2(W_{ya}a^{&lt; t &gt;} + b_y)$</li>
-<li>激活函数通常使用tanh，y输出激活函数视情况而定<img src="/2018/11/27/dl/第五门课-第一周/resources/65006F27B61C583E368EE798ADB80414.jpg">
-</li>
+<li>激活函数通常使用tanh，y输出激活函数视情况而定<br><img src="resources/65006F27B61C583E368EE798ADB80414.jpg =720x225" alt="IMAGE"></li>
 </ul>
 </li>
 <li><p>后向传播</p>
 <ul>
 <li>对于一个元素的损失函数：<br>$L^{&lt; t &gt;}(\hat y^{&lt; t &gt;},y^{t}) = -y^{&lt; t &gt;}log\hat y^{&lt; t &gt;} - (1-y^{&lt; t &gt;})log(1-\hat y^{&lt; t &gt;})$</li>
-<li>整体序列的损失函数，就是将各时间步的损失值函数相加<br>$L(\hat y,y) = \sum_{t-1}^{T_x}L^{&lt; t &gt;}(\hat y^{&lt; t &gt;},y^{t})$<img src="/2018/11/27/dl/第五门课-第一周/resources/4D96ADA1B3420E7CC0849AA6FC92D737.jpg"></li>
-<li>同样也是使用bp算法求偏导，进行后向计算，不用的是RNN会有多个输出$\hat y$<img src="/2018/11/27/dl/第五门课-第一周/resources/B12CDA828E7D580472ABDA550A3FA40A.jpg">
-</li>
+<li>整体序列的损失函数，就是将各时间步的损失值函数相加<br>$L(\hat y,y) = \sum_{t-1}^{T_x}L^{&lt; t &gt;}(\hat y^{&lt; t &gt;},y^{t})$<br><img src="resources/4D96ADA1B3420E7CC0849AA6FC92D737.jpg =693x394" alt="IMAGE"></li>
+<li>同样也是使用bp算法求偏导，进行后向计算，不用的是RNN会有多个输出$\hat y$<br><img src="resources/B12CDA828E7D580472ABDA550A3FA40A.jpg =692x315" alt="IMAGE"></li>
 </ul>
 </li>
 </ul>
@@ -438,9 +1010,8 @@
 <li>输入输出长度分类：<ul>
 <li>many-to-many：机器翻译</li>
 <li>many-to-one：情感分类</li>
-<li>one-to-one：小型标准神经网络<img src="/2018/11/27/dl/第五门课-第一周/resources/9865F55A9CD63F0A3BAFBC9F28380036.jpg"></li>
-<li>one-to-many：音乐作曲<img src="/2018/11/27/dl/第五门课-第一周/resources/23C80D48C0008D0B3730BC7EE8A8A6E8.jpg">
-</li>
+<li>one-to-one：小型标准神经网络<br><img src="resources/9865F55A9CD63F0A3BAFBC9F28380036.jpg =705x366" alt="IMAGE"></li>
+<li>one-to-many：音乐作曲<br><img src="resources/23C80D48C0008D0B3730BC7EE8A8A6E8.jpg =702x336" alt="IMAGE"></li>
 </ul>
 </li>
 </ul>
@@ -454,8 +1025,7 @@
 <ul>
 <li>将每个单词都转换成对应的one-hot向量，也就是词典中的索引，其中也要注意EOS(结尾符),UNK(未知单词),标点符号</li>
 <li>每一层$\hat y$的输出，都是预测该层输入词在字典中出现的概率</li>
-<li>最后的输出是每层条件概率的乘积<img src="/2018/11/27/dl/第五门课-第一周/resources/0499490A2E7A743A094E4A97B5DB3E28.jpg">
-</li>
+<li>最后的输出是每层条件概率的乘积<br><img src="resources/0499490A2E7A743A094E4A97B5DB3E28.jpg =706x399" alt="IMAGE"></li>
 </ul>
 </li>
 </ul>
@@ -467,7 +1037,7 @@
 </ul>
 <h4 id="RNN中的梯度问题"><a href="#RNN中的梯度问题" class="headerlink" title="RNN中的梯度问题"></a>RNN中的梯度问题</h4><ul>
 <li>梯度消失：<ul>
-<li>网络的输出$\hat y$得到的梯度很难传播回去，很难影响靠前层的权重，很难影响前面层(编号 5 所示的层)的计算<img src="/2018/11/27/dl/第五门课-第一周/resources/81FC8B8F333615A20A24E065D6ED2A80.jpg"></li>
+<li>网络的输出$\hat y$得到的梯度很难传播回去，很难影响靠前层的权重，很难影响前面层(编号 5 所示的层)的计算<br><img src="resources/81FC8B8F333615A20A24E065D6ED2A80.jpg =703x438" alt="IMAGE"></li>
 <li>基础RNN也同样存在这个问题：前一层名词的单复数和难影响到厚层的动词单复数，很难传递(也是因为输出很难传到前层)</li>
 <li>如何解决：<font color="blue">看后面的GRU和LSTM</font></li>
 </ul>
@@ -486,7 +1056,7 @@
 </li>
 <li>新增变量：门控制变量<ul>
 <li>计算逻辑：如下图3标记中，$\Gamma _u^{&lt; t &gt;} = tanh(W_u[C^{&lt; t-1 &gt;}, x^{&lt; t &gt;}] + b_u)$</li>
-<li>作用：决定什么更新记忆细胞，是由sigmoid激活，如果为1，才更新C值，所以前面层次的值就可以一直保持到后面<img src="/2018/11/27/dl/第五门课-第一周/resources/50749AC4B17773F4D8BC728B49BD2529.jpg"></li>
+<li>作用：决定什么更新记忆细胞，是由sigmoid激活，如果为1，才更新C值，所以前面层次的值就可以一直保持到后面<br><img src="resources/50749AC4B17773F4D8BC728B49BD2529.jpg =693x382" alt="IMAGE"></li>
 </ul>
 </li>
 <li><p>记忆细胞更新逻辑：<br>如下图5标记中,逻辑门为1才更新C值(或者接近1值，新值C的权重更大)<br>$C^{&lt; t &gt;} = \Gamma _u<em>\hat C^{&lt; t &gt;} + (1-\Gamma _u)</em> C^{&lt; t-1 &gt;}$</p>
@@ -497,23 +1067,20 @@
 <h4 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h4><ul>
 <li>同时记忆细胞c可以是多维向量，这样可以记忆很多的内容</li>
 <li>通过完成的GRU还会有一个相关门:这个相关门告诉你计算出的候选值$\hat C$和$C^{&lt; t-1 &gt;}$有多大的相关性</li>
-<li>$\Gamma _r^{&lt; t &gt;} = tanh(W_r[C^{&lt; t-1 &gt;}, x^{&lt; t &gt;}] + b_r)$<img src="/2018/11/27/dl/第五门课-第一周/resources/FC1F67CE7DCFC22BF11941ED49367937.jpg">
-</li>
+<li>$\Gamma _r^{&lt; t &gt;} = tanh(W_r[C^{&lt; t-1 &gt;}, x^{&lt; t &gt;}] + b_r)$<br><img src="resources/FC1F67CE7DCFC22BF11941ED49367937.jpg =478x213" alt="IMAGE"></li>
 </ul>
 <h3 id="LSTM-Long-short-term-memory"><a href="#LSTM-Long-short-term-memory" class="headerlink" title="LSTM(Long short term memory)"></a>LSTM(Long short term memory)</h3><h4 id="基础-1"><a href="#基础-1" class="headerlink" title="基础"></a>基础</h4><ul>
-<li>LSTM-cell<img src="/2018/11/27/dl/第五门课-第一周/resources/77E989F6FDDCB09EB5933E4BDEBA51EF.jpg"></li>
+<li>LSTM-cell<br><img src="resources/77E989F6FDDCB09EB5933E4BDEBA51EF.jpg =880x430" alt="IMAGE"></li>
 <li>遗忘门($\Gamma_f$)，让记忆细胞去选择更新新的候选值还是遗忘旧的值<br>$C^{&lt; t &gt;} = \Gamma _u<em>\hat C^{&lt; t &gt;} + (1-\Gamma_f)</em> C^{&lt; t-1 &gt;}$</li>
 <li>输出门($\Gamma_o$), $a^{&lt; t &gt;} = \Gamma_o*tanh(c^{&lt; t &gt;})$</li>
-<li><p>LSTM重要公式及前向传播：</p>
-<img src="/2018/11/27/dl/第五门课-第一周/resources/30F5B97C5D3CB3434341F30985EE7EFB.jpg">  
+<li><p>LSTM重要公式及前向传播：<br><img src="resources/30F5B97C5D3CB3434341F30985EE7EFB.jpg =1007x318" alt="IMAGE">  </p>
 </li>
 <li><p>反向传播：就是BP算法，由后向前，对每一个参数求偏导数，对门$\Gamma$,参数W,偏置b，以及最后的隐藏状态，记忆细胞，输入x</p>
 </li>
 <li>GRU与LSTM<br>都能够捕获更加深层的神经网络，GRU的优点是比LSTM简单一点的模型，只有两个门，在计算上也运行得更快。但LSTM在历史上是更优的选择</li>
 </ul>
 <h3 id="双向RNN"><a href="#双向RNN" class="headerlink" title="双向RNN"></a>双向RNN</h3><ul>
-<li>背景：有些场景不仅需要参考过去，还应该参考未来<img src="/2018/11/27/dl/第五门课-第一周/resources/7AFE741D0C96EA2412793884699E29E2.jpg">
-<img src="/2018/11/27/dl/第五门课-第一周/resources/549D1FAC5CCCD530211F4855989CC5E3.jpg"></li>
+<li>背景：有些场景不仅需要参考过去，还应该参考未来<br><img src="resources/7AFE741D0C96EA2412793884699E29E2.jpg =241x36" alt="IMAGE"><br><img src="resources/549D1FAC5CCCD530211F4855989CC5E3.jpg =506x169" alt="IMAGE"></li>
 <li>缺点：总数需要一段完整的内容<ul>
 <li>NLP一般就比较适合，应该经常能够获得完整的文章</li>
 <li>语音翻译等就不是很适合了，因为要获得已经完整的一段话语通常不是很现实</li>
@@ -1339,10 +1906,6 @@ code:<img src="/2018/11/26/dl/第四门课-第四周/resources/BD74761FA9DA43CE2
 
 	
     
-	
-    
-	
-    
   </section>
 
   
@@ -1391,7 +1954,7 @@ code:<img src="/2018/11/26/dl/第四门课-第四周/resources/BD74761FA9DA43CE2
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-count">20</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

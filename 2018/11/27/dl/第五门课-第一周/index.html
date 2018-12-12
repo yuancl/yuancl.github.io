@@ -94,34 +94,34 @@
 
 
 
-<meta name="description" content="循环神经网络基础RNN背景 什么是序列问题？比如语音识别，输入是一段音频，要求输出是一段文字Y。或者情感分析，输入评论，要求输出几颗星等。本质输入都是一段序列内容，其实就是X-&amp;gt;Y的映射问题 序列问题特点？可以看见，有些序列问题X,Y长度一致，有些不一致… 为什么不用标准神经网络处理序列问题： 输入输出不定长 序列上一些位置已经学到的文本信息内容不能在其他位置共享 比如如果神经网络已经学习到">
+<meta name="description" content="[习题练习]Building+a+Recurrent+Neural+Network+-+Step+by+Step,主要讲是一步一步构建RNN基础网络和LSTM网络，理解运作原dinosaurus-island(character-level language model,练习使用基础RNN模型或者LSTM模型，学习一些文本，然后生成新的文)Improvise-music with an LSTM">
 <meta property="og:type" content="article">
 <meta property="og:title" content="第五门课-第一周">
 <meta property="og:url" content="http://yoursite.com/2018/11/27/dl/第五门课-第一周/index.html">
 <meta property="og:site_name" content="雷哥的博客">
-<meta property="og:description" content="循环神经网络基础RNN背景 什么是序列问题？比如语音识别，输入是一段音频，要求输出是一段文字Y。或者情感分析，输入评论，要求输出几颗星等。本质输入都是一段序列内容，其实就是X-&amp;gt;Y的映射问题 序列问题特点？可以看见，有些序列问题X,Y长度一致，有些不一致… 为什么不用标准神经网络处理序列问题： 输入输出不定长 序列上一些位置已经学到的文本信息内容不能在其他位置共享 比如如果神经网络已经学习到">
+<meta property="og:description" content="[习题练习]Building+a+Recurrent+Neural+Network+-+Step+by+Step,主要讲是一步一步构建RNN基础网络和LSTM网络，理解运作原dinosaurus-island(character-level language model,练习使用基础RNN模型或者LSTM模型，学习一些文本，然后生成新的文)Improvise-music with an LSTM">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2018/11/27/dl/第五门课-第一周/resources/5E6CE23C6A2573459E4A0E31A919B9B9.jpg">
-<meta property="og:image" content="http://yoursite.com/2018/11/27/dl/第五门课-第一周/resources/EE130B0446706C75A520D2DA216849A0.jpg">
-<meta property="og:image" content="http://yoursite.com/2018/11/27/dl/第五门课-第一周/resources/E522B44F0437902AC27802C6327A1E05.jpg">
-<meta property="og:image" content="http://yoursite.com/2018/11/27/dl/第五门课-第一周/resources/65006F27B61C583E368EE798ADB80414.jpg">
-<meta property="og:image" content="http://yoursite.com/2018/11/27/dl/第五门课-第一周/resources/4D96ADA1B3420E7CC0849AA6FC92D737.jpg">
-<meta property="og:image" content="http://yoursite.com/2018/11/27/dl/第五门课-第一周/resources/B12CDA828E7D580472ABDA550A3FA40A.jpg">
-<meta property="og:image" content="http://yoursite.com/2018/11/27/dl/第五门课-第一周/resources/9865F55A9CD63F0A3BAFBC9F28380036.jpg">
-<meta property="og:image" content="http://yoursite.com/2018/11/27/dl/第五门课-第一周/resources/23C80D48C0008D0B3730BC7EE8A8A6E8.jpg">
-<meta property="og:image" content="http://yoursite.com/2018/11/27/dl/第五门课-第一周/resources/0499490A2E7A743A094E4A97B5DB3E28.jpg">
-<meta property="og:image" content="http://yoursite.com/2018/11/27/dl/第五门课-第一周/resources/81FC8B8F333615A20A24E065D6ED2A80.jpg">
-<meta property="og:image" content="http://yoursite.com/2018/11/27/dl/第五门课-第一周/resources/50749AC4B17773F4D8BC728B49BD2529.jpg">
-<meta property="og:image" content="http://yoursite.com/2018/11/27/dl/第五门课-第一周/resources/FC1F67CE7DCFC22BF11941ED49367937.jpg">
-<meta property="og:image" content="http://yoursite.com/2018/11/27/dl/第五门课-第一周/resources/77E989F6FDDCB09EB5933E4BDEBA51EF.jpg">
-<meta property="og:image" content="http://yoursite.com/2018/11/27/dl/第五门课-第一周/resources/30F5B97C5D3CB3434341F30985EE7EFB.jpg">
-<meta property="og:image" content="http://yoursite.com/2018/11/27/dl/第五门课-第一周/resources/7AFE741D0C96EA2412793884699E29E2.jpg">
-<meta property="og:image" content="http://yoursite.com/2018/11/27/dl/第五门课-第一周/resources/549D1FAC5CCCD530211F4855989CC5E3.jpg">
-<meta property="og:updated_time" content="2018-11-30T04:43:07.758Z">
+<meta property="og:image" content="http://yoursite.com/2018/11/27/dl/第五门课-第一周/resources/5E6CE23C6A2573459E4A0E31A919B9B9.jpg%20=703x385">
+<meta property="og:image" content="http://yoursite.com/2018/11/27/dl/第五门课-第一周/resources/EE130B0446706C75A520D2DA216849A0.jpg%20=702x407">
+<meta property="og:image" content="http://yoursite.com/2018/11/27/dl/第五门课-第一周/resources/E522B44F0437902AC27802C6327A1E05.jpg%20=701x309">
+<meta property="og:image" content="http://yoursite.com/2018/11/27/dl/第五门课-第一周/resources/65006F27B61C583E368EE798ADB80414.jpg%20=720x225">
+<meta property="og:image" content="http://yoursite.com/2018/11/27/dl/第五门课-第一周/resources/4D96ADA1B3420E7CC0849AA6FC92D737.jpg%20=693x394">
+<meta property="og:image" content="http://yoursite.com/2018/11/27/dl/第五门课-第一周/resources/B12CDA828E7D580472ABDA550A3FA40A.jpg%20=692x315">
+<meta property="og:image" content="http://yoursite.com/2018/11/27/dl/第五门课-第一周/resources/9865F55A9CD63F0A3BAFBC9F28380036.jpg%20=705x366">
+<meta property="og:image" content="http://yoursite.com/2018/11/27/dl/第五门课-第一周/resources/23C80D48C0008D0B3730BC7EE8A8A6E8.jpg%20=702x336">
+<meta property="og:image" content="http://yoursite.com/2018/11/27/dl/第五门课-第一周/resources/0499490A2E7A743A094E4A97B5DB3E28.jpg%20=706x399">
+<meta property="og:image" content="http://yoursite.com/2018/11/27/dl/第五门课-第一周/resources/81FC8B8F333615A20A24E065D6ED2A80.jpg%20=703x438">
+<meta property="og:image" content="http://yoursite.com/2018/11/27/dl/第五门课-第一周/resources/50749AC4B17773F4D8BC728B49BD2529.jpg%20=693x382">
+<meta property="og:image" content="http://yoursite.com/2018/11/27/dl/第五门课-第一周/resources/FC1F67CE7DCFC22BF11941ED49367937.jpg%20=478x213">
+<meta property="og:image" content="http://yoursite.com/2018/11/27/dl/第五门课-第一周/resources/77E989F6FDDCB09EB5933E4BDEBA51EF.jpg%20=880x430">
+<meta property="og:image" content="http://yoursite.com/2018/11/27/dl/第五门课-第一周/resources/30F5B97C5D3CB3434341F30985EE7EFB.jpg%20=1007x318">
+<meta property="og:image" content="http://yoursite.com/2018/11/27/dl/第五门课-第一周/resources/7AFE741D0C96EA2412793884699E29E2.jpg%20=241x36">
+<meta property="og:image" content="http://yoursite.com/2018/11/27/dl/第五门课-第一周/resources/549D1FAC5CCCD530211F4855989CC5E3.jpg%20=506x169">
+<meta property="og:updated_time" content="2018-12-12T08:34:14.282Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="第五门课-第一周">
-<meta name="twitter:description" content="循环神经网络基础RNN背景 什么是序列问题？比如语音识别，输入是一段音频，要求输出是一段文字Y。或者情感分析，输入评论，要求输出几颗星等。本质输入都是一段序列内容，其实就是X-&amp;gt;Y的映射问题 序列问题特点？可以看见，有些序列问题X,Y长度一致，有些不一致… 为什么不用标准神经网络处理序列问题： 输入输出不定长 序列上一些位置已经学到的文本信息内容不能在其他位置共享 比如如果神经网络已经学习到">
-<meta name="twitter:image" content="http://yoursite.com/2018/11/27/dl/第五门课-第一周/resources/5E6CE23C6A2573459E4A0E31A919B9B9.jpg">
+<meta name="twitter:description" content="[习题练习]Building+a+Recurrent+Neural+Network+-+Step+by+Step,主要讲是一步一步构建RNN基础网络和LSTM网络，理解运作原dinosaurus-island(character-level language model,练习使用基础RNN模型或者LSTM模型，学习一些文本，然后生成新的文)Improvise-music with an LSTM">
+<meta name="twitter:image" content="http://yoursite.com/2018/11/27/dl/第五门课-第一周/resources/5E6CE23C6A2573459E4A0E31A919B9B9.jpg%20=703x385">
 
 
 
@@ -409,40 +409,38 @@
       
 
       
-        <h3 id="循环神经网络基础"><a href="#循环神经网络基础" class="headerlink" title="循环神经网络基础"></a>循环神经网络基础</h3><h4 id="RNN背景"><a href="#RNN背景" class="headerlink" title="RNN背景"></a>RNN背景</h4><ul>
+        <p>[习题练习]<br><a href="https://github.com/yuancl/dl-algorithm/commit/76c81b18acdc941663d3c59cced76bf837384958" target="_blank" rel="noopener">Building+a+Recurrent+Neural+Network+-+Step+by+Step,主要讲是一步一步构建RNN基础网络和LSTM网络，理解运作原</a><br><a href="https://github.com/yuancl/dl-algorithm/tree/master/5-RecurrentNeuralNetworks/Week1/dinosaurus-island" target="_blank" rel="noopener">dinosaurus-island(character-level language model,练习使用基础RNN模型或者LSTM模型，学习一些文本，然后生成新的文)</a><br><a href="https://github.com/yuancl/dl-algorithm/tree/master/5-RecurrentNeuralNetworks/Week1/Jazz-improvisation-with-LSTM" target="_blank" rel="noopener">Improvise-music with an LSTM network,主要使用LSTM网络生成音</a></p>
+<h3 id="循环神经网络基础"><a href="#循环神经网络基础" class="headerlink" title="循环神经网络基础"></a>循环神经网络基础</h3><h4 id="RNN背景"><a href="#RNN背景" class="headerlink" title="RNN背景"></a>RNN背景</h4><ul>
 <li>什么是序列问题？<br>比如语音识别，输入是一段音频，要求输出是一段文字Y。或者情感分析，输入评论，要求输出几颗星等。本质输入都是一段序列内容，其实就是X-&gt;Y的映射问题</li>
 <li>序列问题特点？<br>可以看见，有些序列问题X,Y长度一致，有些不一致…</li>
 <li>为什么不用标准神经网络处理序列问题：<ul>
 <li>输入输出不定长</li>
 <li>序列上一些位置已经学到的文本信息内容不能在其他位置共享<ul>
 <li>比如如果神经网络已经学习到了在位置 1 出现的 Harry 可能是人名的一部分，那么如果 Harry 出现在其他位置，比如$x^{&lt; t &gt;}$时，它也能够<font color="blue">自动识别其为人名的一部分的话</font>，这就很棒了。这可能类似于你在卷积神经网络中看到的,<font color="red">你希望将部分图片里学到的内容快速推广到图片的其他部分</font>，而我们希望对序列数据也有相似的效果。和你在卷积网络中学到的类似，用一个更好的表达方式也能够让你减少模型中参数的数量</li>
-<li>RNN传递一个激活值到下一个时间步中进行计算，所以能够解决这个问题，适用于序列问题<img src="/2018/11/27/dl/第五门课-第一周/resources/5E6CE23C6A2573459E4A0E31A919B9B9.jpg"></li>
+<li>RNN传递一个激活值到下一个时间步中进行计算，所以能够解决这个问题，适用于序列问题<br><img src="resources/5E6CE23C6A2573459E4A0E31A919B9B9.jpg =703x385" alt="IMAGE"></li>
 </ul>
 </li>
 </ul>
 </li>
 <li>注意项：<ul>
 <li>$a^{<0>}$通常使用零向量作为零时刻的伪激活值</0></li>
-<li>注意多种不同的参数$W_{ax},W_{aa},W_{ya}$<img src="/2018/11/27/dl/第五门课-第一周/resources/EE130B0446706C75A520D2DA216849A0.jpg">
-</li>
+<li>注意多种不同的参数$W_{ax},W_{aa},W_{ya}$<br><img src="resources/EE130B0446706C75A520D2DA216849A0.jpg =702x407" alt="IMAGE"></li>
 </ul>
 </li>
 </ul>
 <h4 id="前向后向计算"><a href="#前向后向计算" class="headerlink" title="前向后向计算"></a>前向后向计算</h4><ul>
-<li>RNN cell<img src="/2018/11/27/dl/第五门课-第一周/resources/E522B44F0437902AC27802C6327A1E05.jpg"></li>
+<li>RNN cell<br><img src="resources/E522B44F0437902AC27802C6327A1E05.jpg =701x309" alt="IMAGE"></li>
 <li><p>前向传播</p>
 <ul>
 <li>t时刻：<br>$a^{&lt; t &gt;}=g_1(W_{aa}a^{t-1} + W_{ax}x^{t} + b_a)$<br>$\hat y^{t} = g_2(W_{ya}a^{&lt; t &gt;} + b_y)$</li>
-<li>激活函数通常使用tanh，y输出激活函数视情况而定<img src="/2018/11/27/dl/第五门课-第一周/resources/65006F27B61C583E368EE798ADB80414.jpg">
-</li>
+<li>激活函数通常使用tanh，y输出激活函数视情况而定<br><img src="resources/65006F27B61C583E368EE798ADB80414.jpg =720x225" alt="IMAGE"></li>
 </ul>
 </li>
 <li><p>后向传播</p>
 <ul>
 <li>对于一个元素的损失函数：<br>$L^{&lt; t &gt;}(\hat y^{&lt; t &gt;},y^{t}) = -y^{&lt; t &gt;}log\hat y^{&lt; t &gt;} - (1-y^{&lt; t &gt;})log(1-\hat y^{&lt; t &gt;})$</li>
-<li>整体序列的损失函数，就是将各时间步的损失值函数相加<br>$L(\hat y,y) = \sum_{t-1}^{T_x}L^{&lt; t &gt;}(\hat y^{&lt; t &gt;},y^{t})$<img src="/2018/11/27/dl/第五门课-第一周/resources/4D96ADA1B3420E7CC0849AA6FC92D737.jpg"></li>
-<li>同样也是使用bp算法求偏导，进行后向计算，不用的是RNN会有多个输出$\hat y$<img src="/2018/11/27/dl/第五门课-第一周/resources/B12CDA828E7D580472ABDA550A3FA40A.jpg">
-</li>
+<li>整体序列的损失函数，就是将各时间步的损失值函数相加<br>$L(\hat y,y) = \sum_{t-1}^{T_x}L^{&lt; t &gt;}(\hat y^{&lt; t &gt;},y^{t})$<br><img src="resources/4D96ADA1B3420E7CC0849AA6FC92D737.jpg =693x394" alt="IMAGE"></li>
+<li>同样也是使用bp算法求偏导，进行后向计算，不用的是RNN会有多个输出$\hat y$<br><img src="resources/B12CDA828E7D580472ABDA550A3FA40A.jpg =692x315" alt="IMAGE"></li>
 </ul>
 </li>
 </ul>
@@ -450,9 +448,8 @@
 <li>输入输出长度分类：<ul>
 <li>many-to-many：机器翻译</li>
 <li>many-to-one：情感分类</li>
-<li>one-to-one：小型标准神经网络<img src="/2018/11/27/dl/第五门课-第一周/resources/9865F55A9CD63F0A3BAFBC9F28380036.jpg"></li>
-<li>one-to-many：音乐作曲<img src="/2018/11/27/dl/第五门课-第一周/resources/23C80D48C0008D0B3730BC7EE8A8A6E8.jpg">
-</li>
+<li>one-to-one：小型标准神经网络<br><img src="resources/9865F55A9CD63F0A3BAFBC9F28380036.jpg =705x366" alt="IMAGE"></li>
+<li>one-to-many：音乐作曲<br><img src="resources/23C80D48C0008D0B3730BC7EE8A8A6E8.jpg =702x336" alt="IMAGE"></li>
 </ul>
 </li>
 </ul>
@@ -466,8 +463,7 @@
 <ul>
 <li>将每个单词都转换成对应的one-hot向量，也就是词典中的索引，其中也要注意EOS(结尾符),UNK(未知单词),标点符号</li>
 <li>每一层$\hat y$的输出，都是预测该层输入词在字典中出现的概率</li>
-<li>最后的输出是每层条件概率的乘积<img src="/2018/11/27/dl/第五门课-第一周/resources/0499490A2E7A743A094E4A97B5DB3E28.jpg">
-</li>
+<li>最后的输出是每层条件概率的乘积<br><img src="resources/0499490A2E7A743A094E4A97B5DB3E28.jpg =706x399" alt="IMAGE"></li>
 </ul>
 </li>
 </ul>
@@ -479,7 +475,7 @@
 </ul>
 <h4 id="RNN中的梯度问题"><a href="#RNN中的梯度问题" class="headerlink" title="RNN中的梯度问题"></a>RNN中的梯度问题</h4><ul>
 <li>梯度消失：<ul>
-<li>网络的输出$\hat y$得到的梯度很难传播回去，很难影响靠前层的权重，很难影响前面层(编号 5 所示的层)的计算<img src="/2018/11/27/dl/第五门课-第一周/resources/81FC8B8F333615A20A24E065D6ED2A80.jpg"></li>
+<li>网络的输出$\hat y$得到的梯度很难传播回去，很难影响靠前层的权重，很难影响前面层(编号 5 所示的层)的计算<br><img src="resources/81FC8B8F333615A20A24E065D6ED2A80.jpg =703x438" alt="IMAGE"></li>
 <li>基础RNN也同样存在这个问题：前一层名词的单复数和难影响到厚层的动词单复数，很难传递(也是因为输出很难传到前层)</li>
 <li>如何解决：<font color="blue">看后面的GRU和LSTM</font></li>
 </ul>
@@ -498,7 +494,7 @@
 </li>
 <li>新增变量：门控制变量<ul>
 <li>计算逻辑：如下图3标记中，$\Gamma _u^{&lt; t &gt;} = tanh(W_u[C^{&lt; t-1 &gt;}, x^{&lt; t &gt;}] + b_u)$</li>
-<li>作用：决定什么更新记忆细胞，是由sigmoid激活，如果为1，才更新C值，所以前面层次的值就可以一直保持到后面<img src="/2018/11/27/dl/第五门课-第一周/resources/50749AC4B17773F4D8BC728B49BD2529.jpg"></li>
+<li>作用：决定什么更新记忆细胞，是由sigmoid激活，如果为1，才更新C值，所以前面层次的值就可以一直保持到后面<br><img src="resources/50749AC4B17773F4D8BC728B49BD2529.jpg =693x382" alt="IMAGE"></li>
 </ul>
 </li>
 <li><p>记忆细胞更新逻辑：<br>如下图5标记中,逻辑门为1才更新C值(或者接近1值，新值C的权重更大)<br>$C^{&lt; t &gt;} = \Gamma _u<em>\hat C^{&lt; t &gt;} + (1-\Gamma _u)</em> C^{&lt; t-1 &gt;}$</p>
@@ -509,23 +505,20 @@
 <h4 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h4><ul>
 <li>同时记忆细胞c可以是多维向量，这样可以记忆很多的内容</li>
 <li>通过完成的GRU还会有一个相关门:这个相关门告诉你计算出的候选值$\hat C$和$C^{&lt; t-1 &gt;}$有多大的相关性</li>
-<li>$\Gamma _r^{&lt; t &gt;} = tanh(W_r[C^{&lt; t-1 &gt;}, x^{&lt; t &gt;}] + b_r)$<img src="/2018/11/27/dl/第五门课-第一周/resources/FC1F67CE7DCFC22BF11941ED49367937.jpg">
-</li>
+<li>$\Gamma _r^{&lt; t &gt;} = tanh(W_r[C^{&lt; t-1 &gt;}, x^{&lt; t &gt;}] + b_r)$<br><img src="resources/FC1F67CE7DCFC22BF11941ED49367937.jpg =478x213" alt="IMAGE"></li>
 </ul>
 <h3 id="LSTM-Long-short-term-memory"><a href="#LSTM-Long-short-term-memory" class="headerlink" title="LSTM(Long short term memory)"></a>LSTM(Long short term memory)</h3><h4 id="基础-1"><a href="#基础-1" class="headerlink" title="基础"></a>基础</h4><ul>
-<li>LSTM-cell<img src="/2018/11/27/dl/第五门课-第一周/resources/77E989F6FDDCB09EB5933E4BDEBA51EF.jpg"></li>
+<li>LSTM-cell<br><img src="resources/77E989F6FDDCB09EB5933E4BDEBA51EF.jpg =880x430" alt="IMAGE"></li>
 <li>遗忘门($\Gamma_f$)，让记忆细胞去选择更新新的候选值还是遗忘旧的值<br>$C^{&lt; t &gt;} = \Gamma _u<em>\hat C^{&lt; t &gt;} + (1-\Gamma_f)</em> C^{&lt; t-1 &gt;}$</li>
 <li>输出门($\Gamma_o$), $a^{&lt; t &gt;} = \Gamma_o*tanh(c^{&lt; t &gt;})$</li>
-<li><p>LSTM重要公式及前向传播：</p>
-<img src="/2018/11/27/dl/第五门课-第一周/resources/30F5B97C5D3CB3434341F30985EE7EFB.jpg">  
+<li><p>LSTM重要公式及前向传播：<br><img src="resources/30F5B97C5D3CB3434341F30985EE7EFB.jpg =1007x318" alt="IMAGE">  </p>
 </li>
 <li><p>反向传播：就是BP算法，由后向前，对每一个参数求偏导数，对门$\Gamma$,参数W,偏置b，以及最后的隐藏状态，记忆细胞，输入x</p>
 </li>
 <li>GRU与LSTM<br>都能够捕获更加深层的神经网络，GRU的优点是比LSTM简单一点的模型，只有两个门，在计算上也运行得更快。但LSTM在历史上是更优的选择</li>
 </ul>
 <h3 id="双向RNN"><a href="#双向RNN" class="headerlink" title="双向RNN"></a>双向RNN</h3><ul>
-<li>背景：有些场景不仅需要参考过去，还应该参考未来<img src="/2018/11/27/dl/第五门课-第一周/resources/7AFE741D0C96EA2412793884699E29E2.jpg">
-<img src="/2018/11/27/dl/第五门课-第一周/resources/549D1FAC5CCCD530211F4855989CC5E3.jpg"></li>
+<li>背景：有些场景不仅需要参考过去，还应该参考未来<br><img src="resources/7AFE741D0C96EA2412793884699E29E2.jpg =241x36" alt="IMAGE"><br><img src="resources/549D1FAC5CCCD530211F4855989CC5E3.jpg =506x169" alt="IMAGE"></li>
 <li>缺点：总数需要一段完整的内容<ul>
 <li>NLP一般就比较适合，应该经常能够获得完整的文章</li>
 <li>语音翻译等就不是很适合了，因为要获得已经完整的一段话语通常不是很现实</li>
@@ -643,7 +636,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-count">20</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
