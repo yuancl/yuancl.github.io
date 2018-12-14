@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="定义：roe=净利润/所有者权益它反映股东为企业的每一块钱投入所能获取的回报，指标的结果越高表明企业在单位资本上获取盈利的能力越好 投资者的角度ROE核心精髓:投资者的角度——机会成本 理解机会成本机会成本是一个经济学中的思维，是指你选择某一个机会，而放弃其他机会所能带给你的最高价值 举例：我在开包子铺时，投入了30万元的本金，这个行为对于我来说意味着什么呢？假设目前银行定期存款的利息为4%，那么">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ROE(上)(机会成本,经营效率)">
+<meta property="og:url" content="http://yoursite.com/2018/12/13/finance/ROE(上)(机会成本,经营效率)/index.html">
+<meta property="og:site_name" content="雷哥的博客">
+<meta property="og:description" content="定义：roe=净利润/所有者权益它反映股东为企业的每一块钱投入所能获取的回报，指标的结果越高表明企业在单位资本上获取盈利的能力越好 投资者的角度ROE核心精髓:投资者的角度——机会成本 理解机会成本机会成本是一个经济学中的思维，是指你选择某一个机会，而放弃其他机会所能带给你的最高价值 举例：我在开包子铺时，投入了30万元的本金，这个行为对于我来说意味着什么呢？假设目前银行定期存款的利息为4%，那么">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-12-14T10:50:19.855Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ROE(上)(机会成本,经营效率)">
+<meta name="twitter:description" content="定义：roe=净利润/所有者权益它反映股东为企业的每一块钱投入所能获取的回报，指标的结果越高表明企业在单位资本上获取盈利的能力越好 投资者的角度ROE核心精髓:投资者的角度——机会成本 理解机会成本机会成本是一个经济学中的思维，是指你选择某一个机会，而放弃其他机会所能带给你的最高价值 举例：我在开包子铺时，投入了30万元的本金，这个行为对于我来说意味着什么呢？假设目前银行定期存款的利息为4%，那么">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '雷哥'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/12/13/finance/ROE(上)(机会成本,经营效率)/">
+
+
+
+
+
+  <title>ROE(上)(机会成本,经营效率) | 雷哥的博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">雷哥的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/13/finance/ROE(上)(机会成本,经营效率)/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">ROE(上)(机会成本,经营效率)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-13T07:27:12+08:00">
+                2018-12-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/金融/" itemprop="url" rel="index">
+                    <span itemprop="name">金融</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/金融/财务指标/" itemprop="url" rel="index">
+                    <span itemprop="name">财务指标</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="定义：roe-净利润-所有者权益"><a href="#定义：roe-净利润-所有者权益" class="headerlink" title="定义：roe=净利润/所有者权益"></a>定义：roe=净利润/所有者权益</h4><p>它反映股东为企业的每一块钱投入所能获取的回报，指标的结果越高表明企业在单位资本上获取盈利的能力越好</p>
+<h3 id="投资者的角度"><a href="#投资者的角度" class="headerlink" title="投资者的角度"></a>投资者的角度</h3><h4 id="ROE核心精髓-投资者的角度——机会成本"><a href="#ROE核心精髓-投资者的角度——机会成本" class="headerlink" title="ROE核心精髓:投资者的角度——机会成本"></a>ROE核心精髓:投资者的角度——机会成本</h4><ul>
+<li>理解机会成本<br>机会成本是一个经济学中的思维，是指你选择某一个机会，而放弃<font color="red">其他机会所能带给你的最高价值</font><ul>
+<li>举例：<br>我在开包子铺时，投入了30万元的本金，这个行为对于我来说意味着什么呢？<br>假设目前银行定期存款的利息为<font color="blue">4%</font>，那么就意味着我为了开这个包子<font color="blue">铺放弃了1年1.2万的固定收益</font><br>假设目前理财产品的预期收益率是<font color="blue">7%</font>，那么就意味着为了开这个包子铺<font color="blue">放弃了1年2.1万</font>的固定收益（刚性兑付）。<br>如果某个P2P平台的产品承诺我每年能获得20%的收益，那么就意味着我同样为了开这个包子铺放弃了1年6万元的潜在收益（虽然很有可能本金都被坑了）<br>因此，对我而言，我的包子铺必须每年给我产生<font color="blue">至少不低于2.1万（7%）的净利润，不然从机会成本的思维来看，都是负收益的。</font><br>如果把我的包子铺看作一家上市公司，那么这里的<font color="red">7%即是股东要求上市公司能够达到的净资产收益率（ROE）水平</font>，作为一个理性人，如果一家公司在所能预期的未来都无法达到这个标准，那么显然是不值得投资的</li>
+</ul>
+</li>
+</ul>
+<h4 id="Roe背后的深层含义是股东的机会成本"><a href="#Roe背后的深层含义是股东的机会成本" class="headerlink" title="Roe背后的深层含义是股东的机会成本"></a>Roe背后的深层含义是股东的机会成本</h4><ul>
+<li><p>为什么通常喜欢去选那些Roe比较高的股票</p>
+<ul>
+<li>因为无论在什么地方，在什么时间，投资的终极目标都是在安全的情况下获取更高地回报</li>
+<li>因为两只股票，一只ROE30%，一只ROE10%，如果预期未来的利润增长率相同，<font color="blue">如果你选择那只10%的股票则意味着你的机会成本是30%</font></li>
+</ul>
+</li>
+<li><p>一家公司ROE的高低，会直接影响到投资者的决策</p>
+<ul>
+<li>一家ROE常年保持在很高水平上的公司，无论是定向增发还是寻求被他人并购，总能很轻松的拿到资本</li>
+</ul>
+</li>
+<li><p>把同样的道理放到宏观的框架上来看，为什么历史上，只要美联储不断的加息，美国股市好几次最终都迎来崩溃</p>
+<ul>
+<li>因为投资者的机会成本被抬高了（<font color="purple">我理解是指的加杠杆，利息增加</font>）。</li>
+<li>一部分人先从价格已经高高在上的股票市场逐渐把资金搬运到固定收益（比如债权）市场中去，随着时间的流逝市场中的投资者的一致预期就会彻底迎来拐点</li>
+</ul>
+</li>
+</ul>
+<h3 id="管理者的角度-经营效率"><a href="#管理者的角度-经营效率" class="headerlink" title="管理者的角度(经营效率)"></a>管理者的角度(经营效率)</h3><h4 id="巴菲特说："><a href="#巴菲特说：" class="headerlink" title="巴菲特说："></a>巴菲特说：</h4><p>以合理的价格，购买非常优秀公司的股票；而不是以超低的价格，购买平庸公司的股票</p>
+<ul>
+<li>怎么样算是优秀的公司呢<ul>
+<li>从长期来看，投资一只股票的回报率跟企业发展是息息相关的，如果一家企业40年来的ROE一直是6%，<font color="blue">那长期持有40年后你的平均收益率不会和6%有什么区别</font>———即使你当初买的时候捡的便宜货。</li>
+<li>但如果该企业在20~30年的ROE都是18%，即使你当初的出价较高其回报依然会令你满意</li>
+</ul>
+</li>
+</ul>
+<h4 id="ROE不同行业10年区别"><a href="#ROE不同行业10年区别" class="headerlink" title="ROE不同行业10年区别"></a>ROE不同行业10年区别</h4><ul>
+<li>某些行业长期维持在比较高的ROE水平上（比如<font color="blue">互联网、医药、白酒</font>），而另外一些行业则持续保持着低ROE水平（诸如铁路、电力公共事业、造纸、货运等）<ul>
+<li>因此，我们很难去跨行业低评价不同管理层的能力</li>
+</ul>
+</li>
+</ul>
+<h4 id="衡量管理团队是否优秀最重要的标准之一"><a href="#衡量管理团队是否优秀最重要的标准之一" class="headerlink" title="衡量管理团队是否优秀最重要的标准之一"></a>衡量管理团队是否优秀最重要的标准之一</h4><ul>
+<li>如果是同一个行业中两家公司股东在初始投入时的资本相似,这个时候ROE水平的高低就成为了衡量管理团队是否优秀最重要的标准之一。</li>
+<li>从管理者的角度看，<font color="red">ROE是企业综合运用各项资源（利润率、总资产周转率，借助资金杠杆）最终取得的经营成果的大小</font><ul>
+<li>也就是说，高Roe指标对于我们评价一家企业时的意义就是确认它的管理团队是否足够优秀的入口，管理者是否恰当并且高效地运用好了企业所拥有的资源，与之带来的则是企业是否拥有足够深的护城河</li>
+<li>多年一直维持在高ROE水平的公司往往伴随着比较深的护城河</li>
+</ul>
+</li>
+</ul>
+<h4 id="企业价值创造的衡量器"><a href="#企业价值创造的衡量器" class="headerlink" title="企业价值创造的衡量器"></a>企业价值创造的衡量器</h4><ul>
+<li><p>回报率(指对投资者的回报率)(<font color="blue">净利润/净资产</font>,下一节有解释)和增长率(企业创收的增长率)<br>简化抽取出来的核心就是——企业创造价值<font color="blue">取决于回报率和增长率这两个变量:</font></p>
+<ul>
+<li>无论资金来源的渠道是哪些，毫无疑问，他们各自都是有机会成本的。</li>
+<li>总结起来就是，企业创造价值的正确打开方式就是<font color="red">以高于融资成本的资本回报率来实现增长，并且最终转化为现金</font>(否则就相当于负增长，因为机会成本)</li>
+<li>也就是说，如果一个企业的ROE过低，那么越扩展，他的越多的’负资产’  </li>
+</ul>
+</li>
+<li><p>分辨一家公司是否值得投资：增长率<br>你去做行业分析、产品分析、财务分析、竞争分析，估值模型。到了最后都会归结为对企业未来<font color="red">增长率</font>来拍脑袋，同时结合以上所有对企业基本面信息的归纳分析来<font color="blue">测算以目前这个价格买进去回报率是否合算</font></p>
+<ul>
+<li>巴菲特说：<ul>
+<li>将价格的问题放在一边，最值得拥有的公司是那种在一段很长时期内能以<font color="blue">非常高的回报率去利用大笔不断增长的资产</font></li>
+<li>最不值得拥有的公司是那种必须，或者将要反其道而行之的公司——那就是<font color="blue">一贯以非常低的回报率使用不断膨胀的资产</font></li>
+</ul>
+</li>
+<li>为什么巴菲特在这段话里特别强调了回报率，而不是增长率<ul>
+<li><font color="purple">因为回报率是增长率的前提</font>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/06/dl/第五门课-第三周/" rel="next" title="第五门课-第三周">
+                <i class="fa fa-chevron-left"></i> 第五门课-第三周
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/13/finance/ROE(中)(杜邦分析法)/" rel="prev" title="ROE(中)(杜邦分析法)">
+                ROE(中)(杜邦分析法) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/favicon.ico" alt="雷哥">
+          <p class="site-author-name" itemprop="name">雷哥</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#定义：roe-净利润-所有者权益"><span class="nav-number">1.</span> <span class="nav-text">定义：roe=净利润/所有者权益</span></a></li></ol><li class="nav-item nav-level-3"><a class="nav-link" href="#投资者的角度"><span class="nav-number"></span> <span class="nav-text">投资者的角度</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ROE核心精髓-投资者的角度——机会成本"><span class="nav-number">1.</span> <span class="nav-text">ROE核心精髓:投资者的角度——机会成本</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Roe背后的深层含义是股东的机会成本"><span class="nav-number">2.</span> <span class="nav-text">Roe背后的深层含义是股东的机会成本</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#管理者的角度-经营效率"><span class="nav-number"></span> <span class="nav-text">管理者的角度(经营效率)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#巴菲特说："><span class="nav-number">1.</span> <span class="nav-text">巴菲特说：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ROE不同行业10年区别"><span class="nav-number">2.</span> <span class="nav-text">ROE不同行业10年区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#衡量管理团队是否优秀最重要的标准之一"><span class="nav-number">3.</span> <span class="nav-text">衡量管理团队是否优秀最重要的标准之一</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#企业价值创造的衡量器"><span class="nav-number">4.</span> <span class="nav-text">企业价值创造的衡量器</span></a></li></ol></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-雷哥"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">雷哥</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Gemini
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
