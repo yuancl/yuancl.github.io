@@ -78,7 +78,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="机器学习,机器学习算法,">
 
 
 
@@ -95,21 +95,22 @@
 
 
 <meta name="description" content="参考链接 目的 BP 算法的目的在于为优化函数（比如梯度下降、其它的高级优化方法）提供梯度值，即使用 BP 算法计算代价函数（cost function）对每个参数的偏导值，其数学形式为：$\frac{\partial}{\partial\theta^l_{ij}}J(\theta)$，并最终得到的值存放在矩阵$\Delta^{(l)}$中。  网络结构 简单神经网络结构： 单个数据的代价函数：">
+<meta name="keywords" content="机器学习,机器学习算法">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Backpropagation">
 <meta property="og:url" content="http://yoursite.com/2018/06/20/ml/Backpropagation/index.html">
 <meta property="og:site_name" content="雷哥的博客">
 <meta property="og:description" content="参考链接 目的 BP 算法的目的在于为优化函数（比如梯度下降、其它的高级优化方法）提供梯度值，即使用 BP 算法计算代价函数（cost function）对每个参数的偏导值，其数学形式为：$\frac{\partial}{\partial\theta^l_{ij}}J(\theta)$，并最终得到的值存放在矩阵$\Delta^{(l)}$中。  网络结构 简单神经网络结构： 单个数据的代价函数：">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2018/06/20/ml/Backpropagation/resources/65C926A1DF9A4F2D9EBB22BEC38F663F.jpg">
-<meta property="og:image" content="http://yoursite.com/2018/06/20/ml/Backpropagation/resources/2A341859393F3EFDA0E5F215414C2CD5.jpg">
-<meta property="og:image" content="http://yoursite.com/2018/06/20/ml/Backpropagation/resources/0A913A35D7E650A4E2C65A6A7AF52C4F.jpg">
-<meta property="og:image" content="http://yoursite.com/2018/06/20/ml/Backpropagation/resources/9005E13A2814A7CE44469B4204073DE9.jpg">
-<meta property="og:updated_time" content="2018-12-15T11:50:20.978Z">
+<meta property="og:image" content="http://yoursite.com/2018/06/20/ml/Backpropagation/resources/65C926A1DF9A4F2D9EBB22BEC38F663F.jpg%20=560x401">
+<meta property="og:image" content="http://yoursite.com/2018/06/20/ml/Backpropagation/resources/2A341859393F3EFDA0E5F215414C2CD5.jpg%20=600x97">
+<meta property="og:image" content="http://yoursite.com/2018/06/20/ml/Backpropagation/resources/0A913A35D7E650A4E2C65A6A7AF52C4F.jpg%20=619x525">
+<meta property="og:image" content="http://yoursite.com/2018/06/20/ml/Backpropagation/resources/9005E13A2814A7CE44469B4204073DE9.jpg%20=672x493">
+<meta property="og:updated_time" content="2018-12-19T04:10:08.665Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Backpropagation">
 <meta name="twitter:description" content="参考链接 目的 BP 算法的目的在于为优化函数（比如梯度下降、其它的高级优化方法）提供梯度值，即使用 BP 算法计算代价函数（cost function）对每个参数的偏导值，其数学形式为：$\frac{\partial}{\partial\theta^l_{ij}}J(\theta)$，并最终得到的值存放在矩阵$\Delta^{(l)}$中。  网络结构 简单神经网络结构： 单个数据的代价函数：">
-<meta name="twitter:image" content="http://yoursite.com/2018/06/20/ml/Backpropagation/resources/65C926A1DF9A4F2D9EBB22BEC38F663F.jpg">
+<meta name="twitter:image" content="http://yoursite.com/2018/06/20/ml/Backpropagation/resources/65C926A1DF9A4F2D9EBB22BEC38F663F.jpg%20=560x401">
 
 
 
@@ -225,16 +226,6 @@
         </li>
       
         
-        <li class="menu-item menu-item-about">
-          <a href="/about" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
-            
-            关于
-          </a>
-        </li>
-      
-        
         <li class="menu-item menu-item-archives">
           <a href="/archives" rel="section">
             
@@ -251,16 +242,6 @@
               <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
             
             标签
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-sitemap">
-          <a href="/sitemap.xml" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>
-            
-            站点地图
           </a>
         </li>
       
@@ -379,6 +360,11 @@
           
 
           
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
 
           
 
@@ -402,9 +388,8 @@
 <li>BP 算法的目的在于为优化函数（比如梯度下降、其它的高级优化方法）提供梯度值，即使用 BP 算法计算代价函数（cost function）对每个参数的偏导值，其数学形式为：$\frac{\partial}{\partial\theta^l_{ij}}J(\theta)$，并最终得到的值存放在矩阵$\Delta^{(l)}$中。</li>
 </ul>
 <h4 id="网络结构"><a href="#网络结构" class="headerlink" title="网络结构"></a>网络结构</h4><ul>
-<li>简单神经网络结构：<img src="/2018/06/20/ml/Backpropagation/resources/65C926A1DF9A4F2D9EBB22BEC38F663F.jpg"></li>
-<li>单个数据的代价函数：<img src="/2018/06/20/ml/Backpropagation/resources/2A341859393F3EFDA0E5F215414C2CD5.jpg">
-</li>
+<li>简单神经网络结构：<br><img src="resources/65C926A1DF9A4F2D9EBB22BEC38F663F.jpg =560x401" alt="IMAGE"></li>
+<li>单个数据的代价函数：<br><img src="resources/2A341859393F3EFDA0E5F215414C2CD5.jpg =600x97" alt="IMAGE"></li>
 </ul>
 <h4 id="神经网络学习算法图概览"><a href="#神经网络学习算法图概览" class="headerlink" title="神经网络学习算法图概览"></a>神经网络学习算法图概览</h4><ul>
 <li><p>清楚一个函数的求导对象：输入值<br>给定一个函数 f(x)，它的首要求导对象是什么？就是它的输入值，是自变量 x。那 f(g(x)) 呢？即把g(x) 当作一个整体作为它的输入值，它的自变量。那么 g(x) 这个整体就是它的首要求导对象。因此，一个函数的求导对象是它的输入值，是它的自变量。弄清楚这一点，才能在求多元函数偏导的链式法则中游刃有余。</p>
@@ -414,10 +399,10 @@
 <li><p>神经网络的学习(训练)流程(前馈传播和BP算法)<br>对照文首给出的图 1.1 神经网络的模型图，应该很容易理解图 3.1 的含义，它大致地展现了神经网络的学习（训练）流程。前馈传播算法自下而上地向上计算，最终可以得到 a(3)，进一步可以计算得到 J(Θ)。而 BP 算法自顶向下，层层求偏导，最终得到了每个参数的梯度值。下面一个小节将仔细介绍本文的主题，即 BP 算法的流程图解。</p>
 </li>
 </ul>
-<img src="/2018/06/20/ml/Backpropagation/resources/0A913A35D7E650A4E2C65A6A7AF52C4F.jpg">
+<p><img src="resources/0A913A35D7E650A4E2C65A6A7AF52C4F.jpg =619x525" alt="IMAGE"></p>
 <h4 id="BP-算法的直观图解"><a href="#BP-算法的直观图解" class="headerlink" title="BP 算法的直观图解"></a>BP 算法的直观图解</h4><ul>
 <li>BP 算法的流程在这张图中清晰可见：自顶向下（对应神经网络模型为自输出层向输入层）层层求偏导(核心：找准谁是谁的输入，对求偏导尤其重要)</li>
-<li>所以 BP 算法即反向传播算法，<font color="red">就是自顶向下求代价函数$J(\theta)$ 对各个参数$\theta^l_{ij}$ 偏导($\frac{\partial}{\partial\theta^l_{ij}}J(\theta)$)的过程</font>，对应到神经网络模型中即自输出层向输入层层层求偏导<img src="/2018/06/20/ml/Backpropagation/resources/9005E13A2814A7CE44469B4204073DE9.jpg"></li>
+<li>所以 BP 算法即反向传播算法，<font color="red">就是自顶向下求代价函数$J(\theta)$ 对各个参数$\theta^l_{ij}$ 偏导($\frac{\partial}{\partial\theta^l_{ij}}J(\theta)$)的过程</font>，对应到神经网络模型中即自输出层向输入层层层求偏导<br><img src="resources/9005E13A2814A7CE44469B4204073DE9.jpg =672x493" alt="IMAGE"></li>
 <li><p>从这里可以看出：，为什么要使用BP算法：<font color="red"></font></p>
 <ul>
 <li>自输出层向输入层（即反向传播），逐层求偏导，在这个过程中逐渐得到各个层的参数梯度。</li>
@@ -442,6 +427,14 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/机器学习/" rel="tag"># 机器学习</a>
+          
+            <a href="/tags/机器学习算法/" rel="tag"># 机器学习算法</a>
+          
+        </div>
+      
 
       
       
@@ -461,8 +454,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/09/01/dl/第二门课-第一周/" rel="prev" title="第二门课-第一周">
-                第二门课-第一周 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/06/22/ml/PCA/" rel="prev" title="PCA">
+                PCA <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -530,7 +523,7 @@
           <img class="site-author-image" itemprop="image" src="/images/favicon.ico" alt="雷哥">
           <p class="site-author-name" itemprop="name">雷哥</p>
            
-              <p class="site-description motion-element" itemprop="description"></p>
+              <p class="site-description motion-element" itemprop="description">不积跬步无以至千里</p>
           
         </div>
         <nav class="site-state motion-element">
@@ -538,7 +531,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">26</span>
+                <span class="site-state-item-count">28</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -555,6 +548,15 @@
             </div>
           
 
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
           
 
         </nav>
@@ -630,6 +632,26 @@
 
 
         
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
 
         
       </div>

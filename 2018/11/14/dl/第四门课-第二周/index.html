@@ -78,7 +78,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="深度学习,深度学习吴恩达课程,">
 
 
 
@@ -95,6 +95,7 @@
 
 
 <meta name="description" content="习题代码 LeNet5 它是针对灰色图片训练的 架构：CONV-POOL-CONV-POOL-FC-FC-SOFTMAX CONV使用5x5 filter，POOL使用2x2，padding都为0，图片宽高在逐渐减小，信道数在逐渐增大 还有一种模型多卷积，一个池化，多卷积，一个池化…现在也经常使用 经典LeNet5使用了非常复杂的计算方式，每个过滤器都采用和输入模块一样的通道数量，现在一般不会这么">
+<meta name="keywords" content="深度学习,深度学习吴恩达课程">
 <meta property="og:type" content="article">
 <meta property="og:title" content="第四门课-第二周">
 <meta property="og:url" content="http://yoursite.com/2018/11/14/dl/第四门课-第二周/index.html">
@@ -114,7 +115,7 @@
 <meta property="og:image" content="http://yoursite.com/2018/11/14/dl/第四门课-第二周/resources/CF1D396466A7E5FD698DDE8160C77CF0">
 <meta property="og:image" content="http://yoursite.com/2018/11/14/dl/第四门课-第二周/resources/B4825BB37EAF8E3586791DEDE6D02E25">
 <meta property="og:image" content="http://yoursite.com/2018/11/14/dl/第四门课-第二周/resources/0885F9F3C1D49D58CB4CA297DC68E67B">
-<meta property="og:updated_time" content="2018-11-18T10:02:51.018Z">
+<meta property="og:updated_time" content="2018-12-17T06:24:44.450Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="第四门课-第二周">
 <meta name="twitter:description" content="习题代码 LeNet5 它是针对灰色图片训练的 架构：CONV-POOL-CONV-POOL-FC-FC-SOFTMAX CONV使用5x5 filter，POOL使用2x2，padding都为0，图片宽高在逐渐减小，信道数在逐渐增大 还有一种模型多卷积，一个池化，多卷积，一个池化…现在也经常使用 经典LeNet5使用了非常复杂的计算方式，每个过滤器都采用和输入模块一样的通道数量，现在一般不会这么">
@@ -234,16 +235,6 @@
         </li>
       
         
-        <li class="menu-item menu-item-about">
-          <a href="/about" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
-            
-            关于
-          </a>
-        </li>
-      
-        
         <li class="menu-item menu-item-archives">
           <a href="/archives" rel="section">
             
@@ -260,16 +251,6 @@
               <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
             
             标签
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-sitemap">
-          <a href="/sitemap.xml" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>
-            
-            站点地图
           </a>
         </li>
       
@@ -388,6 +369,11 @@
           
 
           
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
 
           
 
@@ -436,7 +422,7 @@
 </ul>
 <h5 id="ResNets"><a href="#ResNets" class="headerlink" title="ResNets"></a>ResNets</h5><p><a href="https://github.com/yuancl/dl-algorithm/tree/master/4-ConvolutionNeuralNetworks/Week2/ResNets" target="_blank" rel="noopener">可参看习题</a></p>
 <ul>
-<li><strong>解决问题</strong><br>网络越深，越容易出现梯度消失问题，因为在反向传播算法就是梯度的时候，和各个层级的系数相关，相乘，所以很容易出现接近于0去情况，所以一开始就很快出现梯度消失问题，导致学习(learning speed)非常慢，性能很差(图上可以看见，越是前面的层级问题越严重)<img src="/2018/11/14/dl/第四门课-第二周/resources/61F21AE03F6475441BFAE38139170DFE.jpg">
+<li><strong>解决问题</strong>(注意和梯度优化算法指数加权平均的区别)<br>网络越深，越容易出现梯度消失问题，因为在反向传播算法就是梯度的时候，和各个层级的系数相关，相乘，所以很容易出现接近于0去情况，所以一开始就很快出现梯度消失问题，导致学习(learning speed)非常慢，性能很差(图上可以看见，越是前面的层级问题越严重)<img src="/2018/11/14/dl/第四门课-第二周/resources/61F21AE03F6475441BFAE38139170DFE.jpg" title="=561x267">
 </li>
 </ul>
 <ul>
@@ -461,12 +447,12 @@
 <h5 id="Inception-GoogleNet"><a href="#Inception-GoogleNet" class="headerlink" title="Inception(GoogleNet)"></a>Inception(GoogleNet)</h5><ul>
 <li><p>网络中的网络已经1x1卷积</p>
 <ul>
-<li>改变通道数通道数<img src="/2018/11/14/dl/第四门课-第二周/resources/59405B33A45ED9994661CC21A765DDC6"></li>
+<li>改变通道数<img src="/2018/11/14/dl/第四门课-第二周/resources/59405B33A45ED9994661CC21A765DDC6"></li>
 </ul>
 </li>
 <li><p>Incption模块</p>
 <ul>
-<li>作用：人工确定卷积层中的过滤器类型，或者确定是否需要创建卷积层或池化层</li>
+<li>作用：避免人工确定卷积层中的过滤器类型，或者确定是否需要创建卷积层或池化层</li>
 <li>各种大小filter，pool相组合。缺点是计算复杂<img src="/2018/11/14/dl/第四门课-第二周/resources/A1892AE97B02F31DB72FC0BC2C6B5AA5"></li>
 <li>1x1卷积(瓶颈层)，降低通道数，降低计算复杂性(使用瓶颈层来缩小网络)<img src="/2018/11/14/dl/第四门课-第二周/resources/943071A79A4B72BD6C85D71BFD5B213B">
 使用瓶颈层来缩小网络<img src="/2018/11/14/dl/第四门课-第二周/resources/2895B32491E5564FDB45A8903147F4F2"></li>
@@ -485,7 +471,7 @@
 </li>
 <li><p>如果构建自己的CV网络</p>
 <ul>
-<li>使用开源的实现方案：使用别人已经训练好的网络结构及权重，通车能够进展得相当快，用这个作为预训练，然后转换到你感兴趣的任务上</li>
+<li>使用开源的实现方案：使用别人已经训练好的网络结构及权重，通常能够进展得相当快，用这个作为预训练，然后转换到你感兴趣的任务上</li>
 <li>如何迁移？主要根据你自己的数据量大小 <ul>
 <li>Train数据很少，你只需要训练替换后的你自己的softmax层相关参数，而冻结其他层的所有参数 <ul>
 <li>其他有个技巧，就是把softmax的输入直接存入硬盘</li>
@@ -503,8 +489,7 @@
 <li>随机裁剪(Rotation，Shearing，Local warping)</li>
 <li>旋转</li>
 <li>彩色转换，就是给R,G,B通道上加上不同的失真值(注意PCA对其影响)</li>
-<li>可以用CPU多线程进行数据扩充，然后用GPU训练<img src="/2018/11/14/dl/第四门课-第二周/resources/0885F9F3C1D49D58CB4CA297DC68E67B">
-</li>
+<li>可以用CPU多线程进行数据扩充，然后用GPU训练<img src="/2018/11/14/dl/第四门课-第二周/resources/0885F9F3C1D49D58CB4CA297DC68E67B"></li>
 </ul>
 </li>
 </ul>
@@ -522,6 +507,14 @@
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/深度学习/" rel="tag"># 深度学习</a>
+          
+            <a href="/tags/深度学习吴恩达课程/" rel="tag"># 深度学习吴恩达课程</a>
+          
+        </div>
       
 
       
@@ -611,7 +604,7 @@
           <img class="site-author-image" itemprop="image" src="/images/favicon.ico" alt="雷哥">
           <p class="site-author-name" itemprop="name">雷哥</p>
            
-              <p class="site-description motion-element" itemprop="description"></p>
+              <p class="site-description motion-element" itemprop="description">不积跬步无以至千里</p>
           
         </div>
         <nav class="site-state motion-element">
@@ -619,7 +612,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">26</span>
+                <span class="site-state-item-count">28</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -636,6 +629,15 @@
             </div>
           
 
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
           
 
         </nav>
@@ -711,6 +713,26 @@
 
 
         
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
 
         
       </div>
