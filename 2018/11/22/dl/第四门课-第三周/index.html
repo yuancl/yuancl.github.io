@@ -78,7 +78,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="深度学习,深度学习吴恩达课程,">
 
 
 
@@ -94,12 +94,13 @@
 
 
 
-<meta name="description" content="习题代码地址(主要是YOLO实现) 目标定位 定义：在分类问题输出y的基础上火增加物体文章的输出：$b_x,b_y,b_w,b_h$及中心坐标及宽高 Loss函数的定义：输出为以y向量，采用平方误差的策略，$L(\hat y,y)=(\hat {y_1}-y_1)^2 + (\hat {y_2}-y_2)^2 + (\hat {y_3}-y_3)^2 + … +(\hat {y_8}-y_8)^2">
+<meta name="description" content="习题代码地址(主要是YOLO实现) 目标定位 定义：在分类问题输出y的基础上增加物体位置的输出：$b_x,b_y,b_w,b_h$及中心坐标及宽高 Loss函数的定义：输出为以y向量，采用平方误差的策略，$L(\hat y,y)=(\hat {y_1}-y_1)^2 + (\hat {y_2}-y_2)^2 + (\hat {y_3}-y_3)^2 + … +(\hat {y_8}-y_8)^2$">
+<meta name="keywords" content="深度学习,深度学习吴恩达课程">
 <meta property="og:type" content="article">
 <meta property="og:title" content="第四门课-第三周">
 <meta property="og:url" content="http://yoursite.com/2018/11/22/dl/第四门课-第三周/index.html">
 <meta property="og:site_name" content="雷哥的博客">
-<meta property="og:description" content="习题代码地址(主要是YOLO实现) 目标定位 定义：在分类问题输出y的基础上火增加物体文章的输出：$b_x,b_y,b_w,b_h$及中心坐标及宽高 Loss函数的定义：输出为以y向量，采用平方误差的策略，$L(\hat y,y)=(\hat {y_1}-y_1)^2 + (\hat {y_2}-y_2)^2 + (\hat {y_3}-y_3)^2 + … +(\hat {y_8}-y_8)^2">
+<meta property="og:description" content="习题代码地址(主要是YOLO实现) 目标定位 定义：在分类问题输出y的基础上增加物体位置的输出：$b_x,b_y,b_w,b_h$及中心坐标及宽高 Loss函数的定义：输出为以y向量，采用平方误差的策略，$L(\hat y,y)=(\hat {y_1}-y_1)^2 + (\hat {y_2}-y_2)^2 + (\hat {y_3}-y_3)^2 + … +(\hat {y_8}-y_8)^2$">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2018/11/22/dl/第四门课-第三周/resources/82632EA2C641B2BE9175E3D5AF8DC4DD.jpg">
 <meta property="og:image" content="http://yoursite.com/2018/11/22/dl/第四门课-第三周/resources/D79C453613C69F31B4A433AEC8DD5233.jpg">
@@ -112,16 +113,18 @@
 <meta property="og:image" content="http://yoursite.com/2018/11/22/dl/第四门课-第三周/resources/2064B40E26923324CBE1ED8CB3D8C96C.jpg">
 <meta property="og:image" content="http://yoursite.com/2018/11/22/dl/第四门课-第三周/resources/E190541366C37B452010A650309F0843.jpg">
 <meta property="og:image" content="http://yoursite.com/2018/11/22/dl/第四门课-第三周/resources/14897CDC1065F896306DAE0BBB63D19F.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/11/22/dl/第四门课-第三周/resources/839F34619E1A18553C7228719CF4E324.jpg">
 <meta property="og:image" content="http://yoursite.com/2018/11/22/dl/第四门课-第三周/resources/E20DD21008E63DD76E94BE4695C6F6C8.jpg">
 <meta property="og:image" content="http://yoursite.com/2018/11/22/dl/第四门课-第三周/resources/8B11A706D91156D5BC28FF762DEFF029.jpg">
 <meta property="og:image" content="http://yoursite.com/2018/11/22/dl/第四门课-第三周/resources/A1B5933F37A0758678E7EA49630F5643.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/11/22/dl/第四门课-第三周/resources/87465058CE19103C0E52E5BBC076A0E5.jpg">
 <meta property="og:image" content="http://yoursite.com/2018/11/22/dl/第四门课-第三周/resources/98FF932F93FB8DFFAC240D4CEA9A2B95.jpg">
 <meta property="og:image" content="http://yoursite.com/2018/11/22/dl/第四门课-第三周/resources/54DB30472F0B94F4C2580982A05ACF38.jpg">
 <meta property="og:image" content="http://yoursite.com/2018/11/22/dl/第四门课-第三周/resources/046AA6B1D31278AA8BC847A21DDD56A2.jpg">
-<meta property="og:updated_time" content="2018-11-23T04:08:16.316Z">
+<meta property="og:updated_time" content="2018-12-20T09:13:47.504Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="第四门课-第三周">
-<meta name="twitter:description" content="习题代码地址(主要是YOLO实现) 目标定位 定义：在分类问题输出y的基础上火增加物体文章的输出：$b_x,b_y,b_w,b_h$及中心坐标及宽高 Loss函数的定义：输出为以y向量，采用平方误差的策略，$L(\hat y,y)=(\hat {y_1}-y_1)^2 + (\hat {y_2}-y_2)^2 + (\hat {y_3}-y_3)^2 + … +(\hat {y_8}-y_8)^2">
+<meta name="twitter:description" content="习题代码地址(主要是YOLO实现) 目标定位 定义：在分类问题输出y的基础上增加物体位置的输出：$b_x,b_y,b_w,b_h$及中心坐标及宽高 Loss函数的定义：输出为以y向量，采用平方误差的策略，$L(\hat y,y)=(\hat {y_1}-y_1)^2 + (\hat {y_2}-y_2)^2 + (\hat {y_3}-y_3)^2 + … +(\hat {y_8}-y_8)^2$">
 <meta name="twitter:image" content="http://yoursite.com/2018/11/22/dl/第四门课-第三周/resources/82632EA2C641B2BE9175E3D5AF8DC4DD.jpg">
 
 
@@ -392,7 +395,7 @@
       
         <p><a href="https://github.com/yuancl/dl-algorithm/tree/master/4-ConvolutionNeuralNetworks/Week3" target="_blank" rel="noopener">习题代码地址(主要是YOLO实现)</a></p>
 <h4 id="目标定位"><a href="#目标定位" class="headerlink" title="目标定位"></a>目标定位</h4><ul>
-<li>定义：<br>在分类问题输出y的基础上火增加物体文章的输出：$b_x,b_y,b_w,b_h$及中心坐标及宽高<img src="/2018/11/22/dl/第四门课-第三周/resources/82632EA2C641B2BE9175E3D5AF8DC4DD.jpg"></li>
+<li>定义：<br>在分类问题输出y的基础上增加物体位置的输出：$b_x,b_y,b_w,b_h$及中心坐标及宽高<img src="/2018/11/22/dl/第四门课-第三周/resources/82632EA2C641B2BE9175E3D5AF8DC4DD.jpg"></li>
 <li>Loss函数的定义：<br>输出为以y向量，采用平方误差的策略，$L(\hat y,y)=(\hat {y_1}-y_1)^2 + (\hat {y_2}-y_2)^2 + (\hat {y_3}-y_3)^2 + … +(\hat {y_8}-y_8)^2$<img src="/2018/11/22/dl/第四门课-第三周/resources/D79C453613C69F31B4A433AEC8DD5233.jpg">
 </li>
 </ul>
@@ -448,21 +451,30 @@
 <li><p>算法步骤：</p>
 <ul>
 <li>1.得到标记所有边框界，去掉这些边框界中$P_c$很小的，比如0.6，表示出现对象的概率很低</li>
-<li>2.找到剩下的边框界中醉倒的$P_c$，然后去掉和$P_c$重合度最高，也就是IoU比较大的一些边框界</li>
-<li>3.在剩下的边框界中重复2步骤，知道每一个边框界都被处理过</li>
+<li>2.找到剩下的边框界中最大的$P_c$，然后去掉和$P_c$重合度最高，也就是IoU比较大的一些边框界</li>
+<li>3.在剩下的边框界中重复2步骤，直到每一个边框界都被处理过</li>
 </ul>
 </li>
 </ul>
 <h4 id="Anchor-Boxes"><a href="#Anchor-Boxes" class="headerlink" title="Anchor Boxes"></a>Anchor Boxes</h4><ul>
-<li>背景：对象检测中存在的一个问题是每个格子只能检测出一个对象</li>
+<li>背景：对象检测中存在的一个问题是每个格子只能检测出一个对象,如果你想让一个格子检测出多个对象，可以使用Anchor Boxes</li>
 <li>思路：而 anchor box的思路是，这样子，预先定义两个不同形状的 anchor box，或者 anchor box 形状，你要做的是把预测结果和这两个 anchor box <strong>关联起来</strong></li>
-<li>算法：输出为16维的向量，分别对应2个archor，然后找到和哪个archor的IoU最高，就和谁关联(每个archor会表示对应到哪个对象)<img src="/2018/11/22/dl/第四门课-第三周/resources/E20DD21008E63DD76E94BE4695C6F6C8.jpg">
+<li>算法：输出为16维的向量，分别对应2个archor，然后找到和哪个archor的IoU最高，就和谁关联(每个archor会表示对应到哪个对象)<img src="/2018/11/22/dl/第四门课-第三周/resources/839F34619E1A18553C7228719CF4E324.jpg">
+<img src="/2018/11/22/dl/第四门课-第三周/resources/E20DD21008E63DD76E94BE4695C6F6C8.jpg">
 </li>
 </ul>
 <h4 id="YOLO算法-集成"><a href="#YOLO算法-集成" class="headerlink" title="YOLO算法(集成)"></a>YOLO算法(集成)</h4><ul>
 <li>Train<img src="/2018/11/22/dl/第四门课-第三周/resources/8B11A706D91156D5BC28FF762DEFF029.jpg"></li>
-<li>Prediction<br>方框1得到右边3的输出，方框2得到右边4的输出<img src="/2018/11/22/dl/第四门课-第三周/resources/A1B5933F37A0758678E7EA49630F5643.jpg"></li>
-<li>Non-max supressed output<br>对于每个类别单独运行非极大值抑制<img src="/2018/11/22/dl/第四门课-第三周/resources/98FF932F93FB8DFFAC240D4CEA9A2B95.jpg">
+<li>Prediction<br>方框1得到右边3的输出，方框2得到右边4的输出，最后得到了每个grid(3x3)都得到了一个16维的向量<img src="/2018/11/22/dl/第四门课-第三周/resources/A1B5933F37A0758678E7EA49630F5643.jpg"></li>
+<li>Non-max supressed output<ul>
+<li>现在得到了每个grid(3x3)都得到了一个16维的向量，先去掉$P_c$比较低的网格，因为这基本代表无对象(下图1-&gt;下图2过程)</li>
+<li>对剩下的网格，对每一种类别都使用Non-max supressed方法来确定每个网格对类别的预测<ul>
+<li>例如：如果你有三个对象检测类别，你希望检测行人，汽车和摩托车，那么你要做的是， 对于每个类别单独运行非极大值抑制，处理预测结果所属类别的边界框，用非极大值抑制来 处理行人类别，用非极大值抑制处理车子类别，然后对摩托车类别进行非极大值抑制，运行 三次来得到最终的预测结果。所以算法的输出最好能够检测出图像里所有的车子，还有所有 的行人(编号 3 所示)<img src="/2018/11/22/dl/第四门课-第三周/resources/87465058CE19103C0E52E5BBC076A0E5.jpg"></li>
+<li>对于每个类别单独运行非极大值抑制<img src="/2018/11/22/dl/第四门课-第三周/resources/98FF932F93FB8DFFAC240D4CEA9A2B95.jpg">
+</li>
+</ul>
+</li>
+</ul>
 </li>
 </ul>
 <h4 id="候选区域"><a href="#候选区域" class="headerlink" title="候选区域"></a>候选区域</h4><ul>
@@ -475,8 +487,7 @@
 <li>Fast R-CNN<br>最初的算法是逐一对区域分类的，所以 Fast R-CNN用的是滑动窗法的一个卷积实现，和之前学习的”卷积的滑动窗口实现”类似</li>
 <li>Faster R-CNN<ul>
 <li>使用的是卷积神经网络，而不是更传统的分割算法来获得候选区域色块，<strong>来解决得到候选区域的聚类步骤仍然非常缓慢</strong></li>
-<li>吴恩达老师认为：我觉得候选区域是一个有趣的想法，但这个方法需要<strong>两步</strong>，首先得到候选区域，然后再分类，相比之下，能够一步做完，类似于YOLO或者你只看一次(You only look once)这个算法，在我看来，是长远而言更有希望的方向，我认为大多数 Faster R-CNN 的算法实现还是比 YOLO 算法慢很多<img src="/2018/11/22/dl/第四门课-第三周/resources/046AA6B1D31278AA8BC847A21DDD56A2.jpg">
-</li>
+<li>吴恩达老师认为：我觉得候选区域是一个有趣的想法，但这个方法需要<strong>两步</strong>，首先得到候选区域，然后再分类，相比之下，能够一步做完，类似于YOLO或者你只看一次(You only look once)这个算法，在我看来，是长远而言更有希望的方向，我认为大多数 Faster R-CNN 的算法实现还是比 YOLO 算法慢很多<img src="/2018/11/22/dl/第四门课-第三周/resources/046AA6B1D31278AA8BC847A21DDD56A2.jpg"></li>
 </ul>
 </li>
 </ul>
@@ -494,6 +505,14 @@
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/深度学习/" rel="tag"># 深度学习</a>
+          
+            <a href="/tags/深度学习吴恩达课程/" rel="tag"># 深度学习吴恩达课程</a>
+          
+        </div>
       
 
       

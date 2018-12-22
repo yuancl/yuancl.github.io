@@ -96,7 +96,7 @@
 
 <meta name="description" content="习题代码:Face-Recognition and Neural-Style-Transfer 人脸识别(Siamese网络) 一般分为验证和识别两步   One-shot learning  背景：人脸识别的train是很少的图片，并且一般只给你一张图片你就得识别出来，并不是想普通的图片识别一样，有很多的样本。比如新加入的新同事，之前并没有样本 方法：和图片库已有的少量图片做相似度比较 如何实现">
 <meta property="og:type" content="article">
-<meta property="og:title" content="第四门课-第三周">
+<meta property="og:title" content="第四门课-第四周">
 <meta property="og:url" content="http://yoursite.com/2018/11/26/dl/第四门课-第四周/index.html">
 <meta property="og:site_name" content="雷哥的博客">
 <meta property="og:description" content="习题代码:Face-Recognition and Neural-Style-Transfer 人脸识别(Siamese网络) 一般分为验证和识别两步   One-shot learning  背景：人脸识别的train是很少的图片，并且一般只给你一张图片你就得识别出来，并不是想普通的图片识别一样，有很多的样本。比如新加入的新同事，之前并没有样本 方法：和图片库已有的少量图片做相似度比较 如何实现">
@@ -119,9 +119,9 @@
 <meta property="og:image" content="http://yoursite.com/2018/11/26/dl/第四门课-第四周/resources/2155AA530BE9533AA5D00319DAAA164E.jpg">
 <meta property="og:image" content="http://yoursite.com/2018/11/26/dl/第四门课-第四周/resources/29B3999CE968EA9B047F4E4360D052E6.jpg">
 <meta property="og:image" content="http://yoursite.com/2018/11/26/dl/第四门课-第四周/resources/31924BC92BF9513EA102C74DE4440FFD.jpg">
-<meta property="og:updated_time" content="2018-11-26T00:31:26.956Z">
+<meta property="og:updated_time" content="2018-12-22T01:53:53.560Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="第四门课-第三周">
+<meta name="twitter:title" content="第四门课-第四周">
 <meta name="twitter:description" content="习题代码:Face-Recognition and Neural-Style-Transfer 人脸识别(Siamese网络) 一般分为验证和识别两步   One-shot learning  背景：人脸识别的train是很少的图片，并且一般只给你一张图片你就得识别出来，并不是想普通的图片识别一样，有很多的样本。比如新加入的新同事，之前并没有样本 方法：和图片库已有的少量图片做相似度比较 如何实现">
 <meta name="twitter:image" content="http://yoursite.com/2018/11/26/dl/第四门课-第四周/resources/59203AFA4B9EBA77787F62DF55CCD80C.jpg">
 
@@ -158,7 +158,7 @@
 
 
 
-  <title>第四门课-第三周 | 雷哥的博客</title>
+  <title>第四门课-第四周 | 雷哥的博客</title>
   
 
 
@@ -308,7 +308,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">第四门课-第三周</h1>
+          <h1 class="post-title" itemprop="name headline">第四门课-第四周</h1>
         
 
         <div class="post-meta">
@@ -414,7 +414,7 @@
 <ul>
 <li>定义：需要Anchor图片，Postive图片，Negative图片，简写为A,P,N</li>
 <li>避免网络输出无用,有一个$\alpha$超参数，控制A,P和A,N之间的差距<br>$||f(A)-f(P)||^2 - ||f(A)-f(N)||^2 + \alpha &lt;= 0$</li>
-<li>Loss function<br>如果目标已经ok，那么值为0<br>L(A,P,N)=max($||f(A)-f(P)||^2 - ||f(A)-f(N)||^2 + \alpha$, 0)</li>
+<li>Loss function<br>如果目标已经ok，那么值为0，<font color="blue">可以看见各种场景只需要找到合适的损失函数，然后下面的步骤都类似(用梯度下降等方法求出极值)</font><br>L(A,P,N)=max($||f(A)-f(P)||^2 - ||f(A)-f(N)||^2 + \alpha$, 0)</li>
 <li>训练数据需要注意的地方   <ul>
 <li>需要注意训练集的对一个人需要多张照片，至少要满足Anchor,Posistion</li>
 <li>尽量选择d(A,P)$\approx$d(A,N),这样能够学习到更多内容，如果差别太大，很容易判断，不能学习到有效数据</li>
@@ -459,12 +459,12 @@
 </ul>
 <h4 id="神经风格迁移系统的-Cost-function"><a href="#神经风格迁移系统的-Cost-function" class="headerlink" title="神经风格迁移系统的(Cost function)"></a>神经风格迁移系统的(Cost function)</h4><p>要构造一个神经风格迁移系统，我们需要给生成的图像定义一个代价函数</p>
 <ul>
-<li>J(G)=$\alpha J_content(C,G) + \beta J_stype(S,G)$</li>
+<li>J(G)=$\alpha J_{content}(C,G) + \beta J_{stype}(S,G)$</li>
 <li>内容代价函数:<font color="red">就是计算原始图片和生成图片的某一层的激活值的相似度</font><ul>
 <li>选取一个预训练模型，比如是VGG卷积模型</li>
 <li>选取中间层l，一般不会太深，也不好太浅</li>
 <li>计算一对一对的训练数据(一张原始图片，一张生成图片)，分别计算在l层的激活值，然后对比他们的相似度(可以用L2范数)</li>
-<li>$J_content(C,G)=\frac{1}{2}||a^{[l][C]}-a^{[l][G]}||^2$</li>
+<li>$J_{content}(C,G)=\frac{1}{2}||a^{[l][C]}-a^{[l][G]}||^2$</li>
 </ul>
 </li>
 <li>下面是风格代价函数的介绍</li>
@@ -478,7 +478,7 @@
 </li>
 </ul>
 <h4 id="风格代价函数-style-cost-function"><a href="#风格代价函数-style-cost-function" class="headerlink" title="风格代价函数(style cost function)"></a>风格代价函数(style cost function)</h4><ul>
-<li>定义：现在你选择了某一层𝑙，比如这一层去为图片的风格定义一个 深度测量，现在我们要做的就是将图片的风格定义为𝑙层中各个通道之间激活项的相关系数</li>
+<li>定义：现在你选择了某一层𝑙，比如这一层去为图片的风格定义一个 深度测量，现在我们要做的就是将图片的风格定义为𝑙层中各个通道之间<font color="blue">激活项</font>的相关系数</li>
 <li>理解CNN中的神经元<ul>
 <li><font color="red">一个神经元就表示一个filter的及输出，在输出中就表示一个通道，也代表一个特征</font><ul>
 <li>这个红色的通道(编号1)对应(编号 3),它能找出图片中的特定位置是否含有这些垂直的纹理</li>
@@ -492,9 +492,9 @@
 <li>意义：通过测量，你能得知在生成的<br>图像中垂直纹理和橙色同时出现或者不同时出现的频率，这样你将能够<font color="blue">测量生成的图像的风格与输入的风格图像的相似程度</font></li>
 </ul>
 </li>
-<li>风格矩阵(Gram matrix)(Correlation between filters)：<ul>
-<li><img src="/2018/11/26/dl/第四门课-第四周/resources/AAB98D324EC1AC62752A4C3A792DE9D5.jpg"></li>
-<li>通过对k和k’通道中中所有的数值进行计算就得到了𝐺矩阵，也就是风格矩阵</li>
+<li>风格矩阵(Gram matrix)(Correlation between filters)：<img src="/2018/11/26/dl/第四门课-第四周/resources/AAB98D324EC1AC62752A4C3A792DE9D5.jpg">
+<ul>
+<li>通过对k和k’通道中中所有的数值<font color="blue">(注意是激活值，不是各个filter的值)</font>进行计算就得到了𝐺矩阵，也就是风格矩阵</li>
 <li>如果不相关，那么$G^{[l]}_{KK’}$会比较小，否则就会很大<img src="/2018/11/26/dl/第四门课-第四周/resources/F2F75B0A0E6AA66A42FB991DAA65DE27.jpg">
 <img src="/2018/11/26/dl/第四门课-第四周/resources/E55DCEDA125DF80889F4EC8D3AB77521.jpg">
 code:<img src="/2018/11/26/dl/第四门课-第四周/resources/BD74761FA9DA43CE218D8AD9865DA49E.jpg"></li>
@@ -502,8 +502,8 @@ code:<img src="/2018/11/26/dl/第四门课-第四周/resources/BD74761FA9DA43CE2
 </ul>
 </li>
 <li>Cost function<ul>
-<li><font color="red">直观感受：就是对两张图片分别计算不同通道的相关性G1,G2(上面的风格矩阵)(Gram matrix就展示的不同filter之间相似度，有点像协方差),然后再优化<strong>使</strong>这两张图片的不同通道的值差距减小，即类似于$\sum(G1-G2)$，cost越小，表示两越相近</font></li>
-<li>其中一层的cost，当然可以对每层都这样计算cost，然后相加，但要复杂一些<img src="/2018/11/26/dl/第四门课-第四周/resources/2079BF705ED2A829D0E1EFE3891B921F.jpg"></li>
+<li><font color="red">直观感受：就是对两张图片分别计算不同通道的输出的相关性G1,G2(上面的风格矩阵)(Gram matrix就展示的不同激活值(filter输出)之间相似度，有点像协方差),然后再优化<strong>使</strong>这两张图片的不同通道的值差距减小，即类似于$\sum(G1-G2)$，cost越小，表示两越相近</font></li>
+<li>一般只计算其中<font color="blue">一层</font>的cost，当然可以对每层都这样计算cost，然后相加，但要复杂一些<img src="/2018/11/26/dl/第四门课-第四周/resources/2079BF705ED2A829D0E1EFE3891B921F.jpg"></li>
 <li>这是两个矩阵间一个基 本的 Frobenius 范数<img src="/2018/11/26/dl/第四门课-第四周/resources/2155AA530BE9533AA5D00319DAAA164E.jpg">
 </li>
 </ul>
