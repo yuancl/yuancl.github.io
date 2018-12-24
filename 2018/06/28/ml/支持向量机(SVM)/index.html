@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="机器学习,机器学习吴恩达课程,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="间隔与支持向量 支持向量：假设超平面(w,b)能将训练样本正确分类，即对于$(x_i,y_i)\in D$,若$y_i=1$,则有$w^Tx_i+b&amp;gt;0$;若$y_i=-1$,则有$w^Tx_i+b&amp;lt;0$令 如图 6.2所示，距离超平面最近的这几个训练样本点使式(6.3)的等号成立， 它们被称为”支持向量” (support vector) svm是解决分类问题，但并不会计算所以的点,">
+<meta name="keywords" content="机器学习,机器学习吴恩达课程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SVM">
+<meta property="og:url" content="http://yoursite.com/2018/06/28/ml/支持向量机(SVM)/index.html">
+<meta property="og:site_name" content="雷哥的博客">
+<meta property="og:description" content="间隔与支持向量 支持向量：假设超平面(w,b)能将训练样本正确分类，即对于$(x_i,y_i)\in D$,若$y_i=1$,则有$w^Tx_i+b&amp;gt;0$;若$y_i=-1$,则有$w^Tx_i+b&amp;lt;0$令 如图 6.2所示，距离超平面最近的这几个训练样本点使式(6.3)的等号成立， 它们被称为”支持向量” (support vector) svm是解决分类问题，但并不会计算所以的点,">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2018/06/28/ml/支持向量机(SVM)/resources/C545E3E754ED9E6EB32618677B8AC1D9.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/06/28/ml/支持向量机(SVM)/resources/B70FA52BD036240F08C998533D4D83A3.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/06/28/ml/支持向量机(SVM)/resources/F0A10EEADFE86AFD179E763B252B3431.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/06/28/ml/支持向量机(SVM)/resources/8279825E046F44EC977D442FDD7C903D.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/06/28/ml/支持向量机(SVM)/resources/938EF5CF0044A14AC045C146CD2399F8.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/06/28/ml/支持向量机(SVM)/resources/5C561540C4679CEBFF77440F59C5DBEA.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/06/28/ml/支持向量机(SVM)/resources/67CA8735991FC2CCCEA06FDDE4F2EC87.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/06/28/ml/支持向量机(SVM)/resources/D2C130615908A44229AA9B8C067B4A80.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/06/28/ml/支持向量机(SVM)/resources/8B3EC6F476E13888172948983D4EAE13.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/06/28/ml/支持向量机(SVM)/resources/23FCF88EDB0FDB93728C5A2548BE7E14.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/06/28/ml/支持向量机(SVM)/resources/127FBB39702127EC06BEE121F38B013B.jpg">
+<meta property="og:updated_time" content="2018-12-24T00:29:02.853Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SVM">
+<meta name="twitter:description" content="间隔与支持向量 支持向量：假设超平面(w,b)能将训练样本正确分类，即对于$(x_i,y_i)\in D$,若$y_i=1$,则有$w^Tx_i+b&amp;gt;0$;若$y_i=-1$,则有$w^Tx_i+b&amp;lt;0$令 如图 6.2所示，距离超平面最近的这几个训练样本点使式(6.3)的等号成立， 它们被称为”支持向量” (support vector) svm是解决分类问题，但并不会计算所以的点,">
+<meta name="twitter:image" content="http://yoursite.com/2018/06/28/ml/支持向量机(SVM)/resources/C545E3E754ED9E6EB32618677B8AC1D9.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '雷哥'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/06/28/ml/支持向量机(SVM)/">
+
+
+
+
+
+  <title>SVM | 雷哥的博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">雷哥的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/28/ml/支持向量机(SVM)/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">SVM</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-28T22:40:02+08:00">
+                2018-06-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/吴恩达课程/" itemprop="url" rel="index">
+                    <span itemprop="name">吴恩达课程</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="间隔与支持向量"><a href="#间隔与支持向量" class="headerlink" title="间隔与支持向量"></a>间隔与支持向量</h4><ul>
+<li>支持向量：假设超平面(w,b)能将训练样本正确分类，即对于$(x_i,y_i)\in D$,若$y_i=1$,则有$w^Tx_i+b&gt;0$;若$y_i=-1$,则有$w^Tx_i+b&lt;0$令<img src="/2018/06/28/ml/支持向量机(SVM)/resources/C545E3E754ED9E6EB32618677B8AC1D9.jpg">
+如图 6.2所示，距离超平面<font color="blue">最近的这几个训练样本点</font>使式(6.3)的等号成立， 它们被称为”支持向量” (support vector)<ul>
+<li>svm是解决分类问题，但并不会计算所以的点,只计算支持向量</li>
+</ul>
+</li>
+<li>间隔：两个异类支持向量到超平面的距离之和被称为”间隔” (margin).<img src="/2018/06/28/ml/支持向量机(SVM)/resources/B70FA52BD036240F08C998533D4D83A3.jpg">
+</li>
+</ul>
+<h4 id="硬间距与软间距"><a href="#硬间距与软间距" class="headerlink" title="硬间距与软间距"></a>硬间距与软间距</h4><ul>
+<li>硬间距:前面介绍的支持向量机形式是要求所有样本均满足约束(6.3)， 即所有样本都必须划分i丘确</li>
+<li>软间距：软间隔则是允许某些样本不满足约束6.3，允许某些样本不满足:$y_i(w^Tx_i+b)&gt;=1$<ul>
+<li>在最大化间隔的同时，不满足约束的样本应尽可能少<img src="/2018/06/28/ml/支持向量机(SVM)/resources/F0A10EEADFE86AFD179E763B252B3431.jpg"></li>
+<li>松弛变量($\varepsilon$)与软间隔支持向量机<img src="/2018/06/28/ml/支持向量机(SVM)/resources/8279825E046F44EC977D442FDD7C903D.jpg"></li>
+</ul>
+</li>
+<li><font color="blue">优化目标：</font><img src="/2018/06/28/ml/支持向量机(SVM)/resources/938EF5CF0044A14AC045C146CD2399F8.jpg">
+</li>
+</ul>
+<h4 id="替代损失"><a href="#替代损失" class="headerlink" title="替代损失"></a>替代损失</h4><ul>
+<li>$l_{0/1}$非凸、非连续，数学性质不太好，使得式 (6.29)不易直接求解.于 是，人们通常用其他一些函数来代替$l_{0/1}$</li>
+<li>三种常用的替代损失函数:<img src="/2018/06/28/ml/支持向量机(SVM)/resources/5C561540C4679CEBFF77440F59C5DBEA.jpg">
+<img src="/2018/06/28/ml/支持向量机(SVM)/resources/67CA8735991FC2CCCEA06FDDE4F2EC87.jpg">
+<img src="/2018/06/28/ml/支持向量机(SVM)/resources/D2C130615908A44229AA9B8C067B4A80.jpg">
+</li>
+</ul>
+<h4 id="约束求解-amp-拉格朗日乘子求解-amp-KKT"><a href="#约束求解-amp-拉格朗日乘子求解-amp-KKT" class="headerlink" title="约束求解&amp;拉格朗日乘子求解&amp;KKT"></a>约束求解&amp;拉格朗日乘子求解&amp;KKT</h4><ul>
+<li>求解最优问题：1.无约束（一般直接求导）2.等式约束（用拉格朗日求解）3.不等式约束（用KKT求解）</li>
+<li>拉格朗日乘子：通过拉格朗日这位大神的办法重新定义一个无约束问题（大家都喜欢无拘无束），这个无约束问题等价于原来的约束优化问题，从而将约束问题无约束化</li>
+<li>式(6.35)中每个样本都有一个对应的松弛变量， 用 以表征该样本不满 足约束(6.28)的程度.但是，与式(6.6)相似，这仍是一个二次规划问题于是?类 似式 (6.8)，通过拉格朗日乘子法可得到式 (6.35)的拉格朗日函 数<img src="/2018/06/28/ml/支持向量机(SVM)/resources/8B3EC6F476E13888172948983D4EAE13.jpg">
+</li>
+</ul>
+<h4 id="核函数"><a href="#核函数" class="headerlink" title="核函数"></a>核函数</h4><img src="/2018/06/28/ml/支持向量机(SVM)/resources/23FCF88EDB0FDB93728C5A2548BE7E14.jpg">
+<h4 id="支持向量回归"><a href="#支持向量回归" class="headerlink" title="支持向量回归"></a>支持向量回归</h4><p>传统回归模型通常直接基于模型输出 f(x) 与真实输出y之 间的差别来计算损失，当且仅当 f(x) 与 y 完全相同时，损失才为零.与此不同， 支持向量回归 (Support Vector Regression，简称 SVR)假设我们能容忍 f(x) 与 y 之间最多有$\epsilon$的偏差，即仅当 f(x) 与 u 之间的差别绝对值大于 E 时才计算损 失.如国 6.7所示?这相当于以 f(x) 为中心?构建了一个宽度为$2\epsilon$的问隔带，若 训练样本落入此间隔带，则认为是被预测正确的.<br><img src="/2018/06/28/ml/支持向量机(SVM)/resources/127FBB39702127EC06BEE121F38B013B.jpg"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/机器学习/" rel="tag"># 机器学习</a>
+          
+            <a href="/tags/机器学习吴恩达课程/" rel="tag"># 机器学习吴恩达课程</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/22/ml/PCA/" rel="next" title="PCA">
+                <i class="fa fa-chevron-left"></i> PCA
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/09/01/dl/第二门课-第一周/" rel="prev" title="第二门课-第一周">
+                第二门课-第一周 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/favicon.ico" alt="雷哥">
+          <p class="site-author-name" itemprop="name">雷哥</p>
+           
+              <p class="site-description motion-element" itemprop="description">不积跬步无以至千里</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">30</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#间隔与支持向量"><span class="nav-number">1.</span> <span class="nav-text">间隔与支持向量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#硬间距与软间距"><span class="nav-number">2.</span> <span class="nav-text">硬间距与软间距</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#替代损失"><span class="nav-number">3.</span> <span class="nav-text">替代损失</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#约束求解-amp-拉格朗日乘子求解-amp-KKT"><span class="nav-number">4.</span> <span class="nav-text">约束求解&amp;拉格朗日乘子求解&amp;KKT</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#核函数"><span class="nav-number">5.</span> <span class="nav-text">核函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#支持向量回归"><span class="nav-number">6.</span> <span class="nav-text">支持向量回归</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-雷哥"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">雷哥</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Gemini
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
