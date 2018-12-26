@@ -78,7 +78,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
 
 
-  <meta name="keywords" content="机器学习,机器学习吴恩达课程,">
+  <meta name="keywords" content="机器学习,分类模型,监督学习,">
 
 
 
@@ -94,31 +94,31 @@
 
 
 
-<meta name="description" content="习题代码:Logistic Regression 使用场景：解决分类问题 Logistic Regression使用场景是解决分类问题 二分类或者多分类,多分类模型(多次二分类或者后面学习到的softmax) 数据分布 二分类模型中，线性分布： 也可能是非线性分布：      逻辑回归模型 Hypothese：$h_\theta(x)=g(z)=\frac{1}{1+e^{-z}}$Sigmoid">
-<meta name="keywords" content="机器学习,机器学习吴恩达课程">
+<meta name="description" content="习题代码:Logistic Regression 使用场景：解决分类问题 Logistic Regression使用场景是解决分类问题 二分类或者多分类,多分类模型(多次二分类或者后面学习到的softmax) 数据分布 二分类模型中，线性分布： 也可能是非线性分布：       逻辑回归模型 Hypothese：$h_\theta(x)=g(z)=\frac{1}{1+e^{-z}}$Sigmoi">
+<meta name="keywords" content="机器学习,分类模型,监督学习">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Logistic Regression">
 <meta property="og:url" content="http://yoursite.com/2018/06/08/ml/Logistic Regression/index.html">
 <meta property="og:site_name" content="雷哥的博客">
-<meta property="og:description" content="习题代码:Logistic Regression 使用场景：解决分类问题 Logistic Regression使用场景是解决分类问题 二分类或者多分类,多分类模型(多次二分类或者后面学习到的softmax) 数据分布 二分类模型中，线性分布： 也可能是非线性分布：      逻辑回归模型 Hypothese：$h_\theta(x)=g(z)=\frac{1}{1+e^{-z}}$Sigmoid">
+<meta property="og:description" content="习题代码:Logistic Regression 使用场景：解决分类问题 Logistic Regression使用场景是解决分类问题 二分类或者多分类,多分类模型(多次二分类或者后面学习到的softmax) 数据分布 二分类模型中，线性分布： 也可能是非线性分布：       逻辑回归模型 Hypothese：$h_\theta(x)=g(z)=\frac{1}{1+e^{-z}}$Sigmoi">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2018/06/08/ml/Logistic%20Regression/resources/C491A76AE474D3A6527DE11CE6B5BB48.jpg%20=408x270">
-<meta property="og:image" content="http://yoursite.com/2018/06/08/ml/Logistic%20Regression/resources/34441106EC0A9630E1BA17393165253B.jpg%20=317x323">
-<meta property="og:image" content="http://yoursite.com/2018/06/08/ml/Logistic%20Regression/resources/9DEA3236A7F3E3EE56B5E39F09094DFE.jpg%20=203x115">
-<meta property="og:image" content="http://yoursite.com/2018/06/08/ml/Logistic%20Regression/resources/51E29FDE06731C99AB2EAD9F6BFC5705.jpg%20=509x80">
-<meta property="og:image" content="http://yoursite.com/2018/06/08/ml/Logistic%20Regression/resources/A33831535408D08F4745CEC4917E73A4.jpg%20=393x507">
-<meta property="og:image" content="http://yoursite.com/2018/06/08/ml/Logistic%20Regression/resources/3B4C93B55A4452695CDA033B1F77DA1A.jpg%20=400x521">
-<meta property="og:image" content="http://yoursite.com/2018/06/08/ml/Logistic%20Regression/resources/6CCB2EBFDDAC0EEC7FE859C459F82619.jpg%20=338x82">
-<meta property="og:image" content="http://yoursite.com/2018/06/08/ml/Logistic%20Regression/resources/2A2FB337EA2AB08BF7E63A23C3F2FC15.jpg%20=509x253">
-<meta property="og:image" content="http://yoursite.com/2018/06/08/ml/Logistic%20Regression/resources/FA37074C59A156386726A45623DE0E27.jpg%20=576x52">
-<meta property="og:image" content="http://yoursite.com/2018/06/08/ml/Logistic%20Regression/resources/72EA1437BA2B8A620AA0A95846B077B8.jpg%20=409x147">
-<meta property="og:image" content="http://yoursite.com/2018/06/08/ml/Logistic%20Regression/resources/4749D216F6C432BF5A66591AAEA97A13.jpg%20=992x329">
-<meta property="og:image" content="http://yoursite.com/2018/06/08/ml/Logistic%20Regression/resources/201EA81A2D0FD9F6D4EB13CD721C24E7.jpg%20=499x282">
-<meta property="og:updated_time" content="2018-12-19T04:09:34.122Z">
+<meta property="og:image" content="http://yoursite.com/2018/06/08/ml/Logistic%20Regression/resources/C491A76AE474D3A6527DE11CE6B5BB48.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/06/08/ml/Logistic%20Regression/resources/34441106EC0A9630E1BA17393165253B.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/06/08/ml/Logistic%20Regression/resources/9DEA3236A7F3E3EE56B5E39F09094DFE.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/06/08/ml/Logistic%20Regression/resources/51E29FDE06731C99AB2EAD9F6BFC5705.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/06/08/ml/Logistic%20Regression/resources/A33831535408D08F4745CEC4917E73A4.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/06/08/ml/Logistic%20Regression/resources/3B4C93B55A4452695CDA033B1F77DA1A.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/06/08/ml/Logistic%20Regression/resources/6CCB2EBFDDAC0EEC7FE859C459F82619.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/06/08/ml/Logistic%20Regression/resources/2A2FB337EA2AB08BF7E63A23C3F2FC15.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/06/08/ml/Logistic%20Regression/resources/FA37074C59A156386726A45623DE0E27.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/06/08/ml/Logistic%20Regression/resources/72EA1437BA2B8A620AA0A95846B077B8.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/06/08/ml/Logistic%20Regression/resources/4749D216F6C432BF5A66591AAEA97A13.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/06/08/ml/Logistic%20Regression/resources/201EA81A2D0FD9F6D4EB13CD721C24E7.jpg">
+<meta property="og:updated_time" content="2018-12-26T12:03:36.055Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Logistic Regression">
-<meta name="twitter:description" content="习题代码:Logistic Regression 使用场景：解决分类问题 Logistic Regression使用场景是解决分类问题 二分类或者多分类,多分类模型(多次二分类或者后面学习到的softmax) 数据分布 二分类模型中，线性分布： 也可能是非线性分布：      逻辑回归模型 Hypothese：$h_\theta(x)=g(z)=\frac{1}{1+e^{-z}}$Sigmoid">
-<meta name="twitter:image" content="http://yoursite.com/2018/06/08/ml/Logistic%20Regression/resources/C491A76AE474D3A6527DE11CE6B5BB48.jpg%20=408x270">
+<meta name="twitter:description" content="习题代码:Logistic Regression 使用场景：解决分类问题 Logistic Regression使用场景是解决分类问题 二分类或者多分类,多分类模型(多次二分类或者后面学习到的softmax) 数据分布 二分类模型中，线性分布： 也可能是非线性分布：       逻辑回归模型 Hypothese：$h_\theta(x)=g(z)=\frac{1}{1+e^{-z}}$Sigmoi">
+<meta name="twitter:image" content="http://yoursite.com/2018/06/08/ml/Logistic%20Regression/resources/C491A76AE474D3A6527DE11CE6B5BB48.jpg">
 
 
 
@@ -349,8 +349,8 @@
                 
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/机器学习/吴恩达课程/" itemprop="url" rel="index">
-                    <span itemprop="name">吴恩达课程</span>
+                  <a href="/categories/机器学习/监督学习/" itemprop="url" rel="index">
+                    <span itemprop="name">监督学习</span>
                   </a>
                 </span>
 
@@ -391,21 +391,26 @@
 <li>Logistic Regression使用场景是解决分类问题<ul>
 <li>二分类或者多分类,多分类模型(多次二分类或者后面学习到的softmax)</li>
 <li>数据分布<ul>
-<li>二分类模型中，线性分布：<br><img src="resources/C491A76AE474D3A6527DE11CE6B5BB48.jpg =408x270" alt="IMAGE"></li>
-<li>也可能是非线性分布：<br><img src="resources/34441106EC0A9630E1BA17393165253B.jpg =317x323" alt="IMAGE"></li>
+<li>二分类模型中，线性分布：<img src="/2018/06/08/ml/Logistic%20Regression/resources/C491A76AE474D3A6527DE11CE6B5BB48.jpg"></li>
+<li>也可能是非线性分布：<img src="/2018/06/08/ml/Logistic%20Regression/resources/34441106EC0A9630E1BA17393165253B.jpg">
+</li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
 <h4 id="逻辑回归模型"><a href="#逻辑回归模型" class="headerlink" title="逻辑回归模型"></a>逻辑回归模型</h4><ul>
-<li>Hypothese：$h_\theta(x)=g(z)=\frac{1}{1+e^{-z}}$<br>Sigmoid:<br><img src="resources/9DEA3236A7F3E3EE56B5E39F09094DFE.jpg =203x115" alt="IMAGE"><br>所以：$y = \begin{bmatrix}<br>1(h_\theta(x) &gt;= 0.5)<br>\<br>0(h_\theta(x) &lt; 0.5)<br>\end{bmatrix}$</li>
+<li>Hypothese：$h_\theta(x)=g(z)=\frac{1}{1+e^{-z}}$<br>Sigmoid:<img src="/2018/06/08/ml/Logistic%20Regression/resources/9DEA3236A7F3E3EE56B5E39F09094DFE.jpg">
+所以：$y = \begin{bmatrix}<br>1(h_\theta(x) &gt;= 0.5)<br>\<br>0(h_\theta(x) &lt; 0.5)<br>\end{bmatrix}$</li>
 <li>$z = \begin{bmatrix}<br>\theta^Tx = \theta_0+\theta_1x_1+\theta_2x_2…(数据线性分布)<br>\<br>x^2+y^2-1 (非线性分布，这里是圆形分布)<br>\end{bmatrix}$</li>
-<li>Cost fun:<br><img src="resources/51E29FDE06731C99AB2EAD9F6BFC5705.jpg =509x80" alt="IMAGE"><ul>
-<li>推导：<br><img src="resources/A33831535408D08F4745CEC4917E73A4.jpg =393x507" alt="IMAGE"><br><img src="resources/3B4C93B55A4452695CDA033B1F77DA1A.jpg =400x521" alt="IMAGE"></li>
+<li>Cost fun:<img src="/2018/06/08/ml/Logistic%20Regression/resources/51E29FDE06731C99AB2EAD9F6BFC5705.jpg">
+<ul>
+<li>推导：<img src="/2018/06/08/ml/Logistic%20Regression/resources/A33831535408D08F4745CEC4917E73A4.jpg">
+<img src="/2018/06/08/ml/Logistic%20Regression/resources/3B4C93B55A4452695CDA033B1F77DA1A.jpg"></li>
 </ul>
 </li>
-<li>梯度：<br><img src="resources/6CCB2EBFDDAC0EEC7FE859C459F82619.jpg =338x82" alt="IMAGE"></li>
+<li>梯度：<img src="/2018/06/08/ml/Logistic%20Regression/resources/6CCB2EBFDDAC0EEC7FE859C459F82619.jpg">
+</li>
 </ul>
 <h4 id="条件概率角度理解"><a href="#条件概率角度理解" class="headerlink" title="条件概率角度理解"></a>条件概率角度理解</h4><ul>
 <li>$h_\theta(x) = P(y=1|x;\theta) = 1-P(y=0|x;\theta)$</li>
@@ -413,13 +418,14 @@
 </ul>
 <h4 id="正则化"><a href="#正则化" class="headerlink" title="正则化"></a>正则化</h4><ul>
 <li>当数据分布为非线性的时候，如果使用多项式去拟合，那么很容易出现过拟合问题，这个时候就需要使用L1，L2正则化去处理</li>
-<li>直观理解：正则化的根本目的就是将过拟合的参数调到合适大小<br><img src="resources/2A2FB337EA2AB08BF7E63A23C3F2FC15.jpg =509x253" alt="IMAGE"></li>
-<li>cost_reg:<br><img src="resources/FA37074C59A156386726A45623DE0E27.jpg =576x52" alt="IMAGE"></li>
-<li>梯度_reg:<br><img src="resources/72EA1437BA2B8A620AA0A95846B077B8.jpg =409x147" alt="IMAGE"></li>
-<li>超参数$\lambda$对拟合程度和准确率等的影响<br><img src="resources/4749D216F6C432BF5A66591AAEA97A13.jpg =992x329" alt="IMAGE"></li>
+<li>直观理解：正则化的根本目的就是将过拟合的参数调到合适大小<img src="/2018/06/08/ml/Logistic%20Regression/resources/2A2FB337EA2AB08BF7E63A23C3F2FC15.jpg"></li>
+<li>cost_reg:<img src="/2018/06/08/ml/Logistic%20Regression/resources/FA37074C59A156386726A45623DE0E27.jpg"></li>
+<li>梯度_reg:<img src="/2018/06/08/ml/Logistic%20Regression/resources/72EA1437BA2B8A620AA0A95846B077B8.jpg"></li>
+<li>超参数$\lambda$对拟合程度和准确率等的影响<img src="/2018/06/08/ml/Logistic%20Regression/resources/4749D216F6C432BF5A66591AAEA97A13.jpg">
+</li>
 </ul>
 <h4 id="多分类"><a href="#多分类" class="headerlink" title="多分类"></a>多分类</h4><ul>
-<li>思想：对每个类别都会有一个$h_\theta(x)$对应：$h_\theta^i(x)$。输入x，获取使最大的$h_\theta^i(x)$的i值<br><img src="resources/201EA81A2D0FD9F6D4EB13CD721C24E7.jpg =499x282" alt="IMAGE"></li>
+<li>思想：对每个类别都会有一个$h_\theta(x)$对应：$h_\theta^i(x)$。输入x，获取使最大的$h_\theta^i(x)$的i值<img src="/2018/06/08/ml/Logistic%20Regression/resources/201EA81A2D0FD9F6D4EB13CD721C24E7.jpg"></li>
 </ul>
 
       
@@ -440,7 +446,9 @@
           
             <a href="/tags/机器学习/" rel="tag"># 机器学习</a>
           
-            <a href="/tags/机器学习吴恩达课程/" rel="tag"># 机器学习吴恩达课程</a>
+            <a href="/tags/分类模型/" rel="tag"># 分类模型</a>
+          
+            <a href="/tags/监督学习/" rel="tag"># 监督学习</a>
           
         </div>
       
@@ -540,7 +548,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">30</span>
+                <span class="site-state-item-count">33</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -551,7 +559,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-count">13</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -562,7 +570,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-count">13</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

@@ -78,7 +78,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
 
 
-  <meta name="keywords" content="机器学习,机器学习吴恩达课程,">
+  <meta name="keywords" content="机器学习,监督学习,回归模型,">
 
 
 
@@ -95,21 +95,21 @@
 
 
 <meta name="description" content="习题代码:Linear Regression 回归模型：线性回归 场景：房价预测，输入输出能够用线性方程拟合，输出为实数 核心公式： LR使用的是最小二乘法 均方误差：是参数估计值与参数真值之差的平方的期望值$MSE=\frac{1}{N}\sum_{t=1}^N(observed_t-predicted_t)^2$ 最小二乘法：基于均方误差最小化来进行模型求解的方法称为“最小二乘法”   公式：">
-<meta name="keywords" content="机器学习,机器学习吴恩达课程">
+<meta name="keywords" content="机器学习,监督学习,回归模型">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linear Regression">
 <meta property="og:url" content="http://yoursite.com/2018/06/01/ml/Linear Regression/index.html">
 <meta property="og:site_name" content="雷哥的博客">
 <meta property="og:description" content="习题代码:Linear Regression 回归模型：线性回归 场景：房价预测，输入输出能够用线性方程拟合，输出为实数 核心公式： LR使用的是最小二乘法 均方误差：是参数估计值与参数真值之差的平方的期望值$MSE=\frac{1}{N}\sum_{t=1}^N(observed_t-predicted_t)^2$ 最小二乘法：基于均方误差最小化来进行模型求解的方法称为“最小二乘法”   公式：">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2018/06/01/ml/Linear%20Regression/resources/2016699DF107B3CA5162C84709E51F54.jpg%20=465x178">
-<meta property="og:image" content="http://yoursite.com/2018/06/01/ml/Linear%20Regression/resources/699B964EB740A4F1E1A3A2FA28746C4A.jpg%20=485x209">
-<meta property="og:image" content="http://yoursite.com/2018/06/01/ml/Linear%20Regression/resources/AD4CFF2A230DDE7364B08A0F6A682AF3.jpg%20=524x677">
-<meta property="og:updated_time" content="2018-12-19T04:09:25.787Z">
+<meta property="og:image" content="http://yoursite.com/2018/06/01/ml/Linear%20Regression/resources/2016699DF107B3CA5162C84709E51F54.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/06/01/ml/Linear%20Regression/resources/699B964EB740A4F1E1A3A2FA28746C4A.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/06/01/ml/Linear%20Regression/resources/AD4CFF2A230DDE7364B08A0F6A682AF3.jpg">
+<meta property="og:updated_time" content="2018-12-26T12:03:19.909Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linear Regression">
 <meta name="twitter:description" content="习题代码:Linear Regression 回归模型：线性回归 场景：房价预测，输入输出能够用线性方程拟合，输出为实数 核心公式： LR使用的是最小二乘法 均方误差：是参数估计值与参数真值之差的平方的期望值$MSE=\frac{1}{N}\sum_{t=1}^N(observed_t-predicted_t)^2$ 最小二乘法：基于均方误差最小化来进行模型求解的方法称为“最小二乘法”   公式：">
-<meta name="twitter:image" content="http://yoursite.com/2018/06/01/ml/Linear%20Regression/resources/2016699DF107B3CA5162C84709E51F54.jpg%20=465x178">
+<meta name="twitter:image" content="http://yoursite.com/2018/06/01/ml/Linear%20Regression/resources/2016699DF107B3CA5162C84709E51F54.jpg">
 
 
 
@@ -340,8 +340,8 @@
                 
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/机器学习/吴恩达课程/" itemprop="url" rel="index">
-                    <span itemprop="name">吴恩达课程</span>
+                  <a href="/categories/机器学习/监督学习/" itemprop="url" rel="index">
+                    <span itemprop="name">监督学习</span>
                   </a>
                 </span>
 
@@ -379,17 +379,17 @@
       
         <p><a href="https://github.com/yuancl/ml-algorithm/tree/master/exe1-LinearRegression" target="_blank" rel="noopener">习题代码:Linear Regression</a></p>
 <h4 id="回归模型：线性回归"><a href="#回归模型：线性回归" class="headerlink" title="回归模型：线性回归"></a>回归模型：线性回归</h4><ul>
-<li>场景：房价预测，输入输出能够用线性方程拟合，输出为实数<br><img src="resources/2016699DF107B3CA5162C84709E51F54.jpg =465x178" alt="IMAGE"></li>
+<li>场景：房价预测，输入输出能够用线性方程拟合，输出为实数<img src="/2018/06/01/ml/Linear%20Regression/resources/2016699DF107B3CA5162C84709E51F54.jpg"></li>
 <li>核心公式：<ul>
 <li>LR使用的是最小二乘法<ul>
 <li>均方误差：是参数估计值与参数真值之差的平方的期望值$MSE=\frac{1}{N}\sum_{t=1}^N(observed_t-predicted_t)^2$</li>
 <li>最小二乘法：基于均方误差最小化来进行模型求解的方法称为“最小二乘法”</li>
 </ul>
 </li>
-<li>公式：<img src="resources/699B964EB740A4F1E1A3A2FA28746C4A.jpg =485x209" alt="IMAGE"></li>
+<li>公式：<img src="/2018/06/01/ml/Linear%20Regression/resources/699B964EB740A4F1E1A3A2FA28746C4A.jpg"></li>
 </ul>
 </li>
-<li>公式推导：<br><img src="resources/AD4CFF2A230DDE7364B08A0F6A682AF3.jpg =524x677" alt="IMAGE"></li>
+<li>公式推导：<img src="/2018/06/01/ml/Linear%20Regression/resources/AD4CFF2A230DDE7364B08A0F6A682AF3.jpg"></li>
 <li>心得：<ul>
 <li>理解向量是n个维度(n行)，一列的特殊矩阵</li>
 <li>X下角标表示第n个特征，上角标m表示第m个样本，可以理解为第m个样本的向量(每个样本都包含n维的特征)</li>
@@ -417,7 +417,9 @@
           
             <a href="/tags/机器学习/" rel="tag"># 机器学习</a>
           
-            <a href="/tags/机器学习吴恩达课程/" rel="tag"># 机器学习吴恩达课程</a>
+            <a href="/tags/监督学习/" rel="tag"># 监督学习</a>
+          
+            <a href="/tags/回归模型/" rel="tag"># 回归模型</a>
           
         </div>
       
@@ -513,7 +515,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">30</span>
+                <span class="site-state-item-count">33</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -524,7 +526,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-count">13</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -535,7 +537,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-count">13</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
