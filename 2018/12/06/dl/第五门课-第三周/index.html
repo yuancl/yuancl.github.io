@@ -113,7 +113,7 @@
 <meta property="og:image" content="http://yoursite.com/2018/12/06/dl/第五门课-第三周/resources/2868A3ED41699CAA4210EAF9E26E0328.jpg">
 <meta property="og:image" content="http://yoursite.com/2018/12/06/dl/第五门课-第三周/resources/EBCF128EB7F18F6FFFC673EA682EAFE1.jpg">
 <meta property="og:image" content="http://yoursite.com/2018/12/06/dl/第五门课-第三周/resources/3927A66C61616AB5B8F15E0F82790B80.jpg">
-<meta property="og:updated_time" content="2018-12-12T08:54:49.052Z">
+<meta property="og:updated_time" content="2019-01-02T23:40:03.551Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="第五门课-第三周">
 <meta name="twitter:description" content="习题代码:Machine-Translation习题代码:Trigger-word-detection 序列结构的各种序列 seq2seq分为编码网络的解码网络   应用场景  机器翻译，比如英文和法文的互相翻译 Image-to-seq例子中使用的AlexNet网络，将最后的softmax输出替换为RNN网络，输出为一个序列    选择最可能的句子  语言模型和翻译模型比较 语言模型总是以零向量">
@@ -404,7 +404,7 @@
 <li>而翻译模型输入是法语的encoder，可以理解为条件模型:$P(y^{&lt; 1 &gt;},y^{&lt; 2 &gt;},y^{&lt; 3 &gt;}…y^{&lt; n &gt;}|x^{&lt; 1 &gt;},x^{&lt; 2 &gt;},x^{&lt; 3 &gt;}…x^{&lt; n &gt;})$</li>
 <li>所以一个是随机输出seq，另一个是需要概率最大的seq<img src="/2018/12/06/dl/第五门课-第三周/resources/BB67CF9637B51A081225158E964A74BA.jpg"></li>
 <li>如何保证翻译模型中的条件概率最大<ul>
-<li>贪心算法：没一个输出都保证当前一个term($y^{<i>}$)概率最大，但是并不能保证<font color="red">整个序列概率最大</font>，所以一次挑选一个词并不是最佳的选择</i></li>
+<li>贪心算法：没一个输出都保证当前一个term($y^{&lt; i &gt;}$)概率最大，但是并不能保证<font color="red">整个序列概率最大</font>，所以一次挑选一个词并不是最佳的选择</li>
 <li>穷举法：将所有句子进行穷举测试，但由单词生成的句子量太大，无法穷举</li>
 <li>集束算法</li>
 </ul>
@@ -413,7 +413,9 @@
 </li>
 </ul>
 </li>
-<li><p>集束算法(Beam Search)</p>
+</ul>
+<h4 id="集束算法-Beam-Search"><a href="#集束算法-Beam-Search" class="headerlink" title="集束算法(Beam Search)"></a>集束算法(Beam Search)</h4><ul>
+<li><p>集束算法</p>
 <ul>
 <li>贪婪算法只会挑出最可能的那一个单词，然后继续。而集束搜索则会考虑多个选择，选择数量就是集束宽(Beam width)</li>
 <li>第一步：<br>需要 输入法语句子到编码网络，然后会解码这个网络，这个 softmax 层(上图编号 3 所示)会输 出 10,000 个概率值，得到这 10,000 个输出的概率值，取前三个存起来</li>
@@ -431,13 +433,17 @@
 </li>
 <li><p>改进集束搜索</p>
 <ul>
-<li>问题1：$P(y^{<1>}|x)P(y^{<2>}|x, y^{<1>})$…..由于每一步概率值都小于0，所以比容易造成数值下溢，也就是导致电脑的浮点表示不能精确的存储</1></2></1></li>
-<li><p>解决方案：<br>我们总是记录概率的对数和，而不是概率的乘积，就用到了对数函数乘积的性质</p>
-<img src="/2018/12/06/dl/第五门课-第三周/resources/A0E79789CBD92DE575602B479DAD35D3.jpg">
+<li><p>问题1：$P(y^{<1>}|x)P(y^{<2>}|x, y^{<1>})$…..由于每一步概率值都小于0，所以比容易造成数值下溢，也就是导致电脑的浮点表示不能精确的存储</1></2></1></p>
+<ul>
+<li>解决方案：<br>我们总是记录概率的对数和，而不是概率的乘积，就用到了对数函数乘积的性质<img src="/2018/12/06/dl/第五门课-第三周/resources/A0E79789CBD92DE575602B479DAD35D3.jpg">
+</li>
+</ul>
 </li>
 <li><p>问题2：由于每一项乘积都小于1，并且目标函数是最大概率的输出，所以一般会偏向于比较短的句子，这样乘积项就比较少</p>
-</li>
+<ul>
 <li>解决方案：<br>通过除以翻译结果的单词数量。这样就是取每个单词的概率对数值的平均了，这样很明显地 减少了对输出长的结果的惩罚</li>
+</ul>
+</li>
 <li><p>更柔和的方法：并不直接除以单词数，而是会乘上一个超参数a,比如a=0.7，如果a=1那么就相当于完全用长度来做归一化</p>
 </li>
 <li><p>集束宽选择<br>集束宽越大效果当然越好，但是计算也越复杂。在产品中，经常可以看到把束宽设到 10</p>
@@ -446,11 +452,14 @@
 </li>
 </ul>
 <h4 id="集束搜索误差分析"><a href="#集束搜索误差分析" class="headerlink" title="集束搜索误差分析"></a>集束搜索误差分析</h4><h4 id="Bleu得分"><a href="#Bleu得分" class="headerlink" title="Bleu得分"></a>Bleu得分</h4><ul>
-<li>背景：比如机器翻译会得到很多都不错的答案，那么如何选择呢？Bleu得分算法，就是解决这个问题，它做的是；给定一个机器生成的翻译，能够自动地计算一个粉丝来衡量好坏</li>
+<li>背景：比如机器翻译会得到很多都不错的答案，那么如何选择呢？Bleu得分算法，就是解决这个问题，它做的是；给定一个机器生成的翻译，能够自动地计算一个分数来衡量好坏</li>
 </ul>
 <h4 id="注意力模型"><a href="#注意力模型" class="headerlink" title="注意力模型"></a>注意力模型</h4><ul>
 <li>背景：从Bleu评分可以看出，长句的效果比较差<img src="/2018/12/06/dl/第五门课-第三周/resources/37CDD1E8D8F3D180CB8C734953DD30E0.jpg"></li>
-<li>原理：模仿人工翻译，不会一次性把整个文章都读完再翻译，会读一部分内容，翻译一部分</li>
+<li><font color="blue">原理：模仿人工翻译，不会一次性把整个文章都读完再翻译，会读一部分内容，翻译一部分</font><ul>
+<li>下层的双向LSTM就是先跑所有的法语单词，然后形成context，看具体时间步的注意力需要多少前后关注做准备</li>
+</ul>
+</li>
 <li>理解：在计算当前时间步的时候，会花多少精力去关注多少当前词附近的词语<ul>
 <li>这些是注意力权重，即$a^{&lt;t,t’&gt;}$告诉你，当你尝试生成第𝑡个英文词，它应该花多少注意力在第𝑡个法语词上面。当生成一个 特定的英文词时，这允许它在每个时间步去看周围词距内的法语词要花多少注意力<img src="/2018/12/06/dl/第五门课-第三周/resources/EEBE423431B34A94171A26BDFA7882A4.jpg"></li>
 </ul>
@@ -464,7 +473,7 @@
 <img src="/2018/12/06/dl/第五门课-第三周/resources/2868A3ED41699CAA4210EAF9E26E0328.jpg">
 <p>Here are some properties of the model that you may notice: </p>
 <ul>
-<li><p>模型分两个LSTM层，下面一个双向LSTM跟进前向后向计算的激活值a，然后匹配上各个时间步的注意力的长度，产出context，第二层LSTM是用context和前一个时间步的输出$S^{<t-1>}$输出最终值<br>There are two separate LSTMs in this model (see diagram on the left). Because the one at the bottom of the picture is a Bi-directional LSTM and comes <em>before</em> the attention mechanism, we will call it <em>pre-attention</em> Bi-LSTM. The LSTM at the top of the diagram comes <em>after</em> the attention mechanism, so we will call it the <em>post-attention</em> LSTM. The pre-attention Bi-LSTM goes through $T_x$ time steps; the post-attention LSTM goes through $T_y$ time steps. </t-1></p>
+<li><p>模型分两个LSTM层，下面一个双向LSTM根据前向后向计算的激活值a，然后匹配上各个时间步的注意力的长度，产出context，第二层LSTM是用context和前一个时间步的输出$S^{&lt; t-1 &gt;}$输出最终值<br>There are two separate LSTMs in this model (see diagram on the left). Because the one at the bottom of the picture is a Bi-directional LSTM and comes <em>before</em> the attention mechanism, we will call it <em>pre-attention</em> Bi-LSTM. The LSTM at the top of the diagram comes <em>after</em> the attention mechanism, so we will call it the <em>post-attention</em> LSTM. The pre-attention Bi-LSTM goes through $T_x$ time steps; the post-attention LSTM goes through $T_y$ time steps. </p>
 </li>
 <li><p>The post-attention LSTM passes $s^{\langle t \rangle}, c^{\langle t \rangle}$ from one time step to the next. In the lecture videos, we were using only a basic RNN for the post-activation sequence model, so the state captured by the RNN output activations $s^{\langle t\rangle}$. But since we are using an LSTM here, the LSTM has both the output activation $s^{\langle t\rangle}$ and the hidden cell state $c^{\langle t\rangle}$. However, unlike previous text generation examples (such as Dinosaurus in week 1), in this model the post-activation LSTM at time $t$ does will not take the specific generated $y^{\langle t-1 \rangle}$ as input; it only takes $s^{\langle t\rangle}$ and $c^{\langle t\rangle}$ as input. We have designed the model this way, because (unlike language generation where adjacent characters are highly correlated) there isn’t as strong a dependency between the previous character and the next character in a YYYY-MM-DD date. </p>
 </li>
@@ -479,7 +488,7 @@
 </ul>
 <h4 id="语音模型"><a href="#语音模型" class="headerlink" title="语音模型"></a>语音模型</h4><ul>
 <li>CTC cost<ul>
-<li>背景：很多时候语音输入比输出会错很多，如何在RNN中相同输入输出的模型中使用呢？</li>
+<li>背景：很多时候语音输入比输出会多很多，如何在RNN中相同输入输出的模型中使用呢？</li>
 <li>CTC 损失函数的一个基本规则是 将空白符之间的重复的字符折叠起来，再说清楚一些，我这里用下划线来表示这个特殊的空 白符(a special blank character)，这样就可以让输出和输入相同数量了</li>
 </ul>
 </li>
@@ -670,7 +679,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#序列结构的各种序列"><span class="nav-number">1.</span> <span class="nav-text">序列结构的各种序列</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#集束搜索误差分析"><span class="nav-number">2.</span> <span class="nav-text">集束搜索误差分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Bleu得分"><span class="nav-number">3.</span> <span class="nav-text">Bleu得分</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#注意力模型"><span class="nav-number">4.</span> <span class="nav-text">注意力模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#语音模型"><span class="nav-number">5.</span> <span class="nav-text">语音模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#触发字检测"><span class="nav-number">6.</span> <span class="nav-text">触发字检测</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#序列结构的各种序列"><span class="nav-number">1.</span> <span class="nav-text">序列结构的各种序列</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#集束算法-Beam-Search"><span class="nav-number">2.</span> <span class="nav-text">集束算法(Beam Search)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#集束搜索误差分析"><span class="nav-number">3.</span> <span class="nav-text">集束搜索误差分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Bleu得分"><span class="nav-number">4.</span> <span class="nav-text">Bleu得分</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#注意力模型"><span class="nav-number">5.</span> <span class="nav-text">注意力模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#语音模型"><span class="nav-number">6.</span> <span class="nav-text">语音模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#触发字检测"><span class="nav-number">7.</span> <span class="nav-text">触发字检测</span></a></li></ol></div>
             
 
           </div>
@@ -693,7 +702,7 @@
         <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2018</span>
+  <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-雷哥"></i>
   </span>
