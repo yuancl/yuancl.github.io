@@ -94,13 +94,13 @@
 
 
 
-<meta name="description" content="吴恩达课程参考资料：Attention1&amp;amp;version=11020201&amp;amp;lang=zh_CN&amp;amp;pass_ticket=bZXTSg0%2BH12tumUrfgodp0QHtAMQ4eNurrv2dt15s9t9YKd6lTCdKfB%2BbG2gpO62) Attention1 Encoder-Decoder框架 可以把它看作适合处理由一个句子（或篇章）生成另外一个句子">
+<meta name="description" content="吴恩达课程-Attention实现参考文章：深度学习中的注意力模型 Encoder-Decoder框架 可以把它看作适合处理由一个句子（或篇章）生成另外一个句子（或篇章）的通用处理模型 Encoder顾名思义就是对输入句子X进行编码，将输入句子通过非线性变换转化为中间语义表示C：$C=F(X_1,X_2,…X_m)$ 解码器Decoder来说，其任务是根据句子X的中间语义表示C和之前已经生成的历史">
 <meta name="keywords" content="NLP,NLP模型理解">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Attention模型理解">
+<meta property="og:title" content="Attention模型">
 <meta property="og:url" content="http://yoursite.com/2019/01/05/nlp/Attention模型/index.html">
 <meta property="og:site_name" content="雷哥的博客">
-<meta property="og:description" content="吴恩达课程参考资料：Attention1&amp;amp;version=11020201&amp;amp;lang=zh_CN&amp;amp;pass_ticket=bZXTSg0%2BH12tumUrfgodp0QHtAMQ4eNurrv2dt15s9t9YKd6lTCdKfB%2BbG2gpO62) Attention1 Encoder-Decoder框架 可以把它看作适合处理由一个句子（或篇章）生成另外一个句子">
+<meta property="og:description" content="吴恩达课程-Attention实现参考文章：深度学习中的注意力模型 Encoder-Decoder框架 可以把它看作适合处理由一个句子（或篇章）生成另外一个句子（或篇章）的通用处理模型 Encoder顾名思义就是对输入句子X进行编码，将输入句子通过非线性变换转化为中间语义表示C：$C=F(X_1,X_2,…X_m)$ 解码器Decoder来说，其任务是根据句子X的中间语义表示C和之前已经生成的历史">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2019/01/05/nlp/Attention模型/resources/F2F31AE3AFCF5E63870687850E25053E.jpg">
 <meta property="og:image" content="http://yoursite.com/2019/01/05/nlp/Attention模型/resources/24F1729383B4C502BDF631EC89F3ED8D.jpg">
@@ -116,10 +116,10 @@
 <meta property="og:image" content="http://yoursite.com/2019/01/05/nlp/Attention模型/resources/D65829551454CDE399C3DBE51C953E17.jpg">
 <meta property="og:image" content="http://yoursite.com/2019/01/05/nlp/Attention模型/resources/495110CA9218AF232B0D47BE88497073.jpg">
 <meta property="og:image" content="http://yoursite.com/2019/01/05/nlp/Attention模型/resources/7F7EE44196F2FAAF3F1BC2BFAB29DA4A.jpg">
-<meta property="og:updated_time" content="2019-01-06T11:13:06.762Z">
+<meta property="og:updated_time" content="2019-01-06T11:35:59.450Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Attention模型理解">
-<meta name="twitter:description" content="吴恩达课程参考资料：Attention1&amp;amp;version=11020201&amp;amp;lang=zh_CN&amp;amp;pass_ticket=bZXTSg0%2BH12tumUrfgodp0QHtAMQ4eNurrv2dt15s9t9YKd6lTCdKfB%2BbG2gpO62) Attention1 Encoder-Decoder框架 可以把它看作适合处理由一个句子（或篇章）生成另外一个句子">
+<meta name="twitter:title" content="Attention模型">
+<meta name="twitter:description" content="吴恩达课程-Attention实现参考文章：深度学习中的注意力模型 Encoder-Decoder框架 可以把它看作适合处理由一个句子（或篇章）生成另外一个句子（或篇章）的通用处理模型 Encoder顾名思义就是对输入句子X进行编码，将输入句子通过非线性变换转化为中间语义表示C：$C=F(X_1,X_2,…X_m)$ 解码器Decoder来说，其任务是根据句子X的中间语义表示C和之前已经生成的历史">
 <meta name="twitter:image" content="http://yoursite.com/2019/01/05/nlp/Attention模型/resources/F2F31AE3AFCF5E63870687850E25053E.jpg">
 
 
@@ -155,7 +155,7 @@
 
 
 
-  <title>Attention模型理解 | 雷哥的博客</title>
+  <title>Attention模型 | 雷哥的博客</title>
   
 
 
@@ -305,7 +305,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Attention模型理解</h1>
+          <h1 class="post-title" itemprop="name headline">Attention模型</h1>
         
 
         <div class="post-meta">
@@ -388,7 +388,7 @@
       
 
       
-        <p><a href="https://yuancl.github.io/2018/12/06/dl/%E7%AC%AC%E4%BA%94%E9%97%A8%E8%AF%BE-%E7%AC%AC%E4%B8%89%E5%91%A8/" target="_blank" rel="noopener">吴恩达课程</a><br>参考资料：<a href="https://mp.weixin.qq.com/s?__biz=MzI4MDYzNzg4Mw==&amp;mid=2247484196&amp;idx=1&amp;sn=efa6b79d24b138ff79f33ec3426c79e2&amp;chksm=ebb43bf0dcc3b2e6e69ff3b7d7cabf28744e276ee08ccfcfc1dc2c3f0bf52a122c9bd77ff319&amp;mpshare=1&amp;scene=1&amp;srcid=0105VrvbLzEzFnUY0fC9Ofpz&amp;key=31bfd60da945b11db7f8b26193ff64375e7307183ed97f5879aa2baa342b7eae683b58478eba67d8e1d63daffdb366234c9a08ec22773f0dadec83ff167a432cfb0a9aaae5f7e50f8a0994aaa7c60b49&amp;ascene=0&amp;uin=MTE0NTY4MjMyMQ%3D%3D&amp;devicetype=iMac+MacBookPro14%2C1+OSX+OSX+10.13.6+build(17G65" target="_blank" rel="noopener">Attention1</a>&amp;version=11020201&amp;lang=zh_CN&amp;pass_ticket=bZXTSg0%2BH12tumUrfgodp0QHtAMQ4eNurrv2dt15s9t9YKd6lTCdKfB%2BbG2gpO62) <a href="https://zhuanlan.zhihu.com/p/37601161" target="_blank" rel="noopener">Attention1</a></p>
+        <p><a href="https://yuancl.github.io/2018/12/06/dl/第五门课-第三周/" target="_blank" rel="noopener">吴恩达课程-Attention实现</a><br>参考文章：<a href="https://zhuanlan.zhihu.com/p/37601161" target="_blank" rel="noopener">深度学习中的注意力模型</a></p>
 <h4 id="Encoder-Decoder框架"><a href="#Encoder-Decoder框架" class="headerlink" title="Encoder-Decoder框架"></a>Encoder-Decoder框架</h4><ul>
 <li>可以把它看作适合处理由一个句子（或篇章）生成另外一个句子（或篇章）的通用处理模型</li>
 <li>Encoder顾名思义就是对输入句子X进行编码，将输入句子通过非线性变换转化为中间语义表示C：$C=F(X_1,X_2,…X_m)$</li>
@@ -521,6 +521,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2019/01/06/nlp/Transformer模型/" rel="prev" title="Transformer模型">
+                Transformer模型 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -594,7 +598,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">34</span>
+                <span class="site-state-item-count">36</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

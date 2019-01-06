@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="NLP,NLP模型理解,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="首先理解：Attention模型Transformer模型 参考文章：从Word Embedding到Bert模型——自然语言处理预训练技术发展史谷歌终于开源BERT代码：3 亿参数量，机器之心全面解读&amp;amp;version=11020201&amp;amp;lang=zh_CN&amp;amp;pass_ticket=I7XRQo7aWZm6HGLAiA5vwRxaxUewcjV6bu0BCpXgbQCxSd">
+<meta name="keywords" content="NLP,NLP模型理解">
+<meta property="og:type" content="article">
+<meta property="og:title" content="BERT模型">
+<meta property="og:url" content="http://yoursite.com/2019/01/06/nlp/BERT模型/index.html">
+<meta property="og:site_name" content="雷哥的博客">
+<meta property="og:description" content="首先理解：Attention模型Transformer模型 参考文章：从Word Embedding到Bert模型——自然语言处理预训练技术发展史谷歌终于开源BERT代码：3 亿参数量，机器之心全面解读&amp;amp;version=11020201&amp;amp;lang=zh_CN&amp;amp;pass_ticket=I7XRQo7aWZm6HGLAiA5vwRxaxUewcjV6bu0BCpXgbQCxSd">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2019/01/06/nlp/BERT模型/resources/A28E00CA5B362C88488EABCE29B9311F.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/01/06/nlp/BERT模型/resources/2627CF7F4812570097CDA2E24151AC93.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/01/06/nlp/BERT模型/resources/D424E7A94A3A8AFA95BF948622EBF372.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/01/06/nlp/BERT模型/resources/E701F5F85BCFD4AE2C7F2ABE1AA7AE4E.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/01/06/nlp/BERT模型/resources/8756449C0ED1E828DF5237CE25ED7BAB.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/01/06/nlp/BERT模型/resources/E8299ADBB60F3495F83C8D4083F19428.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/01/06/nlp/BERT模型/resources/1CA677EC8DE31622B40A827A0C880BE2.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/01/06/nlp/BERT模型/resources/52B6633F1E96B86DC6B4477CA91629D3.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/01/06/nlp/BERT模型/resources/C8C2770559C89A232F97E4DCA20834D3.jpg">
+<meta property="og:updated_time" content="2019-01-06T11:36:26.656Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="BERT模型">
+<meta name="twitter:description" content="首先理解：Attention模型Transformer模型 参考文章：从Word Embedding到Bert模型——自然语言处理预训练技术发展史谷歌终于开源BERT代码：3 亿参数量，机器之心全面解读&amp;amp;version=11020201&amp;amp;lang=zh_CN&amp;amp;pass_ticket=I7XRQo7aWZm6HGLAiA5vwRxaxUewcjV6bu0BCpXgbQCxSd">
+<meta name="twitter:image" content="http://yoursite.com/2019/01/06/nlp/BERT模型/resources/A28E00CA5B362C88488EABCE29B9311F.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '雷哥'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/01/06/nlp/BERT模型/">
+
+
+
+
+
+  <title>BERT模型 | 雷哥的博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">雷哥的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/06/nlp/BERT模型/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">BERT模型</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-06T19:34:10+08:00">
+                2019-01-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/NLP/" itemprop="url" rel="index">
+                    <span itemprop="name">NLP</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/NLP/模型理解/" itemprop="url" rel="index">
+                    <span itemprop="name">模型理解</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>首先理解：<br><a href="https://yuancl.github.io/2019/01/05/nlp/Attention模型/" target="_blank" rel="noopener">Attention模型</a><br><a href="https://yuancl.github.io/2019/01/05/nlp/Transformer模型/" target="_blank" rel="noopener">Transformer模型</a></p>
+<p>参考文章：<br><a href="https://blog.csdn.net/malefactor/article/details/83961886" target="_blank" rel="noopener">从Word Embedding到Bert模型——自然语言处理预训练技术发展史</a><br><a href="https://mp.weixin.qq.com/s?__biz=MzA3MzI4MjgzMw==&amp;mid=2650751075&amp;idx=2&amp;sn=0a3ecd1af5f8549051760775e34db342&amp;chksm=871a841db06d0d0bcf3cc4e620bb384e050ba6e92224d338a8ddc1543add97a4a4e7919ebf15&amp;mpshare=1&amp;scene=1&amp;srcid=1229KFzdSmbp5zISMozaqtiq&amp;key=e8c61f4b6fc10c791622ec3ad42fa264b88966e245fc4a572a71b53b309bda3686bc3179e2e449b388f41dc2ab176536e89779cedbb2c124597a1cf1774b1f2b6aa49fd155beaf4a66cf3d35b69e3878&amp;ascene=0&amp;uin=MTE0NTY4MjMyMQ%3D%3D&amp;devicetype=iMac+MacBookPro14%2C1+OSX+OSX+10.13.6+build(17G65" target="_blank" rel="noopener">谷歌终于开源BERT代码：3 亿参数量，机器之心全面解读</a>&amp;version=11020201&amp;lang=zh_CN&amp;pass_ticket=I7XRQo7aWZm6HGLAiA5vwRxaxUewcjV6bu0BCpXgbQCxSdIPZWKqJqSKvIcZPW6e)</p>
+<h4 id="概览"><a href="#概览" class="headerlink" title="概览"></a>概览</h4><ul>
+<li>效果：Bert 具备广泛的通用性，就是说绝大部分 NLP 任务都可以采用类似的两阶段模式直接去提升效果</li>
+</ul>
+<h4 id="预训练发展史"><a href="#预训练发展史" class="headerlink" title="预训练发展史:"></a>预训练发展史:</h4><h4 id="ELMO-Embedding-from-Language-Models"><a href="#ELMO-Embedding-from-Language-Models" class="headerlink" title="ELMO(Embedding from Language Models)"></a>ELMO(Embedding from Language Models)</h4><ul>
+<li>参考图像领域预训练<a href="https://yuancl.github.io/2018/10/10/dl/第三门课-第二周/" target="_blank" rel="noopener">预训练理解</a></li>
+<li><p>词嵌入<a href="https://yuancl.github.io/2018/12/01/dl/第五门课-第二周/" target="_blank" rel="noopener">Word Embedding,NNLM,Word2Vec(CBOW,Skip-gram),Glove</a></p>
+</li>
+<li><p>解决问题：Work Embedding的多义性问题</p>
+<ul>
+<li>静态的方式:训练好之后每个单词的表达就固定住了，以后使用的时候，不论新句子上下文单词是什么，这个单词的 Word Embedding 不会跟着上下文场景的变化而改变，所以对于比如 Bank 这个词</li>
+</ul>
+</li>
+<li>本质思想<ul>
+<li>用事先用语言模型学好一个单词的 Word Embedding，然后根据当前上下文对 Word Embedding 动态调整的思路</li>
+</ul>
+</li>
+<li>两阶段：<ul>
+<li>第一个阶段是利用语言模型进行预训练</li>
+<li>第二个阶段是在做下游任务时，从预训练网络中提取对应单词的网络各层的 Word Embedding 作为<font color="blue">新特征</font>补充到下游任务中<ul>
+<li>Feature-based Pre-Training<br>因为 ELMO给下游提供的是每个单词的特征形式，所以这一类预训练的方法被称为“Feature-based Pre-Training”<img src="/2019/01/06/nlp/BERT模型/resources/A28E00CA5B362C88488EABCE29B9311F.jpg"></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>ELMO和图像预训练的区别<ul>
+<li>ELMO 代表的这种基于特征融合的预训练方法</li>
+<li>NLP还有一种：基于 Fine-tuning 的模式,而 GPT 就是这一模式的典型开创者，这种和图像预训练比较像</li>
+</ul>
+</li>
+<li>ELMO有什么缺点(GPT和Bert出来之后对比)<ul>
+<li>LSTM抽取特征能力远低于<a href="https://yuancl.github.io/2019/01/05/nlp/Transformer模型/" target="_blank" rel="noopener">Transformer</a></li>
+<li>拼接方式双向融合特征融合能力偏弱</li>
+</ul>
+</li>
+</ul>
+<h4 id="GPT-Generative-Pre-Training"><a href="#GPT-Generative-Pre-Training" class="headerlink" title="GPT(Generative Pre-Training)"></a>GPT(Generative Pre-Training)</h4><ul>
+<li><p>和ELMO区别</p>
+<ul>
+<li>使用的Fine-tuning模式,特征抽取器不是用的 RNN，而是用的 <a href="https://yuancl.github.io/2019/01/05/nlp/Transformer模型/" target="_blank" rel="noopener">Transformer</a></li>
+<li>GPT 的预训练虽然仍然是以语言模型作为目标任务，但是采用的是单向的语言模型<ul>
+<li>这限制了其在更多应用场景的效果，比如阅读理解这种任务，在做任务的时候是可以允许同时看到上文和下文一起做决策的</li>
+</ul>
+</li>
+<li>下游使用(Fine-tuning)<ul>
+<li>要向 GPT 的网络结构看齐，把任务的网络结构改造成和 GPT 的网络结构是一样的。然后，在做下游任务的时候，利用第一步预训练好的参数初始化 GPT 的网络结构<img src="/2019/01/06/nlp/BERT模型/resources/2627CF7F4812570097CDA2E24151AC93.jpg">
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>下游任务如何改造靠近 GPT 的网络结构呢</p>
+<img src="/2019/01/06/nlp/BERT模型/resources/D424E7A94A3A8AFA95BF948622EBF372.jpg">
+</li>
+<li><p>GPT有什么问题:</p>
+<ul>
+<li>最主要的就是那个单向语言模型</li>
+</ul>
+</li>
+</ul>
+<h4 id="Bert"><a href="#Bert" class="headerlink" title="Bert"></a>Bert</h4><ul>
+<li><p>两阶段模型</p>
+<ul>
+<li>在预训练阶段采用了类似 ELMO 的双向语言模型，和GPT一样使用<a href="https://yuancl.github.io/2019/01/05/nlp/Transformer模型/" target="_blank" rel="noopener">Transformer</a>网络</li>
+<li>Fine-Tuning 阶段，这个阶段的做法和 GPT 是一样的</li>
+</ul>
+</li>
+<li><p>和GPT,ELMO关系</p>
+<ul>
+<li>如果我们把 GPT预训练阶段换成双向语言模型，那么就得到了 Bert</li>
+<li>如果我们把 ELMO 的特征抽取器换成<a href="https://yuancl.github.io/2019/01/05/nlp/Transformer模型/" target="_blank" rel="noopener">Transformer</a>，那么我们也会得到 Bert<img src="/2019/01/06/nlp/BERT模型/resources/E701F5F85BCFD4AE2C7F2ABE1AA7AE4E.jpg">
+</li>
+</ul>
+</li>
+<li><p>输入表征<br>BERT 最核心的过程就是同时预测加了 MASK 的缺失词与 A/B 句之间的二元关系，而这些首先都需要体现在模型的输入中</p>
+<ul>
+<li>特殊符 [SEP] 是用于分割两个句子的符号</li>
+<li>前面半句会加上分割编码 A，后半句会加上分割编码 B,预测 B 句是不是 A 句后面的一句话</li>
+<li>为了令 Transformer感知词与词之间的位置关系，我们需要使用位置编码给每个词加上位置信息<img src="/2019/01/06/nlp/BERT模型/resources/8756449C0ED1E828DF5237CE25ED7BAB.jpg">
+</li>
+</ul>
+</li>
+<li><p>预训练过程<br>BERT 最核心的就是预训练过程，这也是该论文的亮点所在。简单而言，模型会从数据集抽取两句话，其中B句有 50% 的概率是 A句的下一句，然后将这两句话转化前面所示的输入表征。现在我们<font color="blue">随机遮掩（Mask 掉）</font>输入序列中 15% 的词，并<font color="red">要求 Transformer 预测这些被遮掩的词，以及 B 句是 A 句下一句的概率这两个任务</font></p>
+<ul>
+<li>对于二分类任务，在抽取一个序列（A+B）中，B 有 50% 的概率是 A 的下一句。如果是的话就会生成标注「IsNext」，不是的话就会生成标注「NotNext」，这些标注可以作为二元分类任务判断模型预测的凭证</li>
+<li>对于 Mask 预测任务，首先整个序列会随机 Mask 掉 15% 的词，这里的 Mask 不只是简单地用「[MASK]」符号代替某些词，因为这会引起预训练与微调两阶段不是太匹配。所以谷歌在确定需要 Mask 掉的词后，80% 的情况下会直接替代为「[MASK]」，10% 的情况会替代为其它任意的词，最后 10% 的情况会保留原词<img src="/2019/01/06/nlp/BERT模型/resources/E8299ADBB60F3495F83C8D4083F19428.jpg">
+</li>
+</ul>
+</li>
+<li><p>微调过程</p>
+<ul>
+<li><p>下图展示了 BERT 在 11 种任务中的微调方法，它们都只添加了一个额外的输出层。在下图中，Tok 表示不同的词、E 表示输入的嵌入向量、T_i 表示第 i 个词在经过 BERT 处理后输出的上下文向量</p>
+<img src="/2019/01/06/nlp/BERT模型/resources/1CA677EC8DE31622B40A827A0C880BE2.jpg">
+<ul>
+<li>(a)中判断问答对是不是包含正确回答的 QNLI、判断两句话有多少相似性的 STS-B 等，它们都用于处理句子之间的关系</li>
+<li>(b)中判语句中断情感趋向的 SST-2 和判断语法正确性的 CoLA 任务，它们都是处理句子内部的关系</li>
+</ul>
+</li>
+<li><p>NLP四类任务</p>
+<ul>
+<li>一类是序列标注，这是最典型的 NLP 任务，比如中文分词，词性标注，命名实体识别，语义角色标注等都可以归入这一类问题，它的特点是句子中每个单词要求模型根据上下文都要给出一个分类类别。</li>
+<li>第二类是分类任务，比如我们常见的文本分类，情感计算等都可以归入这一类。它的特点是不管文章有多长，总体给出一个分类类别即可。</li>
+<li>第三类任务是句子关系判断，比如 Entailment，QA，语义改写，自然语言推理等任务都是这个模式，它的特点是给定两个句子，模型判断出两个句子是否具备某种语义关系。</li>
+<li>第四类是生成式任务，比如机器翻译，文本摘要，写诗造句，看图说话等都属于这一类。它的特点是输入文本内容后，需要自主生成另外一段文字</li>
+<li><img src="/2019/01/06/nlp/BERT模型/resources/52B6633F1E96B86DC6B4477CA91629D3.jpg">
+</li>
+</ul>
+</li>
+</ul>
+<img src="/2019/01/06/nlp/BERT模型/resources/C8C2770559C89A232F97E4DCA20834D3.jpg">
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/NLP/" rel="tag"># NLP</a>
+          
+            <a href="/tags/NLP模型理解/" rel="tag"># NLP模型理解</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/06/nlp/Transformer模型/" rel="next" title="Transformer模型">
+                <i class="fa fa-chevron-left"></i> Transformer模型
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/favicon.ico" alt="雷哥">
+          <p class="site-author-name" itemprop="name">雷哥</p>
+           
+              <p class="site-description motion-element" itemprop="description">不积跬步无以至千里</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">36</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#概览"><span class="nav-number">1.</span> <span class="nav-text">概览</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#预训练发展史"><span class="nav-number">2.</span> <span class="nav-text">预训练发展史:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ELMO-Embedding-from-Language-Models"><span class="nav-number">3.</span> <span class="nav-text">ELMO(Embedding from Language Models)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#GPT-Generative-Pre-Training"><span class="nav-number">4.</span> <span class="nav-text">GPT(Generative Pre-Training)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Bert"><span class="nav-number">5.</span> <span class="nav-text">Bert</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-雷哥"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">雷哥</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Gemini
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

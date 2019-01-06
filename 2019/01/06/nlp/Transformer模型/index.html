@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="NLP,NLP模型理解,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="参考文章：神经机器翻译 之 谷歌 transformer 模型Self-attention and Transformer 背景 首先理解Attention模型，个人理解Transformer本质其实就是对selt-attention的包装 论文《Attention is all you need》特点：重点关注了复杂度，并行度，长距离依赖学习三个问题 现在做神经翻译里最好的BLUE结果 没有采取">
+<meta name="keywords" content="NLP,NLP模型理解">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Transformer模型">
+<meta property="og:url" content="http://yoursite.com/2019/01/06/nlp/Transformer模型/index.html">
+<meta property="og:site_name" content="雷哥的博客">
+<meta property="og:description" content="参考文章：神经机器翻译 之 谷歌 transformer 模型Self-attention and Transformer 背景 首先理解Attention模型，个人理解Transformer本质其实就是对selt-attention的包装 论文《Attention is all you need》特点：重点关注了复杂度，并行度，长距离依赖学习三个问题 现在做神经翻译里最好的BLUE结果 没有采取">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2019/01/06/nlp/Transformer模型/resources/C421D21BFAA4597BC61F35AC079AF098.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/01/06/nlp/Transformer模型/resources/70C79702B44D8406D4B78338B0C7ADAD.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/01/06/nlp/Transformer模型/resources/F21545F043FA58B804CAEC5D3C7EF995.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/01/06/nlp/Transformer模型/resources/8D8F43D711E9C94BA7013FD1DE9A666F.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/01/06/nlp/Transformer模型/resources/F318057213E0EE97E53E6A165DF5E892.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/01/06/nlp/Transformer模型/resources/A60F81F9218EB99D06E9DB202DB6F8AD.jpg">
+<meta property="og:updated_time" content="2019-01-06T11:36:14.022Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Transformer模型">
+<meta name="twitter:description" content="参考文章：神经机器翻译 之 谷歌 transformer 模型Self-attention and Transformer 背景 首先理解Attention模型，个人理解Transformer本质其实就是对selt-attention的包装 论文《Attention is all you need》特点：重点关注了复杂度，并行度，长距离依赖学习三个问题 现在做神经翻译里最好的BLUE结果 没有采取">
+<meta name="twitter:image" content="http://yoursite.com/2019/01/06/nlp/Transformer模型/resources/C421D21BFAA4597BC61F35AC079AF098.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '雷哥'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/01/06/nlp/Transformer模型/">
+
+
+
+
+
+  <title>Transformer模型 | 雷哥的博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">雷哥的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/06/nlp/Transformer模型/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Transformer模型</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-06T18:23:10+08:00">
+                2019-01-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/NLP/" itemprop="url" rel="index">
+                    <span itemprop="name">NLP</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/NLP/模型理解/" itemprop="url" rel="index">
+                    <span itemprop="name">模型理解</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>参考文章：<br><a href="https://shimo.im/docs/gmRW4WV2mjoXzKA1" target="_blank" rel="noopener">神经机器翻译 之 谷歌 transformer 模型</a><br><a href="https://www.cnblogs.com/robert-dlut/p/8638283.html" target="_blank" rel="noopener">Self-attention and Transformer</a></p>
+<h4 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h4><ul>
+<li>首先理解<a href="https://yuancl.github.io/2019/01/05/nlp/Attention模型/" target="_blank" rel="noopener">Attention模型</a>，个人理解Transformer本质其实就是对selt-attention的包装</li>
+<li>论文《Attention is all you need》特点：<br>重点关注了复杂度，并行度，长距离依赖学习三个问题<ul>
+<li>现在做神经翻译里最好的BLUE结果</li>
+<li>没有采取大热的RNN/LSTM/GRU的结构，而是使用attention layer 和全连接层，达到了较好的效果，并且解决了 RNN/LSTM/GRU 里的long dependency problem </li>
+<li>解决了传统RNN 训练并行度的问题，并降低了计算复杂度</li>
+</ul>
+</li>
+<li>Encoder-Decoder架构<ul>
+<li>在编码器的一个网络块中，由一个多头attention子层和一个前馈神经网络子层组成，整个编码器栈式搭建了N个块</li>
+<li>解码器的一个网络块中多了一个多头attention层。为了更好的优化深度网络，整个网络使用了残差连接和对层进行了规范化（Add&amp;Norm）<ul>
+<li>这里有个特别点就是masking,  masking 的作用就是防止在训练的时候 使用未来的输出的单词。 比如训练时， 第一个单词是不能参考第二个单词的生成结果的。 Masking就会把这个信息变成0， 用来保证预测位置 i 的信息只能基于比 i 小的输出<img src="/2019/01/06/nlp/Transformer模型/resources/C421D21BFAA4597BC61F35AC079AF098.jpg">
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="scaled-dot-Product-attention"><a href="#scaled-dot-Product-attention" class="headerlink" title="scaled dot-Product attention"></a>scaled dot-Product attention</h4><ul>
+<li>本质：其实scaled dot-Product attention就是我们常用的使用<font color="blue">点积进行相似度计算</font>的attention，只是多除了一个（为K的维度）起到调节作用，使得内积不至于太大</li>
+<li>操作步骤<ul>
+<li>每个query-key 会做出一个点乘的运算过程</li>
+<li>最后会使用soft max 把他们归一</li>
+<li>再到最后会乘以V (values) 用来当做attention vector. <img src="/2019/01/06/nlp/Transformer模型/resources/70C79702B44D8406D4B78338B0C7ADAD.jpg"></li>
+</ul>
+</li>
+<li>详细理解<img src="/2019/01/06/nlp/Transformer模型/resources/F21545F043FA58B804CAEC5D3C7EF995.jpg">
+</li>
+</ul>
+<h4 id="Multi-head-attention"><a href="#Multi-head-attention" class="headerlink" title="Multi-head attention"></a>Multi-head attention</h4><ul>
+<li>Query，Key，Value首先进过一个线性变换</li>
+<li>然后输入到放缩点积attention<ul>
+<li>注意这里要做h次，其实也就是所谓的多头，每一次算一个头</li>
+<li>每次Q，K，V进行线性变换的参数W是不一样的，所以每个头都计算自己的特征</li>
+<li>进行h个头计算好处：好处是可以允许模型在不同的表示子空间里学习到相关的信息</li>
+</ul>
+</li>
+<li>然后将h次的放缩点积attention结果进行拼接(concat)</li>
+<li>再进行一次线性变换得到的值作为多头attention的结果</li>
+</ul>
+<img src="/2019/01/06/nlp/Transformer模型/resources/8D8F43D711E9C94BA7013FD1DE9A666F.jpg">
+<h4 id="如何使用attention"><a href="#如何使用attention" class="headerlink" title="如何使用attention"></a>如何使用attention</h4><ul>
+<li>首先在编码器到解码器的地方使用了多头attention进行连接,编码器的层输出（这里K=V）和解码器中都头attention的输入。其实就和主流的机器翻译模型中的attention一样<img src="/2019/01/06/nlp/Transformer模型/resources/F318057213E0EE97E53E6A165DF5E892.jpg"></li>
+<li>在Encoder,Decoder中都使用的self-attention<ul>
+<li>例如输入一个句子，那么里面的每个词都要和该句子中的<font color="blue">所有词进行attention计算</font>。目的是<font color="blue">学习句子内部的词依赖关系，捕获句子的内部结构</font><img src="/2019/01/06/nlp/Transformer模型/resources/A60F81F9218EB99D06E9DB202DB6F8AD.jpg">
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="Transformer解决问题"><a href="#Transformer解决问题" class="headerlink" title="Transformer解决问题"></a>Transformer解决问题</h4><ul>
+<li>并行问题<ul>
+<li>首先each head， 是可以并行计算的， 然后每个head 都有自己对应的weight, 实现不同的线性转换， 这样每个head 也就有了自己特别的表达信息</li>
+<li>多头attention和CNN一样不依赖于前一时刻的计算，可以很好的并行，优于RNN</li>
+</ul>
+</li>
+<li>长距离依赖学习<ul>
+<li>self-attention是每个词和所有词都要计算attention，所以不管他们中间有多长距离，最大的路径长度也都只是1。可以捕获长距离依赖关系</li>
+</ul>
+</li>
+<li>RNN，CNN计算复杂度的比较<ul>
+<li>如果输入序列n小于表示维度d的话，每一层的时间复杂度self-attention是比较有优势的。当n比较大时，作者也给出了一种解决方案self-attention（restricted）即每个词不是和所有词计算attention，而是<font color="blue">只与限制的r个词去计算attention</font></li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/NLP/" rel="tag"># NLP</a>
+          
+            <a href="/tags/NLP模型理解/" rel="tag"># NLP模型理解</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/05/nlp/Attention模型/" rel="next" title="Attention模型">
+                <i class="fa fa-chevron-left"></i> Attention模型
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/01/06/nlp/BERT模型/" rel="prev" title="BERT模型">
+                BERT模型 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/favicon.ico" alt="雷哥">
+          <p class="site-author-name" itemprop="name">雷哥</p>
+           
+              <p class="site-description motion-element" itemprop="description">不积跬步无以至千里</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">36</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#scaled-dot-Product-attention"><span class="nav-number">2.</span> <span class="nav-text">scaled dot-Product attention</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Multi-head-attention"><span class="nav-number">3.</span> <span class="nav-text">Multi-head attention</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#如何使用attention"><span class="nav-number">4.</span> <span class="nav-text">如何使用attention</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Transformer解决问题"><span class="nav-number">5.</span> <span class="nav-text">Transformer解决问题</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-雷哥"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">雷哥</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Gemini
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

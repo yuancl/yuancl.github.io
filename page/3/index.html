@@ -274,6 +274,435 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/10/dl/第三门课-第二周/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/10/10/dl/第三门课-第二周/" itemprop="url">第三门课-第二周</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-10T10:00:09+08:00">
+                2018-10-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/深度学习/" itemprop="url" rel="index">
+                    <span itemprop="name">深度学习</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/深度学习/吴恩达课程总结/" itemprop="url" rel="index">
+                    <span itemprop="name">吴恩达课程总结</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="进行误差分析："><a href="#进行误差分析：" class="headerlink" title="进行误差分析："></a>进行误差分析：</h4><ul>
+<li>通过人工check，找出标记错误的样本和总数的百分比，选出比较较大的错误类型进行分析，通常能够帮你找到优化的灵感</li>
+<li>深度学习算法对训练集中的随机错误是相对<strong>健壮</strong>的，如果数据够随机，那么不用花太多时间去修正它们</li>
+<li>但是如果这些错误比较理解大，<strong>严重影响</strong>到你再开发集上的评估能力，那才真有必要去修正下标注</li>
+<li>Dev/Test集的分布一定要一致，如果需要更改标注，也是一样。训练集倒可以不一致</li>
+<li>最后，深度学习工作者一般很少去人工干预，但是建议也看下误差的影响面</li>
+</ul>
+<h4 id="快速搭建你的第一个系统："><a href="#快速搭建你的第一个系统：" class="headerlink" title="快速搭建你的第一个系统："></a>快速搭建你的第一个系统：</h4><ul>
+<li>如果面对的是新应用，这个时候你的<strong>目标</strong>是得到一个可用的系统，所以可以快速搭建你的系统，然后进行误差分析，找到后面的方向</li>
+<li>如果你是老司机，那么可以参考已有的学术论文，已有的架构等构建你的网络</li>
+</ul>
+<h4 id="训练集和测试集不同分布："><a href="#训练集和测试集不同分布：" class="headerlink" title="训练集和测试集不同分布："></a>训练集和测试集不同分布：</h4><ul>
+<li>如果关系App中的图片,即使App的数据很少,也不建议train：webapp，dev/test：app。而建议把一部分收集到的真实数据放入训练集使用train：<strong>webapp+app</strong>, dev/test:app</li>
+<li>例如音频数据训练集有500,000条数据，收集到的真实数据是20,000条，那么组合方式有：<br>$\begin{cases}<br>train:500,000+10,000\<br>dev:5000\<br>test:5000\<br>\end{cases}<br>$ 或者是：<br>$\begin{cases}<br>train:500,000\<br>dev:10,000\<br>test:10,000\<br>\end{cases}<br>$</li>
+</ul>
+<h4 id="Train-dev数据不同分布带来的偏差和方差问题"><a href="#Train-dev数据不同分布带来的偏差和方差问题" class="headerlink" title="Train/dev数据不同分布带来的偏差和方差问题"></a>Train/dev数据不同分布带来的偏差和方差问题</h4><ul>
+<li>问题现象：如果Train/dev数据不同分布，那么如果发现实际dev loss比train大，那么到底是<strong>数据不同分布</strong>导致？还是<strong>方差问题</strong>导致呢？</li>
+<li>解决方案：建设一个Train-dev数据集，此数据集合Train数据同分布，来排除是否是<strong>方差的问题</strong>的问题：<br>$\begin{cases}<br>Bias:Human level,Train\<br>Variance:Train,Train-dev\<br>Datamatch:Train-dev,dev\<br>\end{cases}<br>$</li>
+<li>这个时候就有三类问题:<strong>1.bias 2.variance 3.数据不同分布</strong>,对分布不同问题，没有很好的办法，但有一些建议如下: <ul>
+<li>人工合成，让你的训练集数据分布接近你的Dev集(比如图像合成) <ul>
+<li>问题：可能出现数据集局部过拟合</li>
+</ul>
+</li>
+<li>所以如果是数据分布问题导致，一般分析步骤： <ul>
+<li>仔细观察下Train/dev/test数据特点</li>
+<li>想办法收集更多想dev/test的数据</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="迁移学习"><a href="#迁移学习" class="headerlink" title="迁移学习"></a>迁移学习</h4><ul>
+<li>预训练(pre-training)：如果你数据比较多，进行全部参数的重新训练，这时你在用图像识别数据去预先初始化，就叫做预训练，或者预训练神经网络权重</li>
+<li>微调(fine tuning)：如果以后更新所有权重，然后在其他地方训练，有时这个过程也叫微调</li>
+<li>如果没有这么多的数据，也可以选择只替换输出层，或者最后两层等</li>
+<li>为什么可以这样迁移？ <ul>
+<li>有很多低层次的特征，比如说边缘检测，曲线检测，阳性对象检测等，图像都可以共用的</li>
+<li>学到了这些低层次的特征，就能够进一步学习到线条，点，曲面这些知识</li>
+</ul>
+</li>
+<li>适用场景：迁移后的场景，你没有这么多的数据</li>
+<li>A->B条件: <ul>
+<li>A和B都要有同样的输入，比如都是图像，都是语音等</li>
+<li>B的数据远小于A</li>
+<li>如果觉得A的低层次的特征能够帮助到B</li>
+</ul>
+</li>
+</ul>
+<h4 id="多任务学习-Multi-task-learning"><a href="#多任务学习-Multi-task-learning" class="headerlink" title="多任务学习(Multi-task learning)"></a>多任务学习(Multi-task learning)</h4><ul>
+<li>什么叫多任务学习？ <ul>
+<li>一个输入会有多个输出flag：比如CV中，自驾驾驶领域，对一个图片的识别既要判断图片是否有交通灯，又要判断行人，车辆等</li>
+</ul>
+</li>
+<li>多任务学习的条件及意义 <ul>
+<li>类比迁移学习，如果多任务中有共用的低层次的特征，就能够大大提升你的性能，并且比单独每个任务都训练独立的网络效果好很多</li>
+<li>类比迁移学习，你多个任务叠加的数据量要比单个任务数据量大很多</li>
+<li>要求神经网络足够大，如果过小，那么不见得会比但任务学习有好的性能</li>
+</ul>
+</li>
+<li>应用情况 <ul>
+<li>实际应用中，迁移学习的使用频率比多任务会大很多，可能多任务在CV领域应用得比较多</li>
+</ul>
+</li>
+</ul>
+<h4 id="端到端学习"><a href="#端到端学习" class="headerlink" title="端到端学习:"></a>端到端学习:</h4><ul>
+<li>什么是端到端学习？ <ul>
+<li>比如说语音识别，从音频输入->特征提取->…->找到音位->…->构成听写文本，中间有多个阶段。端到端学习就是直接x->y的映射，这里就是音频输入->构成听写文本</li>
+</ul>
+</li>
+<li>使用条件: <ul>
+<li>数据量(x->y)直接映射的数据量足够大</li>
+</ul>
+</li>
+<li>优点: <ul>
+<li>组件少，中间过程省时省力</li>
+</ul>
+</li>
+<li>缺点: <ul>
+<li>很多场景x->y直接映射的数据量很少，不好收集</li>
+<li>可能会排除了中间很多人为设计的有用的组件，觉得学习算法的指数来源主要有数据和人工设计的东西</li>
+</ul>
+</li>
+<li>例子: <ul>
+<li>人脸识别的系统，并没有直接使用x->y(门禁照片->身份确认)的识别，因为端到端的直接数据并没有这么多数据集。所以拆分为两步：1.识别人脸照片，2.照片和身份的对应。这种方式是因为拆分后的两步都有大量的数据集</li>
+<li>X射线评估孩子年龄，直接的数据x->(x摄像图像->孩子年龄)也没有这么多数据，也需要拆分</li>
+<li>机器翻译：端到端方法就使用很广泛，因为存在<strong>大量的数据</strong>，比如英文->法文….</li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+	
+    
+	
+      	    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/27/dl/吴恩达课程习题/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/09/27/dl/吴恩达课程习题/" itemprop="url">吴恩达课程习题</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-27T10:55:49+08:00">
+                2018-09-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/深度学习/" itemprop="url" rel="index">
+                    <span itemprop="name">深度学习</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/深度学习/吴恩达课程习题/" itemprop="url" rel="index">
+                    <span itemprop="name">吴恩达课程习题</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>习题托管于github，包括学习心得总结</p>
+<p><a href="https://github.com/yuancl/dl-algorithm/tree/master/2-ImprovingDeepNeuralNetworks" target="_blank" rel="noopener">2-ImprovingDeepNeuralNetworks</a><br>第二门课 简单神经网络实现</p>
+<p><a href="https://github.com/yuancl/dl-algorithm/tree/master/4-ConvolutionNeuralNetworks/Week1" target="_blank" rel="noopener">4.1-ConvolutionNeuralNetworks</a><br>第四门课-第一周 主要是CNN简单实现</p>
+<p><a href="https://github.com/yuancl/dl-algorithm/tree/master/4-ConvolutionNeuralNetworks/Week2/ResNets" target="_blank" rel="noopener">4.2-ConvolutionNeuralNetworks</a><br>第四门课-第二周 主要是Keras的介绍和简单ResNet的实现</p>
+<p><a href="https://github.com/yuancl/dl-algorithm/tree/master/4-ConvolutionNeuralNetworks/Week3" target="_blank" rel="noopener">4.3-YOLO</a><br>第四门课-第三周 主要是YOLO算法的的实现</p>
+<p><a href="https://github.com/yuancl/dl-algorithm/tree/master/4-ConvolutionNeuralNetworks/Week4" target="_blank" rel="noopener">4.4-YOLO</a><br>第四门课-第四周 主要是人脸识别和NST算法的的简单实现</p>
+<p><a href="https://github.com/yuancl/dl-algorithm/tree/master/5-RecurrentNeuralNetworks/Week1/Building%2Ba%2BRecurrent%2BNeural%2BNetwork%2B-%2BStep%2Bby%2BStep" target="_blank" rel="noopener">5.1.1-Building+a+Recurrent+Neural+Network+-+Step+by+Step</a><br><a href="https://github.com/yuancl/dl-algorithm/tree/master/5-RecurrentNeuralNetworks/Week1/dinosaurus-island" target="_blank" rel="noopener">5.1.2-RNN-dinosaurus-island</a><br><a href="https://github.com/yuancl/dl-algorithm/tree/master/5-RecurrentNeuralNetworks/Week1/Jazz-improvisation-with-LSTM" target="_blank" rel="noopener">5.1.3-LSTN-Improvise-music</a><br>第五门课-第一周</p>
+<ul>
+<li>Building+a+Recurrent+Neural+Network+-+Step+by+Step<ul>
+<li>主要讲是一步一步构建RNN基础网络和LSTM网络，理解运作原理</li>
+</ul>
+</li>
+<li>dinosaurus-island(character-level language model)<ul>
+<li>此练习使用基础RNN模型或者LSTM模型，学习一些文本，然后生成新的文本。比如恐龙名字，然后生成新的名字。比如莎士比亚诗词，然后可以生成新的类莎士比亚风格的诗词，都是利用了RNN模型对长文本序列模型的记忆能力。同时想到是否可以创造新个歌曲，机器人写文章等….I</li>
+</ul>
+</li>
+<li>Improvise-music with an LSTM network<ul>
+<li>此练习主要使用LSTM网络生成音乐，原理和上一练习中生成恐龙名字类似，输入不同的序列数据，学习到参数后，然后生成序列段(将一段音乐分割为snippets，每一个snippet继续切分为30个时间步，然后进行训练)</li>
+</ul>
+</li>
+</ul>
+<p><a href="https://github.com/yuancl/dl-algorithm/tree/master/5-RecurrentNeuralNetworks/Week2" target="_blank" rel="noopener">5.2-Operations-on-word- vectors</a><br><a href="https://github.com/yuancl/dl-algorithm/tree/master/5-RecurrentNeuralNetworks/Week3/Machine-Translation" target="_blank" rel="noopener">5.3.1:Machine-Translation</a><br><a href="https://github.com/yuancl/dl-algorithm/tree/master/5-RecurrentNeuralNetworks/Week3/Trigger-word-detection" target="_blank" rel="noopener">5.3.2:Trigger-word-detection</a><br>第五门课-第三周</p>
+<ul>
+<li>Machine-Translation <ul>
+<li>主要练习的注意力模型，将人工理解(Tuesday 09 Oct 1993)的日期翻译为机器理解的日期(1993-10-09)</li>
+</ul>
+</li>
+<li>Trigger-word-detection<ul>
+<li>触发字检测,首先通过生谱图将声音转换为特征向量,然后通过CNN,RNN进行预测判断Trigger word </li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+	
+    
+	
+      	    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/22/dl/第三门课-第一周/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1620,383 +2049,6 @@
 
 	
     
-	
-      	    
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/22/ml/PCA/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="雷哥">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/favicon.ico">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="雷哥的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/06/22/ml/PCA/" itemprop="url">PCA</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-22T22:01:10+08:00">
-                2018-06-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/机器学习/" itemprop="url" rel="index">
-                    <span itemprop="name">机器学习</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/机器学习/算法/" itemprop="url" rel="index">
-                    <span itemprop="name">算法</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><a href="http://blog.codinglabs.org/articles/pca-tutorial.html" target="_blank" rel="noopener">参考文章</a></p>
-<h4 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h4><ul>
-<li><p>线性代数相关概念</p>
-<ul>
-<li>对称矩阵:除对角线，其余值一三象限相等</li>
-<li>对角矩阵(diagonal matrix):是一个主对角线之外的元素皆为0的矩阵</li>
-<li>矩阵对角化：如果存在一个矩阵<strong>A</strong>，使$A^{-1}MA$  的结果为对角矩阵，则称矩阵<strong>A</strong>将矩阵<strong>M</strong>  对角化。对于一个矩阵来说，不一定存在将其对角化的矩阵，但是任意一个n×n矩阵如果存在n个线性不相关的特征向量，则该矩阵可被对角化<ul>
-<li>定理（理解特征值和特征向量的作用）：<img src="/2018/06/22/ml/PCA/resources/6A2D68A769C48FF884859CA389ECED5C.jpg"></li>
-</ul>
-</li>
-<li>实对称矩阵<ul>
-<li>实对称矩阵A的不同特征值对应的特征向量是正交的。<font color="red">(PCA算法最终就是将初始值的协方差矩阵变化为实对称矩阵)</font></li>
-<li>实对称矩阵A的特征值都是实数，特征向量都是实向量。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>协方差</p>
-<ul>
-<li>均值描述的是样本集合的中间点，而标准差给我们描述的则是样本集合的各个样本点到均值的距离之平均，都是一维数据<br>$var(X)=\frac{\sum^{n}_{i=1}(X_i-\overline X)(X_i-\overline X)}{n}$</li>
-<li>协方差：协方差就是这样一种用来度量两个随机变量关系的统计量<ul>
-<li>$cov(X,Y)=\frac{\sum^{n}_{i=1}(X_i-\overline X)(Y_i-\overline Y)}{n}$。如果各维度均值都标准化为0，那么就简化为:$cov(X,Y)=\frac{\sum^{n}_{i=1}(X_i)(Y_i)}{n}$</li>
-<li>如果结果为正值，则说明两者是正相关的,否则为负相关。如果为0，表示不相关，也就是正交</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>协方差矩阵</p>
-<ul>
-<li>如果有多维的情况，就可以使用矩阵的思想来看更直观,比如三维的例子:<br>$C = \begin{bmatrix}<br>cov(x,x),cov(x,y),cov(x,z)<br>\<br>cov(y,x),cov(y,y),cov(y,z)<br>\<br>cov(z,x),cov(z,y),cov(z,z)<br>\end{bmatrix}$</li>
-<li>协方差矩阵计算：<ul>
-<li>假设我们只有a和b两个字段(两维度特征)，那么我们将它们按行组成矩阵X<br>$X=\begin{bmatrix}<br>a_1,a_2,a_3….a_n<br>\<br>b_1,b_2,b_3….b_n<br>\end{bmatrix}<br>$</li>
-<li>然后我们用X乘以X的转置，并乘上系数1/m<br>$\frac1mXX^T=\begin{bmatrix}<br>\frac1m\sum^m_{i=1}a_ia_i  \frac1m\sum^m_{i=1}a_ib_i<br>\<br>\frac1m\sum^m_{i=1}a_ib_i  \frac1m\sum^m_{i=1}b_ib_i<br>\end{bmatrix}<br>$</li>
-<li>设我们有m个n维数据记录，将其按列排成n乘m的矩阵X，设$C=1mXX𝖳，则C是一个对称矩阵，其对角线分别个各个字段的方差，而第i行j列和j行i列元素相同，表示i和j两个字段的协方差</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-	
-    
-	
-      	    
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/20/ml/Backpropagation/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="雷哥">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/favicon.ico">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="雷哥的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/06/20/ml/Backpropagation/" itemprop="url">Backpropagation</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-20T08:01:20+08:00">
-                2018-06-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/机器学习/" itemprop="url" rel="index">
-                    <span itemprop="name">机器学习</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/机器学习/算法/" itemprop="url" rel="index">
-                    <span itemprop="name">算法</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><a href="https://www.cnblogs.com/andywenzhi/p/7295262.html?utm_source=itdadao&amp;utm_medium=referral" target="_blank" rel="noopener">参考链接</a></p>
-<h4 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h4><ul>
-<li>BP 算法的目的在于为优化函数（比如梯度下降、其它的高级优化方法）提供梯度值，即使用 BP 算法计算代价函数（cost function）对每个参数的偏导值，其数学形式为：$\frac{\partial}{\partial\theta^l_{ij}}J(\theta)$，并最终得到的值存放在矩阵$\Delta^{(l)}$中。</li>
-</ul>
-<h4 id="网络结构"><a href="#网络结构" class="headerlink" title="网络结构"></a>网络结构</h4><ul>
-<li>简单神经网络结构：<img src="/2018/06/20/ml/Backpropagation/resources/65C926A1DF9A4F2D9EBB22BEC38F663F.jpg"></li>
-<li>单个数据的代价函数：<img src="/2018/06/20/ml/Backpropagation/resources/2A341859393F3EFDA0E5F215414C2CD5.jpg">
-</li>
-</ul>
-<h4 id="神经网络学习算法图概览"><a href="#神经网络学习算法图概览" class="headerlink" title="神经网络学习算法图概览"></a>神经网络学习算法图概览</h4><ul>
-<li><p>清楚一个函数的求导对象：输入值<br>给定一个函数 f(x)，它的首要求导对象是什么？就是它的输入值，是自变量 x。那 f(g(x)) 呢？即把g(x) 当作一个整体作为它的输入值，它的自变量。那么 g(x) 这个整体就是它的首要求导对象。因此，一个函数的求导对象是它的输入值，是它的自变量。弄清楚这一点，才能在求多元函数偏导的链式法则中游刃有余。</p>
-</li>
-<li><p>神经网络中各数据之间的关系——谁是谁的输入值<br>图 3.1 自下而上，每一个框是上面一个框的输入值，也即上面一个框中函数的自变量。这张图明确了神经网络中各数据之间的关系——谁是谁的输入值，图中表现得非常清楚。上段提到一个函数的求导对象是它的输入值，那么通过图 3.1 就能非常方便地使用链式法则，也能清楚地观察到 BP 算法的流程（后面一个小节会给出一个更具体的 BP 流程图）。</p>
-</li>
-<li><p>神经网络的学习(训练)流程(前馈传播和BP算法)<br>对照文首给出的图 1.1 神经网络的模型图，应该很容易理解图 3.1 的含义，它大致地展现了神经网络的学习（训练）流程。前馈传播算法自下而上地向上计算，最终可以得到 a(3)，进一步可以计算得到 J(Θ)。而 BP 算法自顶向下，层层求偏导，最终得到了每个参数的梯度值。下面一个小节将仔细介绍本文的主题，即 BP 算法的流程图解。</p>
-</li>
-</ul>
-<img src="/2018/06/20/ml/Backpropagation/resources/0A913A35D7E650A4E2C65A6A7AF52C4F.jpg">
-<h4 id="BP-算法的直观图解"><a href="#BP-算法的直观图解" class="headerlink" title="BP 算法的直观图解"></a>BP 算法的直观图解</h4><ul>
-<li>BP 算法的流程在这张图中清晰可见：自顶向下（对应神经网络模型为自输出层向输入层）层层求偏导(核心：找准谁是谁的输入，对求偏导尤其重要)</li>
-<li>所以 BP 算法即反向传播算法，<font color="red">就是自顶向下求代价函数$J(\theta)$ 对各个参数$\theta^l_{ij}$ 偏导($\frac{\partial}{\partial\theta^l_{ij}}J(\theta)$)的过程</font>，对应到神经网络模型中即自输出层向输入层层层求偏导<img src="/2018/06/20/ml/Backpropagation/resources/9005E13A2814A7CE44469B4204073DE9.jpg"></li>
-<li><p>从这里可以看出：，为什么要使用BP算法：<font color="red"></font></p>
-<ul>
-<li>自输出层向输入层（即反向传播），逐层求偏导，在这个过程中逐渐得到各个层的参数梯度。</li>
-<li>在反向传播过程中，使用$\delta(l)$ 保存了部分结果，从而避免了大量的重复运算。</li>
-</ul>
-</li>
-<li><p>详细推导计算过程可以参考原文</p>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-	
-    
   </section>
 
   
@@ -2045,7 +2097,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">34</span>
+                <span class="site-state-item-count">36</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
