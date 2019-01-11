@@ -671,7 +671,7 @@
 </li>
 <li><p>Decode组件</p>
 <ul>
-<li>编码器通过处理输入序列开启工作。顶端编码器的输出之后会变转化为一个包含向量K（键向量）和V（值向量）的注意力向量集 。这些向量将被每个解码器用于自身的“编码-解码注意力层”，而这些层可以帮助解码器关注输入序列哪些位置合适<br>![640.gif](resources/B464700544F8040B5FAC358F5070AEE0.gif %}</li>
+<li>编码器通过处理输入序列开启工作。顶端编码器的输出之后会变转化为一个包含向量K（键向量）和V（值向量）的注意力向量集 。这些向量将被每个解码器用于自身的“编码-解码注意力层”，而这些层可以帮助解码器关注输入序列哪些位置合适<img src="/2019/01/06/nlp/Transformer模型/resources/B464700544F8040B5FAC358F5070AEE0.gif"></li>
 <li>接下来的步骤重复了这个过程，直到到达一个特殊的终止符号，  -  它表示transformer的解码器已经完成了它的输出。每个步骤的输出在下一个时间步被提供给底端解码器，并且就像编码器之前做的那样，这些解码器会输出它们的解码结果</li>
 <li>这个“编码-解码注意力层”工作方式基本就像多头自注意力层一样，只不过它是通过在它下面的层来创造查询矩阵，并且从编码器的输出中取得键/值矩阵<p style="margin-left: 8px;margin-right: 8px;"><span data-ratio="1.9636363636363636" id="js_tx_video_container_0.7003880785346812" class="js_tx_video_container" style="display: block; width: 661px; height: 372px;"><iframe frameborder="0" width="661" height="371.8125" allow="autoplay; fullscreen" allowfullscreen="true" src="//v.qq.com/txp/iframe/player.html?origin=https%3A%2F%2Fmp.weixin.qq.com&amp;vid=m13563cy49o&amp;autoplay=false&amp;full=true&amp;show1080p=false&amp;isDebugIframe=false"></iframe></span></p>
 </li>
