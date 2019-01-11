@@ -112,11 +112,15 @@
 <meta property="og:image" content="http://yoursite.com/2019/01/05/nlp/Attention模型/resources/CFA555D76CFF7EF83BB388D9DCC83E83.jpg">
 <meta property="og:image" content="http://yoursite.com/2019/01/05/nlp/Attention模型/resources/670426A82FAECEDC11036020CAE91B6B.jpg">
 <meta property="og:image" content="http://yoursite.com/2019/01/05/nlp/Attention模型/resources/B0A35F4001A8D56A581543FF91E10844.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/01/05/nlp/Attention模型/resources/A6F39C8F454935AAFEBB83A0ACF2E1B0.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/01/05/nlp/Attention模型/resources/807C3954F1BF0F7C006209437905F305.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/01/05/nlp/Attention模型/resources/EED7B3888E7ED2122DF172489F13BE4C.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/01/05/nlp/Attention模型/resources/1748301F371EF3428E3F4DB1A5F47730.jpg">
 <meta property="og:image" content="http://yoursite.com/2019/01/05/nlp/Attention模型/resources/78832378181B08156139C411039FF734.jpg">
 <meta property="og:image" content="http://yoursite.com/2019/01/05/nlp/Attention模型/resources/D65829551454CDE399C3DBE51C953E17.jpg">
 <meta property="og:image" content="http://yoursite.com/2019/01/05/nlp/Attention模型/resources/495110CA9218AF232B0D47BE88497073.jpg">
 <meta property="og:image" content="http://yoursite.com/2019/01/05/nlp/Attention模型/resources/7F7EE44196F2FAAF3F1BC2BFAB29DA4A.jpg">
-<meta property="og:updated_time" content="2019-01-06T11:35:59.450Z">
+<meta property="og:updated_time" content="2019-01-11T08:17:17.403Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Attention模型">
 <meta name="twitter:description" content="吴恩达课程-Attention实现参考文章：深度学习中的注意力模型 Encoder-Decoder框架 可以把它看作适合处理由一个句子（或篇章）生成另外一个句子（或篇章）的通用处理模型 Encoder顾名思义就是对输入句子X进行编码，将输入句子通过非线性变换转化为中间语义表示C：$C=F(X_1,X_2,…X_m)$ 解码器Decoder来说，其任务是根据句子X的中间语义表示C和之前已经生成的历史">
@@ -452,6 +456,38 @@
 </ul>
 </li>
 </ul>
+<h4 id="从微观视角看自注意力机制"><a href="#从微观视角看自注意力机制" class="headerlink" title="从微观视角看自注意力机制"></a>从微观视角看自注意力机制</h4><ul>
+<li>第一步就是从每个编码器的输入向量（每个单词的词向量）中生成三个向量<ul>
+<li>我们创造一个<font color="blue">查询向量、一个键向量和一个值向量。这三个向量是通过词嵌入与三个权重矩阵后相乘创建的</font></li>
+<li>这些新向量在维度上比词嵌入向量更低。他们的维度是64，而词嵌入和编码器的输入/输出向量的维度是512<img src="/2019/01/05/nlp/Attention模型/resources/A6F39C8F454935AAFEBB83A0ACF2E1B0.jpg"></li>
+</ul>
+</li>
+<li>第二步是计算得分<ul>
+<li>假设我们在为这个例子中的第一个词“Thinking”计算自注意力向量，我们需要拿输入句子中的每个单词对“Thinking”打分。<font color="blue">这些分数决定了在编码单词“Thinking”的过程中有多重视句子的其它部分</font><ul>
+<li>这些分数是通过打分单词（所有输入句子的单词）的键向量与“Thinking”的查询向量相点积来计算的</li>
+<li>所以如果我们是处理位置最靠前的词的自注意力的话，第一个分数是q1和k1的点积，第二个分数是q1和k2的点积<img src="/2019/01/05/nlp/Attention模型/resources/807C3954F1BF0F7C006209437905F305.jpg"></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>第三步第四步<ul>
+<li>将分数除以8(8是论文中使用的键向量的维数64的平方根，这会让梯度更稳定。这里也可以使用其它值，8只是默认值)</li>
+<li>然后通过softmax传递结果。<font color="blue">softmax的作用是使所有单词的分数归一化，得到的分数都是正值且和为1</font><ul>
+<li>这个softmax分数决定了每个单词对编码当下位置（“Thinking”）的贡献。显然，已经在这个位置上的单词将获得最高的softmax分数<img src="/2019/01/05/nlp/Attention模型/resources/EED7B3888E7ED2122DF172489F13BE4C.jpg"></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>第五步是将每个值向量乘以softmax分数(这是为了准备之后将它们求和)。<ul>
+<li>这里的直觉是<font color="blue">希望关注语义上相关的单词，并弱化不相关的单词</font>(例如，让它们乘以0.001这样的小数)</li>
+</ul>
+</li>
+<li>第六步是对加权值向量求和，然后即得到自注意力层在该位置的输出(在我们的例子中是对于第一个单词)<ul>
+<li>译注：自注意力的另一种解释就是在编码某个单词时，就是将所有单词的表示（值向量）进行加权求和，而权重是通过该词的表示（键向量）与被编码词表示（查询向量）的点积并通过softmax得到。<img src="/2019/01/05/nlp/Attention模型/resources/1748301F371EF3428E3F4DB1A5F47730.jpg">
+</li>
+</ul>
+</li>
+</ul>
 <h4 id="Self-Attention模型"><a href="#Self-Attention模型" class="headerlink" title="Self Attention模型"></a>Self Attention模型</h4><ul>
 <li>一般任务中的情况<br>在一般任务的Encoder-Decoder框架中，输入Source和输出Target内容是不一样的，比如对于英-中机器翻译来说，Source是英文句子，Target是对应的翻译出的中文句子，<font color="blue">Attention机制发生在Target的元素Query和Source中的所有元素之间</font></li>
 <li>Self Attention<br>Attention顾名思义，指的不是Target和Source之间的Attention机制，<font color="blue">而是Source内部元素之间或者Target内部元素之间发生的Attention机制，也可以理解为Target=Source这种特殊情况下的注意力计算机制</font>。其具体计算过程是一样的，只是计算对象发生了变化而已，所以此处不再赘述其计算过程细节</li>
@@ -598,7 +634,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">36</span>
+                <span class="site-state-item-count">37</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -609,7 +645,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-count">16</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -620,7 +656,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-count">16</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -655,7 +691,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Encoder-Decoder框架"><span class="nav-number">1.</span> <span class="nav-text">Encoder-Decoder框架</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Attention模型"><span class="nav-number">2.</span> <span class="nav-text">Attention模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Self-Attention模型"><span class="nav-number">3.</span> <span class="nav-text">Self Attention模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Attention机制的应用"><span class="nav-number">4.</span> <span class="nav-text">Attention机制的应用</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Encoder-Decoder框架"><span class="nav-number">1.</span> <span class="nav-text">Encoder-Decoder框架</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Attention模型"><span class="nav-number">2.</span> <span class="nav-text">Attention模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#从微观视角看自注意力机制"><span class="nav-number">3.</span> <span class="nav-text">从微观视角看自注意力机制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Self-Attention模型"><span class="nav-number">4.</span> <span class="nav-text">Self Attention模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Attention机制的应用"><span class="nav-number">5.</span> <span class="nav-text">Attention机制的应用</span></a></li></ol></div>
             
 
           </div>

@@ -94,24 +94,29 @@
 
 
 
-<meta name="description" content="参考文章：神经机器翻译 之 谷歌 transformer 模型Self-attention and Transformer 背景 首先理解Attention模型，个人理解Transformer本质其实就是对selt-attention的包装 论文《Attention is all you need》特点：重点关注了复杂度，并行度，长距离依赖学习三个问题 现在做神经翻译里最好的BLUE结果 没有采取">
+<meta name="description" content="参考文章：神经机器翻译 之 谷歌 transformer 模型Self-attention and Transformer大数据文摘-BERT大火却不懂Transformer&amp;amp;version=11020201&amp;amp;lang=zh_CN&amp;amp;pass_ticket=sLCET0Y%2BZTkYDsKSej3nfbOS885niL2%2Bt2ffNlFmQw3FszFuawe4q3nw">
 <meta name="keywords" content="NLP,NLP模型理解">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Transformer模型">
 <meta property="og:url" content="http://yoursite.com/2019/01/06/nlp/Transformer模型/index.html">
 <meta property="og:site_name" content="雷哥的博客">
-<meta property="og:description" content="参考文章：神经机器翻译 之 谷歌 transformer 模型Self-attention and Transformer 背景 首先理解Attention模型，个人理解Transformer本质其实就是对selt-attention的包装 论文《Attention is all you need》特点：重点关注了复杂度，并行度，长距离依赖学习三个问题 现在做神经翻译里最好的BLUE结果 没有采取">
+<meta property="og:description" content="参考文章：神经机器翻译 之 谷歌 transformer 模型Self-attention and Transformer大数据文摘-BERT大火却不懂Transformer&amp;amp;version=11020201&amp;amp;lang=zh_CN&amp;amp;pass_ticket=sLCET0Y%2BZTkYDsKSej3nfbOS885niL2%2Bt2ffNlFmQw3FszFuawe4q3nw">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2019/01/06/nlp/Transformer模型/resources/C421D21BFAA4597BC61F35AC079AF098.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/01/06/nlp/Transformer模型/resources/93027EA8E8E28E2249EA065D24A54A0F.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/01/06/nlp/Transformer模型/resources/1493FFA7472D4E31F49EF536CF6F1F54.jpg">
 <meta property="og:image" content="http://yoursite.com/2019/01/06/nlp/Transformer模型/resources/70C79702B44D8406D4B78338B0C7ADAD.jpg">
 <meta property="og:image" content="http://yoursite.com/2019/01/06/nlp/Transformer模型/resources/F21545F043FA58B804CAEC5D3C7EF995.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/01/06/nlp/Transformer模型/resources/68E2D18A10963F046370DB126E452A3F.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/01/06/nlp/Transformer模型/resources/881CCDA1BDBA993EA7665D2F8B9FC3A9.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/01/06/nlp/Transformer模型/resources/7903100853302A431B813728D73BBFA0.jpg">
 <meta property="og:image" content="http://yoursite.com/2019/01/06/nlp/Transformer模型/resources/8D8F43D711E9C94BA7013FD1DE9A666F.jpg">
 <meta property="og:image" content="http://yoursite.com/2019/01/06/nlp/Transformer模型/resources/F318057213E0EE97E53E6A165DF5E892.jpg">
 <meta property="og:image" content="http://yoursite.com/2019/01/06/nlp/Transformer模型/resources/A60F81F9218EB99D06E9DB202DB6F8AD.jpg">
-<meta property="og:updated_time" content="2019-01-06T11:36:14.022Z">
+<meta property="og:updated_time" content="2019-01-11T08:17:35.345Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Transformer模型">
-<meta name="twitter:description" content="参考文章：神经机器翻译 之 谷歌 transformer 模型Self-attention and Transformer 背景 首先理解Attention模型，个人理解Transformer本质其实就是对selt-attention的包装 论文《Attention is all you need》特点：重点关注了复杂度，并行度，长距离依赖学习三个问题 现在做神经翻译里最好的BLUE结果 没有采取">
+<meta name="twitter:description" content="参考文章：神经机器翻译 之 谷歌 transformer 模型Self-attention and Transformer大数据文摘-BERT大火却不懂Transformer&amp;amp;version=11020201&amp;amp;lang=zh_CN&amp;amp;pass_ticket=sLCET0Y%2BZTkYDsKSej3nfbOS885niL2%2Bt2ffNlFmQw3FszFuawe4q3nw">
 <meta name="twitter:image" content="http://yoursite.com/2019/01/06/nlp/Transformer模型/resources/C421D21BFAA4597BC61F35AC079AF098.jpg">
 
 
@@ -380,7 +385,7 @@
       
 
       
-        <p>参考文章：<br><a href="https://shimo.im/docs/gmRW4WV2mjoXzKA1" target="_blank" rel="noopener">神经机器翻译 之 谷歌 transformer 模型</a><br><a href="https://www.cnblogs.com/robert-dlut/p/8638283.html" target="_blank" rel="noopener">Self-attention and Transformer</a></p>
+        <p>参考文章：<br><a href="https://shimo.im/docs/gmRW4WV2mjoXzKA1" target="_blank" rel="noopener">神经机器翻译 之 谷歌 transformer 模型</a><br><a href="https://www.cnblogs.com/robert-dlut/p/8638283.html" target="_blank" rel="noopener">Self-attention and Transformer</a><br><a href="https://mp.weixin.qq.com/s?__biz=MjM5MTQzNzU2NA==&amp;mid=2651666707&amp;idx=1&amp;sn=2e9149ccdba746eaec687038ce560349&amp;chksm=bd4c1e808a3b97968a15cb3d21032b5394461a1be275476e4fd26563aa28d99be0b798ccee17&amp;mpshare=1&amp;scene=1&amp;srcid=0111kbdci7utfkYpw9bNBcpF&amp;key=f8b9d5856fa70f7d2eabd677b381f98687650f8caf1af873c78466b32517ee5af4eecc661ae63d35bf90beca422d1abea7b7c897e43f33ab3ef7de4c816797d4bad752a5e6f5acc1908b28ffd604355f&amp;ascene=0&amp;uin=MTE0NTY4MjMyMQ%3D%3D&amp;devicetype=iMac+MacBookPro14%2C1+OSX+OSX+10.13.6+build(17G65" target="_blank" rel="noopener">大数据文摘-BERT大火却不懂Transformer</a>&amp;version=11020201&amp;lang=zh_CN&amp;pass_ticket=sLCET0Y%2BZTkYDsKSej3nfbOS885niL2%2Bt2ffNlFmQw3FszFuawe4q3nwl02gUnCe)</p>
 <h4 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h4><ul>
 <li>首先理解<a href="https://yuancl.github.io/2019/01/05/nlp/Attention模型/" target="_blank" rel="noopener">Attention模型</a>，个人理解Transformer本质其实就是对selt-attention的包装</li>
 <li>论文《Attention is all you need》特点：<br>重点关注了复杂度，并行度，长距离依赖学习三个问题<ul>
@@ -389,12 +394,33 @@
 <li>解决了传统RNN 训练并行度的问题，并降低了计算复杂度</li>
 </ul>
 </li>
-<li>Encoder-Decoder架构<ul>
+</ul>
+<h4 id="Encoder-Decoder架构"><a href="#Encoder-Decoder架构" class="headerlink" title="Encoder-Decoder架构"></a>Encoder-Decoder架构</h4><ul>
+<li><p>Encoder-Decoder架构整体</p>
+<ul>
 <li>在编码器的一个网络块中，由一个多头attention子层和一个前馈神经网络子层组成，整个编码器栈式搭建了N个块</li>
 <li>解码器的一个网络块中多了一个多头attention层。为了更好的优化深度网络，整个网络使用了残差连接和对层进行了规范化（Add&amp;Norm）<ul>
 <li>这里有个特别点就是masking,  masking 的作用就是防止在训练的时候 使用未来的输出的单词。 比如训练时， 第一个单词是不能参考第二个单词的生成结果的。 Masking就会把这个信息变成0， 用来保证预测位置 i 的信息只能基于比 i 小的输出<img src="/2019/01/06/nlp/Transformer模型/resources/C421D21BFAA4597BC61F35AC079AF098.jpg">
 </li>
 </ul>
+</li>
+</ul>
+</li>
+<li><p>Encode组件</p>
+<img src="/2019/01/06/nlp/Transformer模型/resources/93027EA8E8E28E2249EA065D24A54A0F.jpg">
+</li>
+<li><p>Decode组件</p>
+<ul>
+<li>编码器通过处理输入序列开启工作。顶端编码器的输出之后会变转化为一个包含向量K（键向量）和V（值向量）的注意力向量集 。这些向量将被每个解码器用于自身的“编码-解码注意力层”，而这些层可以帮助解码器关注输入序列哪些位置合适<br>![640.gif](resources/B464700544F8040B5FAC358F5070AEE0.gif %}</li>
+<li>接下来的步骤重复了这个过程，直到到达一个特殊的终止符号，  -  它表示transformer的解码器已经完成了它的输出。每个步骤的输出在下一个时间步被提供给底端解码器，并且就像编码器之前做的那样，这些解码器会输出它们的解码结果</li>
+<li>这个“编码-解码注意力层”工作方式基本就像多头自注意力层一样，只不过它是通过在它下面的层来创造查询矩阵，并且从编码器的输出中取得键/值矩阵<p style="margin-left: 8px;margin-right: 8px;"><span data-ratio="1.9636363636363636" id="js_tx_video_container_0.7003880785346812" class="js_tx_video_container" style="display: block; width: 661px; height: 372px;"><iframe frameborder="0" width="661" height="371.8125" allow="autoplay; fullscreen" allowfullscreen="true" src="//v.qq.com/txp/iframe/player.html?origin=https%3A%2F%2Fmp.weixin.qq.com&amp;vid=m13563cy49o&amp;autoplay=false&amp;full=true&amp;show1080p=false&amp;isDebugIframe=false"></iframe></span></p>
+</li>
+</ul>
+</li>
+<li><p>最终的线性变换和Softmax层<br>解码组件最后会输出一个实数向量。我们如何把浮点数变成一个单词？这便是线性变换层要做的工作，它之后就是Softmax层</p>
+<ul>
+<li>线性变换层是一个简单的全连接神经网络，它可以把解码组件产生的向量投射到一个比它大得多的、被称作对数几率（logits）的向量里</li>
+<li>接下来的Softmax 层便会把那些分数变成概率（都为正数、上限1.0）。概率最高的单元格被选中，并且它对应的单词被作为这个时间步的输出<img src="/2019/01/06/nlp/Transformer模型/resources/1493FFA7472D4E31F49EF536CF6F1F54.jpg">
 </li>
 </ul>
 </li>
@@ -410,7 +436,29 @@
 <li>详细理解<img src="/2019/01/06/nlp/Transformer模型/resources/F21545F043FA58B804CAEC5D3C7EF995.jpg">
 </li>
 </ul>
-<h4 id="Multi-head-attention"><a href="#Multi-head-attention" class="headerlink" title="Multi-head attention"></a>Multi-head attention</h4><ul>
+<h4 id="Multi-head-attention-1"><a href="#Multi-head-attention-1" class="headerlink" title="Multi-head attention(1)"></a>Multi-head attention(1)</h4><ul>
+<li>它扩展了模型专注于不同位置的能力<ul>
+<li><font color="blue">我理解就是不同的每个注意力头都会对会有不同的关注点,就是丰富了一个词的注意点</font></li>
+</ul>
+</li>
+<li><p>它给出了注意力层的多个“表示子空间”（representation subspaces）</p>
+<ul>
+<li>接下来我们将看到，对于“多头”注意机制，我们有多个查询/键/值权重矩阵集(Transformer使用八个注意力头，因此我们对于每个编码器/解码器有八个矩阵集合)。这些集合中的每一个都是随机初始化的</li>
+<li>在训练之后，每个集合都被用来将输入词嵌入(或来自较低编码器/解码器的向量)<font color="blue">投影到不同的表示子空间中</font><img src="/2019/01/06/nlp/Transformer模型/resources/68E2D18A10963F046370DB126E452A3F.jpg">
+</li>
+</ul>
+</li>
+<li><p>如果我们做与上述相同的自注意力计算，只需八次不同的权重矩阵运算，我们就会得到八个不同的Z矩阵</p>
+<img src="/2019/01/06/nlp/Transformer模型/resources/881CCDA1BDBA993EA7665D2F8B9FC3A9.jpg">
+</li>
+<li><p><font color="blue">前馈层不需要8个矩阵，它只需要一个矩阵</font>(由每一个单词的表示向量组成)</p>
+<ul>
+<li>所以我们需要一种方法把这八个矩阵压缩成一个矩阵。那该怎么做？其实可以直接把这些矩阵拼接在一起，然后用一个附加的权重矩阵WO与它们相乘<img src="/2019/01/06/nlp/Transformer模型/resources/7903100853302A431B813728D73BBFA0.jpg">
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="Multi-head-attention-2"><a href="#Multi-head-attention-2" class="headerlink" title="Multi-head attention(2)"></a>Multi-head attention(2)</h4><ul>
 <li>Query，Key，Value首先进过一个线性变换</li>
 <li>然后输入到放缩点积attention<ul>
 <li>注意这里要做h次，其实也就是所谓的多头，每一次算一个头</li>
@@ -444,6 +492,11 @@
 <li>如果输入序列n小于表示维度d的话，每一层的时间复杂度self-attention是比较有优势的。当n比较大时，作者也给出了一种解决方案self-attention（restricted）即每个词不是和所有词计算attention，而是<font color="blue">只与限制的r个词去计算attention</font></li>
 </ul>
 </li>
+</ul>
+<h4 id="训练部分-amp-损失函数"><a href="#训练部分-amp-损失函数" class="headerlink" title="训练部分&amp;损失函数"></a>训练部分&amp;损失函数</h4><p>Transformer只是一个encode-decode框架架构，后面的，训练&amp;损失函数&amp;优化算法就也能共用其他了，比如BP，集束搜索(beam search)…</p>
+<ul>
+<li>既然我们已经过了一遍完整的transformer的前向传播过程，那我们就可以直观感受一下它的训练过程。</li>
+<li>在训练过程中，一个未经训练的模型会通过一个完全一样的前向传播。但因为我们用有标记的训练集来训练它，所以我们可以用它的输出去与真实的输出做比较</li>
 </ul>
 
       
@@ -564,7 +617,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">36</span>
+                <span class="site-state-item-count">37</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -575,7 +628,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-count">16</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -586,7 +639,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-count">16</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -621,7 +674,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#scaled-dot-Product-attention"><span class="nav-number">2.</span> <span class="nav-text">scaled dot-Product attention</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Multi-head-attention"><span class="nav-number">3.</span> <span class="nav-text">Multi-head attention</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#如何使用attention"><span class="nav-number">4.</span> <span class="nav-text">如何使用attention</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Transformer解决问题"><span class="nav-number">5.</span> <span class="nav-text">Transformer解决问题</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Encoder-Decoder架构"><span class="nav-number">2.</span> <span class="nav-text">Encoder-Decoder架构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#scaled-dot-Product-attention"><span class="nav-number">3.</span> <span class="nav-text">scaled dot-Product attention</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Multi-head-attention-1"><span class="nav-number">4.</span> <span class="nav-text">Multi-head attention(1)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Multi-head-attention-2"><span class="nav-number">5.</span> <span class="nav-text">Multi-head attention(2)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#如何使用attention"><span class="nav-number">6.</span> <span class="nav-text">如何使用attention</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Transformer解决问题"><span class="nav-number">7.</span> <span class="nav-text">Transformer解决问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#训练部分-amp-损失函数"><span class="nav-number">8.</span> <span class="nav-text">训练部分&amp;损失函数</span></a></li></ol></div>
             
 
           </div>
