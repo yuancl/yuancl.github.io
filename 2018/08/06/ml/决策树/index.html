@@ -94,22 +94,22 @@
 
 
 
-<meta name="description" content="决策树一般分为三步：特征划分，树生成，树剪枝 基本概念(特征划分)熵：表示随机变量的不确定性 X是一个取有限个值的离散随机变量，其概率分布为$P(X=x_i)=p_i, i=1,2,..,n$ 熵定义为$H(X)=-\sum_{i=1}^np_ilogp_i$ 又定义可知，熵只依赖于X的分布，而与X的取值无关   条件熵 条件熵H(Y|X)表示在已知随机变量X的条件下随机变量Y 的不确定性，也就是">
+<meta name="description" content="决策树一般分为三步：特征划分，树生成，树剪枝 基本概念(特征划分)熵：表示随机变量的不确定性 X是一个取有限个值的离散随机变量，其概率分布为$P(X=x_i)=p_i, i=1,2,..,n$ 熵定义为$H(X)=-\sum_{i=1}^np_ilogp_i$ 又定义可知，熵只依赖于X的分布，而与X的取值无关条件熵 条件熵H(Y|X)表示在已知随机变量X的条件下随机变量Y 的不确定性，也就是给定随">
 <meta name="keywords" content="机器学习,分类模型">
 <meta property="og:type" content="article">
 <meta property="og:title" content="决策树">
 <meta property="og:url" content="http://yoursite.com/2018/08/06/ml/决策树/index.html">
 <meta property="og:site_name" content="雷哥的博客">
-<meta property="og:description" content="决策树一般分为三步：特征划分，树生成，树剪枝 基本概念(特征划分)熵：表示随机变量的不确定性 X是一个取有限个值的离散随机变量，其概率分布为$P(X=x_i)=p_i, i=1,2,..,n$ 熵定义为$H(X)=-\sum_{i=1}^np_ilogp_i$ 又定义可知，熵只依赖于X的分布，而与X的取值无关   条件熵 条件熵H(Y|X)表示在已知随机变量X的条件下随机变量Y 的不确定性，也就是">
+<meta property="og:description" content="决策树一般分为三步：特征划分，树生成，树剪枝 基本概念(特征划分)熵：表示随机变量的不确定性 X是一个取有限个值的离散随机变量，其概率分布为$P(X=x_i)=p_i, i=1,2,..,n$ 熵定义为$H(X)=-\sum_{i=1}^np_ilogp_i$ 又定义可知，熵只依赖于X的分布，而与X的取值无关条件熵 条件熵H(Y|X)表示在已知随机变量X的条件下随机变量Y 的不确定性，也就是给定随">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2018/08/06/ml/决策树/resources/60FDDA878E668B64094D4FB11F9E1448.jpg%20=399x61">
-<meta property="og:image" content="http://yoursite.com/2018/08/06/ml/决策树/resources/0FAF75BC9C7ED3CE454648CC7CBA2A69.jpg%20=364x275">
-<meta property="og:image" content="http://yoursite.com/2018/08/06/ml/决策树/resources/07631FA8DBF39C5DCA3DC4283AE42665.jpg%20=373x229">
-<meta property="og:updated_time" content="2019-01-13T12:52:44.094Z">
+<meta property="og:image" content="http://yoursite.com/2018/08/06/ml/决策树/resources/60FDDA878E668B64094D4FB11F9E1448.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/08/06/ml/决策树/resources/0FAF75BC9C7ED3CE454648CC7CBA2A69.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/08/06/ml/决策树/resources/07631FA8DBF39C5DCA3DC4283AE42665.jpg">
+<meta property="og:updated_time" content="2019-01-13T12:59:52.052Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="决策树">
-<meta name="twitter:description" content="决策树一般分为三步：特征划分，树生成，树剪枝 基本概念(特征划分)熵：表示随机变量的不确定性 X是一个取有限个值的离散随机变量，其概率分布为$P(X=x_i)=p_i, i=1,2,..,n$ 熵定义为$H(X)=-\sum_{i=1}^np_ilogp_i$ 又定义可知，熵只依赖于X的分布，而与X的取值无关   条件熵 条件熵H(Y|X)表示在已知随机变量X的条件下随机变量Y 的不确定性，也就是">
-<meta name="twitter:image" content="http://yoursite.com/2018/08/06/ml/决策树/resources/60FDDA878E668B64094D4FB11F9E1448.jpg%20=399x61">
+<meta name="twitter:description" content="决策树一般分为三步：特征划分，树生成，树剪枝 基本概念(特征划分)熵：表示随机变量的不确定性 X是一个取有限个值的离散随机变量，其概率分布为$P(X=x_i)=p_i, i=1,2,..,n$ 熵定义为$H(X)=-\sum_{i=1}^np_ilogp_i$ 又定义可知，熵只依赖于X的分布，而与X的取值无关条件熵 条件熵H(Y|X)表示在已知随机变量X的条件下随机变量Y 的不确定性，也就是给定随">
+<meta name="twitter:image" content="http://yoursite.com/2018/08/06/ml/决策树/resources/60FDDA878E668B64094D4FB11F9E1448.jpg">
 
 
 
@@ -370,23 +370,14 @@
 <h3 id="基本概念-特征划分"><a href="#基本概念-特征划分" class="headerlink" title="基本概念(特征划分)"></a>基本概念(特征划分)</h3><h4 id="熵：表示随机变量的不确定性"><a href="#熵：表示随机变量的不确定性" class="headerlink" title="熵：表示随机变量的不确定性"></a>熵：表示随机变量的不确定性</h4><ul>
 <li>X是一个取有限个值的离散随机变量，其概率分布为$P(X=x_i)=p_i, i=1,2,..,n$<ul>
 <li>熵定义为$H(X)=-\sum_{i=1}^np_ilogp_i$</li>
-<li>又定义可知，熵只依赖于X的分布，而与X的取值无关</li>
-</ul>
-</li>
-<li>条件熵<ul>
+<li>又定义可知，熵只依赖于X的分布，而与X的取值无关<h4 id="条件熵"><a href="#条件熵" class="headerlink" title="条件熵"></a>条件熵</h4></li>
 <li>条件熵H(Y|X)表示在已知随机变量X的条件下随机变量Y 的不确定性，也就是给定随机变量X的条件下Y的条件熵</li>
-<li>定义为：$H(Y|X)=\sum_{i=1}^np_iH(Y|X=x_i)$</li>
-</ul>
-</li>
-<li>信息增益<ul>
+<li>定义为：$H(Y|X)=\sum_{i=1}^np_iH(Y|X=x_i)$<h4 id="信息增益"><a href="#信息增益" class="headerlink" title="信息增益"></a>信息增益</h4></li>
 <li>表示得知特征X的信息而使得类Y的信息不确定性减少的程度</li>
 <li>特征A对心里数据集D的信息增益定义为：$g(D,A)=H(D)-H(D|A)$<ul>
-<li>个人理解为不确定性的减少量</li>
+<li>个人理解为不确定性的减少量<h4 id="信息增益比"><a href="#信息增益比" class="headerlink" title="信息增益比"></a>信息增益比</h4></li>
 </ul>
 </li>
-</ul>
-</li>
-<li>信息增益比<ul>
 <li>以信息增益作为划分数据集的特征，存在偏向于选择取值较多的特征的问题</li>
 <li>$g_R(D,A)=\frac{g(D,A)}{H_A(D)}$其中$H_A(D)=-\sum_{i=1}^{n}\frac{|D_i|}{D}log_2\frac{|D_i|}{D}$,n是特征A取值的个数</li>
 </ul>
@@ -416,8 +407,9 @@
 </ul>
 </li>
 </ul>
-<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p><img src="resources/60FDDA878E668B64094D4FB11F9E1448.jpg =399x61" alt="IMAGE"><br><img src="resources/0FAF75BC9C7ED3CE454648CC7CBA2A69.jpg =364x275" alt="IMAGE"><br><img src="resources/07631FA8DBF39C5DCA3DC4283AE42665.jpg =373x229" alt="IMAGE"></p>
-
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><img src="/2018/08/06/ml/决策树/resources/60FDDA878E668B64094D4FB11F9E1448.jpg">
+<img src="/2018/08/06/ml/决策树/resources/0FAF75BC9C7ED3CE454648CC7CBA2A69.jpg">
+<img src="/2018/08/06/ml/决策树/resources/07631FA8DBF39C5DCA3DC4283AE42665.jpg">
       
     </div>
     
@@ -593,7 +585,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本概念-特征划分"><span class="nav-number">1.</span> <span class="nav-text">基本概念(特征划分)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#熵：表示随机变量的不确定性"><span class="nav-number">1.1.</span> <span class="nav-text">熵：表示随机变量的不确定性</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#树生成"><span class="nav-number">2.</span> <span class="nav-text">树生成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#树剪枝"><span class="nav-number">3.</span> <span class="nav-text">树剪枝</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#剪枝（pruning）是决策树学习算法对付”过拟合“的主要手段。"><span class="nav-number">3.1.</span> <span class="nav-text">剪枝（pruning）是决策树学习算法对付”过拟合“的主要手段。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#决策树剪枝的基本策略有”预剪枝“（prepruning）和”后剪枝“（post-pruning）"><span class="nav-number">3.2.</span> <span class="nav-text">决策树剪枝的基本策略有”预剪枝“（prepruning）和”后剪枝“（post-pruning）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#剪枝处理降低了”过拟合“风险，但也带来了”欠拟合“的风险。"><span class="nav-number">3.3.</span> <span class="nav-text">剪枝处理降低了”过拟合“风险，但也带来了”欠拟合“的风险。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CART-classification-and-regression-tree-算法"><span class="nav-number">4.</span> <span class="nav-text">CART(classification and regression tree)算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#CART是在给定输入随机变量X的条件下输出随机变量Y-的条件概率分布的学习方法，分类回归树即可以用于分类，也可以用于回归"><span class="nav-number">4.1.</span> <span class="nav-text">CART是在给定输入随机变量X的条件下输出随机变量Y 的条件概率分布的学习方法，分类回归树即可以用于分类，也可以用于回归</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CART决策树的生成"><span class="nav-number">4.2.</span> <span class="nav-text">CART决策树的生成</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CART决策树的剪枝"><span class="nav-number">4.3.</span> <span class="nav-text">CART决策树的剪枝</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小结"><span class="nav-number">5.</span> <span class="nav-text">小结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本概念-特征划分"><span class="nav-number">1.</span> <span class="nav-text">基本概念(特征划分)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#熵：表示随机变量的不确定性"><span class="nav-number">1.1.</span> <span class="nav-text">熵：表示随机变量的不确定性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#条件熵"><span class="nav-number">1.2.</span> <span class="nav-text">条件熵</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#信息增益"><span class="nav-number">1.3.</span> <span class="nav-text">信息增益</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#信息增益比"><span class="nav-number">1.4.</span> <span class="nav-text">信息增益比</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#树生成"><span class="nav-number">2.</span> <span class="nav-text">树生成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#树剪枝"><span class="nav-number">3.</span> <span class="nav-text">树剪枝</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#剪枝（pruning）是决策树学习算法对付”过拟合“的主要手段。"><span class="nav-number">3.1.</span> <span class="nav-text">剪枝（pruning）是决策树学习算法对付”过拟合“的主要手段。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#决策树剪枝的基本策略有”预剪枝“（prepruning）和”后剪枝“（post-pruning）"><span class="nav-number">3.2.</span> <span class="nav-text">决策树剪枝的基本策略有”预剪枝“（prepruning）和”后剪枝“（post-pruning）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#剪枝处理降低了”过拟合“风险，但也带来了”欠拟合“的风险。"><span class="nav-number">3.3.</span> <span class="nav-text">剪枝处理降低了”过拟合“风险，但也带来了”欠拟合“的风险。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CART-classification-and-regression-tree-算法"><span class="nav-number">4.</span> <span class="nav-text">CART(classification and regression tree)算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#CART是在给定输入随机变量X的条件下输出随机变量Y-的条件概率分布的学习方法，分类回归树即可以用于分类，也可以用于回归"><span class="nav-number">4.1.</span> <span class="nav-text">CART是在给定输入随机变量X的条件下输出随机变量Y 的条件概率分布的学习方法，分类回归树即可以用于分类，也可以用于回归</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CART决策树的生成"><span class="nav-number">4.2.</span> <span class="nav-text">CART决策树的生成</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CART决策树的剪枝"><span class="nav-number">4.3.</span> <span class="nav-text">CART决策树的剪枝</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小结"><span class="nav-number">5.</span> <span class="nav-text">小结</span></a></li></ol></div>
             
 
           </div>
