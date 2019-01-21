@@ -261,6 +261,578 @@
   <section id="posts" class="posts-expand">
     
 	
+      	    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/16/ml/Conditional GAN/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/16/ml/Conditional GAN/" itemprop="url">Conditional GAN</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-16T07:10:10+08:00">
+                2019-01-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/GAN/" itemprop="url" rel="index">
+                    <span itemprop="name">GAN</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="Conditional-GAN介绍"><a href="#Conditional-GAN介绍" class="headerlink" title="Conditional GAN介绍"></a>Conditional GAN介绍</h3><h4 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h4><ul>
+<li><p>Traditional supervised approach</p>
+<ul>
+<li>正面火车和侧面火车都是好的结果，这会导致最后图片很模糊，因为是多张图片的平均<img src="/2019/01/16/ml/Conditional%20GAN/resources/B506E2E85727105810C3FD98DE358329.jpg">
+</li>
+</ul>
+</li>
+<li><p>GAN</p>
+<ul>
+<li>G其实可以很容易忽略D,从而可以无视G的输入(这里是c:train)<ul>
+<li>比如如果G发现每次输出猫都能得到高分，那么不管G的输入，只要我我每次都输出是清晰的猫就好了</li>
+<li>输出低分基本上有下面三种场景<img src="/2019/01/16/ml/Conditional%20GAN/resources/06288B8EFB718B40410ACFE58F20E136.jpg"></li>
+</ul>
+</li>
+<li>后面的Conditional GAN可以解决这个问题</li>
+</ul>
+</li>
+</ul>
+<h4 id="Conditional-GAN"><a href="#Conditional-GAN" class="headerlink" title="Conditional GAN"></a>Conditional GAN</h4><ul>
+<li>输入<ul>
+<li>G的输出x：图片</li>
+<li>G的输入c：train</li>
+</ul>
+</li>
+<li>目标<ul>
+<li>x is realistic or not</li>
+<li>c ans x are matched or not<img src="/2019/01/16/ml/Conditional%20GAN/resources/71EAA38F9930A85049893063F5F499DD.jpg"></li>
+</ul>
+</li>
+<li>演算法<ul>
+<li>核心思想：找到Loss(上面三种情况集合)，然后用梯度提升方法去优化<img src="/2019/01/16/ml/Conditional%20GAN/resources/0FC60DD9F76548EDD7675B99F770ED9E.jpg">
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="Contitional-GAN-D网络架构"><a href="#Contitional-GAN-D网络架构" class="headerlink" title="Contitional GAN(D网络架构)"></a>Contitional GAN(D网络架构)</h4><ul>
+<li>分别将x是否是真实图片和c and x是否match分别输出会比较好一点<img src="/2019/01/16/ml/Conditional%20GAN/resources/3EC8A1DCCF4EDAA9523E2F085EF824F0.jpg">
+</li>
+</ul>
+<h3 id="Stack-GAN"><a href="#Stack-GAN" class="headerlink" title="Stack GAN"></a>Stack GAN</h3><ul>
+<li>思想就是先产生小图，然后产生大图<img src="/2019/01/16/ml/Conditional%20GAN/resources/C1400E303DB9A50B6CC45300D159FEB4.jpg">
+</li>
+</ul>
+<h3 id="Image-to-Image"><a href="#Image-to-Image" class="headerlink" title="Image to Image"></a>Image to Image</h3><h4 id="传统方法-Supervised-Learning"><a href="#传统方法-Supervised-Learning" class="headerlink" title="传统方法(Supervised Learning)"></a>传统方法(Supervised Learning)</h4><ul>
+<li>也是一样，最后输出会很模糊<ul>
+<li>因为一个input对应了多个好图（多张图片），就会把这些图片做平均来输出<img src="/2019/01/16/ml/Conditional%20GAN/resources/9A949394AE46F6D8145151F92CE0611D.jpg">
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="GAN方法"><a href="#GAN方法" class="headerlink" title="GAN方法"></a>GAN方法</h4><ul>
+<li>testing中的close图片，就是supervised learning的结果，比较模糊</li>
+<li>GAN比较清晰了，但是会产生一些其他的内容</li>
+<li>GAN+close，再加入一些限制条件，就是让G产生的图片更接近真实图片<img src="/2019/01/16/ml/Conditional%20GAN/resources/9EAD3C30D5E435ED7070F5B291B3639A.jpg">
+</li>
+</ul>
+<h4 id="Patch-GAN"><a href="#Patch-GAN" class="headerlink" title="Patch GAN"></a>Patch GAN</h4><ul>
+<li>图像太大，容易出现各种问题<img src="/2019/01/16/ml/Conditional%20GAN/resources/3AE30BDB0CD1A217FCFFB482DB274D10.jpg">
+</li>
+</ul>
+<h3 id="GAN用到其他场景"><a href="#GAN用到其他场景" class="headerlink" title="GAN用到其他场景"></a>GAN用到其他场景</h3><h4 id="Speech去杂音"><a href="#Speech去杂音" class="headerlink" title="Speech去杂音"></a>Speech去杂音</h4><ul>
+<li>speech生谱图就当做图片，也使用Conditional GAN思想<img src="/2019/01/16/ml/Conditional%20GAN/resources/C11F3C210E44F4A4E9CE5C96C89C7CFF.jpg">
+</li>
+</ul>
+<h4 id="Video"><a href="#Video" class="headerlink" title="Video"></a>Video</h4><ul>
+<li>判断是否是正确的连续的影片<ul>
+<li>将影片一张张剪辑，形成图片，然后进行训练<img src="/2019/01/16/ml/Conditional%20GAN/resources/E9F52BFDB4677AE62051EA82760CADC3.jpg"></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+	
+    
+	
+      	    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/10/ml/GAN基础/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/10/ml/GAN基础/" itemprop="url">GAN基础</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-10T22:10:12+08:00">
+                2019-01-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/GAN/" itemprop="url" rel="index">
+                    <span itemprop="name">GAN</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="Basic-idea-of-GAN"><a href="#Basic-idea-of-GAN" class="headerlink" title="Basic idea of GAN"></a>Basic idea of GAN</h3><h4 id="Generator"><a href="#Generator" class="headerlink" title="Generator"></a>Generator</h4><img src="/2019/01/10/ml/GAN基础/resources/66AEF5EADDEC96BE3DA212E758624834.jpg">
+<img src="/2019/01/10/ml/GAN基础/resources/9E2ECC940FEAF9C96D8CEE35311233A2.jpg">
+<h4 id="Discriminator-辨别者，鉴别器"><a href="#Discriminator-辨别者，鉴别器" class="headerlink" title="Discriminator(辨别者，鉴别器)"></a>Discriminator(辨别者，鉴别器)</h4><ul>
+<li>产出一个标量<img src="/2019/01/10/ml/GAN基础/resources/6998CF78D25699B4821C46E82C0998DE.jpg">
+</li>
+</ul>
+<h4 id="形容关系：猎食者和天敌都在净化"><a href="#形容关系：猎食者和天敌都在净化" class="headerlink" title="形容关系：猎食者和天敌都在净化"></a>形容关系：猎食者和天敌都在净化</h4><ul>
+<li>天敌-Discriminator</li>
+<li><p>枯叶蝶-Generator</p>
+<ul>
+<li>枯叶蝶为了躲避猎食者的捕猎，不行进化自身<img src="/2019/01/10/ml/GAN基础/resources/8344AE0D169C537B6DF1D907BC7348D3.jpg">
+</li>
+</ul>
+</li>
+<li><p>二次元也是一样的</p>
+<ul>
+<li>Generator,Discriminator不断进化Discriminator2骗过Generator1，Discriminator3骗过Generator2等</li>
+<li>看起来Generator,Discriminator像是对抗的样子，所以是adversarial的由来<img src="/2019/01/10/ml/GAN基础/resources/9D1A3879E4E766C5138C872EE7020170.jpg">
+</li>
+</ul>
+</li>
+<li><p>对抗只是拟人的方法，下面就是和平的比喻</p>
+<ul>
+<li>问题：<ul>
+<li>1.为什么Generator不能自己学,而需要Discriminator驱动</li>
+<li>2.为什么Discriminator不自己做<img src="/2019/01/10/ml/GAN基础/resources/17AAF5A1E271847BB8A9565F19E6F561.jpg">
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="Algorithm"><a href="#Algorithm" class="headerlink" title="Algorithm"></a>Algorithm</h4><ul>
+<li><p>step1</p>
+<ul>
+<li>训练Discriminator，使database中产生的结果很接近1，Generator产生的结果很接近0<img src="/2019/01/10/ml/GAN基础/resources/E91AB963E417F2AF849AA38157129079.jpg">
+</li>
+</ul>
+</li>
+<li><p>step2</p>
+<ul>
+<li>Fix Discriminator,update Generator</li>
+<li>Generator，Discriminator合一起，成一个巨大的网络，比如前几层是Generator，后几层是Discriminator</li>
+<li>这一步目标就是巨大网络输出scala值要大(Gradient Ascent)<ul>
+<li>通常情况下，要让最后的输出很大，只需要调整最后一层softmax层就可以了</li>
+<li>但是这里固定住后面几层，只让调整Generator<img src="/2019/01/10/ml/GAN基础/resources/F11F16B8F1D8F59E45D03467FD6AEE4A.jpg">
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>整体算法</p>
+<ul>
+<li>Learning D<ul>
+<li>sample from database:$x^m$,noise samples:$z^m$</li>
+<li>$\tilde x^m=G(z^m)$表示Genertor产生的vector</li>
+<li>然后通过梯度提升算法，最优化$\tilde V$,含义就是让$D(x^i)尽量大,D(\tilde x^i)$尽量小</li>
+</ul>
+</li>
+<li>Learning G<ul>
+<li>目的就是update G，使其能够骗过D</li>
+<li>$D(G(z^i))$，理解其含义就是让noise数据经过G处理后，然后通过D（骗过D），得到最大的标量值<img src="/2019/01/10/ml/GAN基础/resources/5E52567B26EE736450698E2A8BF45E80.jpg">
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="GAN-as-structured-learning"><a href="#GAN-as-structured-learning" class="headerlink" title="GAN as structured learning"></a>GAN as structured learning</h3><h4 id="Structured-Learning"><a href="#Structured-Learning" class="headerlink" title="Structured Learning"></a>Structured Learning</h4><ul>
+<li>当输出不是一个标量数值或者分类，是更负责的模型的时候，比如seq，matrix，graph等<img src="/2019/01/10/ml/GAN基础/resources/436BF7130FE4A4A66B51511F88BF4640.jpg"></li>
+<li>Why structured learning challenging<ul>
+<li>必须考虑大局观<img src="/2019/01/10/ml/GAN基础/resources/DE35D645A761A70023B790B3E4071884.jpg"></li>
+</ul>
+</li>
+<li>Structured Learning Approach<ul>
+<li>Bottom up方法容易失去大局观<ul>
+<li>一个componet一个component地生成 </li>
+<li>component与component之间的关系不容易把握</li>
+</ul>
+</li>
+<li>Top Down方法不容易train<img src="/2019/01/10/ml/GAN基础/resources/9C427F41E805E3C0017D49FA943E5150.jpg">
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Can-Generator-learn-by-itself"><a href="#Can-Generator-learn-by-itself" class="headerlink" title="Can Generator learn by itself"></a>Can Generator learn by itself</h3><h4 id="NN-Generator和NN-Classifier比较类似"><a href="#NN-Generator和NN-Classifier比较类似" class="headerlink" title="NN Generator和NN Classifier比较类似"></a>NN Generator和NN Classifier比较类似</h4><ul>
+<li>只是一个是输入vector，一个输入图像</li>
+<li>问题：NN Generator如何产生输入的vector(将图片进行编码)?<ul>
+<li>不能够随机产生，因为如果随机产生，就无法表示出向量的相似性了(比如图片1有很多种，左斜，右斜等)<img src="/2019/01/10/ml/GAN基础/resources/B17EF3ED0C502169303D060B02B9803D.jpg">
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="Auto-Encoder-Decoder"><a href="#Auto-Encoder-Decoder" class="headerlink" title="Auto Encoder-Decoder"></a>Auto Encoder-Decoder</h4><ul>
+<li>解决上面：NN Generator如何产生输入vector问题</li>
+<li>如图：encode模块，对输入和输出图片越接近越好<img src="/2019/01/10/ml/GAN基础/resources/02DBAADA9FFA8D1FD2E7FB2CB90BCC25.jpg"></li>
+<li>训练后好的Anto encoder中的NN Decoder其实就可以理解为NN Generator<ul>
+<li>简单来说就是输入一个vector，然后输出图像<img src="/2019/01/10/ml/GAN基础/resources/B8B0E5D6B03F0A4982F7A5E15E425116.jpg"></li>
+</ul>
+</li>
+<li>如果训练集数据比较小，当出现0.5a + 0.5b输入时无法判断<ul>
+<li>a,b都能正确判断，但是当各0.5的时候就不好使了</li>
+<li>如下使用VAE解决<img src="/2019/01/10/ml/GAN基础/resources/A774B365F5C4321FBFA92BAD08736468.jpg">
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="VAE"><a href="#VAE" class="headerlink" title="VAE"></a>VAE</h4><img src="/2019/01/10/ml/GAN基础/resources/77926F12725C356845A4CC5FB5877E9F.jpg">
+<ul>
+<li>如何更好的判断input img和output img相似，如何取舍？<ul>
+<li>比如我们不能简单的用pixel不同个数来决定，如下图明显6 pixel error更好<img src="/2019/01/10/ml/GAN基础/resources/BD30A4E204F8A4C2BE6EC062FFB978D1.jpg">
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="单纯的learn-Generator困难的地方-Auto-encoder可能遇见问题"><a href="#单纯的learn-Generator困难的地方-Auto-encoder可能遇见问题" class="headerlink" title="单纯的learn Generator困难的地方(Auto encoder可能遇见问题)"></a>单纯的learn Generator困难的地方(Auto encoder可能遇见问题)</h4><ul>
+<li>邻近的component无法交流<ul>
+<li>当然如果考虑更加深的NN，多加入些隐层，可能能够解决<img src="/2019/01/10/ml/GAN基础/resources/022A31BA195753A93ABF96710BEAAB8D.jpg"></li>
+</ul>
+</li>
+<li>例如:<ul>
+<li>绿色为GAN得到的结论</li>
+<li>蓝色为Auto-encoder(单纯Generator)得到的</li>
+<li>原因是无法得到邻近的component的关系<img src="/2019/01/10/ml/GAN基础/resources/BA81A7B818E0D517E2047D745B53AE9A.jpg">
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Can-Discriminator-generate"><a href="#Can-Discriminator-generate" class="headerlink" title="Can Discriminator generate"></a>Can Discriminator generate</h3><h4 id="Discriminator复习"><a href="#Discriminator复习" class="headerlink" title="Discriminator复习"></a>Discriminator复习</h4><ul>
+<li>Discriminator在不同的领域有不同的名字,evaluation function,potential function….<img src="/2019/01/10/ml/GAN基础/resources/7D4F8ADAF45151FA632840F0CCF981DB.jpg">
+</li>
+</ul>
+<h4 id="Discriminator容易解决component与component之间的关系"><a href="#Discriminator容易解决component与component之间的关系" class="headerlink" title="Discriminator容易解决component与component之间的关系"></a>Discriminator容易解决component与component之间的关系</h4><ul>
+<li>如果已经有了整张图片，来判断图片是否ok，比较好处理<ul>
+<li>比如下图中，Discriminator就是一个CNN，这个CNN中有一个检测是否有独立的的filter，这样就很容易检测了<img src="/2019/01/10/ml/GAN基础/resources/251216A45C8730808FACD751AC7F86BB.jpg">
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="Discriminator擅长批评，不擅长生成"><a href="#Discriminator擅长批评，不擅长生成" class="headerlink" title="Discriminator擅长批评，不擅长生成"></a>Discriminator擅长批评，不擅长生成</h4><img src="/2019/01/10/ml/GAN基础/resources/415E152AE13988117AAAA3E8485D1FCD.jpg">
+<ul>
+<li>need some negative example<ul>
+<li>所以产生negative example是关键<img src="/2019/01/10/ml/GAN基础/resources/E809C331F97DED3FEBF074A9F71546CA.jpg"></li>
+<li>可能需要一个好的程序去产生negative example<ul>
+<li>并不能随机生成，如果随机生成，那么一些处于中间状态的图片也没有办法处理</li>
+<li>而且需要一个Discriminator来判断是否是好的negative example<ul>
+<li>这样就会有鸡生蛋，蛋生鸡的问题了:我们需要好的negative example来训练Discriminator,同时又需要好的Discriminator来协助产生negative example<img src="/2019/01/10/ml/GAN基础/resources/60F6EC38D31F5F0A61D3421E4955FF57.jpg"></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Iteration方法解决<ul>
+<li>Discriminator Training<ul>
+<li>只要能够找到$\tilde x=arg maxD(x)$,Discriminator就能够自己train，而不需要Generator</li>
+<li>用iteration方法，不断用此轮迭代得到的D去产生negative example(用D去找出自己的弱点)，然后迭代训练<img src="/2019/01/10/ml/GAN基础/resources/5323A485E0B3877A1816C4156D24F3EB.jpg"></li>
+</ul>
+</li>
+<li>Discriminator Training实际类似曲线图<ul>
+<li>第一张图中，可以看见在没有sample区域，D(x)也可能判断出很高的分数</li>
+<li>第二张图中，用得到的D(x)生成新的negative example,然后再从新调整D(x)(让随机产生的negative example分数低)</li>
+<li>第三张图中，就是第二轮训练后的曲线图<ul>
+<li>直观感觉：总体说就是用D(x)去生成非real example区域的高分negative example，然后不断调整自己，让其分数变低<img src="/2019/01/10/ml/GAN基础/resources/3BC158DF7FB206E0ABB9BD3EC8417C9A.jpg"></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Graphical model<ul>
+<li>其实就是用的Discriminator方法，在ml中其他的structure modle其实方法也是类似：<br>就是有一些negative和positive的样本，然后产生一个model，然后用此model再生成些negative example,然后再train….<img src="/2019/01/10/ml/GAN基础/resources/8C8C6F5948E5A3311053250CE5B92454.jpg">
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="Generator与Discriminator"><a href="#Generator与Discriminator" class="headerlink" title="Generator与Discriminator"></a>Generator与Discriminator</h4><ul>
+<li>优缺点<ul>
+<li>Generator容易生成，但不易判断组件与组件直接的关系</li>
+<li>Discriminator有全局观，但不易做生成<img src="/2019/01/10/ml/GAN基础/resources/FF1C2EB528B230870F7CE2971B5F749E.jpg"></li>
+</ul>
+</li>
+<li>组合<ul>
+<li>Generator就替代了arg maxD(x),解决了Discriminator很难做生成的问题<img src="/2019/01/10/ml/GAN基础/resources/E74CAFA5583574E1C5FD53E60141C4A4.jpg">
+<img src="/2019/01/10/ml/GAN基础/resources/6B95811287B3A08F948052B44AA87F83.jpg"></li>
+</ul>
+</li>
+<li>VAE &amp; GAN<img src="/2019/01/10/ml/GAN基础/resources/5BAAC471C2277A43B3B60F12485B0C76.jpg">
+<ul>
+<li>VAE比较稳，但最终的效果还是没有GAN好</li>
+<li>各种GAN其实效果没有太大区别<img src="/2019/01/10/ml/GAN基础/resources/D8BB36BDDE1EA4D6A5AB28EC2203807B.jpg"></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+	
+    
+	
     
 	
       	    
@@ -1341,616 +1913,6 @@
     
 	
     
-	
-      	    
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/06/dl/第五门课-第三周/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="雷哥">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/favicon.ico">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="雷哥的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/06/dl/第五门课-第三周/" itemprop="url">第五门课-第三周</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-06T08:17:19+08:00">
-                2018-12-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/深度学习/" itemprop="url" rel="index">
-                    <span itemprop="name">深度学习</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/深度学习/吴恩达课程总结/" itemprop="url" rel="index">
-                    <span itemprop="name">吴恩达课程总结</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><a href="https://github.com/yuancl/dl-algorithm/tree/master/5-RecurrentNeuralNetworks/Week3/Machine-Translation" target="_blank" rel="noopener">习题代码:Machine-Translation</a><br><a href="https://github.com/yuancl/dl-algorithm/tree/master/5-RecurrentNeuralNetworks/Week3/Trigger-word-detection" target="_blank" rel="noopener">习题代码:Trigger-word-detection</a></p>
-<h4 id="序列结构的各种序列"><a href="#序列结构的各种序列" class="headerlink" title="序列结构的各种序列"></a>序列结构的各种序列</h4><ul>
-<li><p>seq2seq<br>分为编码网络的解码网络</p>
-<img src="/2018/12/06/dl/第五门课-第三周/resources/4A4F9C5B535DDB65265853ACD2EDC912.jpg">
-</li>
-<li><p>应用场景</p>
-<ul>
-<li>机器翻译，比如英文和法文的互相翻译</li>
-<li>Image-to-seq<br>例子中使用的AlexNet网络，将最后的softmax输出替换为RNN网络，输出为一个序列<img src="/2018/12/06/dl/第五门课-第三周/resources/49BD4A13FE8A1C4571A631492527A168.jpg">
-</li>
-</ul>
-</li>
-<li><p>选择最可能的句子</p>
-<ul>
-<li>语言模型和翻译模型比较<ul>
-<li>语言模型总是以零向量开始$(P(y^{&lt; 1 &gt;},y^{&lt; 2 &gt;},y^{&lt; 3 &gt;}…y^{&lt; n &gt;}))$</li>
-<li>而翻译模型输入是法语的encoder，可以理解为条件模型:$P(y^{&lt; 1 &gt;},y^{&lt; 2 &gt;},y^{&lt; 3 &gt;}…y^{&lt; n &gt;}|x^{&lt; 1 &gt;},x^{&lt; 2 &gt;},x^{&lt; 3 &gt;}…x^{&lt; n &gt;})$</li>
-<li>所以一个是随机输出seq，另一个是需要概率最大的seq<img src="/2018/12/06/dl/第五门课-第三周/resources/BB67CF9637B51A081225158E964A74BA.jpg"></li>
-<li>如何保证翻译模型中的条件概率最大<ul>
-<li>贪心算法：没一个输出都保证当前一个term($y^{&lt; i &gt;}$)概率最大，但是并不能保证<font color="red">整个序列概率最大</font>，所以一次挑选一个词并不是最佳的选择</li>
-<li>穷举法：将所有句子进行穷举测试，但由单词生成的句子量太大，无法穷举</li>
-<li>集束算法</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="集束算法-Beam-Search"><a href="#集束算法-Beam-Search" class="headerlink" title="集束算法(Beam Search)"></a>集束算法(Beam Search)</h4><ul>
-<li><p>集束算法</p>
-<ul>
-<li>贪婪算法只会挑出最可能的那一个单词，然后继续。而集束搜索则会考虑多个选择，选择数量就是集束宽(Beam width)</li>
-<li>第一步：<br>需要 输入法语句子到编码网络，然后会解码这个网络，这个 softmax 层(上图编号 3 所示)会输 出 10,000 个概率值，得到这 10,000 个输出的概率值，取前三个存起来</li>
-<li>第二步：<ul>
-<li>选择第一步中的一个词$P(y^{<2>}|x, y^{<1>})$如下图3，输入为第一步的输出和x</1></2></li>
-<li>不仅仅 是第二个单词有最大的概率，而是第一个、第二个单词对有最大的概率</li>
-<li>$P(y^{<1>},y^{<2>}|x)=P(y^{<1>}|x)P(y^{<2>}|x, y^{<1>})$</1></2></1></2></1></li>
-</ul>
-</li>
-<li>后面的步骤也是模仿第二步进行计算</li>
-<li>重复第二步，选择第一步中的其他词进行计算<img src="/2018/12/06/dl/第五门课-第三周/resources/09E08ACC8EC0182CF63C63DD96E9F0EC.jpg">
-<img src="/2018/12/06/dl/第五门课-第三周/resources/D81DFB526C95CD2E4362B500F8E26472.jpg"></li>
-<li>可以看见，如果集束宽为1，那么其实就是贪心算法</li>
-</ul>
-</li>
-<li><p>改进集束搜索</p>
-<ul>
-<li><p>问题1：$P(y^{<1>}|x)P(y^{<2>}|x, y^{<1>})$…..由于每一步概率值都小于0，所以比容易造成数值下溢，也就是导致电脑的浮点表示不能精确的存储</1></2></1></p>
-<ul>
-<li>解决方案：<br>我们总是记录概率的对数和，而不是概率的乘积，就用到了对数函数乘积的性质<img src="/2018/12/06/dl/第五门课-第三周/resources/A0E79789CBD92DE575602B479DAD35D3.jpg">
-</li>
-</ul>
-</li>
-<li><p>问题2：由于每一项乘积都小于1，并且目标函数是最大概率的输出，所以一般会偏向于比较短的句子，这样乘积项就比较少</p>
-<ul>
-<li>解决方案：<br>通过除以翻译结果的单词数量。这样就是取每个单词的概率对数值的平均了，这样很明显地 减少了对输出长的结果的惩罚</li>
-</ul>
-</li>
-<li><p>更柔和的方法：并不直接除以单词数，而是会乘上一个超参数a,比如a=0.7，如果a=1那么就相当于完全用长度来做归一化</p>
-</li>
-<li><p>集束宽选择<br>集束宽越大效果当然越好，但是计算也越复杂。在产品中，经常可以看到把束宽设到 10</p>
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="集束搜索误差分析"><a href="#集束搜索误差分析" class="headerlink" title="集束搜索误差分析"></a>集束搜索误差分析</h4><h4 id="Bleu得分"><a href="#Bleu得分" class="headerlink" title="Bleu得分"></a>Bleu得分</h4><ul>
-<li>背景：比如机器翻译会得到很多都不错的答案，那么如何选择呢？Bleu得分算法，就是解决这个问题，它做的是；给定一个机器生成的翻译，能够自动地计算一个分数来衡量好坏</li>
-</ul>
-<h4 id="注意力模型"><a href="#注意力模型" class="headerlink" title="注意力模型"></a>注意力模型</h4><ul>
-<li>背景：从Bleu评分可以看出，长句的效果比较差<img src="/2018/12/06/dl/第五门课-第三周/resources/37CDD1E8D8F3D180CB8C734953DD30E0.jpg"></li>
-<li><font color="blue">原理：模仿人工翻译，不会一次性把整个文章都读完再翻译，会读一部分内容，翻译一部分</font><ul>
-<li>下层的双向LSTM就是先跑所有的法语单词，然后形成context，看具体时间步的注意力需要多少前后关注做准备</li>
-</ul>
-</li>
-<li>理解：在计算当前时间步的时候，会花多少精力去关注多少当前词附近的词语<ul>
-<li>这些是注意力权重，即$a^{&lt;t,t’&gt;}$告诉你，当你尝试生成第𝑡个英文词，它应该花多少注意力在第𝑡个法语词上面。当生成一个 特定的英文词时，这允许它在每个时间步去看周围词距内的法语词要花多少注意力<img src="/2018/12/06/dl/第五门课-第三周/resources/EEBE423431B34A94171A26BDFA7882A4.jpg"></li>
-</ul>
-</li>
-<li><p>编程练习：</p>
-<ul>
-<li>将人工理解(Tuesday 09 Oct 1993)的日期翻译为机器理解的日期(1993-10-09)</li>
-<li>这里前一个时间步的输出不用喂给后一个输入，并不像前面练习的恐龙名字一样，前后两个单词是有关联的</li>
-<li>在训练过程中，每一个时间步的注意力长度是不一样的<img src="/2018/12/06/dl/第五门课-第三周/resources/691EABB718941C596A7B2C25AF3B853D.jpg"></li>
-<li><p>model：<br>总体分为2步，1：右边，one “Attention”如何计算,2:左边，整体的attention模型<br>In this part, you will implement the attention mechanism presented in the lecture videos. Here is a figure to remind you how the model works. The diagram on the left shows the attention model. The diagram on the right shows what one “Attention” step does to calculate the attention variables $\alpha^{\langle t, t’ \rangle}$, which are used to compute the context variable $context^{\langle t \rangle}$ for each timestep in the output ($t=1, \ldots, T_y$).</p>
-<img src="/2018/12/06/dl/第五门课-第三周/resources/2868A3ED41699CAA4210EAF9E26E0328.jpg">
-<p>Here are some properties of the model that you may notice: </p>
-<ul>
-<li><p>模型分两个LSTM层，下面一个双向LSTM根据前向后向计算的激活值a，然后匹配上各个时间步的注意力的长度，产出context，第二层LSTM是用context和前一个时间步的输出$S^{&lt; t-1 &gt;}$输出最终值<br>There are two separate LSTMs in this model (see diagram on the left). Because the one at the bottom of the picture is a Bi-directional LSTM and comes <em>before</em> the attention mechanism, we will call it <em>pre-attention</em> Bi-LSTM. The LSTM at the top of the diagram comes <em>after</em> the attention mechanism, so we will call it the <em>post-attention</em> LSTM. The pre-attention Bi-LSTM goes through $T_x$ time steps; the post-attention LSTM goes through $T_y$ time steps. </p>
-</li>
-<li><p>The post-attention LSTM passes $s^{\langle t \rangle}, c^{\langle t \rangle}$ from one time step to the next. In the lecture videos, we were using only a basic RNN for the post-activation sequence model, so the state captured by the RNN output activations $s^{\langle t\rangle}$. But since we are using an LSTM here, the LSTM has both the output activation $s^{\langle t\rangle}$ and the hidden cell state $c^{\langle t\rangle}$. However, unlike previous text generation examples (such as Dinosaurus in week 1), in this model the post-activation LSTM at time $t$ does will not take the specific generated $y^{\langle t-1 \rangle}$ as input; it only takes $s^{\langle t\rangle}$ and $c^{\langle t\rangle}$ as input. We have designed the model this way, because (unlike language generation where adjacent characters are highly correlated) there isn’t as strong a dependency between the previous character and the next character in a YYYY-MM-DD date. </p>
-</li>
-<li><p>We use $a^{\langle t \rangle} = [\overrightarrow{a}^{\langle t \rangle}; \overleftarrow{a}^{\langle t \rangle}]$ to represent the concatenation of the activations of both the forward-direction and backward-directions of the pre-attention Bi-LSTM. </p>
-</li>
-<li><p>The diagram on the right uses a <code>RepeatVector</code> node to copy $s^{\langle t-1 \rangle}$’s value $T_x$ times, and then <code>Concatenation</code> to concatenate $s^{\langle t-1 \rangle}$ and $a^{\langle t \rangle}$ to compute $e^{\langle t, t’}$, which is then passed through a softmax to compute $\alpha^{\langle t, t’ \rangle}$. We’ll explain how to use <code>RepeatVector</code> and <code>Concatenation</code> in Keras below. </p>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="语音模型"><a href="#语音模型" class="headerlink" title="语音模型"></a>语音模型</h4><ul>
-<li>CTC cost<ul>
-<li>背景：很多时候语音输入比输出会多很多，如何在RNN中相同输入输出的模型中使用呢？</li>
-<li>CTC 损失函数的一个基本规则是 将空白符之间的重复的字符折叠起来，再说清楚一些，我这里用下划线来表示这个特殊的空 白符(a special blank character)，这样就可以让输出和输入相同数量了</li>
-</ul>
-</li>
-</ul>
-<h4 id="触发字检测"><a href="#触发字检测" class="headerlink" title="触发字检测"></a>触发字检测</h4><ul>
-<li>生谱图特征得到特征向量$x^{<1>},x^{<2>,…}$</2></1></li>
-<li>训练集如何标注：检测到关键词的以后就标注为1，未检测到就标注为0<img src="/2018/12/06/dl/第五门课-第三周/resources/EBCF128EB7F18F6FFFC673EA682EAFE1.jpg"></li>
-<li>问题：这样导致0和1的数量很不平衡，简单的处理方式：比 起只在一个时间步上去输出 1，其实你可以在输出变回 0 之前，多次输出 1，或说在固定的 一段时间内输出多个 1</li>
-<li>练习题：<ul>
-<li>网络架构<img src="/2018/12/06/dl/第五门课-第三周/resources/3927A66C61616AB5B8F15E0F82790B80.jpg"></li>
-<li>首先通过生谱图将声音转换为特征向量</li>
-<li>然后开始使用了CNN，使5511时间步减小到1375，这个在RNN中大量减小了复杂大</li>
-<li>然后用两层RNN，进行0，1预测输出，注意并没有使用双向RNN，因为语音说完就要快速给出结果，并不是等10s说完后才给</li>
-<li>Here’s what you should remember:<ul>
-<li>Data synthesis is an effective way to create a large training set for speech problems, specifically trigger word detection. </li>
-<li>Using a spectrogram and optionally a 1D conv layer is a common pre-processing step prior to passing audio data to an RNN, GRU or LSTM.</li>
-<li>An end-to-end deep learning approach can be used to built a very effective trigger word detection system. </li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-	
-    
-	
-      	    
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/01/dl/第五门课-第二周/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="雷哥">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/favicon.ico">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="雷哥的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/01/dl/第五门课-第二周/" itemprop="url">第五门课-第二周</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-01T18:37:09+08:00">
-                2018-12-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/深度学习/" itemprop="url" rel="index">
-                    <span itemprop="name">深度学习</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/深度学习/吴恩达课程总结/" itemprop="url" rel="index">
-                    <span itemprop="name">吴恩达课程总结</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><a href="https://github.com/yuancl/dl-algorithm/tree/master/5-RecurrentNeuralNetworks/Week2" target="_blank" rel="noopener">习题代码:Operations-on-word- vectors</a></p>
-<h4 id="词嵌入"><a href="#词嵌入" class="headerlink" title="词嵌入"></a>词嵌入</h4><ul>
-<li>背景：one-hot的方式不能表示相近词之间的相似度，比如用语言模型得到 i want a glass of orange juice,如果换成 i want a glass of apple …，  如果是one-hot就不能得到好的结果</li>
-<li>原因：one-hot向量通常只有一位为非0，所以它们之间的内积为0，多维空间表示就是垂直的，没有相关性</li>
-<li>词嵌入：把之前的10000+维度的one-hot转换为300维的相关特征，把该词嵌入300维的空间中<img src="/2018/12/01/dl/第五门课-第二周/resources/C41732C6B42FCD3CC1C0DF349DDA0403.jpg">
-<img src="/2018/12/01/dl/第五门课-第二周/resources/A21F2659F855954FA841C05F9E5F0FB7.jpg"></li>
-<li>t-SNE算法，将多维空间映射到2为空间中，如上图左图</li>
-</ul>
-<h4 id="使用词嵌入-命名实体识别"><a href="#使用词嵌入-命名实体识别" class="headerlink" title="使用词嵌入(命名实体识别)"></a>使用词嵌入(命名实体识别)</h4><ul>
-<li>背景：Robert Lin is an apple farmer 与 Robert Lin is a durian cultivator(Robert Lin 是一个榴莲培育家)榴莲培育家训练样本很少包含该词，很可能不能做到命名实体的识别</li>
-<li>词嵌入做迁移学习优点及步骤<ul>
-<li>泛化性比较好</li>
-<li>先从大量的文本集中学习词嵌入。一个非常大的文本集，这个可以解决你的训练样本比较少，比如根本没有durian(榴莲)这个词汇的训练样本</li>
-<li>你可以用这些词嵌入模型把它迁移到你的新的只有少量标注训练集的任务中，比如说用这个300维的词嵌入来表示你的单词，比one-hot更低维</li>
-<li>是否进行微调？如果你有大量的训练数据集可以考虑微调已有的嵌入词</li>
-<li>通常迁移任务 A-&gt;B，通常是A中有大量数据集，B中只有少量数据集这种情况效果比较好<ul>
-<li>比如在机器翻译领域词嵌入用得比较少，原因就是我们有大量的翻译样本</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>词嵌入和人脸编码类比<ul>
-<li>相同点，都是通俗理解都是通过编码，得到标识一个物体的唯一向量</li>
-<li>不同点，词嵌入是固定的词汇，而人脸编码是给定任意的图片都可以进行编码<img src="/2018/12/01/dl/第五门课-第二周/resources/DA8D7754F10BE0DAA530258811F9AC1E.jpg">
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="词嵌入的特性"><a href="#词嵌入的特性" class="headerlink" title="词嵌入的特性"></a>词嵌入的特性</h4><ul>
-<li>类比推理<ul>
-<li>解决问题：man对应woman，那么king对应什么？</li>
-<li>目标函数：$e_{man}-e_{woman}\approx e_{king}-e_?$,也就是Find work w：argmax sim($e_w, e_{king}-e_{man}+e_{woman}$)</li>
-<li>实现算法：<ul>
-<li>该场景的四个词如果映射为二维空间，一般会是平行四边形，通常只有一维数据有一定差异<img src="/2018/12/01/dl/第五门课-第二周/resources/52B643F271BBA6B8880FF8C6499D3894.jpg"></li>
-<li>余弦相识度：<ul>
-<li>公式：sim(u,v)=$\frac{u^T*v}{||u||_2||v||_2}$=cos($\theta$)</li>
-<li>理解：两个向量之间的角度的余弦是衡量它们有多相似的指标，这里就是衡量两个词嵌入向量的相似度<img src="/2018/12/01/dl/第五门课-第二周/resources/CAD5599965AB00A4C6BFCD3BBFC387F5.jpg">
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="嵌入矩阵-Embedding-Matrix"><a href="#嵌入矩阵-Embedding-Matrix" class="headerlink" title="嵌入矩阵(Embedding Matrix)"></a>嵌入矩阵(Embedding Matrix)</h4><ul>
-<li>当你应用算法来学习词嵌入时，实际上是学习一个嵌入矩阵，我们的目标就是学习一个嵌入矩阵E</li>
-<li>有了嵌入矩阵，然后乘以one-hot向量，就能够得到$E*o_j=e_j$,$e_j$就是表示我们想要的词嵌入</li>
-<li>但实践中一般不会$E*o_j=e_j$,$e_j$这样计算，一般会有一个专门的函数来单独查找矩阵E的某列<img src="/2018/12/01/dl/第五门课-第二周/resources/C6433150B98AB53156F78848934AB4F2.jpg">
-</li>
-</ul>
-<h4 id="学习词嵌入"><a href="#学习词嵌入" class="headerlink" title="学习词嵌入"></a>学习词嵌入</h4><p>建立一个语言模型是学习词嵌入的好方法</p>
-<ul>
-<li>方法1：<br>$Eo_j=e_j$使用这种方法来学习词嵌入矩阵，训练集中有很多序列语句，然后放入神经网络中，来学习E，这种方法比较复杂，最后会有1800维300*6的向量进入隐藏层，然后进入10000维的softmax层<img src="/2018/12/01/dl/第五门课-第二周/resources/34DABF58D294A16191D22C8DED48AEBB.jpg"></li>
-<li>方法2(采用固定窗口)：<br>只取前4个词(作为一个窗口)来训练，用一个固定的历史窗口就意味着你可以处理任意长度的句子，因为输入的维度(1200)总是固定的<img src="/2018/12/01/dl/第五门课-第二周/resources/97D2B0D30C4C77C50ADF9A5BB86C1C70.jpg"></li>
-<li>方法3(前后数量不固定)<br>可以前后个4个词，<br>或者就附件一个词等(Skip-Gram思想)…<img src="/2018/12/01/dl/第五门课-第二周/resources/74CF627BF0907DB5F4DD4F0A47FC905E.jpg"></li>
-<li>总结：<br>如果你真想<font color="red">建立一个语言模型</font>，用目标词的前几个单词作为上下文是常见做法(上图编号9所示)。但如果你的<font color="red">目标是学习词嵌入</font>，那么你就可以用这些其他类型的上下文(上图编号10所示)，它们也能得到很好的词嵌入</li>
-</ul>
-<h4 id="Word2Vec"><a href="#Word2Vec" class="headerlink" title="Word2Vec"></a>Word2Vec</h4><p>上面都是讲的通过学习一个神经语言模型来得到更好的词嵌入，而<br>Word2Vec是更简单高效的方式来学习这种类型的嵌入</p>
-<ul>
-<li><p>Skip-Gram</p>
-<ul>
-<li>在 Skip-Gram模型中，我们要做的是抽取上下文和目标词配对，来构造一个<font color="red">监督学习问题</font><ul>
-<li>但是构造这个监督学习问题的目标并不是想要解决这个监督学习问题本身，而是想要使用这个学习问题来学到一个好的词嵌入模型<font color="red">(构建一个监督学习问题，实际想解决学习嵌入词模型)</font></li>
-</ul>
-</li>
-<li>步骤：我们随机选择一个词作为上下文c，然后在随机抽取一个词作为target y<font color="purple">(随机选择y，我理解只是重点强调这个算法本身，实际情况如果要训练得到一个好的词嵌入，必然是不能随机的，是需要选真实的y)</font>，然后就是建立x(c)–&gt;y的映射<ul>
-<li>c和E相乘，得到c的词嵌入向量，然后此向量通过softmax进行预测，最后和target建立Loss function来达到学习E的目的</li>
-</ul>
-</li>
-<li>softmax模型，预测不同目标词的概率:softmax:p(t|c)=$\frac{e^{\theta^{T}_{t}e_c}}{\sum^{10,000}_{j=1}e^{\theta{^T_je_c}}}$输出是10000(词典中单词数量)为的向量<ul>
-<li>$\theta_t$是一个与输出t有关的参数，即某个词t和标签相符的概率是多少</li>
-</ul>
-</li>
-<li>softmax损失函数：$L(\hat y,y)=-\sum^{10,000}_{i=1}y_ilog\hat y_i$ <font color="red">其中y是one-hot向量，$\hat y$是10.000维的各个词的预测输出概率</font><ul>
-<li><font color="red">这是softmax常有的损失模型</font>，$\hat y$是各个分类的概率，可以画一下log函数图形来理解该损失函数，如果$\hat y_i$为1，也就是第i个分类为概率为1，这个时候$L(\hat y,y)$就为0，损失值最小</li>
-<li><font color="red">直观理解损失函数</font>：<font color="blue">就是y和$\hat y$都是10000维的，Loss计算就是分别将这两个向量做”内积”，要使”内积”最小，假设第i维，$y_i=1$这个时候softmax的输出$\hat y_i=1$-&gt;$\log\hat y_i=0$(就是所第i维也正是softmax输出最大的分类的概率)-&gt;$y_i\log\hat y_i=0$-&gt;Loss最小</font></li>
-</ul>
-</li>
-<li>缺点(problem)：<br>在 softmax 模型中，每次你想要计算这个概率，你需要对你词汇表中的所有 10,000 个词做求和计算</li>
-<li>优化方案：<ul>
-<li>分级softmax分类器：不用一下子告诉属于10,000类中的哪一类，可以先告诉属于左边的5000中的一类还是右边5000中的，然后是2500….,这样来构造一颗分类树<img src="/2018/12/01/dl/第五门课-第二周/resources/95F9428AAE4FEA373515DBC5F8A622B8.jpg">
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>CBOW模型</p>
-<ul>
-<li>不同版本的 Word2Vec模型，Skip-Gram只是其中的一个，另一个叫做 CBOW，即连续词袋模型(Continuous Bag-Of-Words Model)，它获得中间词两边的的上下 文，然后用周围的词去预测中间的词</li>
-<li><font color="red">CBOW 是从原始语句推测目标字词;而Skip-Gram正好相反，是从目标字词推 测出原始语句</font></li>
-<li>CBOW对小型数据库比较合适，而Skip-Gram在大型语料中表现更好<img src="/2018/12/01/dl/第五门课-第二周/resources/FF2E1F1A0F94A8221B8B801595C6D5EC.jpg">
-</li>
-</ul>
-</li>
-<li><p>负采样(Negative Sampling)</p>
-<ul>
-<li>背景：之前的softmax分类器中，解决每次都要计算所有样本的问题</li>
-<li>Model：选择一个正样本和K个负样本，将softmax的分类转化为一系列二分类问题，只计算其中的正负样本的二分类问题<ul>
-<li>正负样本作为输入x，然后用$P(y=1|c,t)=sigmoid(\theta^T_te_c)$进行二分类计算<img src="/2018/12/01/dl/第五门课-第二周/resources/7D0E816C9C5C70572D286ADC59924886.jpg"></li>
-</ul>
-</li>
-<li>负样本k的选取<ul>
-<li>语库中的经验频率进行采样，这种会有很多like，the等高频词出现</li>
-<li>另一个极端就是1除以词汇表总词数，均匀的抽取样本，但这样对英语单词的分布是没有代表性的</li>
-<li>采用一种处于完全独立分布和训练集的观测分布两个极端之间<img src="/2018/12/01/dl/第五门课-第二周/resources/5A531D6FD207171B174D364AF500C77F.jpg">
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="Glove-Glove-word-vectors"><a href="#Glove-Glove-word-vectors" class="headerlink" title="Glove(Glove word vectors)"></a>Glove(Glove word vectors)</h4><ul>
-<li>定义：定义上下文和目标词为任意两个位置相近的单词，假设是左右各 10 词的距离，那么$X_{ij}$就是一个能够获取单词𝑖和单词𝑗出现位置相近时或是彼此接近的频率的计数器。</li>
-<li>Glove模型就是进行优化，将他们之间的差距最小化处理<ul>
-<li><font color="blue">就是通过一种优化方法，对目前方程进行优化，从而间接学习到词嵌入矩阵</font><img src="/2018/12/01/dl/第五门课-第二周/resources/E4BFB45184A8FE9F410D8920BDD53ED4.jpg"></li>
-</ul>
-</li>
-<li>函数f选择原则：对加权函数f的选择有着启发性的原则，就是既不给这些词(this，is，of，a)过分的权重，也不给这些不常用词(durion)太小的权值</li>
-<li>问题：<ul>
-<li>你不能保证嵌入向量的独立组成部分是能够理解的</li>
-<li>你不能保证这些用来表示特征的轴能够等同于人类可能简单理解的轴，具体而言，第一个特征 可能是个Gender、Roya、Age、Food Cost 和 Size的组合<font color="red">(并不是我们所理解的单纯的Gender维)</font>，它也许是名词或是一个行为动词 和其他所有特征的组合，所以很难看出独立组成部分<img src="/2018/12/01/dl/第五门课-第二周/resources/31256B83B3F1A2CF14D942BFECB3ADFB.jpg">
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="情感分类"><a href="#情感分类" class="headerlink" title="情感分类"></a>情感分类</h4><ul>
-<li>定义：情感分类任务就是看一段文本，然后分辨这个人是否喜欢他们在讨论的这个东西</li>
-<li>简单模型：采用的是平均值单元，适合任意长度的评论<ul>
-<li><font color="blue">重点理解词嵌入应用的思想：将单词通过词嵌入矩阵得到词嵌入，简单理解为将字符或者是单词映射为数值的一种方法，然后使用End-to-End思想，通过softmax就直接预测输出</font><img src="/2018/12/01/dl/第五门课-第二周/resources/3769B484BF94E06ABF4038346AA63078.jpg"></li>
-<li>问题：没有考虑词序，<font color="red">因为均值模型就是把各个单词各个维数值相加然后再平均</font><ul>
-<li>比如not good,或者 good…not ,就不能区分了</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>RNN模型解决词序问题 <ul>
-<li>此模型是一个one-many的模型<ul>
-<li><font color="blue">直观理解就是，RNN本身就是有一个词一个词有顺序的输入，上一个词对下一个词有影响，所以就能够反映词序问题</font><img src="/2018/12/01/dl/第五门课-第二周/resources/62FD68B5D4C30C44B61209A772F5BD86.jpg">
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="词嵌入除偏"><a href="#词嵌入除偏" class="headerlink" title="词嵌入除偏"></a>词嵌入除偏</h4><ul>
-<li>定义：比如通过词嵌入，Man:Computer Programmer， 同时输出 Woman:Homemaker</li>
-<li><font color="blue">解决方法：主要是在词向量中寻找出哪些维度的偏见相关的维度(bias axis)，然后在这些维度上进行调整</font></li>
-<li><font color="blue">重点理解：单词到词向量的映射，实际上就是映射到n维空间(n为词向量矩阵)中的一个点,然后看点与点之间的距离来判断词与词之间的相似度</font></li>
-<li><p><font color="red">达到目的：让无性别的词到有性别的词的点的距离是相等的,比如Computer Programmer,doctor分别到man,woman的距离是相等的</font></p>
-<ul>
-<li>找出偏见趋势<ul>
-<li>确定哪些轴(哪些维度)，对于性别歧视这种情况来说，我们能做的是$e_{he} − e_{she}$，因为它们的性别不同，然后 将$e_{male}−e_{female}$，然后将这些值取平均(上图编号2所示)，将这些差简单地求平均。这个趋势(上图编号3所示)看起来就是性别趋势或说是偏见趋势<ul>
-<li>non bias就是垂直于偏见轴的方向<img src="/2018/12/01/dl/第五门课-第二周/resources/FE259E9589DE8B2F3259660CB076E522.jpg"></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>中和步骤：某些无性别歧视的词语，让他们在non bias轴上进行靠拢，尽量减少映射在bias轴上的距离来减少性别歧视问题</p>
-<ul>
-<li>比如Computer Programmer,doctor应该是无性别关系的，所以应该尽量靠近non bias轴，<font color="blue">这样的理想效果就是到达空间中man和woman的点距离是相等的</font><img src="/2018/12/01/dl/第五门课-第二周/resources/761E18C6CBBE247CE32CCD5CE15F5E54.jpg">
-</li>
-</ul>
-</li>
-<li><p>均衡步：<br>让有偏见的词进行，移动与中轴线等距的一些点上，这样让它们在bias轴上都有一致的相似度，图中由1移到图2的两点</p>
-<ul>
-<li><font color="blue">直观理解：也是为了让无偏见词，比如上面说的Computer Programmer,doctor达到分性别关系的词man,woman距离相等</font><img src="/2018/12/01/dl/第五门课-第二周/resources/18EA7A252EAD3B3F90796A808AAAC7F5.jpg">
-<ul>
-<li>经过统计这种偏见词实际上是很少的，需要均衡的词是很少的</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-	
-    
   </section>
 
   
@@ -1999,7 +1961,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">44</span>
+                <span class="site-state-item-count">46</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -2010,7 +1972,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-count">14</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -2021,7 +1983,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-count">12</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
