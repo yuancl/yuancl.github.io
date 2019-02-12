@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="机器学习,强化学习,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="强化学习基础强化学习特点 强化学习是机器学习的一个分支：监督学习、无监督学习、强化学习  强化学习的特点：  没有监督数据、只有奖励信号 奖励信号不一定是实时的，而很可能是延后的，有时甚至延后很多。 时间（序列）是一个重要因素 当前的行为影响后续接收到的数据   强化学习有广泛的应用：像直升机特技飞行、经典游戏、投资管理、发电站控制、让机器人模仿人类行走等   强化学习问题的提出奖励Reward">
+<meta name="keywords" content="机器学习,强化学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="雷哥的博客">
+<meta property="og:url" content="http://yoursite.com/2019/01/18/rl/强化学习基础/index.html">
+<meta property="og:site_name" content="雷哥的博客">
+<meta property="og:description" content="强化学习基础强化学习特点 强化学习是机器学习的一个分支：监督学习、无监督学习、强化学习  强化学习的特点：  没有监督数据、只有奖励信号 奖励信号不一定是实时的，而很可能是延后的，有时甚至延后很多。 时间（序列）是一个重要因素 当前的行为影响后续接收到的数据   强化学习有广泛的应用：像直升机特技飞行、经典游戏、投资管理、发电站控制、让机器人模仿人类行走等   强化学习问题的提出奖励Reward">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2019/01/18/rl/强化学习基础/resources/FDAE7D078C3300B1B63AAB349135D5EA.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/01/18/rl/强化学习基础/resources/A868FA7787B835C43898A76A32B1B469.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/01/18/rl/强化学习基础/resources/3F5DEFC1F69A7F73D61DE50B3B291807.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/01/18/rl/强化学习基础/resources/1ADEF5845F6145E93F53F33DD65C761D.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/01/18/rl/强化学习基础/resources/A190087077BAA813EE6BBEDDC8685CA2.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/01/18/rl/强化学习基础/resources/568C86BA012338B66C90B2D68FD23307.jpg">
+<meta property="og:updated_time" content="2019-02-12T11:08:55.209Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="雷哥的博客">
+<meta name="twitter:description" content="强化学习基础强化学习特点 强化学习是机器学习的一个分支：监督学习、无监督学习、强化学习  强化学习的特点：  没有监督数据、只有奖励信号 奖励信号不一定是实时的，而很可能是延后的，有时甚至延后很多。 时间（序列）是一个重要因素 当前的行为影响后续接收到的数据   强化学习有广泛的应用：像直升机特技飞行、经典游戏、投资管理、发电站控制、让机器人模仿人类行走等   强化学习问题的提出奖励Reward">
+<meta name="twitter:image" content="http://yoursite.com/2019/01/18/rl/强化学习基础/resources/FDAE7D078C3300B1B63AAB349135D5EA.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '雷哥'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/01/18/rl/强化学习基础/">
+
+
+
+
+
+  <title> | 雷哥的博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">雷哥的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/18/rl/强化学习基础/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline"></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-18T06:30:12+08:00">
+                2019-01-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/强化学习/" itemprop="url" rel="index">
+                    <span itemprop="name">强化学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="强化学习基础"><a href="#强化学习基础" class="headerlink" title="强化学习基础"></a>强化学习基础</h3><h4 id="强化学习特点"><a href="#强化学习特点" class="headerlink" title="强化学习特点"></a>强化学习特点</h4><ul>
+<li><p>强化学习是机器学习的一个分支：监督学习、无监督学习、强化学习</p>
+</li>
+<li><p>强化学习的特点：</p>
+<ul>
+<li>没有监督数据、只有奖励信号</li>
+<li>奖励信号不一定是实时的，而很可能是延后的，有时甚至延后很多。</li>
+<li>时间（序列）是一个重要因素</li>
+<li>当前的行为影响后续接收到的数据</li>
+</ul>
+</li>
+<li><p>强化学习有广泛的应用：像直升机特技飞行、经典游戏、投资管理、发电站控制、让机器人模仿人类行走等</p>
+</li>
+</ul>
+<h3 id="强化学习问题的提出"><a href="#强化学习问题的提出" class="headerlink" title="强化学习问题的提出"></a>强化学习问题的提出</h3><h4 id="奖励Reward"><a href="#奖励Reward" class="headerlink" title="奖励Reward"></a>奖励Reward</h4><ul>
+<li><p>是信号的反馈，是一个标量，<font color="blue">它反映个体在t时刻做得怎么样</font>。个体的工作就是最大化累计奖励。</p>
+</li>
+<li><p>$R_t$强化学习主要基于这样的”奖励假设”：<font color="blue">所有问题解决的目标都可以被描述成最大化累积奖励</font></p>
+<img src="/2019/01/18/rl/强化学习基础/resources/FDAE7D078C3300B1B63AAB349135D5EA.jpg">
+</li>
+</ul>
+<h4 id="序列决策-Sequential-Decision-Making"><a href="#序列决策-Sequential-Decision-Making" class="headerlink" title="序列决策 Sequential Decision Making"></a>序列决策 Sequential Decision Making</h4><ul>
+<li>目标：<font color="blue">选择一定的行为序列以最大化未来的总体奖励</font></li>
+<li>这些行为可能是一个长期的序列</li>
+<li>奖励可能而且通常是延迟的</li>
+<li>有时候宁愿牺牲即时（短期）的奖励以获取更多的长期奖励</li>
+</ul>
+<h4 id="个体和环境-Agent-amp-Environment"><a href="#个体和环境-Agent-amp-Environment" class="headerlink" title="个体和环境 Agent &amp; Environment"></a>个体和环境 Agent &amp; Environment</h4><p>  可以从个体和环境两方面来描述强化学习问题。</p>
+<ul>
+<li><p>在 t 时刻，个体可以：</p>
+<ul>
+<li>有一个对于环境的观察评估 $O_{t}$ </li>
+<li>做出一个行为 $A_{t}$ </li>
+<li>从环境得到一个奖励信号 $R_{t+1}$ </li>
+</ul>
+</li>
+<li><p>环境可以：</p>
+<ul>
+<li>接收个体的动作 $A_{t}$ </li>
+<li>更新环境信息，同时使得个体可以得到下一个观测 $O_{t+1}$</li>
+<li>给个体一个奖励信号 $R_{t+1} $</li>
+</ul>
+<img src="/2019/01/18/rl/强化学习基础/resources/A868FA7787B835C43898A76A32B1B469.jpg">
+</li>
+</ul>
+<h4 id="历史和状态-History-amp-State"><a href="#历史和状态-History-amp-State" class="headerlink" title="历史和状态 History &amp; State"></a>历史和状态 History &amp; State</h4><ul>
+<li><p>历史</p>
+<ul>
+<li><font color="blue">历史是观测、行为、奖励的序列</font>：$ H_{t} = O_{1}, R_{1}, A_{1},…, O_{t-1}, R_{t-1}, A_{t-1}, O_{t}, R_{t}, A_{t}$</li>
+</ul>
+</li>
+<li><p>状态</p>
+<ul>
+<li><font color="blue">状态是所有决定将来的已有的信息</font>，是关于历史的一个函数：$S_{t} = f(H_{t})$</li>
+</ul>
+</li>
+<li><p>环境状态</p>
+<ul>
+<li>是环境的私有呈现，<font color="blue">包括环境用来决定下一个观测/奖励的所有数据</font>，通常对个体并不完全可见，也就是个体有时候并不知道环境状态的所有细节。即使有时候环境状态对个体可以是完全可见的，这些信息也可能包含着一些无关信息。</li>
+</ul>
+</li>
+<li><p>个体状态</p>
+<ul>
+<li>是个体的内部呈现，<font color="blue">包括个体可以使用的、决定未来动作的所有信息</font>。个体状态是强化学习算法可以利用的信息，它可以是历史的一个函数： $S^{a}<em>{t} = f(H</em>{t})$</li>
+</ul>
+</li>
+<li><p>信息状态</p>
+<ul>
+<li>包括历史上所有有用的信息，又称Markov状态</li>
+<li>马儿可夫属性 Markov Property<ul>
+<li>一个状态St是马尔可夫的，当且仅当：$P[S_{t+1} | S_{t}] = P[S_{t+1} | S_{1}, S_{2},…, S_{t}]$</li>
+<li>也就是说，如果信息状态是可知的，那么所有历史信息都可以丢掉，仅需要 t 时刻的信息状态就可以了<ul>
+<li>例如：环境状态是Markov的，因为环境状态是环境包含了环境<font color="blue">决定下一个观测/奖励的所有信息</font><img src="/2019/01/18/rl/强化学习基础/resources/3F5DEFC1F69A7F73D61DE50B3B291807.jpg">
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="完全可观测的环境-Fully-Observable-Environments"><a href="#完全可观测的环境-Fully-Observable-Environments" class="headerlink" title="完全可观测的环境 Fully Observable Environments"></a>完全可观测的环境 Fully Observable Environments</h4><ul>
+<li>个体能够直接观测到环境状态。在这种条件下:</li>
+<li>个体对环境的观测 = 个体状态 = 环境状态</li>
+<li>正式地说，这种问题是一个马儿可夫决定过程（Markov Decision Process， MDP）</li>
+</ul>
+<h4 id="部分可观测的环境-Partially-Observable-Environments"><a href="#部分可观测的环境-Partially-Observable-Environments" class="headerlink" title="部分可观测的环境 Partially Observable Environments"></a>部分可观测的环境 Partially Observable Environments</h4><ul>
+<li>个体间接观测环境。举了几个例子：<ul>
+<li>一个可拍照的机器人个体对于其周围环境的观测并不能说明其绝度位置，它必须自己去估计自己的绝对位置，而绝对位置则是非常重要的环境状态特征之一；</li>
+<li>一个交易员只能看到当前的交易价格；</li>
+<li>一个扑克牌玩家只能看到自己的牌和其他已经出过的牌，而不知道整个环境（包括对手的牌）状态。</li>
+<li>在这种条件下：<ul>
+<li>个体状态 ≠ 环境状态</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="强化学习个体的主要组成部分"><a href="#强化学习个体的主要组成部分" class="headerlink" title="强化学习个体的主要组成部分"></a>强化学习个体的主要组成部分</h3><p>强化学习中的个体可以由以下三个组成部分中的一个或多个组成</p>
+<h4 id="策略-Policy"><a href="#策略-Policy" class="headerlink" title="策略 Policy"></a>策略 Policy</h4><ul>
+<li>策略是决定个体行为的机制。是<font color="red">从状态到行为的一个映射</font>，可以是确定性的，也可以是不确定性的。</li>
+</ul>
+<h4 id="价值函数-Value-Function"><a href="#价值函数-Value-Function" class="headerlink" title="价值函数 Value Function"></a>价值函数 Value Function</h4><ul>
+<li><font color="red">是一个未来奖励的预测，用来评价当前状态的好坏程度</font><ul>
+<li>当面对两个不同的状态时，个体可以用一个Value值来评估这两个状态可能获得的最终奖励区别，继而指导选择不同的行为，即制定不同的策略。</li>
+<li><font color="blue">一个价值函数是基于某一个特定策略的</font>，不同的策略下同一状态的价值并不相同。某一策略下的价值函数用下式表示：<img src="/2019/01/18/rl/强化学习基础/resources/1ADEF5845F6145E93F53F33DD65C761D.jpg">
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="模型-Model"><a href="#模型-Model" class="headerlink" title="模型 Model"></a>模型 Model</h4><p>个体对环境的一个建模，它体现了个体是如何思考环境运行机制的（how the agent think what the environment was.），个体希望模型能模拟环境与个体的交互机制。</p>
+<ul>
+<li><p>模型至少要解决两个问题：</p>
+<ul>
+<li><p>一是状态转化概率，即预测下一个可能状态发生的概率：</p>
+<img src="/2019/01/18/rl/强化学习基础/resources/A190087077BAA813EE6BBEDDC8685CA2.jpg">
+</li>
+<li><p>另一项工作是预测可能获得的即时奖励：</p>
+<img src="/2019/01/18/rl/强化学习基础/resources/568C86BA012338B66C90B2D68FD23307.jpg">
+</li>
+</ul>
+</li>
+<li><p>模型并不是构建一个个体所必需的，很多强化学习算法中个体并不试图（依赖）构建一个模型。</p>
+</li>
+</ul>
+<p>注：模型仅针对个体而言，环境实际运行机制不称为模型，而称为环境动力学(dynamics of environment)，它能够明确确定个体下一个状态和所得的即时奖励</p>
+<h3 id="强化学习个体的分类"><a href="#强化学习个体的分类" class="headerlink" title="强化学习个体的分类"></a>强化学习个体的分类</h3><p>解决强化学习问题，个体可以有多种工具组合，<font color="blue">比如通过建立对状态的价值的估计来解决问题，或者通过直接建立对策略的估计来解决问题</font>。这些都是个体可以使用的工具箱里的工具。因此，根据个体内包含的“工具”进行分类，可以把个体分为如下三类：</p>
+<ul>
+<li><p>仅基于价值函数的 Value Based：在这样的个体中，有对状态的价值估计函数，但是没有直接的策略函数，策略函数由价值函数间接得到。</p>
+</li>
+<li><p>仅直接基于策略的 Policy Based：这样的个体中行为直接由策略函数产生，个体并不维护一个对各状态价值的估计函数。</p>
+</li>
+<li><p>演员-评判家形式 Actor-Critic：个体既有价值函数、也有策略函数。两者相互结合解决问题。<br>此外，根据个体在解决强化学习问题时是否建立一个对环境动力学的模型，将其分为两大类：</p>
+</li>
+</ul>
+<p>不基于模型的个体: 这类个体并不视图了解环境如何工作，而仅聚焦于价值和/或策略函数。<br>基于模型的个体：个体尝试建立一个描述环境运作过程的模型，以此来指导价值或策略函数的更新。</p>
+<h3 id="学习和规划"><a href="#学习和规划" class="headerlink" title="学习和规划"></a>学习和规划</h3><ul>
+<li>学习：环境初始时是未知的，个体不知道环境如何工作，个体通过与环境进行交互，逐渐改善其行为策略。</li>
+<li>规划: 环境如何工作对于个体是已知或近似已知的，个体并不与环境发生实际的交互，而是利用其构建的模型进行计算，在此基础上改善其行为策略。</li>
+<li>一个常用的强化学习问题解决思路是，<font color="blue">先学习环境如何工作，也就是了解环境工作的方式，即学习得到一个模型，然后利用这个模型进行规划</font></li>
+</ul>
+<h3 id="预测和控制-Prediction-amp-Control"><a href="#预测和控制-Prediction-amp-Control" class="headerlink" title="预测和控制 Prediction &amp; Control"></a>预测和控制 Prediction &amp; Control</h3><ul>
+<li>在强化学习里，我们经常需要先解决关于预测（prediction）的问题，而后在此基础上解决关于控制（Control）的问题。</li>
+<li>预测：给定一个策略，评价未来。可以看成是求解在给定策略下的价值函数（value function）的过程。How well will I(an agent) do if I(the agent) follow a specific policy?</li>
+<li>控制：找到一个好的策略来最大化未来的奖励。<br>举了一个例子来说明预测和控制的区别</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/机器学习/" rel="tag"># 机器学习</a>
+          
+            <a href="/tags/强化学习/" rel="tag"># 强化学习</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/16/ml/Conditional GAN/" rel="next" title="Conditional GAN">
+                <i class="fa fa-chevron-left"></i> Conditional GAN
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/01/21/rl/马尔科夫决策过程/" rel="prev" title="">
+                 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/favicon.ico" alt="雷哥">
+          <p class="site-author-name" itemprop="name">雷哥</p>
+           
+              <p class="site-description motion-element" itemprop="description">不积跬步无以至千里</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">50</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#强化学习基础"><span class="nav-number">1.</span> <span class="nav-text">强化学习基础</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#强化学习特点"><span class="nav-number">1.1.</span> <span class="nav-text">强化学习特点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#强化学习问题的提出"><span class="nav-number">2.</span> <span class="nav-text">强化学习问题的提出</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#奖励Reward"><span class="nav-number">2.1.</span> <span class="nav-text">奖励Reward</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#序列决策-Sequential-Decision-Making"><span class="nav-number">2.2.</span> <span class="nav-text">序列决策 Sequential Decision Making</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#个体和环境-Agent-amp-Environment"><span class="nav-number">2.3.</span> <span class="nav-text">个体和环境 Agent &amp; Environment</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#历史和状态-History-amp-State"><span class="nav-number">2.4.</span> <span class="nav-text">历史和状态 History &amp; State</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#完全可观测的环境-Fully-Observable-Environments"><span class="nav-number">2.5.</span> <span class="nav-text">完全可观测的环境 Fully Observable Environments</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#部分可观测的环境-Partially-Observable-Environments"><span class="nav-number">2.6.</span> <span class="nav-text">部分可观测的环境 Partially Observable Environments</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#强化学习个体的主要组成部分"><span class="nav-number">3.</span> <span class="nav-text">强化学习个体的主要组成部分</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#策略-Policy"><span class="nav-number">3.1.</span> <span class="nav-text">策略 Policy</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#价值函数-Value-Function"><span class="nav-number">3.2.</span> <span class="nav-text">价值函数 Value Function</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#模型-Model"><span class="nav-number">3.3.</span> <span class="nav-text">模型 Model</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#强化学习个体的分类"><span class="nav-number">4.</span> <span class="nav-text">强化学习个体的分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#学习和规划"><span class="nav-number">5.</span> <span class="nav-text">学习和规划</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#预测和控制-Prediction-amp-Control"><span class="nav-number">6.</span> <span class="nav-text">预测和控制 Prediction &amp; Control</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-雷哥"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">雷哥</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Gemini
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

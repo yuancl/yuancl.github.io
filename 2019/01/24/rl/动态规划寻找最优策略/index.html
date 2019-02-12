@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="机器学习,强化学习,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="背景动态规划理解 规划“规划”是在已知环 境动力学的基础上进行评估和控制，具体来说就是在了解包括状态和行为空间、转移概率矩阵、 奖励等信息的基础上判断一个给定策略的价值函数，或判断一个策略的优劣并最终找到最优的 策略和最优价值函数  动态规划算法把求解复杂问题分解为求解子问题，通过求解子问题进而得到整个问题的解,在解决子问题的时候，其结果通常需要存储起来被用来解决后续复杂问题  当问题具有下列两个">
+<meta name="keywords" content="机器学习,强化学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="雷哥的博客">
+<meta property="og:url" content="http://yoursite.com/2019/01/24/rl/动态规划寻找最优策略/index.html">
+<meta property="og:site_name" content="雷哥的博客">
+<meta property="og:description" content="背景动态规划理解 规划“规划”是在已知环 境动力学的基础上进行评估和控制，具体来说就是在了解包括状态和行为空间、转移概率矩阵、 奖励等信息的基础上判断一个给定策略的价值函数，或判断一个策略的优劣并最终找到最优的 策略和最优价值函数  动态规划算法把求解复杂问题分解为求解子问题，通过求解子问题进而得到整个问题的解,在解决子问题的时候，其结果通常需要存储起来被用来解决后续复杂问题  当问题具有下列两个">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2019/01/24/rl/动态规划寻找最优策略/resources/E42402554539EC7CBCD4DB4823475972.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/01/24/rl/动态规划寻找最优策略/resources/3AE20758C58F796F94B5309148135A30.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/01/24/rl/动态规划寻找最优策略/resources/8B3A8C37EC6AB3D3C839C7C4FDC684A7.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/01/24/rl/动态规划寻找最优策略/resources/94EC8313FD2EAD0383F48AE24FF35931.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/01/24/rl/动态规划寻找最优策略/resources/954EA9A8B6A3282E4D1EB3705711052F.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/01/24/rl/动态规划寻找最优策略/resources/6D8A6147FB99EDC0C77B084719D1D679.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/01/24/rl/动态规划寻找最优策略/resources/F20EAADAC12F3F252A5FFFCB6B405928.jpg">
+<meta property="og:updated_time" content="2019-02-12T11:10:52.964Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="雷哥的博客">
+<meta name="twitter:description" content="背景动态规划理解 规划“规划”是在已知环 境动力学的基础上进行评估和控制，具体来说就是在了解包括状态和行为空间、转移概率矩阵、 奖励等信息的基础上判断一个给定策略的价值函数，或判断一个策略的优劣并最终找到最优的 策略和最优价值函数  动态规划算法把求解复杂问题分解为求解子问题，通过求解子问题进而得到整个问题的解,在解决子问题的时候，其结果通常需要存储起来被用来解决后续复杂问题  当问题具有下列两个">
+<meta name="twitter:image" content="http://yoursite.com/2019/01/24/rl/动态规划寻找最优策略/resources/E42402554539EC7CBCD4DB4823475972.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '雷哥'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/01/24/rl/动态规划寻找最优策略/">
+
+
+
+
+
+  <title> | 雷哥的博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">雷哥的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/24/rl/动态规划寻找最优策略/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline"></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-24T22:00:10+08:00">
+                2019-01-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/强化学习/" itemprop="url" rel="index">
+                    <span itemprop="name">强化学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><h4 id="动态规划理解"><a href="#动态规划理解" class="headerlink" title="动态规划理解"></a>动态规划理解</h4><ul>
+<li><p>规划<br>“规划”是在已知环 境动力学的基础上进行评估和控制，具体来说就是在了解包括状态和行为空间、转移概率矩阵、 奖励等信息的基础上<font color="blue">判断一个给定策略的价值函数，或判断一个策略的优劣并最终找到最优的 策略和最优价值函数</font></p>
+</li>
+<li><p>动态规划算法把求解复杂问题<font color="blue">分解为求解子问题</font>，通过求解子问题进而得到整个问题的解,在解决子问题的时候，其结果<font color="blue">通常需要存储起来被用来解决后续复杂问题</font></p>
+<ul>
+<li>当问题具有下列两个 性质时，通常可以考虑使用动态规划来求解:<ul>
+<li>第一个性质是一个复杂问题的最优解由数个小问题 的最优解构成，可以通过寻找子问题的最优解来得到复杂问题的最优解;</li>
+<li>第二个性质是子问题在 复杂问题内重复出现，使得子问题的解可以被存储起来重复利用</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>和马尔科夫决策过程关系<br>马尔科夫决策过程具有上述两 个属性:</p>
+<ul>
+<li>贝尔曼方程把问题递归为求解子问题</li>
+<li>价值函数相当于存储了一些子问题的解，可以复 用。因此可以使用动态规划来求解马尔科夫决策过程</li>
+</ul>
+</li>
+</ul>
+<h4 id="预测和控制"><a href="#预测和控制" class="headerlink" title="预测和控制"></a>预测和控制</h4><ul>
+<li>预测 (prediction):已知一个马尔科夫决策过程 MDP ⟨S, A, P, R, γ⟩ 和一个策略 π，或者是 给定一个马尔科夫奖励过程 $MRP ⟨S, P_π, R_π, γ⟩$，<font color="blue">求解基于该策略的价值函数 $v_π$</font>。</li>
+<li>控制(control):已知一个马尔科夫决策过程MDP⟨S,A,P,R,γ⟩，<font color="blue">求解最优价值函数v∗ 和 最优策略 π∗</font>。</li>
+</ul>
+<h3 id="策略评估"><a href="#策略评估" class="headerlink" title="策略评估"></a>策略评估</h3><h4 id="含义"><a href="#含义" class="headerlink" title="含义"></a>含义</h4><p>指计算给定策略下状态价值函数的过程<br>对策略评估，我们可 以使用同步迭代联合动态规划的算法:从任意一个状态价值函数开始，依据给定的策略，结合贝 尔曼期望方程、状态转移概率和奖励同步迭代更新状态价值函数，<font color="blue">直至其收敛，得到该策略下最 终的状态价值函数</font></p>
+<ul>
+<li>贝尔曼期望方程给出了如何根据状态转换关系中的后续状态 s′ 来计算当前状态 s 的价值， 在同步迭代法中，我们使用上一个迭代周期 k 内的后续状态价值来计算更新当前迭代周期 k + 1<br>内某状态 s 的价值<ul>
+<li>我们可以对计算得到的新的状态价值函数再次进行迭代，直至状态函数收敛，也就是<font color="blue">迭代计算得到每一个状态的新价值与原价值差别在一个很小的可接受范围内</font><img src="/2019/01/24/rl/动态规划寻找最优策略/resources/E42402554539EC7CBCD4DB4823475972.jpg">
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="举例-小型方格世界迭代中的价值函数"><a href="#举例-小型方格世界迭代中的价值函数" class="headerlink" title="举例(小型方格世界迭代中的价值函数)"></a>举例(小型方格世界迭代中的价值函数)</h4><ul>
+<li>均一概率的随机策略<img src="/2019/01/24/rl/动态规划寻找最优策略/resources/3AE20758C58F796F94B5309148135A30.jpg">
+</li>
+</ul>
+<h3 id="策略迭代"><a href="#策略迭代" class="headerlink" title="策略迭代"></a>策略迭代</h3><h4 id="背景-1"><a href="#背景-1" class="headerlink" title="背景"></a>背景</h4><p>完成对一个策略的评估，将得到基于该策略下每一个状态的价值。很明显，不同状态对应的 价值一般也不同，那么个体是否可以根据得到的价值状态来调整自己的行动策略呢</p>
+<h4 id="迭代过程理解-贪婪策略"><a href="#迭代过程理解-贪婪策略" class="headerlink" title="迭代过程理解(贪婪策略)"></a>迭代过程理解(贪婪策略)</h4><p>个体在某个状态下选择的行为是其能够到达后续所有可能的状态中价值最 大的那个状态。我们以均一随机策略下第 2 次迭代后产生的价值函数为例说明这个贪婪策略</p>
+<ul>
+<li>新的贪婪策略比之前的均一随机策略要优秀不少，至少在靠近终止<br>状态的几个状态中，个体将有一个明确的行为，而不再是随机行为了。我们从均一随机策略下的 价值函数中产生了新的更优秀的策略，这是一个策略改善的过程<img src="/2019/01/24/rl/动态规划寻找最优策略/resources/8B3A8C37EC6AB3D3C839C7C4FDC684A7.jpg">
+</li>
+</ul>
+<ul>
+<li><p>我的理解：<br>上面左图是各个状态的价值，右图是各个状态的策略，选择的贪婪策略由于各个状态不同的价值，导致了右图不同的策略。然后又由于不同的策略，执行下一步行动，继续会导致左图中不同的状态，以此循环</p>
+<ul>
+<li>依据新的策略 π′ 会得到一个新的价值函数，并产生新的贪婪策略，如此重复循环迭代将最 终得到最优价值函数 v∗ 和最优策略 π∗</li>
+</ul>
+</li>
+<li><p>策略迭代</p>
+<ul>
+<li>策略在循环迭代中得到更新改善的过程称为策略迭代</li>
+<li>从一个初始策略 π 和初始价值函数 V 开始，基于该策略进行完整的价值评估过程得到一个 新的价值函数，随后依据新的价值函数得到新的贪婪策略，随后计算新的贪婪策略下的价值函 数，整个过程反复进行，在这个循环过程中策略和价值函数均得到迭代更新，<font color="blue">并最终收敛值最有 价值函数和最优策略</font><img src="/2019/01/24/rl/动态规划寻找最优策略/resources/94EC8313FD2EAD0383F48AE24FF35931.jpg">
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="价值迭代"><a href="#价值迭代" class="headerlink" title="价值迭代"></a>价值迭代</h3><h4 id="背景-2"><a href="#背景-2" class="headerlink" title="背景"></a>背景</h4><p>细心的读者可能会发现，如果按照图 3.2 中第三次迭代得到的价值函数采用贪婪选择策略的 话，该策略和最终的最优价值函数对应的贪婪选择策略是一样的，它们都对应于最优策略，如图 3.5，而通过基于均一随机策略的迭代法价值评估要经过数十次迭代才算收敛。这会引出一个问 题:<font color="blue">是否可以提前设置一个迭代终点来减少迭代次数而不影响得到最优策略呢?是否可以每迭代 一次就进行一次策略评估呢</font></p>
+<h4 id="最优策略的意义"><a href="#最优策略的意义" class="headerlink" title="最优策略的意义"></a>最优策略的意义</h4><ul>
+<li><p>任何一个最优策略可以分为两个阶段:<br>首先该策略要能产生当前状态下的最优行为，其次对 于该最优行为到达的后续状态时该策略仍然是一个最优策略</p>
+</li>
+<li><p>直观感受(单纯的价值迭代)</p>
+<img src="/2019/01/24/rl/动态规划寻找最优策略/resources/954EA9A8B6A3282E4D1EB3705711052F.jpg">
+<p>这个公式带给我们的直觉是如果我们能知道最终状态的价值和相关奖励，<font color="blue">可以直接计算得 到最终状态的前一个所有可能状态的最优价值</font>。更乐观的是，即使不知道最终状态是哪一个状 态，<font color="blue">也可以利用上述公式进行纯粹的价值迭代</font>，不停的更新状态价值，最终得到最优价值，而且 这种单纯价值迭代的方法甚至可以允许存在循环的状态转换乃至一些随机的状态转换过程</p>
+</li>
+</ul>
+<h4 id="举例"><a href="#举例" class="headerlink" title="举例"></a>举例</h4><img src="/2019/01/24/rl/动态规划寻找最优策略/resources/6D8A6147FB99EDC0C77B084719D1D679.jpg">
+<ul>
+<li>首先考虑到个体知道环境的动力学特征的情形。在这种情况下，个体可以直接计算得到与终 止状态直接相邻(斜向不算)的左上角两个状态的最优价值均为 −1。随后个体又可以往右下角 延伸计算得到与之前最优价值为 −1 的两个状态香相邻的 3 个状态的最优价值为 −2。以此类推， 每一次迭代个体将从左上角朝着右下角方向依次直接计算得到一排斜向方格的最优价值，直至 完成最右下角的一个方格最优价值的计算</li>
+<li><font color="blue">个人理解</font>：<br>由于上面的直观感受可以知道，前一状态的最优价值可以由后一状态计算得到，所以从最终的终态出发，开始价值为0，然后倒推，得到每一个状态的最优价值<font color="blue">（纯粹的价值迭代，并没有策略的参与）</font></li>
+<li>特点(注意并没有策略的参与)<br>价值迭代的目标仍然是寻找到一个最优策略，它通过贝尔曼最优方程从前次迭代 的价值函数中计算得到当次迭代的价值函数，在这个反复迭代的过程中，并没有一个明确的策略 参与<ul>
+<li>需要 注意的是，在纯粹的价值迭代寻找最优策略的过程中，迭代过程中产生的状态价值函数不一定对 应一个策略。迭代过程中价值函数更新的公式为:<img src="/2019/01/24/rl/动态规划寻找最优策略/resources/F20EAADAC12F3F252A5FFFCB6B405928.jpg">
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="同步动态规划算法总结"><a href="#同步动态规划算法总结" class="headerlink" title="同步动态规划算法总结"></a>同步动态规划算法总结</h3><p>使用同步动态规划进行规划基本就讲解完毕了。前文所述的这三类算法<font color="blue">均是基于状态价值函数的</font></p>
+<ul>
+<li>其中迭代法策略评估属于预测问题，它使用贝尔曼期望方程来进行求解。</li>
+<li>策略迭代和价值迭代则属于控制问题<ul>
+<li>其中前者使用贝尔曼 期望方程进行一定次数的价值迭代更新，随后在产生的价值函数基础上采取贪婪选择的策略改 善方法形成新的策略，如此交替迭代不断的优化策略;</li>
+<li>价值迭代则不依赖任何策略，它使用贝尔 曼最优方程直接对价值函数进行迭代更新</li>
+</ul>
+</li>
+</ul>
+<h3 id="异步动态规划算法"><a href="#异步动态规划算法" class="headerlink" title="异步动态规划算法"></a>异步动态规划算法</h3><p>前文所述的系列算法均为同步动态规划算法，<font color="blue">它表示所有的状态更新是同步的</font>。与之对应的 还有异步动态规划算法。在这些算法中，<font color="blue">每一次迭代并不对所有状态的价值进行更新，而是依据 一定的原则有选择性的更新部分状态的价值</font></p>
+<ul>
+<li>这种算法能显著的节约计算资源，并且只要所有状 态能够得到持续的被访问更新，那么也能确保算法收敛至最优解。</li>
+<li>比较常用的异步动态规划思想 有:原位动态规划、优先级动态规划、和实时动态规划</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/机器学习/" rel="tag"># 机器学习</a>
+          
+            <a href="/tags/强化学习/" rel="tag"># 强化学习</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/21/rl/马尔科夫决策过程/" rel="next" title="">
+                <i class="fa fa-chevron-left"></i> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/01/28/rl/不基于模型的预测/" rel="prev" title="">
+                 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/favicon.ico" alt="雷哥">
+          <p class="site-author-name" itemprop="name">雷哥</p>
+           
+              <p class="site-description motion-element" itemprop="description">不积跬步无以至千里</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">50</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#动态规划理解"><span class="nav-number">1.1.</span> <span class="nav-text">动态规划理解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#预测和控制"><span class="nav-number">1.2.</span> <span class="nav-text">预测和控制</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#策略评估"><span class="nav-number">2.</span> <span class="nav-text">策略评估</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#含义"><span class="nav-number">2.1.</span> <span class="nav-text">含义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#举例-小型方格世界迭代中的价值函数"><span class="nav-number">2.2.</span> <span class="nav-text">举例(小型方格世界迭代中的价值函数)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#策略迭代"><span class="nav-number">3.</span> <span class="nav-text">策略迭代</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#背景-1"><span class="nav-number">3.1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#迭代过程理解-贪婪策略"><span class="nav-number">3.2.</span> <span class="nav-text">迭代过程理解(贪婪策略)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#价值迭代"><span class="nav-number">4.</span> <span class="nav-text">价值迭代</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#背景-2"><span class="nav-number">4.1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#最优策略的意义"><span class="nav-number">4.2.</span> <span class="nav-text">最优策略的意义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#举例"><span class="nav-number">4.3.</span> <span class="nav-text">举例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#同步动态规划算法总结"><span class="nav-number">5.</span> <span class="nav-text">同步动态规划算法总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#异步动态规划算法"><span class="nav-number">6.</span> <span class="nav-text">异步动态规划算法</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-雷哥"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">雷哥</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Gemini
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
