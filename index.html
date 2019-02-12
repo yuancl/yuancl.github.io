@@ -1,23 +1,2966 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
 
-{% block title %}{{ config.title }}{% if theme.index_with_subtitle and config.subtitle %} - {{config.subtitle }}{% endif %}{% endblock %}
 
-{% block page_class %}
-  {% if is_home() %} page-home {% endif %}
-{% endblock %}
 
-{% block content %}
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="不积跬步无以至千里">
+<meta property="og:type" content="website">
+<meta property="og:title" content="雷哥的博客">
+<meta property="og:url" content="http://yoursite.com/index.html">
+<meta property="og:site_name" content="雷哥的博客">
+<meta property="og:description" content="不积跬步无以至千里">
+<meta property="og:locale" content="zh-Hans">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="雷哥的博客">
+<meta name="twitter:description" content="不积跬步无以至千里">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '雷哥'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/">
+
+
+
+
+
+  <title>雷哥的博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left 
+   page-home 
+ ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">雷哥的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
   <section id="posts" class="posts-expand">
-    {% for post in page.posts %}
-      	{{ post_template.render(post, true) }}
-    {% endfor %}
+    
+	
+      	    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/28/rl/不基于模型的预测/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/28/rl/不基于模型的预测/" itemprop="url">未命名</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-28T07:00:14+08:00">
+                2019-01-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/强化学习/" itemprop="url" rel="index">
+                    <span itemprop="name">强化学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><ul>
+<li>讲解如何解决一个可以被认为是 MDP、但却不掌握 MDP 具体细节(比如状态转移概率等等)的问题</li>
+<li>从本章开始的连续两章内容将讲解如何解决一个可以被认为是 MDP、但却不掌握 MDP 具体细节的问题，<font color="blue">也就是讲述个体如何在没有对环境动力学认识的模型的条件下如何直接 通过个体与环境的实际交互来评估一个策略的好坏或者寻找到最优价值函数和最优策略</font>。其中 本章将聚焦于策略评估，也就是预测问题</li>
+</ul>
+<h3 id="蒙特卡罗强化学习-Monte-Carlo-reinforcement-learning"><a href="#蒙特卡罗强化学习-Monte-Carlo-reinforcement-learning" class="headerlink" title="蒙特卡罗强化学习 (Monte-Carlo reinforcement learning)"></a>蒙特卡罗强化学习 (Monte-Carlo reinforcement learning)</h3><ul>
+<li>MC：<br>指在<font color="blue">不清楚 MDP 状态 转移概率</font>的情况下，直接从<font color="blue">经历完整的状态序列</font> (episode) 来估计状态的真实价值，并认为某状 态的价值等于在多个状态序列中以该状态算得到的<font color="blue">所有收获的平均</font></li>
+<li>MC特点：<br>蒙特卡罗强化学习有如下特点:<font color="blue">不依赖状态转移概率，直接从经历过的完整的状态序列中学习</font>，使用的思想就是用<font color="purple">平均收获值代替价值</font>。理论上完整的状态序列越多，结果越准确</li>
+<li>完整的状态序列 (complete episode):<br>指从某一个状态开始，个体与环境交互直到终止状态， 环境给出终止状态的奖励为止。<ul>
+<li>完整的状态序列不要求起始状态一定是某一个特定的状态，但是 要求个体最终进入环境认可的某一个终止状态</li>
+</ul>
+</li>
+<li>MC含义举例说明:<ul>
+<li>基于特定策略 π 的一个 Episode 信息可以表示为如下的一个序列:$S_1,A_1,R_2,S_2,A_2,…,S_t,A_t,R_{t+1},…,S_k ∼π$</li>
+<li>t 时刻状态 St 的收获可以表述为:<br>$G_t =R_{t+1} +γR_{t+2} +…+γ(T−1)R_T$</li>
+<li>其中 T 为终止时刻。该策略下某一状态 s 的价值:<br>$v_π(s) = E_π[G_t|S_t = s]$</li>
+</ul>
+</li>
+<li>一个序列中出现多次状态的问题<ul>
+<li>如果一个完整的状态序列中某一需要计算的状态出现在序列的多个位置， 也就是说个体在与环境交互的过程中从某状态出发后又一次或多次返回过该状态,处理的两种方法：<ul>
+<li>首次访问:仅把状态序列中第一次出现该状 态时的收获值纳入到收获平均值的计算中</li>
+<li>每次访问:针对一个状态序列中每次出现的该状态，都 计算对应的收获值并纳入到收获平均值的计算中</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>求解技巧<ul>
+<li><font color="purple">累进更新平均值</font>(incremental mean)。而且这种计算平均值的思想也是强化学习的一 个核心思想之一</li>
+<li>在求解状态收获的平均值的过程中，我们介绍一种非常实用的不需要存储所有历史收获的 计算方法:累进更新平均值(incremental mean)<img src="/2019/01/28/rl/不基于模型的预测/resources/DA2A5A4C65D5CE54186CE24522BC162E.jpg"></li>
+<li>如果把该式中平均值和新数据分别看成是状态的价值和该状态的收获，那么该公式就变成了递增式的蒙特卡罗法更新状态价值。其公式如下:<img src="/2019/01/28/rl/不基于模型的预测/resources/37747F59874E4561D510042CB2C1C389.jpg">
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="时序差分强化学习"><a href="#时序差分强化学习" class="headerlink" title="时序差分强化学习"></a>时序差分强化学习</h3><ul>
+<li>定义：<br>指从采样得到的 <font color="blue">不完整</font>的状态序列学习，该方法通过合理的引导(bootstrapping)，先估计某状态在该状态序列 <font color="blue">完整后可能得到的收获</font>，并在此基础上利用前文所属的<font color="blue">累进更新平均值的方法得到该状态的价 值</font>，再通过不断的采样来持续更新这个价值<ul>
+<li>具体地说，在 TD 学习中，算法在估计某一个状态的收获时，用的是离开该状态的即刻奖励 $R_{t+1}$ 与下一时刻状态 $S_{t+1}$ 的预估状态价值乘以衰减系数 γ 组成:<br>$V(S_t) ← V(S_t) + α(R_{t+1} + γV(S_{t+1}) − V(S_t))$<ul>
+<li>其中:$R_{t+1} + γV(S_{t+1}) 称为 TD 目标值。R_{t+1} + γV(S_{t+1}) − V(S_t)$称为 TD 误差</li>
+<li>引导 (bootstrapping):指的是用 TD 目标值代替收获 $G_t$ 的过程</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="MC-TD-DP比较"><a href="#MC-TD-DP比较" class="headerlink" title="MC,TD,DP比较"></a>MC,TD,DP比较</h3><ul>
+<li>MC,TD相同点：<ul>
+<li>不依赖于模型 </li>
+<li>它们都不再需要清楚某一状态的所有可能的后<br>续状态以及对应的状态转移概率</li>
+<li>因此也不再像动态规划算法那样进行全宽度的回溯来更新状 态的价值。</li>
+<li>MC 和 TD 学习使用的都是通过个体与环境实际交互生成的一系列状态序列来更新 状态的价值。这在解决大规模问题或者不清楚环境动力学特征的问题时十分有效</li>
+</ul>
+</li>
+<li>DP 算法则是<font color="blue">基于模型</font>的计算状态价值的方法，它通过计算一个状态 S 所 有可能的转移状态 S’ 及其转移概率以及对应的即时奖励来计算这个状态 S 的价值</li>
+<li>是否使用引导数据：<ul>
+<li>MC 学习并不使用引导数据，它使用实际产生的奖励值来计算状态 价值</li>
+<li>TD 和 DP 则都是用后续状态的预估价值作为引导数据来计算当前状态的价值</li>
+</ul>
+</li>
+<li>是否采样：<ul>
+<li>MC 和 TD 不依赖模型，使用的都是个体与环境实际交互产生的采样 状态序列来计算状态价值的</li>
+<li>DP 则依赖状态转移概率矩阵和奖励函数，全宽度计算状态价 值，没有采样之说。</li>
+</ul>
+</li>
+<li>MC算法<br>深度采样学习。一次学习完整经历，使用实际收获更新状态预估价值<img src="/2019/01/28/rl/不基于模型的预测/resources/D5142FB8A2311F67CFC8FE478F00AE45.jpg"></li>
+<li>TD 算法:<br>浅层采样学习。经历可不完整，使用后续状态的预估状态价值预估收获再更新当前状态价值<img src="/2019/01/28/rl/不基于模型的预测/resources/A06E0EBDB69A12A2D646A6341F7D5FF0.jpg"></li>
+<li>DP算法：<br>浅层全宽度 (采样) 学习。依据模型，全宽度地使用后续状态预估价值来更新当前<br>状态价值<img src="/2019/01/28/rl/不基于模型的预测/resources/FE5B4742FA8F5659B79D105642A0FF91.jpg"></li>
+<li>小结：<ul>
+<li>当使用单个采样，同时不经历完整的状态序 列更新价值的算法是 TD 学习;</li>
+<li>当使用单个采样，但依赖完整状态序列的算法是 MC 学习;</li>
+<li>当考虑全宽度采样，但对每一个采样经历只考虑后续一个状态时的算法是 DP 学习;</li>
+<li>如果既考虑所 有状态转移的可能性，同时又依赖完整状态序列的，那么这种算法是穷举 (exhausive search) 法。 </li>
+<li>需要说明的是:DP 利用的是整个 MDP 问题的模型，也就是状态转移概率，虽然它并不实际利 用采样经历，但它利用了整个模型的规律，因此也被认为是全宽度 (full width) 采样的</li>
+</ul>
+</li>
+</ul>
+<h3 id="n步时序差分学习简介"><a href="#n步时序差分学习简介" class="headerlink" title="n步时序差分学习简介"></a>n步时序差分学习简介</h3><h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><ul>
+<li>第二节所介绍的 TD 算法实际上都是 TD(0) 算法，括号内的数字 0 表示的是在当前状态下 往前多看 1 步<img src="/2019/01/28/rl/不基于模型的预测/resources/8C3B36B50EF85DAF279B60F3B4D130E2.jpg">
+<img src="/2019/01/28/rl/不基于模型的预测/resources/419B67E0D3070AF4AD2D7AA38F9EB4C0.jpg">
+</li>
+</ul>
+<h4 id="λ-收获"><a href="#λ-收获" class="headerlink" title="λ-收获"></a>λ-收获</h4><p>为了能在不增加计算复杂度的情况下<font color="blue">综合考虑所有步数的预测</font>，我们引入了一个新的参数 λ，并定义:λ-收获</p>
+<ul>
+<li>任意一个 n-步收获的权重被设计为 $(1 − λ)λ^{n−1}$，如图 4.7 所示。通过这样的权重设计，可以得到 λ-收获的计算公式为<img src="/2019/01/28/rl/不基于模型的预测/resources/F95E29C3E3B4152C5012864A49CD722B.jpg"></li>
+<li>对应的 TD(λ) 被描述为<img src="/2019/01/28/rl/不基于模型的预测/resources/A586735B46F51B3E57D49C422B48B850.jpg">
+<img src="/2019/01/28/rl/不基于模型的预测/resources/E95B81E69FD207077339DECF808D197F.jpg"></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+	
+    
+	
+      	    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/24/rl/动态规划寻找最优策略/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/24/rl/动态规划寻找最优策略/" itemprop="url">未命名</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-24T22:00:10+08:00">
+                2019-01-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/强化学习/" itemprop="url" rel="index">
+                    <span itemprop="name">强化学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><h4 id="动态规划理解"><a href="#动态规划理解" class="headerlink" title="动态规划理解"></a>动态规划理解</h4><ul>
+<li><p>规划<br>“规划”是在已知环 境动力学的基础上进行评估和控制，具体来说就是在了解包括状态和行为空间、转移概率矩阵、 奖励等信息的基础上<font color="blue">判断一个给定策略的价值函数，或判断一个策略的优劣并最终找到最优的 策略和最优价值函数</font></p>
+</li>
+<li><p>动态规划算法把求解复杂问题<font color="blue">分解为求解子问题</font>，通过求解子问题进而得到整个问题的解,在解决子问题的时候，其结果<font color="blue">通常需要存储起来被用来解决后续复杂问题</font></p>
+<ul>
+<li>当问题具有下列两个 性质时，通常可以考虑使用动态规划来求解:<ul>
+<li>第一个性质是一个复杂问题的最优解由数个小问题 的最优解构成，可以通过寻找子问题的最优解来得到复杂问题的最优解;</li>
+<li>第二个性质是子问题在 复杂问题内重复出现，使得子问题的解可以被存储起来重复利用</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>和马尔科夫决策过程关系<br>马尔科夫决策过程具有上述两 个属性:</p>
+<ul>
+<li>贝尔曼方程把问题递归为求解子问题</li>
+<li>价值函数相当于存储了一些子问题的解，可以复 用。因此可以使用动态规划来求解马尔科夫决策过程</li>
+</ul>
+</li>
+</ul>
+<h4 id="预测和控制"><a href="#预测和控制" class="headerlink" title="预测和控制"></a>预测和控制</h4><ul>
+<li>预测 (prediction):已知一个马尔科夫决策过程 MDP ⟨S, A, P, R, γ⟩ 和一个策略 π，或者是 给定一个马尔科夫奖励过程 $MRP ⟨S, P_π, R_π, γ⟩$，<font color="blue">求解基于该策略的价值函数 $v_π$</font>。</li>
+<li>控制(control):已知一个马尔科夫决策过程MDP⟨S,A,P,R,γ⟩，<font color="blue">求解最优价值函数v∗ 和 最优策略 π∗</font>。</li>
+</ul>
+<h3 id="策略评估"><a href="#策略评估" class="headerlink" title="策略评估"></a>策略评估</h3><h4 id="含义"><a href="#含义" class="headerlink" title="含义"></a>含义</h4><p>指计算给定策略下状态价值函数的过程<br>对策略评估，我们可 以使用同步迭代联合动态规划的算法:从任意一个状态价值函数开始，依据给定的策略，结合贝 尔曼期望方程、状态转移概率和奖励同步迭代更新状态价值函数，<font color="blue">直至其收敛，得到该策略下最 终的状态价值函数</font></p>
+<ul>
+<li>贝尔曼期望方程给出了如何根据状态转换关系中的后续状态 s′ 来计算当前状态 s 的价值， 在同步迭代法中，我们使用上一个迭代周期 k 内的后续状态价值来计算更新当前迭代周期 k + 1<br>内某状态 s 的价值<ul>
+<li>我们可以对计算得到的新的状态价值函数再次进行迭代，直至状态函数收敛，也就是<font color="blue">迭代计算得到每一个状态的新价值与原价值差别在一个很小的可接受范围内</font><img src="/2019/01/24/rl/动态规划寻找最优策略/resources/E42402554539EC7CBCD4DB4823475972.jpg">
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="举例-小型方格世界迭代中的价值函数"><a href="#举例-小型方格世界迭代中的价值函数" class="headerlink" title="举例(小型方格世界迭代中的价值函数)"></a>举例(小型方格世界迭代中的价值函数)</h4><ul>
+<li>均一概率的随机策略<img src="/2019/01/24/rl/动态规划寻找最优策略/resources/3AE20758C58F796F94B5309148135A30.jpg">
+</li>
+</ul>
+<h3 id="策略迭代"><a href="#策略迭代" class="headerlink" title="策略迭代"></a>策略迭代</h3><h4 id="背景-1"><a href="#背景-1" class="headerlink" title="背景"></a>背景</h4><p>完成对一个策略的评估，将得到基于该策略下每一个状态的价值。很明显，不同状态对应的 价值一般也不同，那么个体是否可以根据得到的价值状态来调整自己的行动策略呢</p>
+<h4 id="迭代过程理解-贪婪策略"><a href="#迭代过程理解-贪婪策略" class="headerlink" title="迭代过程理解(贪婪策略)"></a>迭代过程理解(贪婪策略)</h4><p>个体在某个状态下选择的行为是其能够到达后续所有可能的状态中价值最 大的那个状态。我们以均一随机策略下第 2 次迭代后产生的价值函数为例说明这个贪婪策略</p>
+<ul>
+<li>新的贪婪策略比之前的均一随机策略要优秀不少，至少在靠近终止<br>状态的几个状态中，个体将有一个明确的行为，而不再是随机行为了。我们从均一随机策略下的 价值函数中产生了新的更优秀的策略，这是一个策略改善的过程<img src="/2019/01/24/rl/动态规划寻找最优策略/resources/8B3A8C37EC6AB3D3C839C7C4FDC684A7.jpg">
+</li>
+</ul>
+<ul>
+<li><p>我的理解：<br>上面左图是各个状态的价值，右图是各个状态的策略，选择的贪婪策略由于各个状态不同的价值，导致了右图不同的策略。然后又由于不同的策略，执行下一步行动，继续会导致左图中不同的状态，以此循环</p>
+<ul>
+<li>依据新的策略 π′ 会得到一个新的价值函数，并产生新的贪婪策略，如此重复循环迭代将最 终得到最优价值函数 v∗ 和最优策略 π∗</li>
+</ul>
+</li>
+<li><p>策略迭代</p>
+<ul>
+<li>策略在循环迭代中得到更新改善的过程称为策略迭代</li>
+<li>从一个初始策略 π 和初始价值函数 V 开始，基于该策略进行完整的价值评估过程得到一个 新的价值函数，随后依据新的价值函数得到新的贪婪策略，随后计算新的贪婪策略下的价值函 数，整个过程反复进行，在这个循环过程中策略和价值函数均得到迭代更新，<font color="blue">并最终收敛值最有 价值函数和最优策略</font><img src="/2019/01/24/rl/动态规划寻找最优策略/resources/94EC8313FD2EAD0383F48AE24FF35931.jpg">
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="价值迭代"><a href="#价值迭代" class="headerlink" title="价值迭代"></a>价值迭代</h3><h4 id="背景-2"><a href="#背景-2" class="headerlink" title="背景"></a>背景</h4><p>细心的读者可能会发现，如果按照图 3.2 中第三次迭代得到的价值函数采用贪婪选择策略的 话，该策略和最终的最优价值函数对应的贪婪选择策略是一样的，它们都对应于最优策略，如图 3.5，而通过基于均一随机策略的迭代法价值评估要经过数十次迭代才算收敛。这会引出一个问 题:<font color="blue">是否可以提前设置一个迭代终点来减少迭代次数而不影响得到最优策略呢?是否可以每迭代 一次就进行一次策略评估呢</font></p>
+<h4 id="最优策略的意义"><a href="#最优策略的意义" class="headerlink" title="最优策略的意义"></a>最优策略的意义</h4><ul>
+<li><p>任何一个最优策略可以分为两个阶段:<br>首先该策略要能产生当前状态下的最优行为，其次对 于该最优行为到达的后续状态时该策略仍然是一个最优策略</p>
+</li>
+<li><p>直观感受(单纯的价值迭代)</p>
+<img src="/2019/01/24/rl/动态规划寻找最优策略/resources/954EA9A8B6A3282E4D1EB3705711052F.jpg">
+<p>这个公式带给我们的直觉是如果我们能知道最终状态的价值和相关奖励，<font color="blue">可以直接计算得 到最终状态的前一个所有可能状态的最优价值</font>。更乐观的是，即使不知道最终状态是哪一个状 态，<font color="blue">也可以利用上述公式进行纯粹的价值迭代</font>，不停的更新状态价值，最终得到最优价值，而且 这种单纯价值迭代的方法甚至可以允许存在循环的状态转换乃至一些随机的状态转换过程</p>
+</li>
+</ul>
+<h4 id="举例"><a href="#举例" class="headerlink" title="举例"></a>举例</h4><img src="/2019/01/24/rl/动态规划寻找最优策略/resources/6D8A6147FB99EDC0C77B084719D1D679.jpg">
+<ul>
+<li>首先考虑到个体知道环境的动力学特征的情形。在这种情况下，个体可以直接计算得到与终 止状态直接相邻(斜向不算)的左上角两个状态的最优价值均为 −1。随后个体又可以往右下角 延伸计算得到与之前最优价值为 −1 的两个状态香相邻的 3 个状态的最优价值为 −2。以此类推， 每一次迭代个体将从左上角朝着右下角方向依次直接计算得到一排斜向方格的最优价值，直至 完成最右下角的一个方格最优价值的计算</li>
+<li><font color="blue">个人理解</font>：<br>由于上面的直观感受可以知道，前一状态的最优价值可以由后一状态计算得到，所以从最终的终态出发，开始价值为0，然后倒推，得到每一个状态的最优价值<font color="blue">（纯粹的价值迭代，并没有策略的参与）</font></li>
+<li>特点(注意并没有策略的参与)<br>价值迭代的目标仍然是寻找到一个最优策略，它通过贝尔曼最优方程从前次迭代 的价值函数中计算得到当次迭代的价值函数，在这个反复迭代的过程中，并没有一个明确的策略 参与<ul>
+<li>需要 注意的是，在纯粹的价值迭代寻找最优策略的过程中，迭代过程中产生的状态价值函数不一定对 应一个策略。迭代过程中价值函数更新的公式为:<img src="/2019/01/24/rl/动态规划寻找最优策略/resources/F20EAADAC12F3F252A5FFFCB6B405928.jpg">
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="同步动态规划算法总结"><a href="#同步动态规划算法总结" class="headerlink" title="同步动态规划算法总结"></a>同步动态规划算法总结</h3><p>使用同步动态规划进行规划基本就讲解完毕了。前文所述的这三类算法<font color="blue">均是基于状态价值函数的</font></p>
+<ul>
+<li>其中迭代法策略评估属于预测问题，它使用贝尔曼期望方程来进行求解。</li>
+<li>策略迭代和价值迭代则属于控制问题<ul>
+<li>其中前者使用贝尔曼 期望方程进行一定次数的价值迭代更新，随后在产生的价值函数基础上采取贪婪选择的策略改 善方法形成新的策略，如此交替迭代不断的优化策略;</li>
+<li>价值迭代则不依赖任何策略，它使用贝尔 曼最优方程直接对价值函数进行迭代更新</li>
+</ul>
+</li>
+</ul>
+<h3 id="异步动态规划算法"><a href="#异步动态规划算法" class="headerlink" title="异步动态规划算法"></a>异步动态规划算法</h3><p>前文所述的系列算法均为同步动态规划算法，<font color="blue">它表示所有的状态更新是同步的</font>。与之对应的 还有异步动态规划算法。在这些算法中，<font color="blue">每一次迭代并不对所有状态的价值进行更新，而是依据 一定的原则有选择性的更新部分状态的价值</font></p>
+<ul>
+<li>这种算法能显著的节约计算资源，并且只要所有状 态能够得到持续的被访问更新，那么也能确保算法收敛至最优解。</li>
+<li>比较常用的异步动态规划思想 有:原位动态规划、优先级动态规划、和实时动态规划</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+	
+    
+	
+      	    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/21/rl/马尔科夫决策过程/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/21/rl/马尔科夫决策过程/" itemprop="url">未命名</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-21T06:00:22+08:00">
+                2019-01-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/强化学习/" itemprop="url" rel="index">
+                    <span itemprop="name">强化学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><ul>
+<li>求解强化学习问题可以理解为如何最大化个体在与环境交互过程中获得的累积奖励</li>
+<li>当环境状态是完全可观测时，个体可以通过构建马尔科夫决策过程来描述整 个强化学习问题。有时候环境状态并不是完全可观测的，此时个体可以结合自身对于环境的历史 观测数据来构建一个近似的完全可观测环境的描述<ul>
+<li>从这个角度来说，<font color="blue">几乎所有的强化学习问题 都可以被认为或可以被转化为马尔科夫决策过程</font></li>
+</ul>
+</li>
+</ul>
+<h3 id="马尔科夫过程"><a href="#马尔科夫过程" class="headerlink" title="马尔科夫过程"></a>马尔科夫过程</h3><h4 id="马尔科夫性"><a href="#马尔科夫性" class="headerlink" title="马尔科夫性"></a>马尔科夫性</h4><p>  在一个时序过程中，如果 t + 1 时刻的状态仅取决于 t 时刻的状态 $S_t$ 而与 t 时刻之前的任 何状态都无关时，则认为 t 时刻的状态$S_t$ 具有马尔科夫性 (Markov property)</p>
+<h4 id="马尔科夫过程-马尔科夫链"><a href="#马尔科夫过程-马尔科夫链" class="headerlink" title="马尔科夫过程(马尔科夫链)"></a>马尔科夫过程(马尔科夫链)</h4><p>  若过程中的每一 个状态都具有马尔科夫性，则这个过程具备马尔科夫性。具备了马尔科夫性的随机过程称为马尔 科夫过程 (Markov process)，又称马尔科夫链 (Markov chain)</p>
+<ul>
+<li>描述一个马尔科夫过程的核心是状态转移概率矩阵<br>$P_{ss′} = P [S_{t+1} = s′|S_t = s]$</li>
+<li>通常使用一个<font color="blue">元组 ⟨S, P ⟩</font> 来描述马尔科夫过程，其中 S 是有限数量的状态集，P 是状态转 移概率矩阵</li>
+</ul>
+<h4 id="采样"><a href="#采样" class="headerlink" title="采样"></a>采样</h4><p>  从符合马尔科夫过程给定的状态转移概率矩阵生成一个状态序列的过程称为采样(sample)。</p>
+<h4 id="状态序列"><a href="#状态序列" class="headerlink" title="状态序列"></a>状态序列</h4><p>  采样将得到一系列的状态转换过程，本书我们称为状态序列 (episode)</p>
+<h4 id="完整状态序列"><a href="#完整状态序列" class="headerlink" title="完整状态序列"></a>完整状态序列</h4><p>  当状态序列的最后一个,状态是终止状态时，该状态序列称为完整的状态序列 (complete episode)</p>
+<h3 id="马尔科夫奖励过程"><a href="#马尔科夫奖励过程" class="headerlink" title="马尔科夫奖励过程"></a>马尔科夫奖励过程</h3><h4 id="背景-1"><a href="#背景-1" class="headerlink" title="背景"></a>背景</h4><p>马尔科夫过程只涉及到状态之间的转移概率，并未触及强化学习问题中伴随着状态转换的 奖励反馈。如果把奖励考虑进马尔科夫过程，则成为马尔科夫奖励过程(Markov reward process, MRP)。它是由 ⟨S, P, R, γ⟩ 构成的一个元组，其中:</p>
+<ul>
+<li>S 是一个有限状态集</li>
+<li>P 是集合中状态转移概率矩阵:$P_{ss′} = P [S_{t+1} = s′|S_t = s]]$</li>
+<li>R 是一个奖励函数:$R_s = E [R_{t+1}|S_t = s]$</li>
+<li>γ 是一个衰减因子:γ ∈ [0, 1]</li>
+</ul>
+<h4 id="相关概念"><a href="#相关概念" class="headerlink" title="相关概念"></a>相关概念</h4><ul>
+<li>收获<br>收获(return)是一个马尔科夫奖励过程中从某一个状态 $S_t$ 开始采样<font color="blue">直到终止状态</font>时所有 奖励的有衰减的之和。数学表达式如下<img src="/2019/01/21/rl/马尔科夫决策过程/resources/8A5019829AFB9B5FDCE569CD54825878.jpg"></li>
+<li>价值<br>价值(value) 是马尔科夫奖励过程中<font color="blue">状态收获的期望</font>。ta 数学表达式为<br>$v(s) = E [G_t|S_t = s]$</li>
+<li><p>价值函数<br>如果存在一个函数，给定一个状态能得到该状态对应的价值，那么该函数就被称为价值函数 (value function)。<font color="blue">价值函数建立了从状态到价值的映射</font></p>
+<img src="/2019/01/21/rl/马尔科夫决策过程/resources/63FEBA67EFEAAB1843BCFEFEF3964719.jpg">
+</li>
+<li><p>马尔科夫奖励过程中的贝尔曼方程</p>
+<ul>
+<li>它(上图)提示一个状态的价值 由该状态的奖励以及后续状态价值按概率分布求和按一定的衰减比例联合组成</li>
+<li>根据马尔科夫奖励过程的定义，$R_{t+1}$ 的期望就是其自身，因为每次离开同一个状 态得到的奖励都是一个固定的值。而下一时刻状态价值的期望，可以根据下一时刻状态的概率分 布得到。如果用 s′ 表示 s 状态下一时刻任一可能的状态:<img src="/2019/01/21/rl/马尔科夫决策过程/resources/B4B06F2BCF4DC9FDD1D3600C3D31715B.jpg">
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="马尔科夫决策过程-MDP"><a href="#马尔科夫决策过程-MDP" class="headerlink" title="马尔科夫决策过程(MDP)"></a>马尔科夫决策过程(MDP)</h3><h4 id="背景-2"><a href="#背景-2" class="headerlink" title="背景"></a>背景</h4><p>马尔科夫奖励过程并不能直接用来指导解决强化学习问题，因为它不涉及到个体行为的选 择，因此有必要引入马尔科夫决策过程。马尔科夫决策过程(Markov decision process, MDP)是 由 ⟨S, A, P, R, γ⟩ 构成的一个元组，其中:</p>
+<ul>
+<li>S 是一个有限状态集</li>
+<li>A 是一个有限行为集</li>
+<li>P 是集合中基于行为的状态转移概率矩阵:$P^a_{ss’} = E [R_{t+1} |S_t = s, A_t = a]$</li>
+<li>R 是基于状态和行为的奖励函数:$R_s^a = E [R_{t+1}|S_t = s, A_t = a]$</li>
+<li>γ 是一个衰减因子:γ ∈ [0, 1]</li>
+</ul>
+<h4 id="相关概念-1"><a href="#相关概念-1" class="headerlink" title="相关概念"></a>相关概念</h4><ul>
+<li><p>策略<br>个体在给定状 态下从行为集中选择一个行为的依据则称为策略 (policy)，用字母 π 表示。策略 π 是某一状态下基于行为集合的概率分布:<br>$π(a|s)=P[A_t =a|S_t =s]$</p>
+<ul>
+<li>策略仅通过依靠当前状态就可以产生一个个体的行为，可以说策略 仅与当前状态相关，而与历史状态无关</li>
+<li>策略描述的是个体的行 为产生的机制，是不随状态变化而变化的，被认为是静态的</li>
+</ul>
+</li>
+<li><p>随机策略<br>随机策略是一个很常用的策略，当个体使用随机策略时，个体在某一状态下选择的行为并不 确定。借助随机策略，个体可以在同一状态下尝试不同的行为</p>
+</li>
+<li><p>当给定一个马尔科夫决策过程:M = ⟨S, A, P, R, γ⟩ 和一个策略 π，那么状态序列 $S_1, S_2$, . . . 是一个符合马尔科夫过程 $⟨S, P_π⟩$ 的采样</p>
+</li>
+<li><p>价值函数<br>价值函数 $v_π(s)$ 是在马尔科夫决策过程下基于策略 π 的状态价值函数，表示从状态 s 开始，遵循当前策略 π 时所获得的收获的期望:$v_π(s) = E [G_t|S_t = s]$</p>
+</li>
+<li><p>行为价值函数(状态行为对价值函数)<br>一个基于策略 π 的行为价值函数 $q_π(s,a)$，表示在遵循策略 π 时，对当前状态 s 执行某一具体行为 a 所能的到 的收获的期望:$q_π(s,a) = E[G_t|S_t = s,A_t = a]$</p>
+</li>
+<li>贝尔曼方程<br>同理，可推导出如下两个方程<br>$v_π(s) = E [R_{t+1} + γv_π(S_{t+1})|S_t = s]$<br>$q_π(s, a) = E [R_{t+1} + γq_π(S_{t+1}, A_{t+1})|S_t = s, A_t = a]$</li>
+</ul>
+<h4 id="状态价值和行为价值转换"><a href="#状态价值和行为价值转换" class="headerlink" title="状态价值和行为价值转换"></a>状态价值和行为价值转换</h4><ul>
+<li><p>一个状态的价值可以用该状态下所有行为价值来表达:<br>$v_\pi(s) = \sum \pi(a|s)q_\pi(s,a) (a\in A)$</p>
+<img src="/2019/01/21/rl/马尔科夫决策过程/resources/B3E388E69955204B0CBAD8F774E0DCAE.jpg">
+</li>
+<li><p>一个行为的价值可以用该行为所能到达的后续状态的价值来表达:</p>
+<img src="/2019/01/21/rl/马尔科夫决策过程/resources/039915DAC31661A5D043C50B0D7C59E3.jpg">
+</li>
+<li><p>把上二式组合起来，可以得到下面的结果:</p>
+<img src="/2019/01/21/rl/马尔科夫决策过程/resources/E994997187C5D6AD87F3879B0F1BE30E.jpg">
+<img src="/2019/01/21/rl/马尔科夫决策过程/resources/4C72981D57DE31EF6A1FF25A7C8F6050.jpg">
+</li>
+</ul>
+<h4 id="最优价值函数"><a href="#最优价值函数" class="headerlink" title="最优价值函数"></a>最优价值函数</h4><ul>
+<li>背景：<br>是否存在一个基于某一策略的价值函数， 在该策略下每一个状态的价值都比其它策略下该状态的价值高?如果存在如何找到这样的价值 函数?这样的价值函数对应的策略又是什么策略?</li>
+<li>最优状态价值函数<br>是所有策略下产生的众多状态价值函数 中的最大者:$v_∗ = max (v_π(s))$</li>
+<li>最优行为价值函数(optimal action-value function)<br>是所有策略下产生的众多行为价 值函数中的最大者:$q_∗(s,a) = max q_π(s,a)$</li>
+<li>贝尔曼优化方程<ul>
+<li>最优状态行为价值<img src="/2019/01/21/rl/马尔科夫决策过程/resources/AC4326C7287308660F7E7376696F4EF3.jpg">
+<ul>
+<li>也可以由后续状态行为价值函数得到<img src="/2019/01/21/rl/马尔科夫决策过程/resources/BE707491DE5CCFB8610C8D0958FF7B9E.jpg"></li>
+</ul>
+</li>
+<li>最优状态价值：<img src="/2019/01/21/rl/马尔科夫决策过程/resources/E5EF335F8158C109A4A040F3A6F25DED.jpg"></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+	
+    
+	
+      	    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/18/rl/强化学习基础/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/18/rl/强化学习基础/" itemprop="url">未命名</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-18T06:30:12+08:00">
+                2019-01-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/强化学习/" itemprop="url" rel="index">
+                    <span itemprop="name">强化学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="强化学习基础"><a href="#强化学习基础" class="headerlink" title="强化学习基础"></a>强化学习基础</h3><h4 id="强化学习特点"><a href="#强化学习特点" class="headerlink" title="强化学习特点"></a>强化学习特点</h4><ul>
+<li><p>强化学习是机器学习的一个分支：监督学习、无监督学习、强化学习</p>
+</li>
+<li><p>强化学习的特点：</p>
+<ul>
+<li>没有监督数据、只有奖励信号</li>
+<li>奖励信号不一定是实时的，而很可能是延后的，有时甚至延后很多。</li>
+<li>时间（序列）是一个重要因素</li>
+<li>当前的行为影响后续接收到的数据</li>
+</ul>
+</li>
+<li><p>强化学习有广泛的应用：像直升机特技飞行、经典游戏、投资管理、发电站控制、让机器人模仿人类行走等</p>
+</li>
+</ul>
+<h3 id="强化学习问题的提出"><a href="#强化学习问题的提出" class="headerlink" title="强化学习问题的提出"></a>强化学习问题的提出</h3><h4 id="奖励Reward"><a href="#奖励Reward" class="headerlink" title="奖励Reward"></a>奖励Reward</h4><ul>
+<li><p>是信号的反馈，是一个标量，<font color="blue">它反映个体在t时刻做得怎么样</font>。个体的工作就是最大化累计奖励。</p>
+</li>
+<li><p>$R_t$强化学习主要基于这样的”奖励假设”：<font color="blue">所有问题解决的目标都可以被描述成最大化累积奖励</font></p>
+<img src="/2019/01/18/rl/强化学习基础/resources/FDAE7D078C3300B1B63AAB349135D5EA.jpg">
+</li>
+</ul>
+<h4 id="序列决策-Sequential-Decision-Making"><a href="#序列决策-Sequential-Decision-Making" class="headerlink" title="序列决策 Sequential Decision Making"></a>序列决策 Sequential Decision Making</h4><ul>
+<li>目标：<font color="blue">选择一定的行为序列以最大化未来的总体奖励</font></li>
+<li>这些行为可能是一个长期的序列</li>
+<li>奖励可能而且通常是延迟的</li>
+<li>有时候宁愿牺牲即时（短期）的奖励以获取更多的长期奖励</li>
+</ul>
+<h4 id="个体和环境-Agent-amp-Environment"><a href="#个体和环境-Agent-amp-Environment" class="headerlink" title="个体和环境 Agent &amp; Environment"></a>个体和环境 Agent &amp; Environment</h4><p>  可以从个体和环境两方面来描述强化学习问题。</p>
+<ul>
+<li><p>在 t 时刻，个体可以：</p>
+<ul>
+<li>有一个对于环境的观察评估 $O_{t}$ </li>
+<li>做出一个行为 $A_{t}$ </li>
+<li>从环境得到一个奖励信号 $R_{t+1}$ </li>
+</ul>
+</li>
+<li><p>环境可以：</p>
+<ul>
+<li>接收个体的动作 $A_{t}$ </li>
+<li>更新环境信息，同时使得个体可以得到下一个观测 $O_{t+1}$</li>
+<li>给个体一个奖励信号 $R_{t+1} $</li>
+</ul>
+<img src="/2019/01/18/rl/强化学习基础/resources/A868FA7787B835C43898A76A32B1B469.jpg">
+</li>
+</ul>
+<h4 id="历史和状态-History-amp-State"><a href="#历史和状态-History-amp-State" class="headerlink" title="历史和状态 History &amp; State"></a>历史和状态 History &amp; State</h4><ul>
+<li><p>历史</p>
+<ul>
+<li><font color="blue">历史是观测、行为、奖励的序列</font>：$ H_{t} = O_{1}, R_{1}, A_{1},…, O_{t-1}, R_{t-1}, A_{t-1}, O_{t}, R_{t}, A_{t}$</li>
+</ul>
+</li>
+<li><p>状态</p>
+<ul>
+<li><font color="blue">状态是所有决定将来的已有的信息</font>，是关于历史的一个函数：$S_{t} = f(H_{t})$</li>
+</ul>
+</li>
+<li><p>环境状态</p>
+<ul>
+<li>是环境的私有呈现，<font color="blue">包括环境用来决定下一个观测/奖励的所有数据</font>，通常对个体并不完全可见，也就是个体有时候并不知道环境状态的所有细节。即使有时候环境状态对个体可以是完全可见的，这些信息也可能包含着一些无关信息。</li>
+</ul>
+</li>
+<li><p>个体状态</p>
+<ul>
+<li>是个体的内部呈现，<font color="blue">包括个体可以使用的、决定未来动作的所有信息</font>。个体状态是强化学习算法可以利用的信息，它可以是历史的一个函数： $S^{a}<em>{t} = f(H</em>{t})$</li>
+</ul>
+</li>
+<li><p>信息状态</p>
+<ul>
+<li>包括历史上所有有用的信息，又称Markov状态</li>
+<li>马儿可夫属性 Markov Property<ul>
+<li>一个状态St是马尔可夫的，当且仅当：$P[S_{t+1} | S_{t}] = P[S_{t+1} | S_{1}, S_{2},…, S_{t}]$</li>
+<li>也就是说，如果信息状态是可知的，那么所有历史信息都可以丢掉，仅需要 t 时刻的信息状态就可以了<ul>
+<li>例如：环境状态是Markov的，因为环境状态是环境包含了环境<font color="blue">决定下一个观测/奖励的所有信息</font><img src="/2019/01/18/rl/强化学习基础/resources/3F5DEFC1F69A7F73D61DE50B3B291807.jpg">
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="完全可观测的环境-Fully-Observable-Environments"><a href="#完全可观测的环境-Fully-Observable-Environments" class="headerlink" title="完全可观测的环境 Fully Observable Environments"></a>完全可观测的环境 Fully Observable Environments</h4><ul>
+<li>个体能够直接观测到环境状态。在这种条件下:</li>
+<li>个体对环境的观测 = 个体状态 = 环境状态</li>
+<li>正式地说，这种问题是一个马儿可夫决定过程（Markov Decision Process， MDP）</li>
+</ul>
+<h4 id="部分可观测的环境-Partially-Observable-Environments"><a href="#部分可观测的环境-Partially-Observable-Environments" class="headerlink" title="部分可观测的环境 Partially Observable Environments"></a>部分可观测的环境 Partially Observable Environments</h4><ul>
+<li>个体间接观测环境。举了几个例子：<ul>
+<li>一个可拍照的机器人个体对于其周围环境的观测并不能说明其绝度位置，它必须自己去估计自己的绝对位置，而绝对位置则是非常重要的环境状态特征之一；</li>
+<li>一个交易员只能看到当前的交易价格；</li>
+<li>一个扑克牌玩家只能看到自己的牌和其他已经出过的牌，而不知道整个环境（包括对手的牌）状态。</li>
+<li>在这种条件下：<ul>
+<li>个体状态 ≠ 环境状态</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="强化学习个体的主要组成部分"><a href="#强化学习个体的主要组成部分" class="headerlink" title="强化学习个体的主要组成部分"></a>强化学习个体的主要组成部分</h3><p>强化学习中的个体可以由以下三个组成部分中的一个或多个组成</p>
+<h4 id="策略-Policy"><a href="#策略-Policy" class="headerlink" title="策略 Policy"></a>策略 Policy</h4><ul>
+<li>策略是决定个体行为的机制。是<font color="red">从状态到行为的一个映射</font>，可以是确定性的，也可以是不确定性的。</li>
+</ul>
+<h4 id="价值函数-Value-Function"><a href="#价值函数-Value-Function" class="headerlink" title="价值函数 Value Function"></a>价值函数 Value Function</h4><ul>
+<li><font color="red">是一个未来奖励的预测，用来评价当前状态的好坏程度</font><ul>
+<li>当面对两个不同的状态时，个体可以用一个Value值来评估这两个状态可能获得的最终奖励区别，继而指导选择不同的行为，即制定不同的策略。</li>
+<li><font color="blue">一个价值函数是基于某一个特定策略的</font>，不同的策略下同一状态的价值并不相同。某一策略下的价值函数用下式表示：<img src="/2019/01/18/rl/强化学习基础/resources/1ADEF5845F6145E93F53F33DD65C761D.jpg">
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="模型-Model"><a href="#模型-Model" class="headerlink" title="模型 Model"></a>模型 Model</h4><p>个体对环境的一个建模，它体现了个体是如何思考环境运行机制的（how the agent think what the environment was.），个体希望模型能模拟环境与个体的交互机制。</p>
+<ul>
+<li><p>模型至少要解决两个问题：</p>
+<ul>
+<li><p>一是状态转化概率，即预测下一个可能状态发生的概率：</p>
+<img src="/2019/01/18/rl/强化学习基础/resources/A190087077BAA813EE6BBEDDC8685CA2.jpg">
+</li>
+<li><p>另一项工作是预测可能获得的即时奖励：</p>
+<img src="/2019/01/18/rl/强化学习基础/resources/568C86BA012338B66C90B2D68FD23307.jpg">
+</li>
+</ul>
+</li>
+<li><p>模型并不是构建一个个体所必需的，很多强化学习算法中个体并不试图（依赖）构建一个模型。</p>
+</li>
+</ul>
+<p>注：模型仅针对个体而言，环境实际运行机制不称为模型，而称为环境动力学(dynamics of environment)，它能够明确确定个体下一个状态和所得的即时奖励</p>
+<h3 id="强化学习个体的分类"><a href="#强化学习个体的分类" class="headerlink" title="强化学习个体的分类"></a>强化学习个体的分类</h3><p>解决强化学习问题，个体可以有多种工具组合，<font color="blue">比如通过建立对状态的价值的估计来解决问题，或者通过直接建立对策略的估计来解决问题</font>。这些都是个体可以使用的工具箱里的工具。因此，根据个体内包含的“工具”进行分类，可以把个体分为如下三类：</p>
+<ul>
+<li><p>仅基于价值函数的 Value Based：在这样的个体中，有对状态的价值估计函数，但是没有直接的策略函数，策略函数由价值函数间接得到。</p>
+</li>
+<li><p>仅直接基于策略的 Policy Based：这样的个体中行为直接由策略函数产生，个体并不维护一个对各状态价值的估计函数。</p>
+</li>
+<li><p>演员-评判家形式 Actor-Critic：个体既有价值函数、也有策略函数。两者相互结合解决问题。<br>此外，根据个体在解决强化学习问题时是否建立一个对环境动力学的模型，将其分为两大类：</p>
+</li>
+</ul>
+<p>不基于模型的个体: 这类个体并不视图了解环境如何工作，而仅聚焦于价值和/或策略函数。<br>基于模型的个体：个体尝试建立一个描述环境运作过程的模型，以此来指导价值或策略函数的更新。</p>
+<h3 id="学习和规划"><a href="#学习和规划" class="headerlink" title="学习和规划"></a>学习和规划</h3><ul>
+<li>学习：环境初始时是未知的，个体不知道环境如何工作，个体通过与环境进行交互，逐渐改善其行为策略。</li>
+<li>规划: 环境如何工作对于个体是已知或近似已知的，个体并不与环境发生实际的交互，而是利用其构建的模型进行计算，在此基础上改善其行为策略。</li>
+<li>一个常用的强化学习问题解决思路是，<font color="blue">先学习环境如何工作，也就是了解环境工作的方式，即学习得到一个模型，然后利用这个模型进行规划</font></li>
+</ul>
+<h3 id="预测和控制-Prediction-amp-Control"><a href="#预测和控制-Prediction-amp-Control" class="headerlink" title="预测和控制 Prediction &amp; Control"></a>预测和控制 Prediction &amp; Control</h3><ul>
+<li>在强化学习里，我们经常需要先解决关于预测（prediction）的问题，而后在此基础上解决关于控制（Control）的问题。</li>
+<li>预测：给定一个策略，评价未来。可以看成是求解在给定策略下的价值函数（value function）的过程。How well will I(an agent) do if I(the agent) follow a specific policy?</li>
+<li>控制：找到一个好的策略来最大化未来的奖励。<br>举了一个例子来说明预测和控制的区别</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+	
+    
+	
+      	    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/16/ml/Conditional GAN/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/16/ml/Conditional GAN/" itemprop="url">Conditional GAN</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-16T07:10:10+08:00">
+                2019-01-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/GAN/" itemprop="url" rel="index">
+                    <span itemprop="name">GAN</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="Conditional-GAN介绍"><a href="#Conditional-GAN介绍" class="headerlink" title="Conditional GAN介绍"></a>Conditional GAN介绍</h3><h4 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h4><ul>
+<li><p>Traditional supervised approach</p>
+<ul>
+<li>正面火车和侧面火车都是好的结果，这会导致最后图片很模糊，因为是多张图片的平均<img src="/2019/01/16/ml/Conditional%20GAN/resources/B506E2E85727105810C3FD98DE358329.jpg">
+</li>
+</ul>
+</li>
+<li><p>GAN</p>
+<ul>
+<li>G其实可以很容易忽略D,从而可以无视G的输入(这里是c:train)<ul>
+<li>比如如果G发现每次输出猫都能得到高分，那么不管G的输入，只要我我每次都输出是清晰的猫就好了</li>
+<li>输出低分基本上有下面三种场景<img src="/2019/01/16/ml/Conditional%20GAN/resources/06288B8EFB718B40410ACFE58F20E136.jpg"></li>
+</ul>
+</li>
+<li>后面的Conditional GAN可以解决这个问题</li>
+</ul>
+</li>
+</ul>
+<h4 id="Conditional-GAN"><a href="#Conditional-GAN" class="headerlink" title="Conditional GAN"></a>Conditional GAN</h4><ul>
+<li>输入<ul>
+<li>G的输出x：图片</li>
+<li>G的输入c：train</li>
+</ul>
+</li>
+<li>目标<ul>
+<li>x is realistic or not</li>
+<li>c ans x are matched or not<img src="/2019/01/16/ml/Conditional%20GAN/resources/71EAA38F9930A85049893063F5F499DD.jpg"></li>
+</ul>
+</li>
+<li>演算法<ul>
+<li>核心思想：找到Loss(上面三种情况集合)，然后用梯度提升方法去优化<img src="/2019/01/16/ml/Conditional%20GAN/resources/0FC60DD9F76548EDD7675B99F770ED9E.jpg">
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="Contitional-GAN-D网络架构"><a href="#Contitional-GAN-D网络架构" class="headerlink" title="Contitional GAN(D网络架构)"></a>Contitional GAN(D网络架构)</h4><ul>
+<li>分别将x是否是真实图片和c and x是否match分别输出会比较好一点<img src="/2019/01/16/ml/Conditional%20GAN/resources/3EC8A1DCCF4EDAA9523E2F085EF824F0.jpg">
+</li>
+</ul>
+<h3 id="Stack-GAN"><a href="#Stack-GAN" class="headerlink" title="Stack GAN"></a>Stack GAN</h3><ul>
+<li>思想就是先产生小图，然后产生大图<img src="/2019/01/16/ml/Conditional%20GAN/resources/C1400E303DB9A50B6CC45300D159FEB4.jpg">
+</li>
+</ul>
+<h3 id="Image-to-Image"><a href="#Image-to-Image" class="headerlink" title="Image to Image"></a>Image to Image</h3><h4 id="传统方法-Supervised-Learning"><a href="#传统方法-Supervised-Learning" class="headerlink" title="传统方法(Supervised Learning)"></a>传统方法(Supervised Learning)</h4><ul>
+<li>也是一样，最后输出会很模糊<ul>
+<li>因为一个input对应了多个好图（多张图片），就会把这些图片做平均来输出<img src="/2019/01/16/ml/Conditional%20GAN/resources/9A949394AE46F6D8145151F92CE0611D.jpg">
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="GAN方法"><a href="#GAN方法" class="headerlink" title="GAN方法"></a>GAN方法</h4><ul>
+<li>testing中的close图片，就是supervised learning的结果，比较模糊</li>
+<li>GAN比较清晰了，但是会产生一些其他的内容</li>
+<li>GAN+close，再加入一些限制条件，就是让G产生的图片更接近真实图片<img src="/2019/01/16/ml/Conditional%20GAN/resources/9EAD3C30D5E435ED7070F5B291B3639A.jpg">
+</li>
+</ul>
+<h4 id="Patch-GAN"><a href="#Patch-GAN" class="headerlink" title="Patch GAN"></a>Patch GAN</h4><ul>
+<li>图像太大，容易出现各种问题<img src="/2019/01/16/ml/Conditional%20GAN/resources/3AE30BDB0CD1A217FCFFB482DB274D10.jpg">
+</li>
+</ul>
+<h3 id="GAN用到其他场景"><a href="#GAN用到其他场景" class="headerlink" title="GAN用到其他场景"></a>GAN用到其他场景</h3><h4 id="Speech去杂音"><a href="#Speech去杂音" class="headerlink" title="Speech去杂音"></a>Speech去杂音</h4><ul>
+<li>speech生谱图就当做图片，也使用Conditional GAN思想<img src="/2019/01/16/ml/Conditional%20GAN/resources/C11F3C210E44F4A4E9CE5C96C89C7CFF.jpg">
+</li>
+</ul>
+<h4 id="Video"><a href="#Video" class="headerlink" title="Video"></a>Video</h4><ul>
+<li>判断是否是正确的连续的影片<ul>
+<li>将影片一张张剪辑，形成图片，然后进行训练<img src="/2019/01/16/ml/Conditional%20GAN/resources/E9F52BFDB4677AE62051EA82760CADC3.jpg"></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+	
+    
+	
+      	    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/10/ml/GAN基础/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/10/ml/GAN基础/" itemprop="url">GAN基础</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-10T22:10:12+08:00">
+                2019-01-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/GAN/" itemprop="url" rel="index">
+                    <span itemprop="name">GAN</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="Basic-idea-of-GAN"><a href="#Basic-idea-of-GAN" class="headerlink" title="Basic idea of GAN"></a>Basic idea of GAN</h3><h4 id="Generator"><a href="#Generator" class="headerlink" title="Generator"></a>Generator</h4><img src="/2019/01/10/ml/GAN基础/resources/66AEF5EADDEC96BE3DA212E758624834.jpg">
+<img src="/2019/01/10/ml/GAN基础/resources/9E2ECC940FEAF9C96D8CEE35311233A2.jpg">
+<h4 id="Discriminator-辨别者，鉴别器"><a href="#Discriminator-辨别者，鉴别器" class="headerlink" title="Discriminator(辨别者，鉴别器)"></a>Discriminator(辨别者，鉴别器)</h4><ul>
+<li>产出一个标量<img src="/2019/01/10/ml/GAN基础/resources/6998CF78D25699B4821C46E82C0998DE.jpg">
+</li>
+</ul>
+<h4 id="形容关系：猎食者和天敌都在净化"><a href="#形容关系：猎食者和天敌都在净化" class="headerlink" title="形容关系：猎食者和天敌都在净化"></a>形容关系：猎食者和天敌都在净化</h4><ul>
+<li>天敌-Discriminator</li>
+<li><p>枯叶蝶-Generator</p>
+<ul>
+<li>枯叶蝶为了躲避猎食者的捕猎，不行进化自身<img src="/2019/01/10/ml/GAN基础/resources/8344AE0D169C537B6DF1D907BC7348D3.jpg">
+</li>
+</ul>
+</li>
+<li><p>二次元也是一样的</p>
+<ul>
+<li>Generator,Discriminator不断进化Discriminator2骗过Generator1，Discriminator3骗过Generator2等</li>
+<li>看起来Generator,Discriminator像是对抗的样子，所以是adversarial的由来<img src="/2019/01/10/ml/GAN基础/resources/9D1A3879E4E766C5138C872EE7020170.jpg">
+</li>
+</ul>
+</li>
+<li><p>对抗只是拟人的方法，下面就是和平的比喻</p>
+<ul>
+<li>问题：<ul>
+<li>1.为什么Generator不能自己学,而需要Discriminator驱动</li>
+<li>2.为什么Discriminator不自己做<img src="/2019/01/10/ml/GAN基础/resources/17AAF5A1E271847BB8A9565F19E6F561.jpg">
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="Algorithm"><a href="#Algorithm" class="headerlink" title="Algorithm"></a>Algorithm</h4><ul>
+<li><p>step1</p>
+<ul>
+<li>训练Discriminator，使database中产生的结果很接近1，Generator产生的结果很接近0<img src="/2019/01/10/ml/GAN基础/resources/E91AB963E417F2AF849AA38157129079.jpg">
+</li>
+</ul>
+</li>
+<li><p>step2</p>
+<ul>
+<li>Fix Discriminator,update Generator</li>
+<li>Generator，Discriminator合一起，成一个巨大的网络，比如前几层是Generator，后几层是Discriminator</li>
+<li>这一步目标就是巨大网络输出scala值要大(Gradient Ascent)<ul>
+<li>通常情况下，要让最后的输出很大，只需要调整最后一层softmax层就可以了</li>
+<li>但是这里固定住后面几层，只让调整Generator<img src="/2019/01/10/ml/GAN基础/resources/F11F16B8F1D8F59E45D03467FD6AEE4A.jpg">
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>整体算法</p>
+<ul>
+<li>Learning D<ul>
+<li>sample from database:$x^m$,noise samples:$z^m$</li>
+<li>$\tilde x^m=G(z^m)$表示Genertor产生的vector</li>
+<li>然后通过梯度提升算法，最优化$\tilde V$,含义就是让$D(x^i)尽量大,D(\tilde x^i)$尽量小</li>
+</ul>
+</li>
+<li>Learning G<ul>
+<li>目的就是update G，使其能够骗过D</li>
+<li>$D(G(z^i))$，理解其含义就是让noise数据经过G处理后，然后通过D（骗过D），得到最大的标量值<img src="/2019/01/10/ml/GAN基础/resources/5E52567B26EE736450698E2A8BF45E80.jpg">
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="GAN-as-structured-learning"><a href="#GAN-as-structured-learning" class="headerlink" title="GAN as structured learning"></a>GAN as structured learning</h3><h4 id="Structured-Learning"><a href="#Structured-Learning" class="headerlink" title="Structured Learning"></a>Structured Learning</h4><ul>
+<li>当输出不是一个标量数值或者分类，是更负责的模型的时候，比如seq，matrix，graph等<img src="/2019/01/10/ml/GAN基础/resources/436BF7130FE4A4A66B51511F88BF4640.jpg"></li>
+<li>Why structured learning challenging<ul>
+<li>必须考虑大局观<img src="/2019/01/10/ml/GAN基础/resources/DE35D645A761A70023B790B3E4071884.jpg"></li>
+</ul>
+</li>
+<li>Structured Learning Approach<ul>
+<li>Bottom up方法容易失去大局观<ul>
+<li>一个componet一个component地生成 </li>
+<li>component与component之间的关系不容易把握</li>
+</ul>
+</li>
+<li>Top Down方法不容易train<img src="/2019/01/10/ml/GAN基础/resources/9C427F41E805E3C0017D49FA943E5150.jpg">
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Can-Generator-learn-by-itself"><a href="#Can-Generator-learn-by-itself" class="headerlink" title="Can Generator learn by itself"></a>Can Generator learn by itself</h3><h4 id="NN-Generator和NN-Classifier比较类似"><a href="#NN-Generator和NN-Classifier比较类似" class="headerlink" title="NN Generator和NN Classifier比较类似"></a>NN Generator和NN Classifier比较类似</h4><ul>
+<li>只是一个是输入vector，一个输入图像</li>
+<li>问题：NN Generator如何产生输入的vector(将图片进行编码)?<ul>
+<li>不能够随机产生，因为如果随机产生，就无法表示出向量的相似性了(比如图片1有很多种，左斜，右斜等)<img src="/2019/01/10/ml/GAN基础/resources/B17EF3ED0C502169303D060B02B9803D.jpg">
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="Auto-Encoder-Decoder"><a href="#Auto-Encoder-Decoder" class="headerlink" title="Auto Encoder-Decoder"></a>Auto Encoder-Decoder</h4><ul>
+<li>解决上面：NN Generator如何产生输入vector问题</li>
+<li>如图：encode模块，对输入和输出图片越接近越好<img src="/2019/01/10/ml/GAN基础/resources/02DBAADA9FFA8D1FD2E7FB2CB90BCC25.jpg"></li>
+<li>训练后好的Anto encoder中的NN Decoder其实就可以理解为NN Generator<ul>
+<li>简单来说就是输入一个vector，然后输出图像<img src="/2019/01/10/ml/GAN基础/resources/B8B0E5D6B03F0A4982F7A5E15E425116.jpg"></li>
+</ul>
+</li>
+<li>如果训练集数据比较小，当出现0.5a + 0.5b输入时无法判断<ul>
+<li>a,b都能正确判断，但是当各0.5的时候就不好使了</li>
+<li>如下使用VAE解决<img src="/2019/01/10/ml/GAN基础/resources/A774B365F5C4321FBFA92BAD08736468.jpg">
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="VAE"><a href="#VAE" class="headerlink" title="VAE"></a>VAE</h4><img src="/2019/01/10/ml/GAN基础/resources/77926F12725C356845A4CC5FB5877E9F.jpg">
+<ul>
+<li>如何更好的判断input img和output img相似，如何取舍？<ul>
+<li>比如我们不能简单的用pixel不同个数来决定，如下图明显6 pixel error更好<img src="/2019/01/10/ml/GAN基础/resources/BD30A4E204F8A4C2BE6EC062FFB978D1.jpg">
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="单纯的learn-Generator困难的地方-Auto-encoder可能遇见问题"><a href="#单纯的learn-Generator困难的地方-Auto-encoder可能遇见问题" class="headerlink" title="单纯的learn Generator困难的地方(Auto encoder可能遇见问题)"></a>单纯的learn Generator困难的地方(Auto encoder可能遇见问题)</h4><ul>
+<li>邻近的component无法交流<ul>
+<li>当然如果考虑更加深的NN，多加入些隐层，可能能够解决<img src="/2019/01/10/ml/GAN基础/resources/022A31BA195753A93ABF96710BEAAB8D.jpg"></li>
+</ul>
+</li>
+<li>例如:<ul>
+<li>绿色为GAN得到的结论</li>
+<li>蓝色为Auto-encoder(单纯Generator)得到的</li>
+<li>原因是无法得到邻近的component的关系<img src="/2019/01/10/ml/GAN基础/resources/BA81A7B818E0D517E2047D745B53AE9A.jpg">
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Can-Discriminator-generate"><a href="#Can-Discriminator-generate" class="headerlink" title="Can Discriminator generate"></a>Can Discriminator generate</h3><h4 id="Discriminator复习"><a href="#Discriminator复习" class="headerlink" title="Discriminator复习"></a>Discriminator复习</h4><ul>
+<li>Discriminator在不同的领域有不同的名字,evaluation function,potential function….<img src="/2019/01/10/ml/GAN基础/resources/7D4F8ADAF45151FA632840F0CCF981DB.jpg">
+</li>
+</ul>
+<h4 id="Discriminator容易解决component与component之间的关系"><a href="#Discriminator容易解决component与component之间的关系" class="headerlink" title="Discriminator容易解决component与component之间的关系"></a>Discriminator容易解决component与component之间的关系</h4><ul>
+<li>如果已经有了整张图片，来判断图片是否ok，比较好处理<ul>
+<li>比如下图中，Discriminator就是一个CNN，这个CNN中有一个检测是否有独立的的filter，这样就很容易检测了<img src="/2019/01/10/ml/GAN基础/resources/251216A45C8730808FACD751AC7F86BB.jpg">
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="Discriminator擅长批评，不擅长生成"><a href="#Discriminator擅长批评，不擅长生成" class="headerlink" title="Discriminator擅长批评，不擅长生成"></a>Discriminator擅长批评，不擅长生成</h4><img src="/2019/01/10/ml/GAN基础/resources/415E152AE13988117AAAA3E8485D1FCD.jpg">
+<ul>
+<li>need some negative example<ul>
+<li>所以产生negative example是关键<img src="/2019/01/10/ml/GAN基础/resources/E809C331F97DED3FEBF074A9F71546CA.jpg"></li>
+<li>可能需要一个好的程序去产生negative example<ul>
+<li>并不能随机生成，如果随机生成，那么一些处于中间状态的图片也没有办法处理</li>
+<li>而且需要一个Discriminator来判断是否是好的negative example<ul>
+<li>这样就会有鸡生蛋，蛋生鸡的问题了:我们需要好的negative example来训练Discriminator,同时又需要好的Discriminator来协助产生negative example<img src="/2019/01/10/ml/GAN基础/resources/60F6EC38D31F5F0A61D3421E4955FF57.jpg"></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Iteration方法解决<ul>
+<li>Discriminator Training<ul>
+<li>只要能够找到$\tilde x=arg maxD(x)$,Discriminator就能够自己train，而不需要Generator</li>
+<li>用iteration方法，不断用此轮迭代得到的D去产生negative example(用D去找出自己的弱点)，然后迭代训练<img src="/2019/01/10/ml/GAN基础/resources/5323A485E0B3877A1816C4156D24F3EB.jpg"></li>
+</ul>
+</li>
+<li>Discriminator Training实际类似曲线图<ul>
+<li>第一张图中，可以看见在没有sample区域，D(x)也可能判断出很高的分数</li>
+<li>第二张图中，用得到的D(x)生成新的negative example,然后再从新调整D(x)(让随机产生的negative example分数低)</li>
+<li>第三张图中，就是第二轮训练后的曲线图<ul>
+<li>直观感觉：总体说就是用D(x)去生成非real example区域的高分negative example，然后不断调整自己，让其分数变低<img src="/2019/01/10/ml/GAN基础/resources/3BC158DF7FB206E0ABB9BD3EC8417C9A.jpg"></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Graphical model<ul>
+<li>其实就是用的Discriminator方法，在ml中其他的structure modle其实方法也是类似：<br>就是有一些negative和positive的样本，然后产生一个model，然后用此model再生成些negative example,然后再train….<img src="/2019/01/10/ml/GAN基础/resources/8C8C6F5948E5A3311053250CE5B92454.jpg">
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="Generator与Discriminator"><a href="#Generator与Discriminator" class="headerlink" title="Generator与Discriminator"></a>Generator与Discriminator</h4><ul>
+<li>优缺点<ul>
+<li>Generator容易生成，但不易判断组件与组件直接的关系</li>
+<li>Discriminator有全局观，但不易做生成<img src="/2019/01/10/ml/GAN基础/resources/FF1C2EB528B230870F7CE2971B5F749E.jpg"></li>
+</ul>
+</li>
+<li>组合<ul>
+<li>Generator就替代了arg maxD(x),解决了Discriminator很难做生成的问题<img src="/2019/01/10/ml/GAN基础/resources/E74CAFA5583574E1C5FD53E60141C4A4.jpg">
+<img src="/2019/01/10/ml/GAN基础/resources/6B95811287B3A08F948052B44AA87F83.jpg"></li>
+</ul>
+</li>
+<li>VAE &amp; GAN<img src="/2019/01/10/ml/GAN基础/resources/5BAAC471C2277A43B3B60F12485B0C76.jpg">
+<ul>
+<li>VAE比较稳，但最终的效果还是没有GAN好</li>
+<li>各种GAN其实效果没有太大区别<img src="/2019/01/10/ml/GAN基础/resources/D8BB36BDDE1EA4D6A5AB28EC2203807B.jpg"></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+	
+    
+	
+    
+	
+      	    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/06/nlp/BERT模型/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/06/nlp/BERT模型/" itemprop="url">BERT模型</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-06T19:34:10+08:00">
+                2019-01-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/NLP/" itemprop="url" rel="index">
+                    <span itemprop="name">NLP</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/NLP/模型理解/" itemprop="url" rel="index">
+                    <span itemprop="name">模型理解</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>首先理解：<br><a href="https://yuancl.github.io/2019/01/05/nlp/Attention模型/" target="_blank" rel="noopener">Attention模型</a><br><a href="https://yuancl.github.io/2019/01/06/nlp/Transformer模型/" target="_blank" rel="noopener">Transformer模型</a></p>
+<p>参考文章：<br><a href="https://blog.csdn.net/malefactor/article/details/83961886" target="_blank" rel="noopener">从Word Embedding到Bert模型——自然语言处理预训练技术发展史</a><br><a href="https://www.jiqizhixin.com/articles/2018-11-01-9?from=synced" target="_blank" rel="noopener">谷歌终于开源BERT代码：3 亿参数量，机器之心全面解读</a></p>
+<h4 id="概览"><a href="#概览" class="headerlink" title="概览"></a>概览</h4><ul>
+<li>效果：Bert 具备广泛的通用性，就是说绝大部分 NLP 任务都可以采用类似的两阶段模式直接去提升效果</li>
+</ul>
+<h4 id="预训练发展史"><a href="#预训练发展史" class="headerlink" title="预训练发展史:"></a>预训练发展史:</h4><h4 id="ELMO-Embedding-from-Language-Models"><a href="#ELMO-Embedding-from-Language-Models" class="headerlink" title="ELMO(Embedding from Language Models)"></a>ELMO(Embedding from Language Models)</h4><ul>
+<li>参考图像领域预训练<a href="https://yuancl.github.io/2018/10/10/dl/第三门课-第二周/" target="_blank" rel="noopener">预训练理解</a></li>
+<li><p>词嵌入<a href="https://yuancl.github.io/2018/12/01/dl/第五门课-第二周/" target="_blank" rel="noopener">Word Embedding,NNLM,Word2Vec(CBOW,Skip-gram),Glove</a></p>
+</li>
+<li><p>解决问题：Work Embedding的多义性问题</p>
+<ul>
+<li>静态的方式:训练好之后每个单词的表达就固定住了，以后使用的时候，不论新句子上下文单词是什么，这个单词的 Word Embedding 不会跟着上下文场景的变化而改变，所以对于比如 Bank 这个词</li>
+</ul>
+</li>
+<li>本质思想<ul>
+<li>用事先用语言模型学好一个单词的 Word Embedding，然后根据当前上下文对 Word Embedding 动态调整的思路</li>
+</ul>
+</li>
+<li>两阶段：<ul>
+<li>第一个阶段是利用语言模型进行预训练</li>
+<li>第二个阶段是在做下游任务时，从预训练网络中提取对应单词的网络各层的 Word Embedding 作为<font color="blue">新特征</font>补充到下游任务中<ul>
+<li>Feature-based Pre-Training<br>因为 ELMO给下游提供的是每个单词的特征形式，所以这一类预训练的方法被称为“Feature-based Pre-Training”<img src="/2019/01/06/nlp/BERT模型/resources/A28E00CA5B362C88488EABCE29B9311F.jpg"></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>ELMO和图像预训练的区别<ul>
+<li>ELMO 代表的这种基于特征融合的预训练方法</li>
+<li>NLP还有一种：基于 Fine-tuning 的模式,而 GPT 就是这一模式的典型开创者，这种和图像预训练比较像</li>
+</ul>
+</li>
+<li>ELMO有什么缺点(GPT和Bert出来之后对比)<ul>
+<li>LSTM抽取特征能力远低于<a href="https://yuancl.github.io/2019/01/06/nlp/Transformer模型/" target="_blank" rel="noopener">Transformer</a></li>
+<li>拼接方式双向融合特征融合能力偏弱</li>
+</ul>
+</li>
+</ul>
+<h4 id="GPT-Generative-Pre-Training"><a href="#GPT-Generative-Pre-Training" class="headerlink" title="GPT(Generative Pre-Training)"></a>GPT(Generative Pre-Training)</h4><ul>
+<li><p>和ELMO区别</p>
+<ul>
+<li>使用的Fine-tuning模式,特征抽取器不是用的 RNN，而是用的 <a href="https://yuancl.github.io/2019/01/06/nlp/Transformer模型/" target="_blank" rel="noopener">Transformer</a></li>
+<li>GPT 的预训练虽然仍然是以语言模型作为目标任务，但是采用的是单向的语言模型<ul>
+<li>这限制了其在更多应用场景的效果，比如阅读理解这种任务，在做任务的时候是可以允许同时看到上文和下文一起做决策的</li>
+</ul>
+</li>
+<li>下游使用(Fine-tuning)<ul>
+<li>要向 GPT 的网络结构看齐，把任务的网络结构改造成和 GPT 的网络结构是一样的。然后，在做下游任务的时候，利用第一步预训练好的参数初始化 GPT 的网络结构<img src="/2019/01/06/nlp/BERT模型/resources/2627CF7F4812570097CDA2E24151AC93.jpg">
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>下游任务如何改造靠近 GPT 的网络结构呢</p>
+<img src="/2019/01/06/nlp/BERT模型/resources/D424E7A94A3A8AFA95BF948622EBF372.jpg">
+</li>
+<li><p>GPT有什么问题:</p>
+<ul>
+<li>最主要的就是那个单向语言模型</li>
+</ul>
+</li>
+</ul>
+<h4 id="Bert"><a href="#Bert" class="headerlink" title="Bert"></a>Bert</h4><ul>
+<li><p>两阶段模型</p>
+<ul>
+<li>在预训练阶段采用了类似 ELMO 的双向语言模型，和GPT一样使用<a href="https://yuancl.github.io/2019/01/06/nlp/Transformer模型/" target="_blank" rel="noopener">Transformer</a>网络</li>
+<li>Fine-Tuning 阶段，这个阶段的做法和 GPT 是一样的</li>
+</ul>
+</li>
+<li><p>和GPT,ELMO关系</p>
+<ul>
+<li>如果我们把 GPT预训练阶段换成双向语言模型，那么就得到了 Bert</li>
+<li>如果我们把 ELMO 的特征抽取器换成<a href="https://yuancl.github.io/2019/01/06/nlp/Transformer模型/" target="_blank" rel="noopener">Transformer</a>，那么我们也会得到 Bert<img src="/2019/01/06/nlp/BERT模型/resources/E701F5F85BCFD4AE2C7F2ABE1AA7AE4E.jpg">
+</li>
+</ul>
+</li>
+<li><p>输入表征<br>BERT 最核心的过程就是同时预测加了 MASK 的缺失词与 A/B 句之间的二元关系，而这些首先都需要体现在模型的输入中</p>
+<ul>
+<li>特殊符 [SEP] 是用于分割两个句子的符号</li>
+<li>前面半句会加上分割编码 A，后半句会加上分割编码 B,预测 B 句是不是 A 句后面的一句话</li>
+<li>为了令 Transformer感知词与词之间的位置关系，我们需要使用位置编码给每个词加上位置信息<img src="/2019/01/06/nlp/BERT模型/resources/56096F6E25AD52E2E76CF6E2649085FB.jpg">
+</li>
+</ul>
+</li>
+<li><p>预训练过程<br>BERT 最核心的就是预训练过程，这也是该论文的亮点所在。简单而言，模型会从数据集抽取两句话，其中B句有 50% 的概率是 A句的下一句，然后将这两句话转化前面所示的输入表征。现在我们<font color="blue">随机遮掩（Mask 掉）</font>输入序列中 15% 的词，并<font color="red">要求 Transformer 预测这些被遮掩的词，以及 B 句是 A 句下一句的概率这两个任务</font></p>
+<ul>
+<li>对于二分类任务，在抽取一个序列（A+B）中，B 有 50% 的概率是 A 的下一句。如果是的话就会生成标注「IsNext」，不是的话就会生成标注「NotNext」，这些标注可以作为二元分类任务判断模型预测的凭证</li>
+<li>对于 Mask 预测任务，首先整个序列会随机 Mask 掉 15% 的词，这里的 Mask 不只是简单地用「[MASK]」符号代替某些词，因为这会引起预训练与微调两阶段不是太匹配。所以谷歌在确定需要 Mask 掉的词后，80% 的情况下会直接替代为「[MASK]」，10% 的情况会替代为其它任意的词，最后 10% 的情况会保留原词<img src="/2019/01/06/nlp/BERT模型/resources/368B1596DC8027EAB8592E9AC0B1D5C2.jpg">
+</li>
+</ul>
+</li>
+<li><p>微调过程</p>
+<ul>
+<li><p>下图展示了 BERT 在 11 种任务中的微调方法，它们都只添加了一个额外的输出层。在下图中，Tok 表示不同的词、E 表示输入的嵌入向量、T_i 表示第 i 个词在经过 BERT 处理后输出的上下文向量</p>
+<img src="/2019/01/06/nlp/BERT模型/resources/90D75BE758BD70EE89D79AB4258221C9.jpg">
+<ul>
+<li>(a)中判断问答对是不是包含正确回答的 QNLI、判断两句话有多少相似性的 STS-B 等，它们都用于处理句子之间的关系</li>
+<li>(b)中判语句中断情感趋向的 SST-2 和判断语法正确性的 CoLA 任务，它们都是处理句子内部的关系</li>
+</ul>
+</li>
+<li><p>NLP四类任务</p>
+<ul>
+<li>一类是序列标注，这是最典型的 NLP 任务，比如中文分词，词性标注，命名实体识别，语义角色标注等都可以归入这一类问题，它的特点是句子中每个单词要求模型根据上下文都要给出一个分类类别。</li>
+<li>第二类是分类任务，比如我们常见的文本分类，情感计算等都可以归入这一类。它的特点是不管文章有多长，总体给出一个分类类别即可。</li>
+<li>第三类任务是句子关系判断，比如 Entailment，QA，语义改写，自然语言推理等任务都是这个模式，它的特点是给定两个句子，模型判断出两个句子是否具备某种语义关系。</li>
+<li>第四类是生成式任务，比如机器翻译，文本摘要，写诗造句，看图说话等都属于这一类。它的特点是输入文本内容后，需要自主生成另外一段文字</li>
+<li><img src="/2019/01/06/nlp/BERT模型/resources/52B6633F1E96B86DC6B4477CA91629D3.jpg">
+</li>
+</ul>
+</li>
+</ul>
+<img src="/2019/01/06/nlp/BERT模型/resources/C8C2770559C89A232F97E4DCA20834D3.jpg">
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+	
+    
+	
+      	    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/06/nlp/Transformer模型/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/06/nlp/Transformer模型/" itemprop="url">Transformer模型</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-06T18:23:10+08:00">
+                2019-01-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/NLP/" itemprop="url" rel="index">
+                    <span itemprop="name">NLP</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/NLP/模型理解/" itemprop="url" rel="index">
+                    <span itemprop="name">模型理解</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>参考文章：<br><a href="https://shimo.im/docs/gmRW4WV2mjoXzKA1" target="_blank" rel="noopener">神经机器翻译 之 谷歌 transformer 模型</a><br><a href="https://www.cnblogs.com/robert-dlut/p/8638283.html" target="_blank" rel="noopener">Self-attention and Transformer</a><br><a href="https://mp.weixin.qq.com/s?__biz=MjM5MTQzNzU2NA==&amp;mid=2651666707&amp;idx=1&amp;sn=2e9149ccdba746eaec687038ce560349&amp;chksm=bd4c1e808a3b97968a15cb3d21032b5394461a1be275476e4fd26563aa28d99be0b798ccee17&amp;mpshare=1&amp;scene=1&amp;srcid=0111kbdci7utfkYpw9bNBcpF&amp;key=f8b9d5856fa70f7d2eabd677b381f98687650f8caf1af873c78466b32517ee5af4eecc661ae63d35bf90beca422d1abea7b7c897e43f33ab3ef7de4c816797d4bad752a5e6f5acc1908b28ffd604355f&amp;ascene=0&amp;uin=MTE0NTY4MjMyMQ%3D%3D&amp;devicetype=iMac+MacBookPro14%2C1+OSX+OSX+10.13.6+build(17G65" target="_blank" rel="noopener">大数据文摘-BERT大火却不懂Transformer</a>&amp;version=11020201&amp;lang=zh_CN&amp;pass_ticket=sLCET0Y%2BZTkYDsKSej3nfbOS885niL2%2Bt2ffNlFmQw3FszFuawe4q3nwl02gUnCe)</p>
+<h4 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h4><ul>
+<li>首先理解<a href="https://yuancl.github.io/2019/01/05/nlp/Attention模型/" target="_blank" rel="noopener">Attention模型</a>，个人理解Transformer本质其实就是对selt-attention的包装</li>
+<li>论文《Attention is all you need》特点：<br>重点关注了复杂度，并行度，长距离依赖学习三个问题<ul>
+<li>现在做神经翻译里最好的BLUE结果</li>
+<li>没有采取大热的RNN/LSTM/GRU的结构，而是使用attention layer 和全连接层，达到了较好的效果，并且解决了 RNN/LSTM/GRU 里的long dependency problem </li>
+<li>解决了传统RNN 训练并行度的问题，并降低了计算复杂度</li>
+</ul>
+</li>
+</ul>
+<h4 id="Encoder-Decoder架构"><a href="#Encoder-Decoder架构" class="headerlink" title="Encoder-Decoder架构"></a>Encoder-Decoder架构</h4><ul>
+<li><p>Encoder-Decoder架构整体</p>
+<ul>
+<li>在编码器的一个网络块中，由一个多头attention子层和一个前馈神经网络子层组成，整个编码器栈式搭建了N个块</li>
+<li>解码器的一个网络块中多了一个多头attention层。为了更好的优化深度网络，整个网络使用了残差连接和对层进行了规范化（Add&amp;Norm）<ul>
+<li>这里有个特别点就是masking,  masking 的作用就是防止在训练的时候 使用未来的输出的单词。 比如训练时， 第一个单词是不能参考第二个单词的生成结果的。 Masking就会把这个信息变成0， 用来保证预测位置 i 的信息只能基于比 i 小的输出<img src="/2019/01/06/nlp/Transformer模型/resources/C421D21BFAA4597BC61F35AC079AF098.jpg">
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Encode组件</p>
+<img src="/2019/01/06/nlp/Transformer模型/resources/93027EA8E8E28E2249EA065D24A54A0F.jpg">
+</li>
+<li><p>Decode组件</p>
+<ul>
+<li>编码器通过处理输入序列开启工作。顶端编码器的输出之后会变转化为一个包含向量K（键向量）和V（值向量）的注意力向量集 。这些向量将被每个解码器用于自身的“编码-解码注意力层”，而这些层可以帮助解码器关注输入序列哪些位置合适<img src="/2019/01/06/nlp/Transformer模型/resources/B464700544F8040B5FAC358F5070AEE0.gif"></li>
+<li>接下来的步骤重复了这个过程，直到到达一个特殊的终止符号，  -  它表示transformer的解码器已经完成了它的输出。每个步骤的输出在下一个时间步被提供给底端解码器，并且就像编码器之前做的那样，这些解码器会输出它们的解码结果</li>
+<li>这个“编码-解码注意力层”工作方式基本就像多头自注意力层一样，只不过它是通过在它下面的层来创造查询矩阵，并且从编码器的输出中取得键/值矩阵<p style="margin-left: 8px;margin-right: 8px;"><span data-ratio="1.9636363636363636" id="js_tx_video_container_0.7003880785346812" class="js_tx_video_container" style="display: block; width: 661px; height: 372px;"><iframe frameborder="0" width="661" height="371.8125" allow="autoplay; fullscreen" allowfullscreen="true" src="//v.qq.com/txp/iframe/player.html?origin=https%3A%2F%2Fmp.weixin.qq.com&amp;vid=m13563cy49o&amp;autoplay=false&amp;full=true&amp;show1080p=false&amp;isDebugIframe=false"></iframe></span></p>
+</li>
+</ul>
+</li>
+<li><p>最终的线性变换和Softmax层<br>解码组件最后会输出一个实数向量。我们如何把浮点数变成一个单词？这便是线性变换层要做的工作，它之后就是Softmax层</p>
+<ul>
+<li>线性变换层是一个简单的全连接神经网络，它可以把解码组件产生的向量投射到一个比它大得多的、被称作对数几率（logits）的向量里</li>
+<li>接下来的Softmax 层便会把那些分数变成概率（都为正数、上限1.0）。概率最高的单元格被选中，并且它对应的单词被作为这个时间步的输出<img src="/2019/01/06/nlp/Transformer模型/resources/1493FFA7472D4E31F49EF536CF6F1F54.jpg">
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="scaled-dot-Product-attention"><a href="#scaled-dot-Product-attention" class="headerlink" title="scaled dot-Product attention"></a>scaled dot-Product attention</h4><ul>
+<li>本质：其实scaled dot-Product attention就是我们常用的使用<font color="blue">点积进行相似度计算</font>的attention，只是多除了一个（为K的维度）起到调节作用，使得内积不至于太大</li>
+<li>操作步骤<ul>
+<li>每个query-key 会做出一个点乘的运算过程</li>
+<li>最后会使用soft max 把他们归一</li>
+<li>再到最后会乘以V (values) 用来当做attention vector. <img src="/2019/01/06/nlp/Transformer模型/resources/70C79702B44D8406D4B78338B0C7ADAD.jpg"></li>
+</ul>
+</li>
+<li>详细理解<img src="/2019/01/06/nlp/Transformer模型/resources/F21545F043FA58B804CAEC5D3C7EF995.jpg">
+</li>
+</ul>
+<h4 id="Multi-head-attention-1"><a href="#Multi-head-attention-1" class="headerlink" title="Multi-head attention(1)"></a>Multi-head attention(1)</h4><ul>
+<li>它扩展了模型专注于不同位置的能力<ul>
+<li><font color="blue">我理解就是不同的每个注意力头都会对会有不同的关注点,就是丰富了一个词的注意点</font></li>
+</ul>
+</li>
+<li><p>它给出了注意力层的多个“表示子空间”（representation subspaces）</p>
+<ul>
+<li>接下来我们将看到，对于“多头”注意机制，我们有多个查询/键/值权重矩阵集(Transformer使用八个注意力头，因此我们对于每个编码器/解码器有八个矩阵集合)。这些集合中的每一个都是随机初始化的</li>
+<li>在训练之后，每个集合都被用来将输入词嵌入(或来自较低编码器/解码器的向量)<font color="blue">投影到不同的表示子空间中</font><img src="/2019/01/06/nlp/Transformer模型/resources/68E2D18A10963F046370DB126E452A3F.jpg">
+</li>
+</ul>
+</li>
+<li><p>如果我们做与上述相同的自注意力计算，只需八次不同的权重矩阵运算，我们就会得到八个不同的Z矩阵</p>
+<img src="/2019/01/06/nlp/Transformer模型/resources/881CCDA1BDBA993EA7665D2F8B9FC3A9.jpg">
+</li>
+<li><p><font color="blue">前馈层不需要8个矩阵，它只需要一个矩阵</font>(由每一个单词的表示向量组成)</p>
+<ul>
+<li>所以我们需要一种方法把这八个矩阵压缩成一个矩阵。那该怎么做？其实可以直接把这些矩阵拼接在一起，然后用一个附加的权重矩阵WO与它们相乘<img src="/2019/01/06/nlp/Transformer模型/resources/7903100853302A431B813728D73BBFA0.jpg">
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="Multi-head-attention-2"><a href="#Multi-head-attention-2" class="headerlink" title="Multi-head attention(2)"></a>Multi-head attention(2)</h4><ul>
+<li>Query，Key，Value首先进过一个线性变换</li>
+<li>然后输入到放缩点积attention<ul>
+<li>注意这里要做h次，其实也就是所谓的多头，每一次算一个头</li>
+<li>每次Q，K，V进行线性变换的参数W是不一样的，所以每个头都计算自己的特征</li>
+<li>进行h个头计算好处：好处是可以允许模型在不同的表示子空间里学习到相关的信息</li>
+</ul>
+</li>
+<li>然后将h次的放缩点积attention结果进行拼接(concat)</li>
+<li>再进行一次线性变换得到的值作为多头attention的结果</li>
+</ul>
+<img src="/2019/01/06/nlp/Transformer模型/resources/8D8F43D711E9C94BA7013FD1DE9A666F.jpg">
+<h4 id="如何使用attention"><a href="#如何使用attention" class="headerlink" title="如何使用attention"></a>如何使用attention</h4><ul>
+<li>首先在编码器到解码器的地方使用了多头attention进行连接,编码器的层输出（这里K=V）和解码器中都头attention的输入。其实就和主流的机器翻译模型中的attention一样<img src="/2019/01/06/nlp/Transformer模型/resources/F318057213E0EE97E53E6A165DF5E892.jpg"></li>
+<li>在Encoder,Decoder中都使用的self-attention<ul>
+<li>例如输入一个句子，那么里面的每个词都要和该句子中的<font color="blue">所有词进行attention计算</font>。目的是<font color="blue">学习句子内部的词依赖关系，捕获句子的内部结构</font><img src="/2019/01/06/nlp/Transformer模型/resources/A60F81F9218EB99D06E9DB202DB6F8AD.jpg">
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="Transformer解决问题"><a href="#Transformer解决问题" class="headerlink" title="Transformer解决问题"></a>Transformer解决问题</h4><ul>
+<li>并行问题<ul>
+<li>首先each head， 是可以并行计算的， 然后每个head 都有自己对应的weight, 实现不同的线性转换， 这样每个head 也就有了自己特别的表达信息</li>
+<li>多头attention和CNN一样不依赖于前一时刻的计算，可以很好的并行，优于RNN</li>
+</ul>
+</li>
+<li>长距离依赖学习<ul>
+<li>self-attention是每个词和所有词都要计算attention，所以不管他们中间有多长距离，最大的路径长度也都只是1。可以捕获长距离依赖关系</li>
+</ul>
+</li>
+<li>RNN，CNN计算复杂度的比较<ul>
+<li>如果输入序列n小于表示维度d的话，每一层的时间复杂度self-attention是比较有优势的。当n比较大时，作者也给出了一种解决方案self-attention（restricted）即每个词不是和所有词计算attention，而是<font color="blue">只与限制的r个词去计算attention</font></li>
+</ul>
+</li>
+</ul>
+<h4 id="训练部分-amp-损失函数"><a href="#训练部分-amp-损失函数" class="headerlink" title="训练部分&amp;损失函数"></a>训练部分&amp;损失函数</h4><p>Transformer只是一个encode-decode框架架构，后面的，训练&amp;损失函数&amp;优化算法就也能共用其他了，比如BP，集束搜索(beam search)…</p>
+<ul>
+<li>既然我们已经过了一遍完整的transformer的前向传播过程，那我们就可以直观感受一下它的训练过程。</li>
+<li>在训练过程中，一个未经训练的模型会通过一个完全一样的前向传播。但因为我们用有标记的训练集来训练它，所以我们可以用它的输出去与真实的输出做比较</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+	
+    
+	
+      	    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/05/nlp/Attention模型/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/05/nlp/Attention模型/" itemprop="url">Attention模型</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-05T18:41:10+08:00">
+                2019-01-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/NLP/" itemprop="url" rel="index">
+                    <span itemprop="name">NLP</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/NLP/模型理解/" itemprop="url" rel="index">
+                    <span itemprop="name">模型理解</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><a href="https://yuancl.github.io/2018/12/06/dl/第五门课-第三周/" target="_blank" rel="noopener">吴恩达课程-Attention实现</a><br>参考文章：<a href="https://zhuanlan.zhihu.com/p/37601161" target="_blank" rel="noopener">深度学习中的注意力模型</a></p>
+<h4 id="Encoder-Decoder框架"><a href="#Encoder-Decoder框架" class="headerlink" title="Encoder-Decoder框架"></a>Encoder-Decoder框架</h4><ul>
+<li>可以把它看作适合处理由一个句子（或篇章）生成另外一个句子（或篇章）的通用处理模型</li>
+<li>Encoder顾名思义就是对输入句子X进行编码，将输入句子通过非线性变换转化为中间语义表示C：$C=F(X_1,X_2,…X_m)$</li>
+<li>解码器Decoder来说，其任务是根据句子X的中间语义表示C和之前已经生成的历史信息y1,y2….yi-1来生成i时刻要生成的单词yi $y_i=g(c,y_1,y_2,…y_{i-1})$</li>
+<li>总结：<ul>
+<li>Encoder-Decoder是个非常通用的计算框架，常见的比如CNN/RNN/BiRNN/GRU/LSTM/Deep LSTM等，这里的变化组合非常多</li>
+<li>框架很多应用场景：<ul>
+<li>机器翻译来说，&lt;X,Y&gt;就是对应不同语言的句子，比如X是英语句子，Y是对应的中文句子翻译</li>
+<li>对于文本摘要来说，X就是一篇文章，Y就是对应的摘要</li>
+<li>对话机器人来说，X就是某人的一句话，Y就是对话机器人的应答</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<img src="/2019/01/05/nlp/Attention模型/resources/F2F31AE3AFCF5E63870687850E25053E.jpg">
+<h4 id="Attention模型"><a href="#Attention模型" class="headerlink" title="Attention模型"></a>Attention模型</h4><ul>
+<li>分心模型：在生成目标句子的单词时，不论生成哪个单词，是y1,y2也好，还是y3也好，他们使用的句子X的<font color="blue">语义编码C都是一样的，没有任何区别。</font></li>
+<li>添加注意力：$y_i的输出对应不同的输入c_i$<img src="/2019/01/05/nlp/Attention模型/resources/24F1729383B4C502BDF631EC89F3ED8D.jpg"></li>
+<li>例如生成$y_3$:汤姆这个词的对应输入词的权重：<img src="/2019/01/05/nlp/Attention模型/resources/3C10CE8870D6AD2D2C85274AFB51FC42.jpg"></li>
+<li><p>如何确定这些权重？(可以看下面的三阶段计算Attention过程)</p>
+<ul>
+<li>通过函数F(hj,Hi)来获得目标单词Yi和每个输入单词对应的对齐可能性(<font color="blue">其实也是通过一个函数获取各个单词的权重</font>)<ul>
+<li>对于采用RNN的Decoder来说，如果要生成yi单词，在时刻i，我们是可以知道在生成Yi之前的隐层节点i时刻的输出值Hi的，而我们的目的是要计算生成Yi时的输入句子单词“Tom”、“Chase”、“Jerry”对Yi来说的注意力分配概率分布。那么可以用i时刻的隐层节点状态Hi去一一和输入句子中每个单词对应的RNN隐层节点状态hj进行对比，即通过函数F(hj,Hi)来获得目标单词Yi和每个输入单词对应的对齐可能性</li>
+</ul>
+</li>
+<li>这个F函数在不同论文里可能会采取不同的方法，然后函数F的输出经过Softmax进行归一化就得到了符合概率分布取值区间的注意力分配概率分布数值</li>
+</ul>
+</li>
+<li><p>直观理解</p>
+<ul>
+<li>目标句子生成的每个单词对应输入句子单词的概率分布可以理解为输入句子单词和这个目标生成单词的对齐概率，这在机器翻译语境下是非常直观的：传统的统计机器翻译一般在做的过程中会专门有一个短语对齐的步骤，而注意力模型其实起的是相同的作用</li>
+<li>从概念上理解的话，把AM模型理解成影响力模型也是合理的，就是说生成目标单词的时候，输入句子每个单词对于生成这个单词有多大的影响程度<ul>
+<li>例子：矩阵中每一列代表生成的目标单词对应输入句子每个单词的AM分配概率，颜色越深代表分配到的概率越大<img src="/2019/01/05/nlp/Attention模型/resources/339E562920007C2CC0BD095CE03620E4.jpg">
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Attention机制的本质思想<br>我们可以这样来看待Attention机制（参考图9）：将Source中的构成元素想象成是由一系列的&lt;Key,Value&gt;数据对构成，此时给定Target中的某个元素Query，通过计算Query和各个Key的相似性或者相关性，得到每个Key对应Value的权重系数，<font color="blue">然后对Value进行加权求和，即得到了最终的Attention数值</font>。<font color="red">所以本质上Attention机制是对Source中元素的Value值进行加权求和</font>，而Query和Key用来计算对应Value的权重系数。即可以将其本质思想改写为如下公式:</p>
+<img src="/2019/01/05/nlp/Attention模型/resources/B514B9C65D76AEC9E2D3C1BA0E1714FC.jpg">
+<img src="/2019/01/05/nlp/Attention模型/resources/08DC337F6EEC1B4ECCCE3069BCF2DEE8.jpg">
+</li>
+<li><p>三阶段计算Attention过程</p>
+<ul>
+<li>第一个阶段根据Query和Key计算两者的相似性或者相关性<ul>
+<li>可以引入不同的函数和计算机制，根据Query和某个Key_i，计算两者的相似性或者相关性，最常见的方法包括：求两者的向量点积、求两者的向量Cosine相似性或者通过再引入额外的神经网络来求值<img src="/2019/01/05/nlp/Attention模型/resources/C46D9EBEDC7DC8BDD2FD25C876452832.jpg"></li>
+</ul>
+</li>
+<li>第二个阶段对第一阶段的原始分值进行归一化处理<ul>
+<li>引入类似SoftMax的计算方式对第一阶段的得分进行数值转换，一方面可以进行归一化，将原始计算分值整理成所有元素权重之和为1的概率分布</li>
+<li>另一方面也可以通过SoftMax的内在机制更加突出重要元素的权重<img src="/2019/01/05/nlp/Attention模型/resources/CFA555D76CFF7EF83BB388D9DCC83E83.jpg"></li>
+</ul>
+</li>
+<li>第三个阶段根据权重系数对Value进行加权求和<ul>
+<li>计算结果a_i即为value_i对应的权重系数，然后进行加权求和即可得到Attention数值<img src="/2019/01/05/nlp/Attention模型/resources/670426A82FAECEDC11036020CAE91B6B.jpg">
+<img src="/2019/01/05/nlp/Attention模型/resources/B0A35F4001A8D56A581543FF91E10844.jpg"></li>
+</ul>
+</li>
+<li>总结：通过如上三个阶段的计算，即可求出针对Query的Attention数值，目前绝大多数具体的注意力机制计算方法都符合上述的三阶段抽象计算过程</li>
+</ul>
+</li>
+</ul>
+<h4 id="从微观视角看自注意力机制"><a href="#从微观视角看自注意力机制" class="headerlink" title="从微观视角看自注意力机制"></a>从微观视角看自注意力机制</h4><ul>
+<li>第一步就是从每个编码器的输入向量（每个单词的词向量）中生成三个向量<ul>
+<li>我们创造一个<font color="blue">查询向量、一个键向量和一个值向量。这三个向量是通过词嵌入与三个权重矩阵后相乘创建的</font></li>
+<li>这些新向量在维度上比词嵌入向量更低。他们的维度是64，而词嵌入和编码器的输入/输出向量的维度是512<img src="/2019/01/05/nlp/Attention模型/resources/A6F39C8F454935AAFEBB83A0ACF2E1B0.jpg"></li>
+</ul>
+</li>
+<li>第二步是计算得分<ul>
+<li>假设我们在为这个例子中的第一个词“Thinking”计算自注意力向量，我们需要拿输入句子中的每个单词对“Thinking”打分。<font color="blue">这些分数决定了在编码单词“Thinking”的过程中有多重视句子的其它部分</font><ul>
+<li>这些分数是通过打分单词（所有输入句子的单词）的键向量与“Thinking”的查询向量相点积来计算的</li>
+<li>所以如果我们是处理位置最靠前的词的自注意力的话，第一个分数是q1和k1的点积，第二个分数是q1和k2的点积<img src="/2019/01/05/nlp/Attention模型/resources/807C3954F1BF0F7C006209437905F305.jpg"></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>第三步第四步<ul>
+<li>将分数除以8(8是论文中使用的键向量的维数64的平方根，这会让梯度更稳定。这里也可以使用其它值，8只是默认值)</li>
+<li>然后通过softmax传递结果。<font color="blue">softmax的作用是使所有单词的分数归一化，得到的分数都是正值且和为1</font><ul>
+<li>这个softmax分数决定了每个单词对编码当下位置（“Thinking”）的贡献。显然，已经在这个位置上的单词将获得最高的softmax分数<img src="/2019/01/05/nlp/Attention模型/resources/EED7B3888E7ED2122DF172489F13BE4C.jpg"></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>第五步是将每个值向量乘以softmax分数(这是为了准备之后将它们求和)。<ul>
+<li>这里的直觉是<font color="blue">希望关注语义上相关的单词，并弱化不相关的单词</font>(例如，让它们乘以0.001这样的小数)</li>
+</ul>
+</li>
+<li>第六步是对加权值向量求和，然后即得到自注意力层在该位置的输出(在我们的例子中是对于第一个单词)<ul>
+<li>译注：自注意力的另一种解释就是在编码某个单词时，就是将所有单词的表示（值向量）进行加权求和，而权重是通过该词的表示（键向量）与被编码词表示（查询向量）的点积并通过softmax得到。<img src="/2019/01/05/nlp/Attention模型/resources/1748301F371EF3428E3F4DB1A5F47730.jpg">
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="Self-Attention模型"><a href="#Self-Attention模型" class="headerlink" title="Self Attention模型"></a>Self Attention模型</h4><ul>
+<li>一般任务中的情况<br>在一般任务的Encoder-Decoder框架中，输入Source和输出Target内容是不一样的，比如对于英-中机器翻译来说，Source是英文句子，Target是对应的翻译出的中文句子，<font color="blue">Attention机制发生在Target的元素Query和Source中的所有元素之间</font></li>
+<li>Self Attention<br>Attention顾名思义，指的不是Target和Source之间的Attention机制，<font color="blue">而是Source内部元素之间或者Target内部元素之间发生的Attention机制，也可以理解为Target=Source这种特殊情况下的注意力计算机制</font>。其具体计算过程是一样的，只是计算对象发生了变化而已，所以此处不再赘述其计算过程细节</li>
+<li>例子<img src="/2019/01/05/nlp/Attention模型/resources/78832378181B08156139C411039FF734.jpg"></li>
+<li>优点：<ul>
+<li>更擅长捕获句子中长距离特征<br>引入Self Attention后会更容易捕获句子中长距离的相互依赖的特征，因为如果是RNN或者LSTM，需要依次序序列计算，对于远距离的相互依赖的特征，要经过若干时间步步骤的信息累积才能将两者联系起来，而距离越远，有效捕获的可能性越小<ul>
+<li>但是SelfAttention在计算过程中会直接将句子中任意两个单词的联系通过一个计算步骤直接联系起来，所以远距离依赖特征之间的距离被极大缩短</li>
+</ul>
+</li>
+<li>增加计算的并行性</li>
+</ul>
+</li>
+</ul>
+<h4 id="Attention机制的应用"><a href="#Attention机制的应用" class="headerlink" title="Attention机制的应用"></a>Attention机制的应用</h4><p>Attention机制不仅在NLP有广泛应用，在图像和语言领域也有很多的应用</p>
+<ul>
+<li>图片描述<ul>
+<li>很明显这种应用场景也可以使用Encoder-Decoder框架来解决任务目标，此时Encoder输入部分是一张图片，一般会用CNN来对图片进行特征抽取，Decoder部分使用RNN或者LSTM来输出自然语言句子</li>
+<li>此时如果加入Attention机制能够明显改善系统输出效果，Attention模型在这里起到了类似人类视觉选择性注意的机制，在输出某个实体单词的时候会将注意力焦点聚焦在图片中相应的区域上<img src="/2019/01/05/nlp/Attention模型/resources/D65829551454CDE399C3DBE51C953E17.jpg"></li>
+</ul>
+</li>
+<li>Attention让每个单词对应图片中的注意力聚焦区域<img src="/2019/01/05/nlp/Attention模型/resources/495110CA9218AF232B0D47BE88497073.jpg"></li>
+<li>语音识别中音频序列和输出字符之间的Attention<ul>
+<li>展示了在Encoder-Decoder框架中加入Attention机制后，当用户用语音说句子how much would a woodchuck chuck 时，输入部分的声音特征信号和输出字符之间的注意力分配概率分布情况，颜色越深代表分配到的注意力概率越高。从图中可以看出，在这个场景下，Attention机制起到了将输出字符和输入语音信号进行对齐的功能<img src="/2019/01/05/nlp/Attention模型/resources/7F7EE44196F2FAAF3F1BC2BFAB29DA4A.jpg"></li>
+</ul>
+</li>
+<li>总结：Encoder-Decoder加Attention架构由于其卓越的实际效果，目前在深度学习领域里得到了广泛的使用，了解并熟练使用这一架构对于解决实际问题会有极大帮助</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+	
+    
   </section>
 
-  {% include '_partials/pagination.swig' %}
-{% endblock %}
+  
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+  </nav>
 
-{% block sidebar %}
-  {{ sidebar_template.render(false) }}
-{% endblock %}
+
+
+          </div>
+          
+
+
+          
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/favicon.ico" alt="雷哥">
+          <p class="site-author-name" itemprop="name">雷哥</p>
+           
+              <p class="site-description motion-element" itemprop="description">不积跬步无以至千里</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">50</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-雷哥"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">雷哥</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Gemini
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  
+    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
