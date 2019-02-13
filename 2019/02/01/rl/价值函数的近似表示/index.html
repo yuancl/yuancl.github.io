@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="机器学习,强化学习,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="背景 问题的复杂性  本章之前的内容介绍的多是规模比较小的强化学习问题，生活中有许多实际问题要复杂得 多，有些是属于状态数量巨大甚至是连续的，有些行为数量较大或者是连续的。这些问题要是使 用前几章介绍的基本算法效率会很低，甚至会无法得到较好的解决 解决这类问题的常用方法是不再使用字典之类的查表式的方法来存储状态或行为的价值，而 是引入适当的参数，选取恰当的描述状态的特征，通过构建一定的函数来近似计">
+<meta name="keywords" content="机器学习,强化学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="价值函数的近似表示">
+<meta property="og:url" content="http://yoursite.com/2019/02/01/rl/价值函数的近似表示/index.html">
+<meta property="og:site_name" content="雷哥的博客">
+<meta property="og:description" content="背景 问题的复杂性  本章之前的内容介绍的多是规模比较小的强化学习问题，生活中有许多实际问题要复杂得 多，有些是属于状态数量巨大甚至是连续的，有些行为数量较大或者是连续的。这些问题要是使 用前几章介绍的基本算法效率会很低，甚至会无法得到较好的解决 解决这类问题的常用方法是不再使用字典之类的查表式的方法来存储状态或行为的价值，而 是引入适当的参数，选取恰当的描述状态的特征，通过构建一定的函数来近似计">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2019/02/01/rl/价值函数的近似表示/resources/326008A02C059001C56943A603459FEC.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/02/01/rl/价值函数的近似表示/resources/19A3C6F4B479FFAB3813A1B5D22D9D6A.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/02/01/rl/价值函数的近似表示/resources/85EE22FEE6B916F23806FCFEF85BEAAC.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/02/01/rl/价值函数的近似表示/resources/6905289A9CBBAEFBB91F2BBCFAA38F7A.jpg">
+<meta property="og:updated_time" content="2019-02-13T11:31:36.497Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="价值函数的近似表示">
+<meta name="twitter:description" content="背景 问题的复杂性  本章之前的内容介绍的多是规模比较小的强化学习问题，生活中有许多实际问题要复杂得 多，有些是属于状态数量巨大甚至是连续的，有些行为数量较大或者是连续的。这些问题要是使 用前几章介绍的基本算法效率会很低，甚至会无法得到较好的解决 解决这类问题的常用方法是不再使用字典之类的查表式的方法来存储状态或行为的价值，而 是引入适当的参数，选取恰当的描述状态的特征，通过构建一定的函数来近似计">
+<meta name="twitter:image" content="http://yoursite.com/2019/02/01/rl/价值函数的近似表示/resources/326008A02C059001C56943A603459FEC.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '雷哥'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/02/01/rl/价值函数的近似表示/">
+
+
+
+
+
+  <title>价值函数的近似表示 | 雷哥的博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">雷哥的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/01/rl/价值函数的近似表示/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">价值函数的近似表示</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-01T13:11:15+08:00">
+                2019-02-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/强化学习/" itemprop="url" rel="index">
+                    <span itemprop="name">强化学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><ul>
+<li><p>问题的复杂性</p>
+<ul>
+<li>本章之前的内容介绍的多是规模比较小的强化学习问题，生活中有许多实际问题要复杂得 多，有些是属于状态数量巨大甚至是连续的，有些行为数量较大或者是连续的。这些问题要是使 用前几章介绍的基本算法效率会很低，甚至会无法得到较好的解决</li>
+<li>解决这类问题的常用方法是不再使用字典之类的查表式的方法来存储状态或行为的价值，而 是引入适当的参数，选取恰当的描述状态的特征，通过构建一定的函数来近似计算得到状态或行 为价值</li>
+<li>在引入近似价值函数后，强化学习中不管是预测问题还是控制问题，<font color="blue">就转变成近似函数的设 计以及求解近似函数参数这两个问题了</font></li>
+</ul>
+</li>
+<li><p>状态价值 $v_π(s)$ 的近似表示<br>如果能建立一个函数 vˆ, 这个函数由参数 w 描述，它可以直接接受表示状态特征的连续变量 s 作为输入，通过计算得到一个状态的价值，通过调整参数 w 的取值，使得其符合基于某一策略 π 的最终状态价值，那么这个函数就是状态价值 $v_π(s)$ 的近似表示<br>$\hat v{(s,w)} ≈ v_π(s)$</p>
+</li>
+<li><p>行为价值 $q_π(s,a)$ 的近似表示<br>$\hat q(s,a,w) ≈ q_π(s,a)$</p>
+<img src="/2019/02/01/rl/价值函数的近似表示/resources/326008A02C059001C56943A603459FEC.jpg">
+</li>
+</ul>
+<h3 id="常用的近似价值函数-DQN算法"><a href="#常用的近似价值函数-DQN算法" class="headerlink" title="常用的近似价值函数(DQN算法)"></a>常用的近似价值函数(DQN算法)</h3><p>理论上任何函数都可以被用作近似价值函数，实际选择何种近似函数需根据问题的特点。比较常用的近似函数有线性函数组合、神经网络、决策树、傅里叶变换等等,这里会重点介绍基于深度学习的神经网络计数进行特征表示，包括卷积神经网络。</p>
+<h4 id="DQN算法"><a href="#DQN算法" class="headerlink" title="DQN算法"></a>DQN算法</h4><p>DQN 算法主要使用经历回放 (experience replay) 来 实现价值函数的收敛。其具体做法为:</p>
+<ul>
+<li>个体能记住既往的状态转换经历，对于每一个完整状态序 列里的每一次状态转换，</li>
+<li>依据当前状态的 $st 价值以 ε-贪婪策略选择一个行为 a_t，执行该行为得 到奖励 r_{t+1} 和下一个状态 s_{t+1}$</li>
+<li>将得到的状态转换存储至记忆中</li>
+<li>当记忆中存储的<font color="blue">容量足够大时，随机从记忆力提取一定数量的状态转换</font></li>
+<li>用状态转换中下一状态来计算当前状态的目标价值，使用公式 (6.4) 计算目标价值与网络输出价值之间的均方差代价，使用小块梯度下降算法更 新网络的参数<img src="/2019/02/01/rl/价值函数的近似表示/resources/19A3C6F4B479FFAB3813A1B5D22D9D6A.jpg">
+</li>
+</ul>
+<font color="blue">重点在理解它的loss函数：下一状态+$R_t$ 逼近 当前状态值，的计算方法</font>
+
+<ul>
+<li>伪代码<img src="/2019/02/01/rl/价值函数的近似表示/resources/85EE22FEE6B916F23806FCFEF85BEAAC.jpg">
+<ul>
+<li>该算法中 的状态 S 都由特征 φ(S) 来表示</li>
+</ul>
+</li>
+</ul>
+<h3 id="DDQN-double-deep-Q-network"><a href="#DDQN-double-deep-Q-network" class="headerlink" title="DDQN(double deep Q network)"></a>DDQN(double deep Q network)</h3><ul>
+<li>背景：<br>DQN得了不俗的成绩，不过其并不能保证一直收敛，研究表明这种估计目标价值的算法过于乐观的高 估了一些情况下的行为价值，导致算法会将次优行为价值一致认为最优行为价值，最终不能收敛 至最佳价值函数</li>
+<li>和DQN区别<br>该算法使用<font color="blue">两个架构相同的近似价值函数</font>：<ul>
+<li>其中一个用来根据策略生成交互行为并随 时频繁参数 (θ)</li>
+<li>另一个则用来生成目标价值, 其参数 (θ−) 每隔一定的周期进行更新。该算法绝 大多数流程与 DQN 算法一样，只是在更新目标价值时使用公式 (6.20):<img src="/2019/02/01/rl/价值函数的近似表示/resources/6905289A9CBBAEFBB91F2BBCFAA38F7A.jpg"></li>
+<li>该式表明，DDQN 在生成目标价值时使用了生成交互行为并频繁更新参数的价值网络 Q(θ)， 在这个价值网络中挑选状态 S′下最大价值对应的行为 $A′_t$，随后再用状态行为对 $(S_t′, A′_t)$ 代入目标价值网络 Q(θ−) 得出目标价值。实验表明这样的更改比 DQN 算法更加稳定，更容易收敛值 最优价值函数和最优策略</li>
+</ul>
+</li>
+<li>同样存在深度学习的问题<br>在使用神经网络等深度学习技术来进行价值函数近似时，有可能会碰到无法得到预期结果的情况,深度学习的问题这里也会遇到</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/机器学习/" rel="tag"># 机器学习</a>
+          
+            <a href="/tags/强化学习/" rel="tag"># 强化学习</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/31/rl/不基于模型的控制/" rel="next" title="不基于模型的控制">
+                <i class="fa fa-chevron-left"></i> 不基于模型的控制
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/favicon.ico" alt="雷哥">
+          <p class="site-author-name" itemprop="name">雷哥</p>
+           
+              <p class="site-description motion-element" itemprop="description">不积跬步无以至千里</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">52</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常用的近似价值函数-DQN算法"><span class="nav-number">2.</span> <span class="nav-text">常用的近似价值函数(DQN算法)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#DQN算法"><span class="nav-number">2.1.</span> <span class="nav-text">DQN算法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DDQN-double-deep-Q-network"><span class="nav-number">3.</span> <span class="nav-text">DDQN(double deep Q network)</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-雷哥"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">雷哥</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Gemini
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
