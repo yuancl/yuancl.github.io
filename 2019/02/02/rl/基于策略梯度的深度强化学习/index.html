@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="机器学习,强化学习,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="背景 在行为空间规模庞大或者是连续行为的情况下，基于价值的强化学习将很难学习到一个好的结果，这种情况下可以直接进行策略的学习  即将策略看成是状态和行为的带参数的策略函 数，通过建立恰当的目标函数、利用个体与环境进行交互产生的奖励来学习得到策略函数的参数。 策略函数针对连续行为空间将可以直接产生具体的行为值，进而绕过对状态的价值的学习   在实际应用中通过建立分别对于状态价值的近似函数和策略函数">
+<meta name="keywords" content="机器学习,强化学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于策略梯度的深度强化学习">
+<meta property="og:url" content="http://yoursite.com/2019/02/02/rl/基于策略梯度的深度强化学习/index.html">
+<meta property="og:site_name" content="雷哥的博客">
+<meta property="og:description" content="背景 在行为空间规模庞大或者是连续行为的情况下，基于价值的强化学习将很难学习到一个好的结果，这种情况下可以直接进行策略的学习  即将策略看成是状态和行为的带参数的策略函 数，通过建立恰当的目标函数、利用个体与环境进行交互产生的奖励来学习得到策略函数的参数。 策略函数针对连续行为空间将可以直接产生具体的行为值，进而绕过对状态的价值的学习   在实际应用中通过建立分别对于状态价值的近似函数和策略函数">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2019/02/02/rl/基于策略梯度的深度强化学习/resources/249F71A8DFF7CC68F09189A2CBD8FA32.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/02/02/rl/基于策略梯度的深度强化学习/resources/62B8EFCF8DD2ED23F7457C8AE9F9D726.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/02/02/rl/基于策略梯度的深度强化学习/resources/8C3E7DC59B8D8ED2899C674AD3D6EE09.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/02/02/rl/基于策略梯度的深度强化学习/resources/28D0F3C14799FD88BB04860C6B0192D6.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/02/02/rl/基于策略梯度的深度强化学习/resources/F403A2CB9D3BD5E27FBDB2DC8B8F5BB4.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/02/02/rl/基于策略梯度的深度强化学习/resources/832F18299F2131CC68EA719ECB28EFE0.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/02/02/rl/基于策略梯度的深度强化学习/resources/BAE69DD8E4E51BE876EA997076555EE1.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/02/02/rl/基于策略梯度的深度强化学习/resources/A499D8701005947722D2C5F6A40E3C49.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/02/02/rl/基于策略梯度的深度强化学习/resources/9796183388A806045FA369B4ADA63A36.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/02/02/rl/基于策略梯度的深度强化学习/resources/83B47D21AA2E85D11C6D3C28FA6816ED.jpg">
+<meta property="og:updated_time" content="2019-02-14T10:41:35.494Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="基于策略梯度的深度强化学习">
+<meta name="twitter:description" content="背景 在行为空间规模庞大或者是连续行为的情况下，基于价值的强化学习将很难学习到一个好的结果，这种情况下可以直接进行策略的学习  即将策略看成是状态和行为的带参数的策略函 数，通过建立恰当的目标函数、利用个体与环境进行交互产生的奖励来学习得到策略函数的参数。 策略函数针对连续行为空间将可以直接产生具体的行为值，进而绕过对状态的价值的学习   在实际应用中通过建立分别对于状态价值的近似函数和策略函数">
+<meta name="twitter:image" content="http://yoursite.com/2019/02/02/rl/基于策略梯度的深度强化学习/resources/249F71A8DFF7CC68F09189A2CBD8FA32.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '雷哥'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/02/02/rl/基于策略梯度的深度强化学习/">
+
+
+
+
+
+  <title>基于策略梯度的深度强化学习 | 雷哥的博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">雷哥的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/02/rl/基于策略梯度的深度强化学习/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">基于策略梯度的深度强化学习</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-02T23:10:15+08:00">
+                2019-02-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/强化学习/" itemprop="url" rel="index">
+                    <span itemprop="name">强化学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><ul>
+<li><p>在行为空间规模庞大或者是连续行为的情况下，基于价值的强化学习将很难学习到一个好的结果，这种情况下可以直接进行策略的学习</p>
+<ul>
+<li>即将策略看成是状态和行为的带参数的策略函 数，通过建立恰当的目标函数、利用个体与环境进行交互产生的奖励来学习得到策略函数的参数。</li>
+<li>策略函数针对连续行为空间将可以<font color="blue">直接产生具体的行为值，进而绕过对状态的价值的学习</font></li>
+</ul>
+</li>
+<li><p>在实际应用中通过<font color="blue">建立分别对于状态价值的近似函数和策略函数</font></p>
+<ul>
+<li>使得一方面可以基于价值函 数进行策略评估和优化</li>
+<li>另一方面优化的策略函数又会使得价值函数更加准确的反应状态的价 值，两者相互促进最终得到最优策略</li>
+</ul>
+</li>
+</ul>
+<h3 id="基于策略学习的意义"><a href="#基于策略学习的意义" class="headerlink" title="基于策略学习的意义"></a>基于策略学习的意义</h3><h4 id="背景-1"><a href="#背景-1" class="headerlink" title="背景"></a>背景</h4><p>基于价值的强化学习虽然能出色地解决很多问题，但面对行为空间连续、观测受 限、随机策略的学习等问题时仍然显得力不从心</p>
+<ul>
+<li><p>问题1(行为空间连续)</p>
+<ul>
+<li>基于近似价值函数的学习可以较高效率地解决连续状态空间的强化学习问题，但其行为空间仍然是离散的</li>
+<li>如果行为空间是连续的，可以认为单纯基于价值函数近似的强化 学习无法解决连续行为空间的问题，其中每一 个方向上的分量可以是 [-1,1] 之间的任何连续值。在这个例子 (图 7.1) 中，行为由两个特征来描 述，其中每一个特征具体的值是连续的。比如：<img src="/2019/02/02/rl/基于策略梯度的深度强化学习/resources/249F71A8DFF7CC68F09189A2CBD8FA32.jpg">
+</li>
+</ul>
+</li>
+<li><p>问题2(观测受限)</p>
+<ul>
+<li>此外，在使用特征来描述状态空间中的某一个状态时，有可能因为个体观测的限制或者建 模的局限，导致本来不同的两个状态却拥有相同的特征描述，进而导致无法得到最优解<ul>
+<li>在这种情况下，由于个体对于状态观测的特征不够多，导致了多个状 态发生重名情况，进而导致基于价值的学习得不到最优解<img src="/2019/02/02/rl/基于策略梯度的深度强化学习/resources/62B8EFCF8DD2ED23F7457C8AE9F9D726.jpg">
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>问题3(随机策略的学习)</p>
+<ul>
+<li>基于价值的学习对应的最优策略通常是确定性策略，因为其是从众多行为价值中选择一个 最大价值的行为，而有些问题的最优策略却是随机策略，这种情况下同样是无法通过基于价值的学习来求解的。</li>
+<li>这其中最简单的一个例子是人们小时候经常玩的“石头剪刀布”游戏。对于这个 游戏，玩家的最优策略是随机出石头剪刀布中的一个，因为一旦你遵循一个确定的策略，将很容 易被对手发现并利用进而输给对方</li>
+</ul>
+</li>
+</ul>
+<h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><ul>
+<li>策略 π 可以被被描述为一个包含参数 θ 的函数<br>$π_θ(s,a) = P[a | s,θ]$</li>
+<li>含义：<br>策略函数 $π_θ$ 确定了在给定的状态和一定的参数设置下，采取任何可能行为的概率，<font color="blue">是一个概率密度函数</font><ul>
+<li>在实际应用这个策略时，<font color="blue">选择最大概率对应的行为</font>或者以此为基础进行一定程度的采样探索。可以认为，参数 θ 决定了策略的具体形式。</li>
+<li>因而求解基于策略的学习问题就转变为了如何确定策略函数的参数 θ。同样可以通过设计一个基于参数 θ 的目标函数 J(θ)，通过相应 的算法来寻找最优参数</li>
+</ul>
+</li>
+</ul>
+<h3 id="策略目标函数"><a href="#策略目标函数" class="headerlink" title="策略目标函数"></a>策略目标函数</h3><p>强化学习的目标就是让个体在与环境交互过程中获得尽可能多的累计奖励，一个好的策略 应该能准确反映强化学习的目标</p>
+<ul>
+<li>初始状态收获的期望<br>对于一个能够形成完整状态序列的交互环境来说，由于一个策 略决定了个体与环境的交互，因而可以设计目标函数 J1(θ) 为使用策略 πθ 时初始状态价值 (start value):<br>$J_1(θ) = V_{π_θ} (s_1) = E_{π_θ} [G_1]$</li>
+<li>有些环境是没有明确的起始状态和终止状态，个体持续的与环境进行交互。在这种情况下可以使 用平均价值 (average value) 或者每一时间步的平均奖励 (average reward per time-step) 来设计策<br>略目标函数:<ul>
+<li>$d^{π<em>θ} (s)$ 是基于策略 $π</em>θ$生成的马尔科夫链关于状态的静态分布<img src="/2019/02/02/rl/基于策略梯度的深度强化学习/resources/8C3E7DC59B8D8ED2899C674AD3D6EE09.jpg"></li>
+</ul>
+</li>
+<li>与价值函数近似的目标函数 不同，策略目标函数的值越大代表着策略越优秀。可以使用与梯度下降相反的梯度上升来求解最优参数</li>
+<li>假设现在有一个单步马尔科夫决策过程，对应的强化学习问题是个体与环境每产生一个行 为交互一次即得到一个即时奖励 r = Rs,a，并形成一个完整的状态序列。根据公式 (7.1)，策略目 标函数为<img src="/2019/02/02/rl/基于策略梯度的深度强化学习/resources/28D0F3C14799FD88BB04860C6B0192D6.jpg"></li>
+<li>分值函数(score function)<br>上式中 $∇<em>θlogπ</em>θ(s,a)$ 称为分值函数 (score function)。<ul>
+<li>存在如下的策略梯度定理:<br>对于任何 可微的策略函数 $π_θ(s, a)$ 以及三种策略目标函数 $J = J_1, J_{avV} 和 J_{avR}$ 中的任意一种来说，策略 目标函数的梯度 (策略梯度) 都可以写成用分值函数表示的形式:<img src="/2019/02/02/rl/基于策略梯度的深度强化学习/resources/F403A2CB9D3BD5E27FBDB2DC8B8F5BB4.jpg"></li>
+<li>意义<ul>
+<li><font color="blue">分值越高意味着在当前策略下对应行为被选中的概率越大</font></li>
+<li>算法将结合某一行为的分值对应的奖励来得到对应的梯度，并在此基础上调整参 数，<font color="blue">最终使得奖励越大的行为对应的分值越高</font></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Actor-Critic-算法"><a href="#Actor-Critic-算法" class="headerlink" title="Actor-Critic 算法"></a>Actor-Critic 算法</h3><h4 id="定义-1"><a href="#定义-1" class="headerlink" title="定义"></a>定义</h4><ul>
+<li>Actor-Critic 算法的名字很形象，它包含一个策略函数和行为价值函数<ul>
+<li>其中策略函数充当 演员 (Actor), 生成行为与环境交互</li>
+<li>行为价值函数充当 (Critic)，负责评价演员的表现，并指导 演员的后续行为动作</li>
+</ul>
+</li>
+<li>Critic 的行为价值函数是基于策略 $π_θ$ 的一个近似<br>$Q_w(s, a) ≈ Q_{π_θ} (s, a)$</li>
+<li>基于此，Actor-Critic 算法遵循一个近似的策略梯度进行学习<img src="/2019/02/02/rl/基于策略梯度的深度强化学习/resources/832F18299F2131CC68EA719ECB28EFE0.jpg">
+</li>
+</ul>
+<h4 id="QAC算法-最基本的基于行为价值-Q-的-Actor-Critic-算法"><a href="#QAC算法-最基本的基于行为价值-Q-的-Actor-Critic-算法" class="headerlink" title="QAC算法(最基本的基于行为价值 Q 的 Actor-Critic 算法)"></a>QAC算法(最基本的基于行为价值 Q 的 Actor-Critic 算法)</h4><img src="/2019/02/02/rl/基于策略梯度的深度强化学习/resources/BAE69DD8E4E51BE876EA997076555EE1.jpg">
+<h4 id="参数更新"><a href="#参数更新" class="headerlink" title="参数更新"></a>参数更新</h4><ul>
+<li>Critic 的函数 $V_w(s)$ 的参数 w更新<img src="/2019/02/02/rl/基于策略梯度的深度强化学习/resources/A499D8701005947722D2C5F6A40E3C49.jpg"></li>
+<li>策略函数 $π_θ(s,a)$ 的参数θ更新<img src="/2019/02/02/rl/基于策略梯度的深度强化学习/resources/9796183388A806045FA369B4ADA63A36.jpg">
+</li>
+</ul>
+<h3 id="深度确定性策略梯度-DDPG-算法"><a href="#深度确定性策略梯度-DDPG-算法" class="headerlink" title="深度确定性策略梯度(DDPG)算法"></a>深度确定性策略梯度(DDPG)算法</h3><p>DDPG算法能较为稳定地解决连续行为空间下强化学习问题</p>
+<h4 id="算法理解"><a href="#算法理解" class="headerlink" title="算法理解"></a>算法理解</h4><ul>
+<li>深度确定性策略梯度算法是使用深度学习技术、同时基于 Actor-Critic 算法的确定性策略算法</li>
+<li>该算法中的 Actor 和 Critic 都使用深度神经网络来建立近似函数</li>
+<li>由于该算法可以直接从 Actor 的策略生成确定的行为而不需要依据行为的概率分布进行采样而被称为确定性策略</li>
+<li>噪声函数<br>该算法在学习阶段通过在确定性的行为基础上增加一个噪声函数而实现在确定性行为周围的小范围 内探索</li>
+<li>备份了一套参数<ul>
+<li>该算法还为 Actor 和 Critic 网络各备份了一套参数<font color="blue">用来计算行为价值的期待值</font>以更稳定地提升 Critic 的策略指导水平。使用备份参数的网络称为目标网络，其对应的参数每次更新的幅度很小</li>
+<li>另一套参数对应的 Actor 和 Critic 则用来生成实际交互的行为以及计算相应 的策略梯度，这一套参数每学习一次就更新一次。这种双参数设置的目的是为了减少因近似数据 的引导而发生不收敛的情形。</li>
+</ul>
+</li>
+<li>这四个网络具体使用的情景为<ul>
+<li>Actor 网络:根据当前状态 $s_0$ 生成的探索或不探索的具体行为$a_0$;</li>
+<li>Target Actor 网络:根据环境给出的后续状态$s_1$ 生成预估价值用到的$a_1$;</li>
+<li>Critic 网络:计算状态$s_0$和生成的行为$a_0$ 对应的行为价值;</li>
+<li>Target Critic 网络:根据后续状态$ s_1,a_1 生成用来计算目标价值 y = Q(s_0, a_0) 的 Q′(s_1, a_1)$</li>
+</ul>
+</li>
+</ul>
+<h4 id="伪代码"><a href="#伪代码" class="headerlink" title="伪代码"></a>伪代码</h4><img src="/2019/02/02/rl/基于策略梯度的深度强化学习/resources/83B47D21AA2E85D11C6D3C28FA6816ED.jpg">
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/机器学习/" rel="tag"># 机器学习</a>
+          
+            <a href="/tags/强化学习/" rel="tag"># 强化学习</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/01/rl/价值函数的近似表示/" rel="next" title="价值函数的近似表示">
+                <i class="fa fa-chevron-left"></i> 价值函数的近似表示
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/favicon.ico" alt="雷哥">
+          <p class="site-author-name" itemprop="name">雷哥</p>
+           
+              <p class="site-description motion-element" itemprop="description">不积跬步无以至千里</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">53</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基于策略学习的意义"><span class="nav-number">2.</span> <span class="nav-text">基于策略学习的意义</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#背景-1"><span class="nav-number">2.1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#定义"><span class="nav-number">2.2.</span> <span class="nav-text">定义</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#策略目标函数"><span class="nav-number">3.</span> <span class="nav-text">策略目标函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Actor-Critic-算法"><span class="nav-number">4.</span> <span class="nav-text">Actor-Critic 算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#定义-1"><span class="nav-number">4.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#QAC算法-最基本的基于行为价值-Q-的-Actor-Critic-算法"><span class="nav-number">4.2.</span> <span class="nav-text">QAC算法(最基本的基于行为价值 Q 的 Actor-Critic 算法)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参数更新"><span class="nav-number">4.3.</span> <span class="nav-text">参数更新</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#深度确定性策略梯度-DDPG-算法"><span class="nav-number">5.</span> <span class="nav-text">深度确定性策略梯度(DDPG)算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#算法理解"><span class="nav-number">5.1.</span> <span class="nav-text">算法理解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#伪代码"><span class="nav-number">5.2.</span> <span class="nav-text">伪代码</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-雷哥"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">雷哥</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Gemini
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
