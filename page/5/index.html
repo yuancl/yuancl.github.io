@@ -274,6 +274,220 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/06/ml/决策树/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/06/ml/决策树/" itemprop="url">决策树</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-06T08:10:21+08:00">
+                2018-08-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/机器学习基础/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习基础</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>决策树一般分为三步：特征划分，树生成，树剪枝</p>
+<h3 id="基本概念-特征划分"><a href="#基本概念-特征划分" class="headerlink" title="基本概念(特征划分)"></a>基本概念(特征划分)</h3><h4 id="熵：表示随机变量的不确定性"><a href="#熵：表示随机变量的不确定性" class="headerlink" title="熵：表示随机变量的不确定性"></a>熵：表示随机变量的不确定性</h4><ul>
+<li>X是一个取有限个值的离散随机变量，其概率分布为$P(X=x_i)=p_i, i=1,2,..,n$</li>
+<li>熵定义为$H(X)=-\sum_{i=1}^np_ilogp_i$</li>
+<li>又定义可知，熵只依赖于X的分布，而与X的取值无关</li>
+</ul>
+<h4 id="条件熵"><a href="#条件熵" class="headerlink" title="条件熵"></a>条件熵</h4><ul>
+<li>条件熵H(Y|X)表示在已知随机变量X的条件下随机变量Y 的不确定性，也就是给定随机变量X的条件下Y的条件熵</li>
+<li>定义为：$H(Y|X)=\sum_{i=1}^np_iH(Y|X=x_i)$</li>
+</ul>
+<h4 id="信息增益"><a href="#信息增益" class="headerlink" title="信息增益"></a>信息增益</h4><ul>
+<li>表示得知特征X的信息而使得类Y的信息不确定性减少的程度</li>
+<li>特征A对心里数据集D的信息增益定义为：$g(D,A)=H(D)-H(D|A)$<ul>
+<li>个人理解为不确定性的减少量</li>
+</ul>
+</li>
+</ul>
+<h4 id="信息增益比"><a href="#信息增益比" class="headerlink" title="信息增益比"></a>信息增益比</h4><ul>
+<li>以信息增益作为划分数据集的特征，存在偏向于选择取值较多的特征的问题</li>
+<li>$g_R(D,A)=\frac{g(D,A)}{H_A(D)}$其中$H_A(D)=-\sum_{i=1}^{n}\frac{|D_i|}{D}log_2\frac{|D_i|}{D}$,n是特征A取值的个数</li>
+</ul>
+<h3 id="树生成"><a href="#树生成" class="headerlink" title="树生成"></a>树生成</h3><p>就是根据特征选择来区分</p>
+<ul>
+<li>ID3:使用的信息增益进行特征划分</li>
+<li>C4.5:使用信息增益比进行特征的划分</li>
+</ul>
+<h3 id="树剪枝"><a href="#树剪枝" class="headerlink" title="树剪枝"></a>树剪枝</h3><ul>
+<li>生成树一般按照局部最优原则生成，容易过拟合</li>
+</ul>
+<h4 id="剪枝（pruning）是决策树学习算法对付”过拟合“的主要手段。"><a href="#剪枝（pruning）是决策树学习算法对付”过拟合“的主要手段。" class="headerlink" title="剪枝（pruning）是决策树学习算法对付”过拟合“的主要手段。"></a>剪枝（pruning）是决策树学习算法对付”过拟合“的主要手段。</h4><h4 id="决策树剪枝的基本策略有”预剪枝“（prepruning）和”后剪枝“（post-pruning）"><a href="#决策树剪枝的基本策略有”预剪枝“（prepruning）和”后剪枝“（post-pruning）" class="headerlink" title="决策树剪枝的基本策略有”预剪枝“（prepruning）和”后剪枝“（post-pruning）"></a>决策树剪枝的基本策略有”预剪枝“（prepruning）和”后剪枝“（post-pruning）</h4><ul>
+<li>预剪枝是指在决策树生成过程中，对每个节点在划分前进行估计，若当前的划分不能带来决策树泛化性能提升，则停止划分并将当前节点标记为叶节点</li>
+<li>后剪枝是先从训练集生成一颗完整的决策树，然后自底向上的对非叶节点进行考察，若将该节点对应的子树替换为叶节点能带来决策树泛化性能提升，则将该子树替换为叶节点</li>
+</ul>
+<h4 id="剪枝处理降低了”过拟合“风险，但也带来了”欠拟合“的风险。"><a href="#剪枝处理降低了”过拟合“风险，但也带来了”欠拟合“的风险。" class="headerlink" title="剪枝处理降低了”过拟合“风险，但也带来了”欠拟合“的风险。"></a>剪枝处理降低了”过拟合“风险，但也带来了”欠拟合“的风险。</h4><ul>
+<li>一般情形下，后剪枝决策树欠拟合风险较小，泛化性能往往优于预剪枝决策树</li>
+<li>但后剪枝训练开销比未剪枝决策树和预剪枝决策树都要大很多</li>
+</ul>
+<h3 id="CART-classification-and-regression-tree-算法"><a href="#CART-classification-and-regression-tree-算法" class="headerlink" title="CART(classification and regression tree)算法"></a>CART(classification and regression tree)算法</h3><ul>
+<li>CART是在给定输入随机变量X的条件下输出随机变量Y 的条件概率分布的学习方法，分类回归树即可以用于分类，也可以用于回归</li>
+</ul>
+<h4 id="CART决策树的生成"><a href="#CART决策树的生成" class="headerlink" title="CART决策树的生成"></a>CART决策树的生成</h4><ul>
+<li>回归树：使用平方误差最小化的准则进行特征选择<ul>
+<li>启发式方法(即随机选择第j个变量和它的取值进行划分),遍历特征和各个特征的取值</li>
+</ul>
+</li>
+<li>分类树：使用基尼指数(Gini index)(和熵类似)<ul>
+<li>假设有K个类，样本点属于第k类的概率为$p_k$，则概率分布的基尼指数定义为$Gini(p)=\sum_{k=1}^Kp_k(1-p_k)$</li>
+<li>如果样本集合D根据特征A是否取某一可能值a被分割为$D_1和D_2$两部分，则在特征A的条件下，集合D的基尼指数定义为$Gini(D,A)=\frac{D_1}{D}Gini(D_1)+\frac{D_2}{D}Gini(D_2)$<ul>
+<li>基尼指数Gini(D)表示集合D的不确定性</li>
+<li>基尼指数Gini(D,A)表示经A=a分割后集合D的不确定性，基尼指数越大，样本集合的不确定性也就越大，这个和熵比类似</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="CART决策树的剪枝"><a href="#CART决策树的剪枝" class="headerlink" title="CART决策树的剪枝"></a>CART决策树的剪枝</h4><ul>
+<li>用验证数据集对已生成的数进行剪枝并选择最优子树，这时是用的损失函数最小作为剪枝的标准</li>
+</ul>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><img src="/2018/08/06/ml/决策树/resources/60FDDA878E668B64094D4FB11F9E1448.jpg">
+<img src="/2018/08/06/ml/决策树/resources/0FAF75BC9C7ED3CE454648CC7CBA2A69.jpg">
+<img src="/2018/08/06/ml/决策树/resources/07631FA8DBF39C5DCA3DC4283AE42665.jpg">
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+	
+    
+	
+      	    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/30/ml/朴素贝叶斯法/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -2057,200 +2271,6 @@
 
 	
     
-	
-      	    
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/18/ml/NeuralNetwork/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="雷哥">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/favicon.ico">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="雷哥的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/06/18/ml/NeuralNetwork/" itemprop="url">NeuralNetwork</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-18T07:41:11+08:00">
-                2018-06-18
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/机器学习/" itemprop="url" rel="index">
-                    <span itemprop="name">机器学习</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/机器学习/机器学习基础/" itemprop="url" rel="index">
-                    <span itemprop="name">机器学习基础</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><a href="https://github.com/yuancl/ml-algorithm/tree/master/exe4-NeuralNetwork" target="_blank" rel="noopener">习题代码:NeuralNetwork</a></p>
-<h4 id="人脑神经元"><a href="#人脑神经元" class="headerlink" title="人脑神经元"></a>人脑神经元</h4><ul>
-<li>人脑内就有很多神经元构成，神经元与神经元之间互相连接，传递电信号等<img src="/2018/06/18/ml/NeuralNetwork/resources/A304F5025E48BA4324FCD8DB562EBBC1.jpg">
-</li>
-</ul>
-<h4 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h4><ul>
-<li>基础结构：类似逻辑回归模型<img src="/2018/06/18/ml/NeuralNetwork/resources/A155266DFD2672B1850698451F99A310.jpg"></li>
-<li><p>网络架构</p>
-<ul>
-<li>每个神经单元都是一个上图的基础结构，输出a是激活值,g是sigmoid激活函数</li>
-<li>架构分为第一层(输入层)，第二层(隐藏层)….输出层<img src="/2018/06/18/ml/NeuralNetwork/resources/445D829784D90FD50DB465E3F95031CC.jpg"></li>
-<li>前向计算：每个神经元都依次计算<img src="/2018/06/18/ml/NeuralNetwork/resources/DF4A1399852DE9F18094C55A08479F78.jpg">
-</li>
-</ul>
-</li>
-<li><p>直观理解网络含义</p>
-<ul>
-<li>每一层都是通过逻辑回归来完成，通过增加隐层的数量，或者通过增加一个隐藏中的单元数，来完成不同的功能，就能够得到更复杂的模型，完成更复杂的功能<font color="red">（简单理解为每个神经单位都是一个逻辑回归结构，都能够完成一个独立的功能）</font><ul>
-<li>比如亦或问题<img src="/2018/06/18/ml/NeuralNetwork/resources/6B39D24F15F400C523F22D22183EC541.jpg">
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="处理多分类问题"><a href="#处理多分类问题" class="headerlink" title="处理多分类问题"></a>处理多分类问题</h4><ul>
-<li>每个分类被一个节点判断出(像上一节类似，一个节点判断and，一个节点判断or，它们的下一层节点就能判断更复杂的内容)</li>
-<li>多个分类，可以在一个神经网络中判断输出</li>
-<li>逻辑回归时候，是把多分类问题，视为多个二分类问题处理的(多个$h_\theta^i(x)$)<img src="/2018/06/18/ml/NeuralNetwork/resources/3DB7E197A148553098F55835C55544B9.jpg">
-</li>
-</ul>
-<h4 id="Cost-function"><a href="#Cost-function" class="headerlink" title="Cost function"></a>Cost function</h4><ul>
-<li>和逻辑回归的cost function非常类似，其中m表示样本数，K表示神经网络最终输出的个数，正则化项包含了所有参数</li>
-<li><img src="/2018/06/18/ml/NeuralNetwork/resources/B14FBC4B8353C514D5B36255A966E074.jpg">
-</li>
-</ul>
-<h4 id="求最优解"><a href="#求最优解" class="headerlink" title="求最优解"></a>求最优解</h4><ul>
-<li>求解算法最常用的当然也是使用的梯度下降，然后也可以使用深度学习中的<a href="https://yuancl.github.io/2018/09/10/dl/%E7%AC%AC%E4%BA%8C%E9%97%A8%E8%AF%BE-%E7%AC%AC%E4%BA%8C%E5%91%A8/" target="_blank" rel="noopener">动态梯度下降,RMProp,Adam</a>等</li>
-<li>梯度的计算也可以使用最原始的方法，对每个参数求解梯度，但是由于神经网络中参数太多，原始方法效率太低，所以有了后面的<a href="https://yuancl.github.io/2018/06/20/ml/Backpropagation/" target="_blank" rel="noopener">Backpropagation算法</a></li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-	
-    
   </section>
 
   
@@ -2299,7 +2319,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">53</span>
+                <span class="site-state-item-count">54</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -2332,6 +2352,19 @@
         
 
         <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/yuancl" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
           
         </div>
 

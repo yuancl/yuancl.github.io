@@ -274,6 +274,213 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/03/rl/基于模型的学习和规划/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/03/rl/基于模型的学习和规划/" itemprop="url">基于模型的学习和规划</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-03T13:11:12+08:00">
+                2019-02-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/强化学习/" itemprop="url" rel="index">
+                    <span itemprop="name">强化学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><ul>
+<li>前面的算法都是与真实的环境进行交互，个体并不试图去理解环境动力学</li>
+<li>如果能构建一个较为准确地模拟环境动力学特 征的模型或者问题的模型本身就类似于一些棋类游戏是明确或者简单的，个体就可以通过<font color="blue">构建这样的模型来模拟其与环境的交互</font>，这种依靠模型模拟而不实际与环境交互的过程<font color="blue">类似于“思考”过程</font><ul>
+<li>通过思考，个体可以对问题进行规划、在与环境实际交互时<font color="blue">搜索交互可能产生的各种 后果</font>并从中选择对个体有利的结果<ul>
+<li><font color="purple">我理解是通过模拟的环境，得到各自行为，然后与真实环境进行交互的时候，从这些模拟环境得到的行为中搜索，选择最优的结果 </font>
+
+
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="环境的模型"><a href="#环境的模型" class="headerlink" title="环境的模型"></a>环境的模型</h3><p>模型是个体构建的对于环境动力学特征的表示</p>
+<h4 id="基于模型的强化学习流程"><a href="#基于模型的强化学习流程" class="headerlink" title="基于模型的强化学习流程"></a>基于模型的强化学习流程</h4><ul>
+<li><p>当个体得到了一 个较为准确的描述环境动力学的模型时，它在与环境交互的过程中，既可以通过实际交互来提高模型的准确程度，也可以在交互间隙利用构建的模型进行思考、规划，决策出对个体有力的行为</p>
+<img src="/2019/02/03/rl/基于模型的学习和规划/resources/FAAFC16238D8AB743A35514D8FA86155.jpg">
+</li>
+<li><p>学习一个模型相当于丛经历 $S_1, A_1, R_2, . . . , S_T$ 中通过监督学习得到一个模型 $M_η$</p>
+<ul>
+<li>训练数据为<br>$S_1,A_1 →R_2,S_2$<br>$S_2,A_2 →R_3,S_3$..<br>$S_{T−1},A_{T−1} →R_T,S_T$</li>
+</ul>
+</li>
+<li><p>使用近似的模型解决强化学习问题与使用价值函数或策略函数的近似表达来解决强化学习问题并不冲突，它们是从不同角度来近似求解一个强化学习问题</p>
+<ul>
+<li>当构建一个模型比构建近似价值函数 或近似策略函数更方便时，那么使用近似模型来求解会更加高效</li>
+</ul>
+</li>
+<li><p>特别注意模型参数要随着个体与环境交互而不断地动态更新，<font color="blue">即通过实际经历要与使用模型产生的虚拟经历相结合来解决问题</font></p>
+<ul>
+<li>这就催生了一类整合了学习与规划的强化学习算法——Dyna</li>
+</ul>
+</li>
+</ul>
+<h4 id="Dyna算法-整合学习与规划"><a href="#Dyna算法-整合学习与规划" class="headerlink" title="Dyna算法(整合学习与规划)"></a>Dyna算法(整合学习与规划)</h4><ul>
+<li>Dyna 算法从实际经历中学习得到模型，同时<font color="blue">联合</font>使用实际经历和基于模型采样得到的虚拟经历来学习和规划，更新价值和 (或) 策略函数<img src="/2019/02/03/rl/基于模型的学习和规划/resources/DC72D9AC050BA5334B17A5B74CDAA7C9.jpg"></li>
+<li>伪代码<img src="/2019/02/03/rl/基于模型的学习和规划/resources/B080914282D2D2B32DECD04A75A4DFDB.jpg">
+<ul>
+<li>我的理解：<ul>
+<li>从开始是通过真实环境去得到模型环境Model</li>
+<li>下面会使用Model得到虚拟的经历，结合上面真实经历来更新Q(S,A)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="基于模拟的搜索"><a href="#基于模拟的搜索" class="headerlink" title="基于模拟的搜索"></a>基于模拟的搜索</h4><ul>
+<li>前向搜索形式<br>在强化学习中，基于模拟的搜索 (simulation-based search) 是一种前向搜索形式,它从当前 时刻的状态开始，<font color="blue">利用模型来模拟采样，构建一个关注短期未来的前向搜索树</font>，将构建得到的搜索树作为一个<font color="blue">学习资源</font>，使用不基于模型的强化学习方法来寻找当前状态下的最优策略<ul>
+<li><font color="purple">我的理解就是通过模型来构造一颗状态行为树，然后搜索在当前状态下的最优行为，也就是最优策略</font></li>
+</ul>
+</li>
+<li>如果使用蒙特卡罗学习方法则称为蒙特卡罗搜索，如果使用 Sarsa 学习方法，则称为 TD 搜索</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+	
+    
+	
+      	    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/02/rl/基于策略梯度的深度强化学习/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -2632,8 +2839,6 @@
 
 	
     
-	
-    
   </section>
 
   
@@ -2682,7 +2887,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">53</span>
+                <span class="site-state-item-count">54</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -2715,6 +2920,19 @@
         
 
         <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/yuancl" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
           
         </div>
 

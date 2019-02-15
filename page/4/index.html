@@ -274,6 +274,232 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/14/dl/第四门课-第一周/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/10/14/dl/第四门课-第一周/" itemprop="url">第四门课-第一周</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-14T19:30:09+08:00">
+                2018-10-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/深度学习/" itemprop="url" rel="index">
+                    <span itemprop="name">深度学习</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/深度学习/吴恩达课程总结/" itemprop="url" rel="index">
+                    <span itemprop="name">吴恩达课程总结</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="第一周-卷积神经网络"><a href="#第一周-卷积神经网络" class="headerlink" title="第一周 卷积神经网络"></a>第一周 卷积神经网络</h3><h5 id="边缘检测"><a href="#边缘检测" class="headerlink" title="边缘检测"></a>边缘检测</h5><ul>
+<li>浅层特征可能是是垂直检测，水平检测等初级特征，后面层可能是人眼等高级特征，最后是整个人形等</li>
+<li>理解垂直边缘过滤核：<br>$<br>\begin{cases}<br>1-0–1\<br>1-0–1\<br>1-0–1\<br>\end{cases}<br>$ <ul>
+<li><strong>(1)(3)列正负相互抵消</strong>，只能在差异相差很大的不同区域可能保留比较大的特征值，比如在黑白过渡区域等</li>
+</ul>
+</li>
+</ul>
+<h5 id="更多边缘检测过滤核"><a href="#更多边缘检测过滤核" class="headerlink" title="更多边缘检测过滤核"></a>更多边缘检测过滤核</h5><ul>
+<li>Sobel过滤器 <ul>
+<li>增加了中间的一行元素的权重，这样使得结果的鲁棒性更会高一些</li>
+</ul>
+<ul>
+<li>$\begin{cases}<br>1-0–1\<br>2-0–2\<br>1-0–1\<br>\end{cases}<br>$ </li>
+</ul>
+</li>
+<li>Scharr过滤器(CV中经常使用) <ul>
+<li>$\begin{cases}<br>3-0–3\<br>10-0–10\<br>3-0–3\<br>\end{cases}<br>$ </li>
+</ul>
+</li>
+</ul>
+<h5 id="Padding"><a href="#Padding" class="headerlink" title="Padding"></a>Padding</h5><ul>
+<li>解决问题： <ul>
+<li>每次做卷积的时候，他的图像都会缩小，多做几次卷积就输出的图像会很小</li>
+<li>图像边缘的像素，只有一个卷积核会计算到，这样一来角落或者图像边缘的信息发挥的作用就会很小</li>
+</ul>
+</li>
+<li>通常Padding设置： <ul>
+<li>Valid(无padding),normal,same(使输出和输入尺寸一致)</li>
+<li>一般考虑到对称性和中心点位置，padding值一般使用奇数值</li>
+</ul>
+</li>
+</ul>
+<h5 id="卷积步长-Strided"><a href="#卷积步长-Strided" class="headerlink" title="卷积步长(Strided)"></a>卷积步长(Strided)</h5><h5 id="三维卷积"><a href="#三维卷积" class="headerlink" title="三维卷积"></a>三维卷积</h5><ul>
+<li><img src="/2018/10/14/dl/第四门课-第一周/resources/A34E4968C781FBBF7EE500ECE577EE92"></li>
+<li>多filter=通道数=特征数=深度(多种叫法)</li>
+</ul>
+<h5 id="单层卷积网络"><a href="#单层卷积网络" class="headerlink" title="单层卷积网络"></a>单层卷积网络</h5><ul>
+<li>类似神经网络(x->z->(ReLU+b)->a…),可以看出，图像无论多大，卷积核参数都是不变的(这样一定程度能避免过拟合)</li>
+<li><img src="/2018/10/14/dl/第四门课-第一周/resources/A2DE0F8C6458579436F140074B5FE193">
+</li>
+</ul>
+<h5 id="池化层"><a href="#池化层" class="headerlink" title="池化层"></a>池化层</h5><ul>
+<li>可以理解为卷积核，但是没有参数，比如max pooling,min pooling</li>
+<li>max pooling理解： <ul>
+<li>提取最大的数字，可以理解为最突出的特征提取出来，同时如果该局部图像不存在此特征，提取出的值依然很小</li>
+<li>4x4就可以看做是特征的集合，最后提取出的9可能就表示然人眼…<img src="/2018/10/14/dl/第四门课-第一周/resources/4DDA682D49EE988BEF6230C1A1EFB3D2"></li>
+<li>超参数(f,s)，一般设置(f=2,s=3)或(f=3,s=2),一般很少会用到Padding，只有超参数并没有其他的参数，没有什么需要学习的，可以理解为只是一个<strong>静态属性</strong></li>
+</ul>
+</li>
+</ul>
+<h5 id="卷积网络示例"><a href="#卷积网络示例" class="headerlink" title="卷积网络示例"></a>卷积网络示例</h5><ul>
+<li>一般分类： <ul>
+<li>卷积层+池化层 为一层</li>
+<li>或者不考虑无参数，无权重的池化层，一层卷积层就为一层</li>
+</ul>
+</li>
+<li>常见模式：<br>CONV-POOL-CONV-POOL-FC-FC-FC-SOFTMAX</li>
+<li>特点： <ul>
+<li>nh​,nw​会逐渐减小，但是信道会增加</li>
+<li>激活值也是逐渐减小，但是不能让减小太快，否则会影响网络性能</li>
+<li>parameters数量不随输入图片的大小而改变，只能卷积核和全连接层有关系(其中parametr数(208=5x5x8+8)(416=5x5x16+16)不和具体输入图像相关)</li>
+<li>CV研究的工作就是研究如何整合卷积层，池化层，全连接层</li>
+<li>网络架构(类似LetNet5)<img src="/2018/10/14/dl/第四门课-第一周/resources/EA6A4DE2FF731A127BE54D7B0109DEFA">
+过程参数变化情况：<br>其中parametr数(208=5x5x8+8)(416=5x5x16+16)不和具体输入图像相关<img src="/2018/10/14/dl/第四门课-第一周/resources/B5D93F420A7D874EB6AF156E7E1127F6">
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="卷积优点"><a href="#卷积优点" class="headerlink" title="卷积优点"></a>卷积优点</h5><ul>
+<li>减小参数</li>
+<li>稀疏连接</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+	
+    
+	
+      	    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/10/dl/第三门课-第二周/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1749,220 +1975,6 @@
 
 	
     
-	
-      	    
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/06/ml/决策树/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="雷哥">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/favicon.ico">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="雷哥的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/06/ml/决策树/" itemprop="url">决策树</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-06T08:10:21+08:00">
-                2018-08-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/机器学习/" itemprop="url" rel="index">
-                    <span itemprop="name">机器学习</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/机器学习/机器学习基础/" itemprop="url" rel="index">
-                    <span itemprop="name">机器学习基础</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>决策树一般分为三步：特征划分，树生成，树剪枝</p>
-<h3 id="基本概念-特征划分"><a href="#基本概念-特征划分" class="headerlink" title="基本概念(特征划分)"></a>基本概念(特征划分)</h3><h4 id="熵：表示随机变量的不确定性"><a href="#熵：表示随机变量的不确定性" class="headerlink" title="熵：表示随机变量的不确定性"></a>熵：表示随机变量的不确定性</h4><ul>
-<li>X是一个取有限个值的离散随机变量，其概率分布为$P(X=x_i)=p_i, i=1,2,..,n$</li>
-<li>熵定义为$H(X)=-\sum_{i=1}^np_ilogp_i$</li>
-<li>又定义可知，熵只依赖于X的分布，而与X的取值无关</li>
-</ul>
-<h4 id="条件熵"><a href="#条件熵" class="headerlink" title="条件熵"></a>条件熵</h4><ul>
-<li>条件熵H(Y|X)表示在已知随机变量X的条件下随机变量Y 的不确定性，也就是给定随机变量X的条件下Y的条件熵</li>
-<li>定义为：$H(Y|X)=\sum_{i=1}^np_iH(Y|X=x_i)$</li>
-</ul>
-<h4 id="信息增益"><a href="#信息增益" class="headerlink" title="信息增益"></a>信息增益</h4><ul>
-<li>表示得知特征X的信息而使得类Y的信息不确定性减少的程度</li>
-<li>特征A对心里数据集D的信息增益定义为：$g(D,A)=H(D)-H(D|A)$<ul>
-<li>个人理解为不确定性的减少量</li>
-</ul>
-</li>
-</ul>
-<h4 id="信息增益比"><a href="#信息增益比" class="headerlink" title="信息增益比"></a>信息增益比</h4><ul>
-<li>以信息增益作为划分数据集的特征，存在偏向于选择取值较多的特征的问题</li>
-<li>$g_R(D,A)=\frac{g(D,A)}{H_A(D)}$其中$H_A(D)=-\sum_{i=1}^{n}\frac{|D_i|}{D}log_2\frac{|D_i|}{D}$,n是特征A取值的个数</li>
-</ul>
-<h3 id="树生成"><a href="#树生成" class="headerlink" title="树生成"></a>树生成</h3><p>就是根据特征选择来区分</p>
-<ul>
-<li>ID3:使用的信息增益进行特征划分</li>
-<li>C4.5:使用信息增益比进行特征的划分</li>
-</ul>
-<h3 id="树剪枝"><a href="#树剪枝" class="headerlink" title="树剪枝"></a>树剪枝</h3><ul>
-<li>生成树一般按照局部最优原则生成，容易过拟合</li>
-</ul>
-<h4 id="剪枝（pruning）是决策树学习算法对付”过拟合“的主要手段。"><a href="#剪枝（pruning）是决策树学习算法对付”过拟合“的主要手段。" class="headerlink" title="剪枝（pruning）是决策树学习算法对付”过拟合“的主要手段。"></a>剪枝（pruning）是决策树学习算法对付”过拟合“的主要手段。</h4><h4 id="决策树剪枝的基本策略有”预剪枝“（prepruning）和”后剪枝“（post-pruning）"><a href="#决策树剪枝的基本策略有”预剪枝“（prepruning）和”后剪枝“（post-pruning）" class="headerlink" title="决策树剪枝的基本策略有”预剪枝“（prepruning）和”后剪枝“（post-pruning）"></a>决策树剪枝的基本策略有”预剪枝“（prepruning）和”后剪枝“（post-pruning）</h4><ul>
-<li>预剪枝是指在决策树生成过程中，对每个节点在划分前进行估计，若当前的划分不能带来决策树泛化性能提升，则停止划分并将当前节点标记为叶节点</li>
-<li>后剪枝是先从训练集生成一颗完整的决策树，然后自底向上的对非叶节点进行考察，若将该节点对应的子树替换为叶节点能带来决策树泛化性能提升，则将该子树替换为叶节点</li>
-</ul>
-<h4 id="剪枝处理降低了”过拟合“风险，但也带来了”欠拟合“的风险。"><a href="#剪枝处理降低了”过拟合“风险，但也带来了”欠拟合“的风险。" class="headerlink" title="剪枝处理降低了”过拟合“风险，但也带来了”欠拟合“的风险。"></a>剪枝处理降低了”过拟合“风险，但也带来了”欠拟合“的风险。</h4><ul>
-<li>一般情形下，后剪枝决策树欠拟合风险较小，泛化性能往往优于预剪枝决策树</li>
-<li>但后剪枝训练开销比未剪枝决策树和预剪枝决策树都要大很多</li>
-</ul>
-<h3 id="CART-classification-and-regression-tree-算法"><a href="#CART-classification-and-regression-tree-算法" class="headerlink" title="CART(classification and regression tree)算法"></a>CART(classification and regression tree)算法</h3><ul>
-<li>CART是在给定输入随机变量X的条件下输出随机变量Y 的条件概率分布的学习方法，分类回归树即可以用于分类，也可以用于回归</li>
-</ul>
-<h4 id="CART决策树的生成"><a href="#CART决策树的生成" class="headerlink" title="CART决策树的生成"></a>CART决策树的生成</h4><ul>
-<li>回归树：使用平方误差最小化的准则进行特征选择<ul>
-<li>启发式方法(即随机选择第j个变量和它的取值进行划分),遍历特征和各个特征的取值</li>
-</ul>
-</li>
-<li>分类树：使用基尼指数(Gini index)(和熵类似)<ul>
-<li>假设有K个类，样本点属于第k类的概率为$p_k$，则概率分布的基尼指数定义为$Gini(p)=\sum_{k=1}^Kp_k(1-p_k)$</li>
-<li>如果样本集合D根据特征A是否取某一可能值a被分割为$D_1和D_2$两部分，则在特征A的条件下，集合D的基尼指数定义为$Gini(D,A)=\frac{D_1}{D}Gini(D_1)+\frac{D_2}{D}Gini(D_2)$<ul>
-<li>基尼指数Gini(D)表示集合D的不确定性</li>
-<li>基尼指数Gini(D,A)表示经A=a分割后集合D的不确定性，基尼指数越大，样本集合的不确定性也就越大，这个和熵比类似</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="CART决策树的剪枝"><a href="#CART决策树的剪枝" class="headerlink" title="CART决策树的剪枝"></a>CART决策树的剪枝</h4><ul>
-<li>用验证数据集对已生成的数进行剪枝并选择最优子树，这时是用的损失函数最小作为剪枝的标准</li>
-</ul>
-<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><img src="/2018/08/06/ml/决策树/resources/60FDDA878E668B64094D4FB11F9E1448.jpg">
-<img src="/2018/08/06/ml/决策树/resources/0FAF75BC9C7ED3CE454648CC7CBA2A69.jpg">
-<img src="/2018/08/06/ml/决策树/resources/07631FA8DBF39C5DCA3DC4283AE42665.jpg">
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-	
-    
   </section>
 
   
@@ -2011,7 +2023,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">53</span>
+                <span class="site-state-item-count">54</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -2044,6 +2056,19 @@
         
 
         <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/yuancl" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
           
         </div>
 
