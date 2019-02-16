@@ -609,6 +609,8 @@
 	
     
 	
+    
+	
       	    
 
   
@@ -622,7 +624,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/10/ml/GAN基础/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/08/gan/GAN概要/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="雷哥">
@@ -641,7 +643,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/10/ml/GAN基础/" itemprop="url">GAN基础</a></h1>
+                <a class="post-title-link" href="/2019/01/08/gan/GAN概要/" itemprop="url">GAN概要</a></h1>
         
 
         <div class="post-meta">
@@ -653,8 +655,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-10T22:10:12+08:00">
-                2019-01-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-08T23:11:18+08:00">
+                2019-01-08
               </time>
             
 
@@ -726,199 +728,52 @@
       
         
           
-            <h3 id="Basic-idea-of-GAN"><a href="#Basic-idea-of-GAN" class="headerlink" title="Basic idea of GAN"></a>Basic idea of GAN</h3><h4 id="Generator"><a href="#Generator" class="headerlink" title="Generator"></a>Generator</h4>
-
-<h4 id="Discriminator-辨别者，鉴别器"><a href="#Discriminator-辨别者，鉴别器" class="headerlink" title="Discriminator(辨别者，鉴别器)"></a>Discriminator(辨别者，鉴别器)</h4><ul>
-<li>产出一个标量
-</li>
-</ul>
-<h4 id="形容关系：猎食者和天敌都在净化"><a href="#形容关系：猎食者和天敌都在净化" class="headerlink" title="形容关系：猎食者和天敌都在净化"></a>形容关系：猎食者和天敌都在净化</h4><ul>
-<li>天敌-Discriminator</li>
-<li><p>枯叶蝶-Generator</p>
+            <p><a href="https://blog.csdn.net/qq_25737169/article/details/78857724" target="_blank" rel="noopener">参考文章</a></p>
+<h3 id="什么是GAN"><a href="#什么是GAN" class="headerlink" title="什么是GAN"></a>什么是GAN</h3><p>GAN（Generative adversarial nets）,中文是生成对抗网络，他是一种生成式模型，也是一种无监督学习模型。其最大的特点是为深度网络提供了一种对抗训练的方式，此方式有助于解决一些普通训练方式不容易解决的问题</p>
+<h3 id="GAN原理"><a href="#GAN原理" class="headerlink" title="GAN原理"></a>GAN原理</h3><p>GAN的主要灵感来源于博弈论中零和博弈的思想，应用到深度学习神经网络上来说，就是通过生成网络G（Generator）和判别网络D（Discriminator）不断博弈，进而使G学习到数据的分布</p>
 <ul>
-<li>枯叶蝶为了躲避猎食者的捕猎，不行进化自身
-</li>
+<li>如果用到图片生成上，则训练完成后，G可以从一段随机数中生成逼真的图像。G， D的主要功能是：<ul>
+<li>G是一个生成式的网络，它接收一个随机的噪声z（随机数），通过这个噪声生成图像</li>
+<li>D是一个判别网络，判别一张图片是不是“真实的”。它的输入参数是x，x代表一张图片，输出D（x）代表x为真实图片的概率，如果为1，就代表100%是真实的图片，而输出为0，就代表不可能是真实的图片</li>
 </ul>
 </li>
-<li><p>二次元也是一样的</p>
-<ul>
-<li>Generator,Discriminator不断进化Discriminator2骗过Generator1，Discriminator3骗过Generator2等</li>
-<li>看起来Generator,Discriminator像是对抗的样子，所以是adversarial的由来
-</li>
+<li>训练过程中，生成网络G的目标就是尽量生成真实的图片去欺骗判别网络D。而D的目标就是尽量辨别出G生成的假图像和真实的图像。这样，G和D构成了一个动态的“博弈过程”，最终的平衡点即纳什均衡点.</li>
+</ul>
+<img src="/2019/01/08/gan/GAN概要/resources/6242617D7479F64C26364B77799A250F.jpg">
+<h3 id="GAN特点"><a href="#GAN特点" class="headerlink" title="GAN特点"></a>GAN特点</h3><ul>
+<li>相比较传统的模型，他存在两个不同的网络，而不是单一的网络，并且训练方式采用的是对抗训练方式</li>
+<li>GAN中G的梯度更新信息来自判别器D，而不是来自数据样本</li>
+</ul>
+<h3 id="GAN优点"><a href="#GAN优点" class="headerlink" title="GAN优点"></a>GAN优点</h3><ul>
+<li>GAN是一种生成式模型，相比较其他生成模型（玻尔兹曼机和GSNs）只用到了反向传播,而不需要复杂的马尔科夫链</li>
+<li>相比其他所有模型, GAN可以产生更加清晰，真实的样本</li>
+<li>GAN采用的是一种无监督的学习方式训练，可以被广泛用在无监督学习和半监督学习领域</li>
+<li>相比于变分自编码器, GANs没有引入任何决定性偏置( deterministic bias),变分方法引入决定性偏置,因为他们优化对数似然的下界,而不是似然度本身,这看起来导致了VAEs生成的实例比GANs更模糊</li>
+<li>相比VAE, GANs没有变分下界,如果鉴别器训练良好,那么生成器可以完美的学习到训练样本的分布.换句话说,GANs是渐进一致的,但是VAE是有偏差的</li>
+<li>GAN应用到一些场景上，比如图片风格迁移，超分辨率，图像补全，去噪，避免了损失函数设计的困难，不管三七二十一，只要有一个的基准，直接上判别器，剩下的就交给对抗训练了</li>
+</ul>
+<h3 id="GAN缺点"><a href="#GAN缺点" class="headerlink" title="GAN缺点"></a>GAN缺点</h3><h4 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h4><ul>
+<li>训练GAN需要达到纳什均衡,有时候可以用梯度下降法做到,有时候做不到.我们还没有找到很好的达到纳什均衡的方法,所以训练GAN相比VAE或者PixelRNN是不稳定的,但我认为在实践中它还是比训练玻尔兹曼机稳定的多</li>
+<li>GAN不适合处理离散形式的数据，比如文本</li>
+<li>GAN存在训练不稳定、梯度消失、模式崩溃的问题（目前已解决）</li>
+</ul>
+<h4 id="为什么GAN不适合处理文本数据"><a href="#为什么GAN不适合处理文本数据" class="headerlink" title="为什么GAN不适合处理文本数据"></a>为什么GAN不适合处理文本数据</h4><ul>
+<li>文本数据相比较图片数据来说是离散的，因为对于文本来说，通常需要将一个词映射为一个高维的向量，最终预测的输出是一个one-hot向量，假设softmax的输出是（0.2， 0.3， 0.1，0.2，0.15，0.05）那么变为onehot是（0，1，0，0，0，0），如果softmax输出是（0.2， 0.25， 0.2， 0.1，0.15，0.1 ），one-hot仍然是（0， 1， 0， 0， 0， 0），所以对于生成器来说，G输出了不同的结果但是D给出了同样的判别结果，并不能将梯度更新信息很好的传递到G中去，所以D最终输出的判别没有意义。</li>
+<li>另外就是GAN的损失函数是JS散度，JS散度不适合衡量不想交分布之间的距离。<br>（WGAN虽然使用wassertein距离代替了JS散度，但是在生成文本上能力还是有限，GAN在生成文本上的应用有seq-GAN,和强化学习结合的产物）</li>
+</ul>
+<h3 id="GAN的变种"><a href="#GAN的变种" class="headerlink" title="GAN的变种"></a>GAN的变种</h3><p>自从GAN出世后，得到了广泛研究，先后几百篇不同的GANpaper横空出世，国外有大神整理了一个GAN zoo（GAN动物园），链接如下，感兴趣的可以参考一下：<br><a href="https://github.com/hindupuravinash/the-gan-zoo" target="_blank" rel="noopener">GAN zoo</a><br>GitHub上已经1200+star了，顺便附上一张GAN的成果图，可见GAN的研究火热程度：<br><img src="/2019/01/08/gan/GAN概要/resources/78C49AB46100594BDF7D685E329B6EDA.jpg"><br>由于GAN的变种实在太多，可以学习下DCGAN,, WGAN, improved-WGAN，BEGAN</p>
+<h3 id="GAN的广泛应用"><a href="#GAN的广泛应用" class="headerlink" title="GAN的广泛应用"></a>GAN的广泛应用</h3><ul>
+<li>GAN本身是一种生成式模型，所以在数据生成上用的是最普遍的，最常见的是图片生成，常用的有DCGAN WGAN，BEGAN，个人感觉在BEGAN的效果最好而且最简单。</li>
+<li>GAN本身也是一种无监督学习的典范，因此它在无监督学习，半监督学习领域都有广泛的应用，比较好的论文有<ul>
+<li>Improved Techniques for Training GANs</li>
+<li>Bayesian GAN（最新）</li>
+<li>Good Semi-supervised Learning</li>
 </ul>
 </li>
-<li><p>对抗只是拟人的方法，下面就是和平的比喻</p>
-<ul>
-<li>问题：<ul>
-<li>1.为什么Generator不能自己学,而需要Discriminator驱动</li>
-<li>2.为什么Discriminator不自己做
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="Algorithm"><a href="#Algorithm" class="headerlink" title="Algorithm"></a>Algorithm</h4><ul>
-<li><p>step1</p>
-<ul>
-<li>训练Discriminator，使database中产生的结果很接近1，Generator产生的结果很接近0
-</li>
-</ul>
-</li>
-<li><p>step2</p>
-<ul>
-<li>Fix Discriminator,update Generator</li>
-<li>Generator，Discriminator合一起，成一个巨大的网络，比如前几层是Generator，后几层是Discriminator</li>
-<li>这一步目标就是巨大网络输出scala值要大(Gradient Ascent)<ul>
-<li>通常情况下，要让最后的输出很大，只需要调整最后一层softmax层就可以了</li>
-<li>但是这里固定住后面几层，只让调整Generator
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>整体算法</p>
-<ul>
-<li>Learning D<ul>
-<li>sample from database:$x^m$,noise samples:$z^m$</li>
-<li>$\tilde x^m=G(z^m)$表示Genertor产生的vector</li>
-<li>然后通过梯度提升算法，最优化$\tilde V$,含义就是让$D(x^i)尽量大,D(\tilde x^i)$尽量小</li>
-</ul>
-</li>
-<li>Learning G<ul>
-<li>目的就是update G，使其能够骗过D</li>
-<li>$D(G(z^i))$，理解其含义就是让noise数据经过G处理后，然后通过D（骗过D），得到最大的标量值
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="GAN-as-structured-learning"><a href="#GAN-as-structured-learning" class="headerlink" title="GAN as structured learning"></a>GAN as structured learning</h3><h4 id="Structured-Learning"><a href="#Structured-Learning" class="headerlink" title="Structured Learning"></a>Structured Learning</h4><ul>
-<li>当输出不是一个标量数值或者分类，是更负责的模型的时候，比如seq，matrix，graph等</li>
-<li>Why structured learning challenging<ul>
-<li>必须考虑大局观</li>
-</ul>
-</li>
-<li>Structured Learning Approach<ul>
-<li>Bottom up方法容易失去大局观<ul>
-<li>一个componet一个component地生成 </li>
-<li>component与component之间的关系不容易把握</li>
-</ul>
-</li>
-<li>Top Down方法不容易train
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="Can-Generator-learn-by-itself"><a href="#Can-Generator-learn-by-itself" class="headerlink" title="Can Generator learn by itself"></a>Can Generator learn by itself</h3><h4 id="NN-Generator和NN-Classifier比较类似"><a href="#NN-Generator和NN-Classifier比较类似" class="headerlink" title="NN Generator和NN Classifier比较类似"></a>NN Generator和NN Classifier比较类似</h4><ul>
-<li>只是一个是输入vector，一个输入图像</li>
-<li>问题：NN Generator如何产生输入的vector(将图片进行编码)?<ul>
-<li>不能够随机产生，因为如果随机产生，就无法表示出向量的相似性了(比如图片1有很多种，左斜，右斜等)
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="Auto-Encoder-Decoder"><a href="#Auto-Encoder-Decoder" class="headerlink" title="Auto Encoder-Decoder"></a>Auto Encoder-Decoder</h4><ul>
-<li>解决上面：NN Generator如何产生输入vector问题</li>
-<li>如图：encode模块，对输入和输出图片越接近越好</li>
-<li>训练后好的Anto encoder中的NN Decoder其实就可以理解为NN Generator<ul>
-<li>简单来说就是输入一个vector，然后输出图像</li>
-</ul>
-</li>
-<li>如果训练集数据比较小，当出现0.5a + 0.5b输入时无法判断<ul>
-<li>a,b都能正确判断，但是当各0.5的时候就不好使了</li>
-<li>如下使用VAE解决
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="VAE"><a href="#VAE" class="headerlink" title="VAE"></a>VAE</h4>
-<ul>
-<li>如何更好的判断input img和output img相似，如何取舍？<ul>
-<li>比如我们不能简单的用pixel不同个数来决定，如下图明显6 pixel error更好
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="单纯的learn-Generator困难的地方-Auto-encoder可能遇见问题"><a href="#单纯的learn-Generator困难的地方-Auto-encoder可能遇见问题" class="headerlink" title="单纯的learn Generator困难的地方(Auto encoder可能遇见问题)"></a>单纯的learn Generator困难的地方(Auto encoder可能遇见问题)</h4><ul>
-<li>邻近的component无法交流<ul>
-<li>当然如果考虑更加深的NN，多加入些隐层，可能能够解决</li>
-</ul>
-</li>
-<li>例如:<ul>
-<li>绿色为GAN得到的结论</li>
-<li>蓝色为Auto-encoder(单纯Generator)得到的</li>
-<li>原因是无法得到邻近的component的关系
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="Can-Discriminator-generate"><a href="#Can-Discriminator-generate" class="headerlink" title="Can Discriminator generate"></a>Can Discriminator generate</h3><h4 id="Discriminator复习"><a href="#Discriminator复习" class="headerlink" title="Discriminator复习"></a>Discriminator复习</h4><ul>
-<li>Discriminator在不同的领域有不同的名字,evaluation function,potential function….
-</li>
-</ul>
-<h4 id="Discriminator容易解决component与component之间的关系"><a href="#Discriminator容易解决component与component之间的关系" class="headerlink" title="Discriminator容易解决component与component之间的关系"></a>Discriminator容易解决component与component之间的关系</h4><ul>
-<li>如果已经有了整张图片，来判断图片是否ok，比较好处理<ul>
-<li>比如下图中，Discriminator就是一个CNN，这个CNN中有一个检测是否有独立的的filter，这样就很容易检测了
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="Discriminator擅长批评，不擅长生成"><a href="#Discriminator擅长批评，不擅长生成" class="headerlink" title="Discriminator擅长批评，不擅长生成"></a>Discriminator擅长批评，不擅长生成</h4>
-<ul>
-<li>need some negative example<ul>
-<li>所以产生negative example是关键</li>
-<li>可能需要一个好的程序去产生negative example<ul>
-<li>并不能随机生成，如果随机生成，那么一些处于中间状态的图片也没有办法处理</li>
-<li>而且需要一个Discriminator来判断是否是好的negative example<ul>
-<li>这样就会有鸡生蛋，蛋生鸡的问题了:我们需要好的negative example来训练Discriminator,同时又需要好的Discriminator来协助产生negative example</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>Iteration方法解决<ul>
-<li>Discriminator Training<ul>
-<li>只要能够找到$\tilde x=arg maxD(x)$,Discriminator就能够自己train，而不需要Generator</li>
-<li>用iteration方法，不断用此轮迭代得到的D去产生negative example(用D去找出自己的弱点)，然后迭代训练</li>
-</ul>
-</li>
-<li>Discriminator Training实际类似曲线图<ul>
-<li>第一张图中，可以看见在没有sample区域，D(x)也可能判断出很高的分数</li>
-<li>第二张图中，用得到的D(x)生成新的negative example,然后再从新调整D(x)(让随机产生的negative example分数低)</li>
-<li>第三张图中，就是第二轮训练后的曲线图<ul>
-<li>直观感觉：总体说就是用D(x)去生成非real example区域的高分negative example，然后不断调整自己，让其分数变低</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>Graphical model<ul>
-<li>其实就是用的Discriminator方法，在ml中其他的structure modle其实方法也是类似：<br>就是有一些negative和positive的样本，然后产生一个model，然后用此model再生成些negative example,然后再train….
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="Generator与Discriminator"><a href="#Generator与Discriminator" class="headerlink" title="Generator与Discriminator"></a>Generator与Discriminator</h4><ul>
-<li>优缺点<ul>
-<li>Generator容易生成，但不易判断组件与组件直接的关系</li>
-<li>Discriminator有全局观，但不易做生成</li>
-</ul>
-</li>
-<li>组合<ul>
-<li>Generator就替代了arg maxD(x),解决了Discriminator很难做生成的问题
-</li>
-</ul>
-</li>
-<li>VAE &amp; GAN
-<ul>
-<li>VAE比较稳，但最终的效果还是没有GAN好</li>
-<li>各种GAN其实效果没有太大区别</li>
-</ul>
-</li>
+<li>不仅在生成领域，GAN在分类领域也占有一席之地，简单来说，就是替换判别器为一个分类器，做多分类任务，而生成器仍然做生成任务，辅助分类器训练。</li>
+<li>GAN可以和强化学习结合，目前一个比较好的例子就是seq-GAN</li>
+<li>目前比较有意思的应用就是GAN用在图像风格迁移，图像降噪修复，图像超分辨率了，都有比较好的结果，详见pix-2-pix GAN 和cycle GAN。但是GAN目前在视频生成上和预测上还不是很好。</li>
+<li>目前也有研究者将GAN用在对抗性攻击上，具体就是训练GAN生成对抗文本，有针对或者无针对的欺骗分类器或者检测系统等等，但是目前没有见到很典范的文章。</li>
 </ul>
 
           
@@ -954,8 +809,6 @@
   </article>
 
 
-	
-    
 	
     
 	
