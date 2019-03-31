@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="推荐系统,总结篇,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="相关文章算法粗略介绍：搜索与推荐中的深度学习匹配：推荐篇探索推荐引擎内部的秘密张俊林-推荐系统召回模型FM、FFM与DeepFMWDL论文笔记 算法分类 分类方法1  传统 协调过滤 矩阵分解(MF) 因式分解机(FM)   基于embedding(深度学习兴起后) word-embedding:skip-gram等 graph-embedding:DeepWalk,TransE等   基于深度神">
+<meta name="keywords" content="推荐系统,总结篇">
+<meta property="og:type" content="article">
+<meta property="og:title" content="推荐算法总结">
+<meta property="og:url" content="http://yoursite.com/2019/03/26/rs/总结篇 推荐算法总结/index.html">
+<meta property="og:site_name" content="雷哥的博客">
+<meta property="og:description" content="相关文章算法粗略介绍：搜索与推荐中的深度学习匹配：推荐篇探索推荐引擎内部的秘密张俊林-推荐系统召回模型FM、FFM与DeepFMWDL论文笔记 算法分类 分类方法1  传统 协调过滤 矩阵分解(MF) 因式分解机(FM)   基于embedding(深度学习兴起后) word-embedding:skip-gram等 graph-embedding:DeepWalk,TransE等   基于深度神">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-03-31T12:11:09.134Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="推荐算法总结">
+<meta name="twitter:description" content="相关文章算法粗略介绍：搜索与推荐中的深度学习匹配：推荐篇探索推荐引擎内部的秘密张俊林-推荐系统召回模型FM、FFM与DeepFMWDL论文笔记 算法分类 分类方法1  传统 协调过滤 矩阵分解(MF) 因式分解机(FM)   基于embedding(深度学习兴起后) word-embedding:skip-gram等 graph-embedding:DeepWalk,TransE等   基于深度神">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '雷哥'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/03/26/rs/总结篇 推荐算法总结/">
+
+
+
+
+
+  <title>推荐算法总结 | 雷哥的博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">雷哥的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/26/rs/总结篇 推荐算法总结/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">推荐算法总结</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-26T07:30:21+08:00">
+                2019-03-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/推荐系统/" itemprop="url" rel="index">
+                    <span itemprop="name">推荐系统</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/推荐系统/总结篇/" itemprop="url" rel="index">
+                    <span itemprop="name">总结篇</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="相关文章"><a href="#相关文章" class="headerlink" title="相关文章"></a>相关文章</h4><p><a href="https://mp.weixin.qq.com/s/i8ClwpTGMB5cu0evrrZQGw" target="_blank" rel="noopener">算法粗略介绍：搜索与推荐中的深度学习匹配：推荐篇</a><br><a href="https://www.ibm.com/developerworks/cn/web/1103_zhaoct_recommstudy1" target="_blank" rel="noopener">探索推荐引擎内部的秘密</a><br><a href="https://zhuanlan.zhihu.com/c_188941548" target="_blank" rel="noopener">张俊林-推荐系统召回模型</a><br><a href="https://www.hrwhisper.me/machine-learning-fm-ffm-deepfm-deepffm/" target="_blank" rel="noopener">FM、FFM与DeepFM</a><br><a href="http://www.shuang0420.com/2017/03/13/论文笔记%20-%20Wide%20and%20Deep%20Learning%20for%20Recommender%20Systems/" target="_blank" rel="noopener">WDL论文笔记</a></p>
+<h4 id="算法分类"><a href="#算法分类" class="headerlink" title="算法分类"></a>算法分类</h4><ul>
+<li><p>分类方法1</p>
+<ul>
+<li>传统<ul>
+<li>协调过滤</li>
+<li>矩阵分解(MF)</li>
+<li>因式分解机(FM)</li>
+</ul>
+</li>
+<li>基于embedding(深度学习兴起后)<ul>
+<li>word-embedding:skip-gram等</li>
+<li>graph-embedding:DeepWalk,TransE等</li>
+</ul>
+</li>
+<li>基于深度神经网络<ul>
+<li>Deep &amp; Wide</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>分类方法2</p>
+<ul>
+<li>线性<ul>
+<li>LR</li>
+<li>在排序模型方面很多基于LR模型，现在很多都是基于深度学习来做，不同模型都有不同的应用场景，并不是单一使用一种场景。<font color="blue">LR模型利用人工特征工程</font>，相对于深度学习的优点是可以感知的，是可以debug的</li>
+</ul>
+</li>
+<li>非线性<ul>
+<li>FM,FFM,GBDT+LR,XGboost+LR</li>
+<li>LR模型对于特征处理是线性的，利用Xgboost+LR或者GBDT+LR<font color="blue">由线性向非线性转化，能够做到多特征组合</font>，对推荐效果也有不同程度的提升</li>
+</ul>
+</li>
+<li>神经网络<ul>
+<li>DeepFM,Wide&amp;Deep</li>
+<li>目前还有利用Wide&amp;Deep，可以从特征工程中解放出来，在特征选取方面不需要做很多工作,但是在调参方面工作量比较大</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+<h4 id="协同过滤"><a href="#协同过滤" class="headerlink" title="协同过滤"></a>协同过滤</h4><p><a href="https://www.ibm.com/developerworks/cn/web/1103_zhaoct_recommstudy1" target="_blank" rel="noopener">探索推荐引擎内部的秘密</a></p>
+<ul>
+<li>基于协同过滤的推荐可以分为三个子类：基于用户的推荐（User-based Recommendation），基于项目的推荐（Item-based Recommendation）和基于模型的推荐（Model-based Recommendation）</li>
+<li>基于用户的协同过滤推荐<ul>
+<li>基于用户的协同过滤推荐的基本原理是，根据所有用户对物品或者信息的偏好，发现与当前用户口味和偏好相似的“邻居”用户群，在一般的应用中是采用计算“K- 邻居”的算法；然后，基于这 K 个邻居的历史偏好信息，为当前用户进行推荐</li>
+</ul>
+</li>
+<li>基于项目的协同过滤推荐<ul>
+<li>基于项目的协同过滤推荐的基本原理也是类似的，只是说它使用所有用户对物品或者信息的偏好，发现物品和物品之间的相似度，然后根据用户的历史偏好信息，将类似的物品推荐给用户</li>
+</ul>
+</li>
+<li>基于协同过滤的推荐机制是现今应用最为广泛的推荐机制，它有以下几个显著的优点：<ul>
+<li>它不需要对物品或者用户进行严格的建模，而且不要求物品的描述是机器可理解的，所以这种方法也是领域无关的。</li>
+<li>这种方法计算出来的推荐是开放的，可以共用他人的经验，很好的支持用户发现潜在的兴趣偏好</li>
+</ul>
+</li>
+<li>存在以下几个问题：<ul>
+<li>方法的核心是基于历史数据，所以对新物品和新用户都有“冷启动”的问题。</li>
+<li>推荐的效果依赖于用户历史偏好数据的多少和准确性。</li>
+<li>在大部分的实现中，用户历史偏好是用稀疏矩阵进行存储的，而稀疏矩阵上的计算有些明显的问题，包括可能少部分人的错误偏好会对推荐的准确度有很大的影响等等。</li>
+<li>对于一些特殊品味的用户不能给予很好的推荐。</li>
+<li>由于以历史数据为基础，抓取和建模用户的偏好后，很难修改或者根据用户的使用演变，从而导致这个方法不够灵活。</li>
+</ul>
+</li>
+</ul>
+<h4 id="MF"><a href="#MF" class="headerlink" title="MF"></a>MF</h4><ul>
+<li>MF（Matrix Factorization，矩阵分解）模型是个在推荐系统领域里资格很深的老前辈协同过滤模型了。核心思想是通过两个低维小矩阵（一个代表用户embedding矩阵，一个代表物品embedding矩阵）的乘积计算，来模拟真实用户点击或评分产生的大的协同信息稀疏矩阵，本质上是编码了用户和物品协同信息的降维模型</li>
+<li>当训练完成，每个用户和物品得到对应的低维embedding表达后，如果要预测某个 $User_i 对 Item_j 的评分的时候，只要它们做个内积计算 〈User_i,Item_j 〉$ ，这个得分就是预测得分
+</li>
+</ul>
+<h4 id="SVD-MF-FISM-SVD"><a href="#SVD-MF-FISM-SVD" class="headerlink" title="SVD,MF,FISM,SVD++"></a>SVD,MF,FISM,SVD++</h4><ul>
+<li>CF本质就是解决矩阵填充问题</li>
+<li>矩阵填充一般是用SVD分解来解决
+<ul>
+<li>SVD就是在解决以下问题(Loss)</li>
+<li>svd有以下缺点：<ul>
+<li>missing data(就是没打分的，占比99%)和observed data（观测到的、已打分的）有一样的权重</li>
+<li>没有加正则，容易过拟合</li>
+</ul>
+</li>
+<li><font color="purple">注意和MF的区别，这边没没有使用embedding，user，item词嵌入的概念。而是用数学的方法求解的</font></li>
+</ul>
+</li>
+<li>MF<ul>
+<li>user和item分别用一个embedding表示，然后用户对item的偏好程度用这两个embedding的内积表示</li>
+<li>使用L2-loss（其它loss也可以）和正则：</li>
+</ul>
+</li>
+<li>FISM(Factored Item Similarity Model)<ul>
+<li><font color="blue">用user作用过的item的embedding的和来表示user</font>，item用另一套embedding下的一个embedding来表示，最后两者的内积表示user对该item的偏好<ul>
+<li>这个模型也叫item-based的CF，因为把括号里的东西展开后，<font color="blue">其实就是找用户作用过的item和item[j]的相似度</font></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>SVD++<ul>
+<li>很简单，另外用一个user的embedding，和上述的FISM的方法，融合来表示user。这曾经是netflix比赛中连续三年效果最好的单模型
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="FM"><a href="#FM" class="headerlink" title="FM"></a>FM</h4><p><a href="https://zhuanlan.zhihu.com/c_188941548" target="_blank" rel="noopener">张俊林-推荐系统召回模型</a></p>
+<ul>
+<li><p>从LR到SVM再到FM模型<br>LR模型简单易懂，但不能捕获更高维的特征，比如特征组合这类特征，所以不能很好拟合较复杂的场景(欠拟合)</p>
+
+</li>
+<li><p>加入特征组合(提升模型复杂度)</p>
+<ul>
+<li>虽然这个模型看上去貌似解决了二阶特征组合问题了，但是它有个潜在的问题：它对组合特征建模，泛化能力比较弱</li>
+<li>尤其是在大规模稀疏特征存在的场景下，这个毛病尤其突出，比如CTR预估和推荐排序</li>
+<li>这些场景的最大特点就是特征的大规模稀疏。所以上述模型并未在工业界广泛采用</li>
+<li><font color="blue">主要原因：由于数据稀疏，$x_i x_j$的权重参数$w_{i,j}$很多为0，导致不能学习</font><ul>
+<li>在训练数据里两个特征并未同时在训练实例里见到过，意味着 $x_i  and x_j$ 一起出现的次数为0，如果换做SVM的模式，是无法学会这个特征组合的权重的
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>FM模型<br>对于因子分解机FM来说，<font color="blue">利用特征的嵌入方式，最大的特点是对于稀疏的数据具有很好的学习能力。现实中稀疏的数据很多</font></p>
+<ul>
+<li><font color="blue">核心：这本质上是在对特征进行embedding化表征</font></li>
+<li><p>和SVM模型最大的不同，在于<font color="blue">特征组合权重</font>的计算方法。FM对于每个特征，学习一个大小为k的一维向量，于是，两个特征 $x_i 和 x_j 的特征组合的权重值，通过特征对应的向量 v_i 和 v_j 的内积 &lt;v_i,v_j&gt;$来表示。</p>
+
+</li>
+<li><p>为什么模型泛华能力强，能够解决稀疏数据的问题</p>
+<ul>
+<li>在训练数据里两个特征并未同时在训练实例里见到过，意味着 $x_i  and x_j$ 一起出现的次数为0，如果换做SVM的模式，是无法学会这个特征组合的权重的。</li>
+<li>但是因为FM是学习单个特征的embedding，并不依赖某个特定的特征组合是否出现过，所以只要特征 x_i 和其它<font color="blue">任意特征组合</font>出现过，那么就可以学习自己对应的embedding向量<ul>
+<li>于是，尽管 $x_i  and x_j$ 这个特征组合没有看到过，但是在预测的时候，如果看到这个新的特征组合，因为 $x_i 和 x_j$ 都能学会自己对应的embedding，所以可以通过内积算出这个新特征组合的权重。</li>
+<li>这是为何说FM模型泛化能力强的根本原因 
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>上式只是对数据的拟合函数，还要根据具体问题比如回归还是分类设以不同的Loss方法进行求解。以及数学求解的方法需要另参考其他资料</p>
+</li>
+<li><p>算法的效率</p>
+<ul>
+<li>粗略的看<br>从FM的原始数学公式看，因为在进行二阶（2-order）特征组合的时候，假设有n个不同的特征，那么二阶特征组合意味着任意两个特征都要进行交叉组合，所以可以直接推论得出：FM的时间复杂度是n的平方。但是如果故事仅仅讲到这里，FM模型是不太可能如此广泛地被工业界使用的。因为现实生活应用中的n往往是个非常巨大的特征数，如果FM是n平方的时间复杂度，那估计基本就没人带它玩了</li>
+<li>数学公式演示改进(细节也可以参考论文资料等)<br>FM如今被广泛采用并成功替代LR模型的一个关键所在是：它可以通过数学公式改写，把表面貌似是 $O(k<em>n^2 ) 的复杂度降低到 O(k</em>n)$</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="MF到FM的转换理解"><a href="#MF到FM的转换理解" class="headerlink" title="MF到FM的转换理解"></a>MF到FM的转换理解</h4><ul>
+<li>本质上，MF模型是FM模型的特例，<font color="blue">MF可以被认为是只有User ID 和Item ID这两个特征Fields的FM模型</font>，MF将这两类特征通过矩阵分解，来达到将这两类特征embedding化表达的目的</li>
+<li>而FM则可以看作是MF模型的进一步拓展，除了User ID和Item ID这两类特征外，很多其它类型的特征，都可以进一步融入FM模型里，它将所有这些特征转化为embedding低维向量表达，并计算任意两个特征embedding的内积，就是特征组合的权重
+</li>
+</ul>
+<h4 id="FFM-Field-aware-FM"><a href="#FFM-Field-aware-FM" class="headerlink" title="FFM(Field-aware FM)"></a>FFM(Field-aware FM)</h4><ul>
+<li><p>核心思想</p>
+<ul>
+<li>FM模型的某个特征，在和任意其它特征域的特征进行组合求权重的时候，共享了同一个embedding特征向量</li>
+<li>FFM模型是做得更细腻一些，在做特征组合的时候使用的embedding不同的特征向量。</li>
+<li>这意味着，如果有F个特征域，那么每个特征由FM模型的一个k维特征embedding，拓展成了（F-1）个k维特征embedding</li>
+<li>这个就是Field-aware的深层含义吧</li>
+</ul>
+</li>
+<li><p>算法效率问题</p>
+<ul>
+<li>FM模型可以通过公式改写，把本来看着是n的平方的计算复杂度，降低到 $O(k*n)$ </li>
+<li>而FFM无法做类似的改写，所以它的计算复杂度是 $O(k*n^2$ ) ，这明显在计算速度上也比FM模型慢得多</li>
+<li>所以，无论是急剧膨胀的参数量，还是变慢的计算速度，无论从哪个角度看，相对FM模型，FFM模型是略显笨重的。</li>
+<li>正因为FFM模型参数量太大，所以在训练FFM模型的时候，很容易过拟合，需要采取早停等防止过拟合的手段</li>
+</ul>
+</li>
+<li><p>数学公式</p>
+<ul>
+<li>其中$f_i和f_j$分别代表第i个特征和第j个特征所属的field
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="DeepFM"><a href="#DeepFM" class="headerlink" title="DeepFM"></a>DeepFM</h4><ul>
+<li><p>FM模型可以用神经网络进行表示</p>
+
+<ul>
+<li>这里需要<font color="red">理解Sparse Feature层和Embeddings层的表示，如何和原始的FM模型等价</font><ul>
+<li>Sparse Feature层中维数数据可能不一样，有可能是多维的one-hot向量，比如分类的数据，如果是连续的数值型，那么就是本身<ul>
+<li>即使各个field的维度是不一样的，但是它们embedding后长度均为k</li>
+<li><font color="blue">也就是说one-hot只有一位为非0，其实就是通过矩阵相乘后就表示和原始的FM模型是等价了</font></li>
+</ul>
+</li>
+<li>最终表现就是这个模型
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>DeepFM的模型如下图<br><font color="red">共享整个embedding层，进行多层网络训练，提取高阶特征</font></p>
+<ul>
+<li>左边就是刚才将的FM模型的神经网络表示</li>
+<li>右边的则为deep部分，<font color="blue">为全连接的网络，用于挖掘高阶的交叉特征</font>。整个模型共享embedding层，最后的结果就是把FM部分和DNN的部分做sigmoid<br>$Y=sigmoid(Y_{FM}+Y_{DNN})$
+</li>
+</ul>
+</li>
+<li><p>类比DeepFFM<br>类似于FFM对于FM模型来说，划分了field，对于不同的field内积时采用对应的隐向量。同样可以把DeepFM进行进化为DeepFFM，<font color="blue">即将每一个field embedding为m个维度为k的隐向量</font>（m为field的个数）</p>
+</li>
+</ul>
+<h4 id="WDL"><a href="#WDL" class="headerlink" title="WDL"></a>WDL</h4><ul>
+<li><p>Wide and Deep Learning<br>简单来说，<font color="blue">人脑就是一个不断记忆（memorization）并且归纳（generalization）的过程</font>，而这篇论文的思想，就是将<font color="red">宽线性模型（Wide Model，用于记忆，下图左侧）和深度神经网络模型（Deep Model，用于归纳，下图右侧）结合</font>，汲取各自优势形成了 Wide &amp; Deep 模型用于推荐排序</p>
+
+</li>
+<li><p>Wide Model<br>要理解的概念是 Memorization，主要是学习特征的共性或者说相关性，产生的推荐是和已经<font color="blue">有用户行为的物品直接相关的物品</font></p>
+<ul>
+<li>通过线性模型 + 特征交叉。所带来的Memorization以及记忆能力非常有效和可解释。但是Generalization（泛化能力）需要更多的人工特征工程</li>
+<li>用的模型是 逻辑回归(logistic regression, LR)，LR 的优点就是简单(simple)、容易规模化(scalable)、可解释性强(interpretable)。LR 的特征往往是二值且稀疏的(binary and sparse)</li>
+<li>总结一下，宽度模型的输入是用户安装应用(installation)和为用户展示（impression）的应用间的向量积（叉乘），模型通常训练 one-hot 编码后的二值特征<ul>
+<li>缺点：这种操作不会归纳出训练集中未出现的特征对</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Deep Model<br>要理解的概念是 Generalization，可以理解为<font color="blue">相关性的传递(transitivity)，会学习新的特征组合</font>，来提高推荐物品的多样性，或者说提供泛化能力(Generalization)</p>
+<font color="purple">我的理解就是要用DL能够学习各种未出现的特征组合能力，特征模型的泛化能力</font><br>- DNN几乎不需要特征工程。通过对低纬度的dense embedding进行组合可以学习到更深层次的隐藏特征<br>  - 泛化往往是通过学习 <font color="blue">low-dimensional dense embeddings</font> 来探索过去从未或很少出现的新的特征组合来实现的<br>  - 缺点是有点over-generalize（过度泛化）<br>    - 当query-item矩阵是稀疏并且是high-rank的时候（比如user有特殊的爱好，或item比较小众），很难非常效率的学习出低维度的表示。这种情况下，大部分的query-item都没有什么关系。但是dense embedding会导致几乎所有的query-item预测值都是非0的，<font color="blue">这就导致了推荐过度泛化，会推荐一些不那么相关的物品</font><br>  - 相反，linear model却可以通过<font color="red">cross-product transformation</font>来记住这些<font color="blue">exception rules</font>，而且仅仅使用了非常少的参数<br>- <font color="blue">所以WDL结合LR，这点和 LR 正好互补，因为 LR 只能记住很少的特征组合，能够帮助识别Deep Model中《所有 query-item pair 非零的预测》情况</font>
+</li>
+<li><p>两者区别与互补</p>
+<ul>
+<li>Memorization趋向于更加保守，推荐用户之前有过行为的items(只认识出现过的)</li>
+<li>generalization更加趋向于提高推荐系统的多样性（diversity）</li>
+<li>所以WDL结合LR，这点和 LR 正好互补，因为 LR 只能记住很少的特征组合，能够帮助识别Deep Model中《所有 query-item pair 非零的预测》情况</li>
+</ul>
+</li>
+<li><p>GP推荐系统的整体架构</p>
+<ul>
+<li>由两个部分组成,检索系统(或者说候选生成系统）和排序系统(排序网络)。</li>
+<li>首先，用 检索(retrieval) 的方法对大数据集进行初步筛选，返回最匹配 query 的一部分物品列表，这里的检索通常会结合采用 机器学习模型(machine-learned models) 和 人工定义规则(human-defined rules) 两种方法。从大规模样本中召回最佳候选集之后</li>
+<li>再使用 排序系统 对每个物品进行算分、排序，分数 P(y|x)。WDL 就是用在排序系统中</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/推荐系统/" rel="tag"># 推荐系统</a>
+          
+            <a href="/tags/总结篇/" rel="tag"># 总结篇</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/24/finance/企业的发展与扩张/" rel="next" title="企业的发展与扩张系">
+                <i class="fa fa-chevron-left"></i> 企业的发展与扩张系
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/26/finance/财务报表看企业竞争力/" rel="prev" title="财务报表看企业竞争力">
+                财务报表看企业竞争力 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/favicon.ico" alt="雷哥">
+          <p class="site-author-name" itemprop="name">雷哥</p>
+           
+              <p class="site-description motion-element" itemprop="description">不积跬步无以至千里</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">72</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/yuancl" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#相关文章"><span class="nav-number">1.</span> <span class="nav-text">相关文章</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#算法分类"><span class="nav-number">2.</span> <span class="nav-text">算法分类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#协同过滤"><span class="nav-number">3.</span> <span class="nav-text">协同过滤</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MF"><span class="nav-number">4.</span> <span class="nav-text">MF</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SVD-MF-FISM-SVD"><span class="nav-number">5.</span> <span class="nav-text">SVD,MF,FISM,SVD++</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#FM"><span class="nav-number">6.</span> <span class="nav-text">FM</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MF到FM的转换理解"><span class="nav-number">7.</span> <span class="nav-text">MF到FM的转换理解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#FFM-Field-aware-FM"><span class="nav-number">8.</span> <span class="nav-text">FFM(Field-aware FM)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DeepFM"><span class="nav-number">9.</span> <span class="nav-text">DeepFM</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#WDL"><span class="nav-number">10.</span> <span class="nav-text">WDL</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-雷哥"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">雷哥</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Gemini
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

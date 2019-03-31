@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="推荐系统,总结篇,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="达观数据个性化推荐系统实践刘志强 奇虎360:机器学习与推荐系统实践 整体过程 用户推荐系统本质是将人和物品关联起来，而系统对用户的理解也是由浅入深，初来时彼此陌生，需要有一个冷启的过程，逐渐把握用户的喜好。随着用户行为的丰富，系统对用户兴趣的描述也越来越客观，此时便可能得到更准确的用户偏好，进而完成更精准的推荐。然而物极必反，用户对于一个平台的认知与期望也是一样。随着用户的深度使用，势必对推荐系">
+<meta name="keywords" content="推荐系统,总结篇">
+<meta property="og:type" content="article">
+<meta property="og:title" content="总结篇:推荐系统难点">
+<meta property="og:url" content="http://yoursite.com/2019/03/31/rs/总结篇 推荐系统难点/index.html">
+<meta property="og:site_name" content="雷哥的博客">
+<meta property="og:description" content="达观数据个性化推荐系统实践刘志强 奇虎360:机器学习与推荐系统实践 整体过程 用户推荐系统本质是将人和物品关联起来，而系统对用户的理解也是由浅入深，初来时彼此陌生，需要有一个冷启的过程，逐渐把握用户的喜好。随着用户行为的丰富，系统对用户兴趣的描述也越来越客观，此时便可能得到更准确的用户偏好，进而完成更精准的推荐。然而物极必反，用户对于一个平台的认知与期望也是一样。随着用户的深度使用，势必对推荐系">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-03-31T12:12:28.210Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="总结篇:推荐系统难点">
+<meta name="twitter:description" content="达观数据个性化推荐系统实践刘志强 奇虎360:机器学习与推荐系统实践 整体过程 用户推荐系统本质是将人和物品关联起来，而系统对用户的理解也是由浅入深，初来时彼此陌生，需要有一个冷启的过程，逐渐把握用户的喜好。随着用户行为的丰富，系统对用户兴趣的描述也越来越客观，此时便可能得到更准确的用户偏好，进而完成更精准的推荐。然而物极必反，用户对于一个平台的认知与期望也是一样。随着用户的深度使用，势必对推荐系">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '雷哥'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/03/31/rs/总结篇 推荐系统难点/">
+
+
+
+
+
+  <title>总结篇:推荐系统难点 | 雷哥的博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">雷哥的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/31/rs/总结篇 推荐系统难点/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">总结篇:推荐系统难点</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-31T20:31:22+08:00">
+                2019-03-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/推荐系统/" itemprop="url" rel="index">
+                    <span itemprop="name">推荐系统</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/推荐系统/总结篇/" itemprop="url" rel="index">
+                    <span itemprop="name">总结篇</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><a href="https://mp.weixin.qq.com/s/0a4Ne9lgx1rmnE1jXfH6zQ" target="_blank" rel="noopener">达观数据个性化推荐系统实践</a><br><a href="https://mp.weixin.qq.com/s/SAmTNxTgtGLZ9cUH81FYgg" target="_blank" rel="noopener">刘志强 奇虎360:机器学习与推荐系统实践</a></p>
+<h4 id="整体过程"><a href="#整体过程" class="headerlink" title="整体过程"></a>整体过程</h4><ul>
+<li>用户<br>推荐系统本质是将人和物品关联起来，而系统对用户的理解也是由浅入深，初来时彼此陌生，需要有一个冷启的过程，逐渐把握用户的喜好。随着用户行为的丰富，系统对用户兴趣的描述也越来越客观，此时便可能得到更准确的用户偏好，进而完成更精准的推荐。然而物极必反，用户对于一个平台的认知与期望也是一样。随着用户的深度使用，势必对推荐系统生出更高的期待和要求。这时，便可能需要系统在满足深度用户某种刁钻的口味，与大众用户的普遍期待中做出某种取舍。用户也就不可避免的出现了流失。因为系统的能力终归有限，而用户的期望无限。</li>
+<li>资源<br>此外资源也会经历类似的过程，新进场的资源虽然天然有某种内容的属性，但其被用户接受，仍然不可避免需要经历一个过程。过程中有些资源会被淘汰，有些则会成长为热门。在不断地引入新资源的过程中，再热门的资源都会有过期的一天。就好比，再会保养的人，也逃不过岁月的流逝。甚至，为了保持系统的实时性，热门的资源需要主动地让出在系统中的曝光份额
+</li>
+</ul>
+<h4 id="如何精准把握用户兴趣"><a href="#如何精准把握用户兴趣" class="headerlink" title="如何精准把握用户兴趣"></a>如何精准把握用户兴趣</h4><p>用户兴趣不仅存在多样性，而且会随着时间的变化而变化</p>
+<ul>
+<li>长短期兴趣画像让模型效果稳定提升</li>
+<li>通过引入时间因子，基于不同的时间周期做用户画像<ul>
+<li>比如基于最近半年的或更久的数据做长期用户画像，基于近一个月或三个月做短期用户画像，同时还会有实时用户画像，基于这三种类型用户画像之间的差异化，能够感知用户的兴趣变更</li>
+</ul>
+</li>
+<li>基于用户画像后做一个过滤机制，把推荐过或者质量不佳先过滤。这样做排序时会引入一个时间因子做一个衰减，另外也会做机器学习的预测，可以方便地调整推荐顺序。</li>
+<li>接下来做优化，随着时间的推移，对于用户的刻画会更清晰准确</li>
+</ul>
+<h4 id="冷启动"><a href="#冷启动" class="headerlink" title="冷启动"></a>冷启动</h4><ul>
+<li>主要分为:用户冷启动，物品冷启动，系统冷启动</li>
+<li>用户冷启动<ul>
+<li>和其他领域做映射<br>从其他维度或领域的数据来判断新用户对现存物品的喜好。具体解释就是某个用户可能在已有领域current domain和另一领域out domain都有相关行为，可对两个不同领域的行为建立一个mapping，<font color="blue">当新用户来的时候，如果在另一领域有相关行为，可用该mapping作出prediction</font>，得到新用户对item的喜好程度</li>
+<li>先给用户推荐热门内容，等行为多后再进行个性化推荐</li>
+<li>利用注册信息<br>根据用户注册账号时填写的性别、年龄、地址等信息，推荐相关性高的内容或者商品<ul>
+<li>比如说一个人的性别是男、年龄是40岁、职业是老师，那么就会有对应“性别是男、年龄是40岁、职业是老师”的三个相关推荐列表，再根据筛选，确定最终的推荐列表</li>
+</ul>
+</li>
+<li>授权设备信息<br>通过授权，可以获得手机中的位置，通讯录，按照app等，然后通过这些信息来做进一步聚合推荐<ul>
+<li>指的是允许app访问手机的一些信息，比如定位、安装信息、通讯录等，这样就可以推荐通讯录好友喜欢过的内容或商品</li>
+<li>或者说你手机里安装过懂球帝，就可以给你推荐足球相关的内容</li>
+<li>假如你安装了美丽说、蘑菇街、大姨妈等app，就可以判定你是女性了，更进一步还可以判定你是备孕还是少女</li>
+</ul>
+</li>
+<li>首次登录选标签<br>要求用户进来时选择一个或者多个标签，然后收集整理用户感兴趣的范围，去推荐相关性高的内容和商品</li>
+<li>绑定社交账号<br>利用用户的社交网络账号登录（需要用户授权），导入用户在社交网站上的好友信息，然后给用户推荐其好友喜欢的内容或物品</li>
+</ul>
+</li>
+<li>物品冷启动<ul>
+<li>对物品分类，可以使用Item-CF方法，推荐给相关用户</li>
+<li>设置一定概率的曝光机会，然后根据收益进行调整</li>
+</ul>
+</li>
+<li>系统冷启动<ul>
+<li>采用专家标注<br>对物品进行人工的标记，比如电影可以标记心情、剧情类型、类别、故事时间、地点、观众类型、获奖情况、风格、主旨、画面技术等等。在专家标记了一定样本之后使用自然语言理解和机器学习技术，通过分析用户对电影的评价和电影自身的内容属性对新电影进行自我标记。同时还设置了用户反馈界面，通过用户反馈进行改善</li>
+</ul>
+</li>
+</ul>
+<h4 id="回声室效应"><a href="#回声室效应" class="headerlink" title="回声室效应"></a>回声室效应</h4><p>为了满足用户的兴趣。第二部分是重复，如果依赖于内容标签或者内容分类，对于标签或者类目来不断地召回新的推荐结果，这会导致推荐结果没有新鲜感</p>
+<h4 id="性能方面"><a href="#性能方面" class="headerlink" title="性能方面"></a>性能方面</h4><ul>
+<li>采用离线，近实时，实时三层架构解决，可以参考推荐系统架构篇</li>
+</ul>
+<h4 id="其他问题"><a href="#其他问题" class="headerlink" title="其他问题"></a>其他问题</h4><ul>
+<li>精准兴趣<br>在推荐系统中，我们往往使用用户的点击行为来估计用户的喜好类型。然而用户的每次点击未必都是经过其深思熟虑之后的结果，因此行为本身会存在一个置信度的问题。而这个置信度是未知的</li>
+<li>新资源找不到合适用户<br>大量优质资源找不到需要的用户，成为层面资源，而低俗的内容大量曝光</li>
+<li>EE问题</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/推荐系统/" rel="tag"># 推荐系统</a>
+          
+            <a href="/tags/总结篇/" rel="tag"># 总结篇</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/30/rs/总结篇 推荐系统架构/" rel="next" title="总结篇:推荐系统架构">
+                <i class="fa fa-chevron-left"></i> 总结篇:推荐系统架构
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/favicon.ico" alt="雷哥">
+          <p class="site-author-name" itemprop="name">雷哥</p>
+           
+              <p class="site-description motion-element" itemprop="description">不积跬步无以至千里</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">72</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/yuancl" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#整体过程"><span class="nav-number">1.</span> <span class="nav-text">整体过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#如何精准把握用户兴趣"><span class="nav-number">2.</span> <span class="nav-text">如何精准把握用户兴趣</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#冷启动"><span class="nav-number">3.</span> <span class="nav-text">冷启动</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#回声室效应"><span class="nav-number">4.</span> <span class="nav-text">回声室效应</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#性能方面"><span class="nav-number">5.</span> <span class="nav-text">性能方面</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#其他问题"><span class="nav-number">6.</span> <span class="nav-text">其他问题</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-雷哥"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">雷哥</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Gemini
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
