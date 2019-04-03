@@ -274,7 +274,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/31/rs/总结篇 推荐系统难点/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/31/rs/总结篇-推荐系统难点/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="雷哥">
@@ -293,7 +293,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/03/31/rs/总结篇 推荐系统难点/" itemprop="url">总结篇:推荐系统难点</a></h1>
+                <a class="post-title-link" href="/2019/03/31/rs/总结篇-推荐系统难点/" itemprop="url">总结篇-推荐系统难点</a></h1>
         
 
         <div class="post-meta">
@@ -381,14 +381,14 @@
             <p><a href="https://mp.weixin.qq.com/s/0a4Ne9lgx1rmnE1jXfH6zQ" target="_blank" rel="noopener">达观数据个性化推荐系统实践</a><br><a href="https://mp.weixin.qq.com/s/SAmTNxTgtGLZ9cUH81FYgg" target="_blank" rel="noopener">刘志强 奇虎360:机器学习与推荐系统实践</a></p>
 <h4 id="整体过程"><a href="#整体过程" class="headerlink" title="整体过程"></a>整体过程</h4><ul>
 <li>用户<br>推荐系统本质是将人和物品关联起来，而系统对用户的理解也是由浅入深，初来时彼此陌生，需要有一个冷启的过程，逐渐把握用户的喜好。随着用户行为的丰富，系统对用户兴趣的描述也越来越客观，此时便可能得到更准确的用户偏好，进而完成更精准的推荐。然而物极必反，用户对于一个平台的认知与期望也是一样。随着用户的深度使用，势必对推荐系统生出更高的期待和要求。这时，便可能需要系统在满足深度用户某种刁钻的口味，与大众用户的普遍期待中做出某种取舍。用户也就不可避免的出现了流失。因为系统的能力终归有限，而用户的期望无限。</li>
-<li>资源<br>此外资源也会经历类似的过程，新进场的资源虽然天然有某种内容的属性，但其被用户接受，仍然不可避免需要经历一个过程。过程中有些资源会被淘汰，有些则会成长为热门。在不断地引入新资源的过程中，再热门的资源都会有过期的一天。就好比，再会保养的人，也逃不过岁月的流逝。甚至，为了保持系统的实时性，热门的资源需要主动地让出在系统中的曝光份额
+<li>资源<br>此外资源也会经历类似的过程，新进场的资源虽然天然有某种内容的属性，但其被用户接受，仍然不可避免需要经历一个过程。过程中有些资源会被淘汰，有些则会成长为热门。在不断地引入新资源的过程中，再热门的资源都会有过期的一天。就好比，再会保养的人，也逃不过岁月的流逝。甚至，为了保持系统的实时性，热门的资源需要主动地让出在系统中的曝光份额<img src="/2019/03/31/rs/总结篇-推荐系统难点/resources/E6D14C085DD134BA899AAC947BFA222A.jpg">
 </li>
 </ul>
 <h4 id="如何精准把握用户兴趣"><a href="#如何精准把握用户兴趣" class="headerlink" title="如何精准把握用户兴趣"></a>如何精准把握用户兴趣</h4><p>用户兴趣不仅存在多样性，而且会随着时间的变化而变化</p>
 <ul>
 <li>长短期兴趣画像让模型效果稳定提升</li>
 <li>通过引入时间因子，基于不同的时间周期做用户画像<ul>
-<li>比如基于最近半年的或更久的数据做长期用户画像，基于近一个月或三个月做短期用户画像，同时还会有实时用户画像，基于这三种类型用户画像之间的差异化，能够感知用户的兴趣变更</li>
+<li>比如基于最近半年的或更久的数据做长期用户画像，基于近一个月或三个月做短期用户画像，同时还会有实时用户画像，基于这三种类型用户画像之间的差异化，能够感知用户的兴趣变更<img src="/2019/03/31/rs/总结篇-推荐系统难点/resources/6D356B47DE2BCDD89642BEA83EFF8C2F.jpg"></li>
 </ul>
 </li>
 <li>基于用户画像后做一个过滤机制，把推荐过或者质量不佳先过滤。这样做排序时会引入一个时间因子做一个衰减，另外也会做机器学习的预测，可以方便地调整推荐顺序。</li>
@@ -397,7 +397,7 @@
 <h4 id="冷启动"><a href="#冷启动" class="headerlink" title="冷启动"></a>冷启动</h4><ul>
 <li>主要分为:用户冷启动，物品冷启动，系统冷启动</li>
 <li>用户冷启动<ul>
-<li>和其他领域做映射<br>从其他维度或领域的数据来判断新用户对现存物品的喜好。具体解释就是某个用户可能在已有领域current domain和另一领域out domain都有相关行为，可对两个不同领域的行为建立一个mapping，<font color="blue">当新用户来的时候，如果在另一领域有相关行为，可用该mapping作出prediction</font>，得到新用户对item的喜好程度</li>
+<li>和其他领域做映射<br>从其他维度或领域的数据来判断新用户对现存物品的喜好。具体解释就是某个用户可能在已有领域current domain和另一领域out domain都有相关行为，可对两个不同领域的行为建立一个mapping，<font color="blue">当新用户来的时候，如果在另一领域有相关行为，可用该mapping作出prediction</font>，得到新用户对item的喜好程度<img src="/2019/03/31/rs/总结篇-推荐系统难点/resources/3C5075A26ABD3D104FE440464149FFDC.jpg"></li>
 <li>先给用户推荐热门内容，等行为多后再进行个性化推荐</li>
 <li>利用注册信息<br>根据用户注册账号时填写的性别、年龄、地址等信息，推荐相关性高的内容或者商品<ul>
 <li>比如说一个人的性别是男、年龄是40岁、职业是老师，那么就会有对应“性别是男、年龄是40岁、职业是老师”的三个相关推荐列表，再根据筛选，确定最终的推荐列表</li>
@@ -482,7 +482,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/30/rs/总结篇 推荐系统架构/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/30/rs/总结篇-推荐系统架构/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="雷哥">
@@ -501,7 +501,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/03/30/rs/总结篇 推荐系统架构/" itemprop="url">总结篇:推荐系统架构</a></h1>
+                <a class="post-title-link" href="/2019/03/30/rs/总结篇-推荐系统架构/" itemprop="url">总结篇-推荐系统架构</a></h1>
         
 
         <div class="post-meta">
@@ -587,11 +587,11 @@
         
           
             <p><a href="https://mp.weixin.qq.com/s/0a4Ne9lgx1rmnE1jXfH6zQ" target="_blank" rel="noopener">达观数据个性化推荐系统实践</a><br><a href="https://zhuanlan.zhihu.com/p/59528983" target="_blank" rel="noopener">张俊林</a><br><a href="http://www.shuang0420.com/2017/03/13/论文笔记%20-%20Wide%20and%20Deep%20Learning%20for%20Recommender%20Systems/" target="_blank" rel="noopener">GP应用推荐举例</a></p>
-<h4 id="推荐系统应用方向"><a href="#推荐系统应用方向" class="headerlink" title="推荐系统应用方向"></a>推荐系统应用方向</h4><p>个性化推荐，相关推荐，热门推荐。。。<br></p>
+<h4 id="推荐系统应用方向"><a href="#推荐系统应用方向" class="headerlink" title="推荐系统应用方向"></a>推荐系统应用方向</h4><p>个性化推荐，相关推荐，热门推荐。。。<br><img src="/2019/03/30/rs/总结篇-推荐系统架构/resources/6BB63FB58358AAA9C67664EAA8E9A26A.jpg"></p>
 <h4 id="推荐系统设计目标"><a href="#推荐系统设计目标" class="headerlink" title="推荐系统设计目标"></a>推荐系统设计目标</h4><ul>
 <li>功能：功能上要全面些，包括相关推荐、个性化推荐、热门推荐等还包括混合推荐</li>
 <li>效果：效果在不同领域有差异，如在直播领域关注送礼物、打赏收入等，而资讯行业较关注人均点击数量、用户停留时长等；</li>
-<li>性能：性能在不同领域也是有差异的，但是必须是快速、稳定的，不允许出现推荐位置的留白，也就是你的推荐系统可以效果不好但是不能空白，在高并发时要求性能稳定快速。其实在实际业务场景中这三者是相互影响，权衡利弊的
+<li>性能：性能在不同领域也是有差异的，但是必须是快速、稳定的，不允许出现推荐位置的留白，也就是你的推荐系统可以效果不好但是不能空白，在高并发时要求性能稳定快速。其实在实际业务场景中这三者是相互影响，权衡利弊的<img src="/2019/03/30/rs/总结篇-推荐系统架构/resources/348F4BA3140EE1B899EB1C2B7E8D868B.jpg">
 </li>
 </ul>
 <h4 id="系统层次图"><a href="#系统层次图" class="headerlink" title="系统层次图"></a>系统层次图</h4><ul>
@@ -602,10 +602,10 @@
 </li>
 <li>算法层主要是包括基于内容的推荐、矩阵分解、协同过滤、深度学习等。基于内容推荐如标签召回、热门召回、内容召回，深度学习各行业都在使用。</li>
 <li>组合层，对各种单一推荐算法的召回结果，使用机器学习的方式进行融合，以达到推荐效果的最优化。</li>
-<li>应用层，目前提供三种推荐，同时还有推荐理由，就是可解释性
+<li>应用层，目前提供三种推荐，同时还有推荐理由，就是可解释性<img src="/2019/03/30/rs/总结篇-推荐系统架构/resources/8462B373BB26CD4BC997344AECED2D4A.jpg">
 </li>
 </ul>
-<h4 id="整体架构"><a href="#整体架构" class="headerlink" title="整体架构"></a>整体架构</h4>
+<h4 id="整体架构"><a href="#整体架构" class="headerlink" title="整体架构"></a>整体架构</h4><img src="/2019/03/30/rs/总结篇-推荐系统架构/resources/486690233E22E3AC4A925A9A2B5FEDCF.jpg">
 <ul>
 <li>在线部分<ul>
 <li>召回：通过召回环节，将给用户推荐的物品降到千以下规模</li>
@@ -617,13 +617,13 @@
 <li>近线部分<br>主要目的是<font color="blue">实时收集用户行为反馈</font>，并选择训练实例，实时抽取拼接特征，并近乎实时地更新在线推荐模型。这样做的好处是用户的最新兴趣能够近乎实时地体现到推荐结果里</li>
 <li>离线部分<br>通过对<font color="blue">线上用户点击日志的存储和清理，整理离线训练数据</font>，并周期性地更新推荐模型。对于超大规模数据和机器学习模型来说，往往需要高效地分布式机器学习平台来对离线训练进行支持</li>
 </ul>
-
+<img src="/2019/03/30/rs/总结篇-推荐系统架构/resources/B03559C0A23985CDE678B71B18B84A36.jpg">
 <ul>
-<li>GP应用推荐举例
+<li>GP应用推荐举例<img src="/2019/03/30/rs/总结篇-推荐系统架构/resources/0E258B35C68F04D2A827637698CD061A.jpg">
 </li>
 </ul>
 <h4 id="在线部分"><a href="#在线部分" class="headerlink" title="在线部分"></a>在线部分</h4><ul>
-<li>召回阶段<br>将物料从千万级别，降低到百级别</li>
+<li>召回阶段<br>将物料从千万级别，降低到百级别<img src="/2019/03/30/rs/总结篇-推荐系统架构/resources/D61302841462A503D6067A318B735A5A.jpg"></li>
 </ul>
 
           
@@ -679,7 +679,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/26/rs/总结篇 推荐算法总结/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/26/rs/总结篇-推荐算法总结/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="雷哥">
@@ -698,7 +698,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/03/26/rs/总结篇 推荐算法总结/" itemprop="url">推荐算法总结</a></h1>
+                <a class="post-title-link" href="/2019/03/26/rs/总结篇-推荐算法总结/" itemprop="url">总结篇-推荐算法总结</a></h1>
         
 
         <div class="post-meta">
@@ -824,16 +824,16 @@
 </ul>
 </li>
 </ul>
-
+<img src="/2019/03/26/rs/总结篇-推荐算法总结/resources/E3D0F465A0C9A650AFE3BEB09F26AAFA.jpg">
 <h4 id="协同过滤"><a href="#协同过滤" class="headerlink" title="协同过滤"></a>协同过滤</h4><p><a href="https://www.ibm.com/developerworks/cn/web/1103_zhaoct_recommstudy1" target="_blank" rel="noopener">探索推荐引擎内部的秘密</a></p>
 <ul>
 <li>基于协同过滤的推荐可以分为三个子类：基于用户的推荐（User-based Recommendation），基于项目的推荐（Item-based Recommendation）和基于模型的推荐（Model-based Recommendation）</li>
 <li>基于用户的协同过滤推荐<ul>
-<li>基于用户的协同过滤推荐的基本原理是，根据所有用户对物品或者信息的偏好，发现与当前用户口味和偏好相似的“邻居”用户群，在一般的应用中是采用计算“K- 邻居”的算法；然后，基于这 K 个邻居的历史偏好信息，为当前用户进行推荐</li>
+<li>基于用户的协同过滤推荐的基本原理是，根据所有用户对物品或者信息的偏好，发现与当前用户口味和偏好相似的“邻居”用户群，在一般的应用中是采用计算“K- 邻居”的算法；然后，基于这 K 个邻居的历史偏好信息，为当前用户进行推荐<img src="/2019/03/26/rs/总结篇-推荐算法总结/resources/F711DB43A7FFBE6FE172AA4E89A3AA25.jpg"></li>
 </ul>
 </li>
 <li>基于项目的协同过滤推荐<ul>
-<li>基于项目的协同过滤推荐的基本原理也是类似的，只是说它使用所有用户对物品或者信息的偏好，发现物品和物品之间的相似度，然后根据用户的历史偏好信息，将类似的物品推荐给用户</li>
+<li>基于项目的协同过滤推荐的基本原理也是类似的，只是说它使用所有用户对物品或者信息的偏好，发现物品和物品之间的相似度，然后根据用户的历史偏好信息，将类似的物品推荐给用户<img src="/2019/03/26/rs/总结篇-推荐算法总结/resources/F7D855B58A3BA17FE77017B75EEAC6F1.jpg"></li>
 </ul>
 </li>
 <li>基于协同过滤的推荐机制是现今应用最为广泛的推荐机制，它有以下几个显著的优点：<ul>
@@ -851,15 +851,15 @@
 </li>
 </ul>
 <h4 id="MF"><a href="#MF" class="headerlink" title="MF"></a>MF</h4><ul>
-<li>MF（Matrix Factorization，矩阵分解）模型是个在推荐系统领域里资格很深的老前辈协同过滤模型了。核心思想是通过两个低维小矩阵（一个代表用户embedding矩阵，一个代表物品embedding矩阵）的乘积计算，来模拟真实用户点击或评分产生的大的协同信息稀疏矩阵，本质上是编码了用户和物品协同信息的降维模型</li>
-<li>当训练完成，每个用户和物品得到对应的低维embedding表达后，如果要预测某个 $User_i 对 Item_j 的评分的时候，只要它们做个内积计算 〈User_i,Item_j 〉$ ，这个得分就是预测得分
+<li>MF（Matrix Factorization，矩阵分解）模型是个在推荐系统领域里资格很深的老前辈协同过滤模型了。核心思想是通过两个低维小矩阵（一个代表用户embedding矩阵，一个代表物品embedding矩阵）的乘积计算，来模拟真实用户点击或评分产生的大的协同信息稀疏矩阵，本质上是编码了用户和物品协同信息的降维模型<img src="/2019/03/26/rs/总结篇-推荐算法总结/resources/D766787AD9BABE291715A7FA78CA0483.jpg"></li>
+<li>当训练完成，每个用户和物品得到对应的低维embedding表达后，如果要预测某个 $User_i 对 Item_j 的评分的时候，只要它们做个内积计算 〈User_i,Item_j 〉$ ，这个得分就是预测得分<img src="/2019/03/26/rs/总结篇-推荐算法总结/resources/7C24B08BD0F51553C0BC91BCA91A3AD3.jpg">
 </li>
 </ul>
 <h4 id="SVD-MF-FISM-SVD"><a href="#SVD-MF-FISM-SVD" class="headerlink" title="SVD,MF,FISM,SVD++"></a>SVD,MF,FISM,SVD++</h4><ul>
-<li>CF本质就是解决矩阵填充问题</li>
-<li>矩阵填充一般是用SVD分解来解决
+<li>CF本质就是解决矩阵填充问题<img src="/2019/03/26/rs/总结篇-推荐算法总结/resources/2BD3B5476445D05EDCC0CEBD67A69CEF.jpg"></li>
+<li>矩阵填充一般是用SVD分解来解决<img src="/2019/03/26/rs/总结篇-推荐算法总结/resources/249CBC7DD767EC261F4F6E690BFF123F.jpg">
 <ul>
-<li>SVD就是在解决以下问题(Loss)</li>
+<li>SVD就是在解决以下问题(Loss)<img src="/2019/03/26/rs/总结篇-推荐算法总结/resources/749D83FC437F6C72D57EBC9593D4C313.jpg"></li>
 <li>svd有以下缺点：<ul>
 <li>missing data(就是没打分的，占比99%)和observed data（观测到的、已打分的）有一样的权重</li>
 <li>没有加正则，容易过拟合</li>
@@ -869,19 +869,19 @@
 </ul>
 </li>
 <li>MF<ul>
-<li>user和item分别用一个embedding表示，然后用户对item的偏好程度用这两个embedding的内积表示</li>
-<li>使用L2-loss（其它loss也可以）和正则：</li>
+<li>user和item分别用一个embedding表示，然后用户对item的偏好程度用这两个embedding的内积表示<img src="/2019/03/26/rs/总结篇-推荐算法总结/resources/6244EB6F4E2E5E8FF59AEF1F74BFDE70.jpg"></li>
+<li>使用L2-loss（其它loss也可以）和正则：<img src="/2019/03/26/rs/总结篇-推荐算法总结/resources/46C9358BD6ADCED970682B6604BF028F.jpg"></li>
 </ul>
 </li>
 <li>FISM(Factored Item Similarity Model)<ul>
 <li><font color="blue">用user作用过的item的embedding的和来表示user</font>，item用另一套embedding下的一个embedding来表示，最后两者的内积表示user对该item的偏好<ul>
-<li>这个模型也叫item-based的CF，因为把括号里的东西展开后，<font color="blue">其实就是找用户作用过的item和item[j]的相似度</font></li>
+<li>这个模型也叫item-based的CF，因为把括号里的东西展开后，<font color="blue">其实就是找用户作用过的item和item[j]的相似度</font><img src="/2019/03/26/rs/总结篇-推荐算法总结/resources/E213592DC17DC84F8E8B69B950B774CE.jpg"></li>
 </ul>
 </li>
 </ul>
 </li>
 <li>SVD++<ul>
-<li>很简单，另外用一个user的embedding，和上述的FISM的方法，融合来表示user。这曾经是netflix比赛中连续三年效果最好的单模型
+<li>很简单，另外用一个user的embedding，和上述的FISM的方法，融合来表示user。这曾经是netflix比赛中连续三年效果最好的单模型<img src="/2019/03/26/rs/总结篇-推荐算法总结/resources/8113DCE6ED7DFF4BF45247EB2E34189F.jpg">
 </li>
 </ul>
 </li>
@@ -889,7 +889,7 @@
 <h4 id="FM"><a href="#FM" class="headerlink" title="FM"></a>FM</h4><p><a href="https://zhuanlan.zhihu.com/c_188941548" target="_blank" rel="noopener">张俊林-推荐系统召回模型</a></p>
 <ul>
 <li><p>从LR到SVM再到FM模型<br>LR模型简单易懂，但不能捕获更高维的特征，比如特征组合这类特征，所以不能很好拟合较复杂的场景(欠拟合)</p>
-
+<img src="/2019/03/26/rs/总结篇-推荐算法总结/resources/232BB3F732AD29ECA8A9CDB044A3B36F.jpg">
 </li>
 <li><p>加入特征组合(提升模型复杂度)</p>
 <ul>
@@ -897,7 +897,7 @@
 <li>尤其是在大规模稀疏特征存在的场景下，这个毛病尤其突出，比如CTR预估和推荐排序</li>
 <li>这些场景的最大特点就是特征的大规模稀疏。所以上述模型并未在工业界广泛采用</li>
 <li><font color="blue">主要原因：由于数据稀疏，$x_i x_j$的权重参数$w_{i,j}$很多为0，导致不能学习</font><ul>
-<li>在训练数据里两个特征并未同时在训练实例里见到过，意味着 $x_i  and x_j$ 一起出现的次数为0，如果换做SVM的模式，是无法学会这个特征组合的权重的
+<li>在训练数据里两个特征并未同时在训练实例里见到过，意味着 $x_i  and x_j$ 一起出现的次数为0，如果换做SVM的模式，是无法学会这个特征组合的权重的<img src="/2019/03/26/rs/总结篇-推荐算法总结/resources/0405C4C1759F61DB053CCDB696B99C7F.jpg">
 </li>
 </ul>
 </li>
@@ -907,14 +907,14 @@
 <ul>
 <li><font color="blue">核心：这本质上是在对特征进行embedding化表征</font></li>
 <li><p>和SVM模型最大的不同，在于<font color="blue">特征组合权重</font>的计算方法。FM对于每个特征，学习一个大小为k的一维向量，于是，两个特征 $x_i 和 x_j 的特征组合的权重值，通过特征对应的向量 v_i 和 v_j 的内积 &lt;v_i,v_j&gt;$来表示。</p>
-
+<img src="/2019/03/26/rs/总结篇-推荐算法总结/resources/5D30E7FAEDECBCA1AD37754267567059.jpg">
 </li>
 <li><p>为什么模型泛华能力强，能够解决稀疏数据的问题</p>
 <ul>
 <li>在训练数据里两个特征并未同时在训练实例里见到过，意味着 $x_i  and x_j$ 一起出现的次数为0，如果换做SVM的模式，是无法学会这个特征组合的权重的。</li>
 <li>但是因为FM是学习单个特征的embedding，并不依赖某个特定的特征组合是否出现过，所以只要特征 x_i 和其它<font color="blue">任意特征组合</font>出现过，那么就可以学习自己对应的embedding向量<ul>
 <li>于是，尽管 $x_i  and x_j$ 这个特征组合没有看到过，但是在预测的时候，如果看到这个新的特征组合，因为 $x_i 和 x_j$ 都能学会自己对应的embedding，所以可以通过内积算出这个新特征组合的权重。</li>
-<li>这是为何说FM模型泛化能力强的根本原因 
+<li>这是为何说FM模型泛化能力强的根本原因 <img src="/2019/03/26/rs/总结篇-推荐算法总结/resources/7C5B35BBD0C7325E782FFC16AC89535C.jpg">
 </li>
 </ul>
 </li>
@@ -933,7 +933,7 @@
 </ul>
 <h4 id="MF到FM的转换理解"><a href="#MF到FM的转换理解" class="headerlink" title="MF到FM的转换理解"></a>MF到FM的转换理解</h4><ul>
 <li>本质上，MF模型是FM模型的特例，<font color="blue">MF可以被认为是只有User ID 和Item ID这两个特征Fields的FM模型</font>，MF将这两类特征通过矩阵分解，来达到将这两类特征embedding化表达的目的</li>
-<li>而FM则可以看作是MF模型的进一步拓展，除了User ID和Item ID这两类特征外，很多其它类型的特征，都可以进一步融入FM模型里，它将所有这些特征转化为embedding低维向量表达，并计算任意两个特征embedding的内积，就是特征组合的权重
+<li>而FM则可以看作是MF模型的进一步拓展，除了User ID和Item ID这两类特征外，很多其它类型的特征，都可以进一步融入FM模型里，它将所有这些特征转化为embedding低维向量表达，并计算任意两个特征embedding的内积，就是特征组合的权重<img src="/2019/03/26/rs/总结篇-推荐算法总结/resources/270EA9D3CF21C4F363002E84A5E9D766.jpg">
 </li>
 </ul>
 <h4 id="FFM-Field-aware-FM"><a href="#FFM-Field-aware-FM" class="headerlink" title="FFM(Field-aware FM)"></a>FFM(Field-aware FM)</h4><ul>
@@ -955,22 +955,22 @@
 </li>
 <li><p>数学公式</p>
 <ul>
-<li>其中$f_i和f_j$分别代表第i个特征和第j个特征所属的field
+<li>其中$f_i和f_j$分别代表第i个特征和第j个特征所属的field<img src="/2019/03/26/rs/总结篇-推荐算法总结/resources/0A702A17B2566CC94E06A8D70A4EF0E5.jpg">
 </li>
 </ul>
 </li>
 </ul>
 <h4 id="DeepFM"><a href="#DeepFM" class="headerlink" title="DeepFM"></a>DeepFM</h4><ul>
 <li><p>FM模型可以用神经网络进行表示</p>
-
+<img src="/2019/03/26/rs/总结篇-推荐算法总结/resources/2B105C5A04F5C58A4B7AB7B7113F3A85.jpg">
 <ul>
 <li>这里需要<font color="red">理解Sparse Feature层和Embeddings层的表示，如何和原始的FM模型等价</font><ul>
 <li>Sparse Feature层中维数数据可能不一样，有可能是多维的one-hot向量，比如分类的数据，如果是连续的数值型，那么就是本身<ul>
 <li>即使各个field的维度是不一样的，但是它们embedding后长度均为k</li>
-<li><font color="blue">也就是说one-hot只有一位为非0，其实就是通过矩阵相乘后就表示和原始的FM模型是等价了</font></li>
+<li><font color="blue">也就是说one-hot只有一位为非0，其实就是通过矩阵相乘后就表示和原始的FM模型是等价了</font><img src="/2019/03/26/rs/总结篇-推荐算法总结/resources/E65E503C55862E88CCD45DBDB8D3B395.jpg"></li>
 </ul>
 </li>
-<li>最终表现就是这个模型
+<li>最终表现就是这个模型<img src="/2019/03/26/rs/总结篇-推荐算法总结/resources/AE8DD79D27067ABD87C903A33567DD8B.jpg">
 </li>
 </ul>
 </li>
@@ -979,7 +979,7 @@
 <li><p>DeepFM的模型如下图<br><font color="red">共享整个embedding层，进行多层网络训练，提取高阶特征</font></p>
 <ul>
 <li>左边就是刚才将的FM模型的神经网络表示</li>
-<li>右边的则为deep部分，<font color="blue">为全连接的网络，用于挖掘高阶的交叉特征</font>。整个模型共享embedding层，最后的结果就是把FM部分和DNN的部分做sigmoid<br>$Y=sigmoid(Y_{FM}+Y_{DNN})$
+<li>右边的则为deep部分，<font color="blue">为全连接的网络，用于挖掘高阶的交叉特征</font>。整个模型共享embedding层，最后的结果就是把FM部分和DNN的部分做sigmoid<br>$Y=sigmoid(Y_{FM}+Y_{DNN})$<img src="/2019/03/26/rs/总结篇-推荐算法总结/resources/3DE3419525ED615318B841FF4E302F5A.jpg">
 </li>
 </ul>
 </li>
@@ -988,7 +988,7 @@
 </ul>
 <h4 id="WDL"><a href="#WDL" class="headerlink" title="WDL"></a>WDL</h4><ul>
 <li><p>Wide and Deep Learning<br>简单来说，<font color="blue">人脑就是一个不断记忆（memorization）并且归纳（generalization）的过程</font>，而这篇论文的思想，就是将<font color="red">宽线性模型（Wide Model，用于记忆，下图左侧）和深度神经网络模型（Deep Model，用于归纳，下图右侧）结合</font>，汲取各自优势形成了 Wide &amp; Deep 模型用于推荐排序</p>
-
+<img src="/2019/03/26/rs/总结篇-推荐算法总结/resources/EE2B4D289C05BA7DAE1AB4E0D88A0D10.jpg">
 </li>
 <li><p>Wide Model<br>要理解的概念是 Memorization，主要是学习特征的共性或者说相关性，产生的推荐是和已经<font color="blue">有用户行为的物品直接相关的物品</font></p>
 <ul>
@@ -1014,7 +1014,7 @@
 <ul>
 <li>由两个部分组成,检索系统(或者说候选生成系统）和排序系统(排序网络)。</li>
 <li>首先，用 检索(retrieval) 的方法对大数据集进行初步筛选，返回最匹配 query 的一部分物品列表，这里的检索通常会结合采用 机器学习模型(machine-learned models) 和 人工定义规则(human-defined rules) 两种方法。从大规模样本中召回最佳候选集之后</li>
-<li>再使用 排序系统 对每个物品进行算分、排序，分数 P(y|x)。WDL 就是用在排序系统中</li>
+<li>再使用 排序系统 对每个物品进行算分、排序，分数 P(y|x)。WDL 就是用在排序系统中<img src="/2019/03/26/rs/总结篇-推荐算法总结/resources/3122D99113950432B7C98420BD44982B.jpg"></li>
 </ul>
 </li>
 </ul>
