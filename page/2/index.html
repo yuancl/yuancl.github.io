@@ -1,23 +1,2868 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
 
-{% block title %}{{ config.title }}{% if theme.index_with_subtitle and config.subtitle %} - {{config.subtitle }}{% endif %}{% endblock %}
 
-{% block page_class %}
-  {% if is_home() %} page-home {% endif %}
-{% endblock %}
 
-{% block content %}
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="不积跬步无以至千里">
+<meta property="og:type" content="website">
+<meta property="og:title" content="雷哥的博客">
+<meta property="og:url" content="http://yoursite.com/page/2/index.html">
+<meta property="og:site_name" content="雷哥的博客">
+<meta property="og:description" content="不积跬步无以至千里">
+<meta property="og:locale" content="zh-Hans">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="雷哥的博客">
+<meta name="twitter:description" content="不积跬步无以至千里">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '雷哥'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/page/2/">
+
+
+
+
+
+  <title>雷哥的博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left 
+   page-home 
+ ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">雷哥的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
   <section id="posts" class="posts-expand">
-    {% for post in page.posts %}
-      	{{ post_template.render(post, true) }}
-    {% endfor %}
+    
+	
+      	    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/27/rs/高级推荐模型之一：张量分解模型/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/27/rs/高级推荐模型之一：张量分解模型/" itemprop="url">高级推荐模型之一：张量分解模型</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-27T08:29:20+08:00">
+                2019-02-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/推荐系统/" itemprop="url" rel="index">
+                    <span itemprop="name">推荐系统</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/推荐系统/推荐模型简介/" itemprop="url" rel="index">
+                    <span itemprop="name">推荐模型简介</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="为什么需要张量"><a href="#为什么需要张量" class="headerlink" title="为什么需要张量"></a>为什么需要张量</h4><ul>
+<li>矩阵分析的核心思想<ul>
+<li>用矩阵这种数据结构来表达用户和物品的相互关系<ul>
+<li>这里，我们一般谈论的都是一些最简单的关系，例如评分、点击、购买等（本文我们依然只是讨论评分）</li>
+</ul>
+</li>
+<li><font color="red">在这种二元的模式下，矩阵就是最好的表达用户和物品之间关系的数据结构</font></li>
+</ul>
+</li>
+<li>如何表示更多信息(上下文)<ul>
+<li>背景<br>在真实的场景中，用户和物品的关系以及产生这种关系的周围环境是复杂的。一个矩阵并不能完全描述所有的变量。<ul>
+<li>例如，用户对于某个物品的评分是发生在某个地点、某个时间段内的。这种所谓的“上下文关系”（Context）往往会对评分产生很大影响。遗憾的是，<font color="blue">一个矩阵无法捕捉这样的上下文关系</font></li>
+</ul>
+</li>
+<li>基于回归的矩阵分解和分解机方法解决<br>我们之前讨论过的“基于回归的矩阵分解”和“分解机”，本质上都是在某种程度上绕开这个问题<ul>
+<li>采用的方法就是，<font color="blue">依然用矩阵来表达二元关系，但是把其他信息放进隐变量中</font>，或者是采用基于信息的推荐系统的思路来得到相关信息的建模</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>除了这种思路，还有没有别的方法，<font color="red">可以把上下文关系融入到对用户和物品的建模中去呢</font></p>
+<ul>
+<li>张量<br>从本质上来说，张量就是矩阵的推广。我们可以这么理解:<ul>
+<li>矩阵是对二维关系建模的一种工具；在二维关系中，用户和物品的评分是唯一能够被建模的变量；</li>
+<li>而张量，就是对 N维关系的一种建模。而到了 N 维关系中，理论上，我们可以对任意多种上下文关系进行建<ul>
+<li>比如，我们刚才提到的时间，就可以组成一个三维的张量，分别为用户、物品和时间。然后，在这个三维的张量中，每一个单元代表着某一个用户对于某一个物品在某一个时间段的评分</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="基于张量分解的推荐模型"><a href="#基于张量分解的推荐模型" class="headerlink" title="基于张量分解的推荐模型"></a>基于张量分解的推荐模型</h4><p>分解多维向量，我理解和之前学习的分解矩阵思想类似：分解为多个矩阵的表示方式</p>
+<ul>
+<li><p>CP 分解（CANDECOMP/PARAFAC）</p>
+<ul>
+<li>CP 分解是把一个三维张量分解为三个矩阵。具体来说，比如我们的三维张量是 N 维用户乘以 M 维的物品乘以 R 维的时间段。那么，分解出来的三个矩阵就分别为 N 维乘以 K 维的用户矩阵，M 维乘以 K 维的物品矩阵，以及 R 维乘以 K 维的时间矩阵。</li>
+<li>这三个矩阵中的每一个向量都代表某一个用户、某一个物品和某一个时间段。K 在这里是一个参数，类似于矩阵分解中的隐变量的维度，我们也就可以把这个 K 理解成为隐变量的维度</li>
+<li>那么在原始的三维张量中，<font color="blue">某一个元素就是这三个矩阵的某三个向量对应元素乘积相加的结果</font></li>
+<li>CP 分解的一大好处就是，<font color="blue">分解出来的三个矩阵的隐变量维度是一样的</font>，这也就减少了需要调整的参数的个数</li>
+</ul>
+</li>
+<li><p>HOSVD 分解（High Order Singular Value decomposition）</p>
+<ul>
+<li>含义<ul>
+<li>这种分解和 CP 分解最大的不同就是分解出来的三个矩阵的维度不再一样<ul>
+<li>也就是说，在我们之前的例子中，用户矩阵的维度可以是 N 乘以 A，物品矩阵的维度是 M 乘以 B，时间段矩阵的维度是 R 乘以 C。当然，这样就无法还原之前的 N 乘以 M 乘以 R 的三维张量了</li>
+<li>于是在技术上，还需要乘以一个 A 乘以 B 乘以 C 的小张量才能对原始数据进行复原。</li>
+</ul>
+</li>
+<li>所以，通俗地讲，HOSVD 分解就是把一个三维的张量，分解成为三个矩阵和一个更小的张量的乘积</li>
+</ul>
+</li>
+<li>优缺点<ul>
+<li>好处自然就是给不同的数据以不同的自由度，因为不再限制用户、物品和时间段都必须有一样的维度。</li>
+<li>缺点是有了更多的“超参数”需要调整</li>
+</ul>
+</li>
+<li>损失函数<br>在一般的分解过程中，我们可以定义“<strong>平方差</strong>”（Squared Loss），也就是原始数值和预测数值之间的平方差来作为损失函数</li>
+</ul>
+</li>
+</ul>
+<h4 id="求解张量分解"><a href="#求解张量分解" class="headerlink" title="求解张量分解"></a>求解张量分解</h4><ul>
+<li>随机梯度下降法（SGD, Stochastic Gradient Descent），也就是把张量的分解问题看作是一个一般的优化问题</li>
+<li>另外一种方法，也是在矩阵分解中可以使用的，叫作 ALS（Alternating Least Square）方法<ul>
+<li>这种方法则是在优化每一轮的时候，按住所有其他的矩阵变量不动，单独优化一个变量</li>
+</ul>
+</li>
+</ul>
+<h4 id="问题：从概念上来看，用张量分解对上下文信息进行建模的最大问题是什么"><a href="#问题：从概念上来看，用张量分解对上下文信息进行建模的最大问题是什么" class="headerlink" title="问题：从概念上来看，用张量分解对上下文信息进行建模的最大问题是什么"></a>问题：从概念上来看，用张量分解对上下文信息进行建模的最大问题是什么</h4><ul>
+<li>张量的稀疏性</li>
+<li>模型更负责，不易求解</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+	
+    
+	
+      	    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/27/rs/基于隐变量的模型之三：分解机/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/27/rs/基于隐变量的模型之三：分解机/" itemprop="url">基于隐变量的模型之三：分解机</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-27T07:19:29+08:00">
+                2019-02-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/推荐系统/" itemprop="url" rel="index">
+                    <span itemprop="name">推荐系统</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/推荐系统/推荐模型简介/" itemprop="url" rel="index">
+                    <span itemprop="name">推荐模型简介</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="矩阵分解和基于回归的隐变量模型存在哪些问题"><a href="#矩阵分解和基于回归的隐变量模型存在哪些问题" class="headerlink" title="矩阵分解和基于回归的隐变量模型存在哪些问题"></a>矩阵分解和基于回归的隐变量模型存在哪些问题</h4><ul>
+<li>发展脉络 <ul>
+<li>首先，矩阵分解主要解决了两个问题，那就是从一个大矩阵降维到两个小矩阵，并且寄希望这两个小矩阵能够抓住用户和物品的相关度。<ul>
+<li>然而，单纯的矩阵分解无法融入很多用户和物品的特性</li>
+</ul>
+</li>
+<li>这就引导我们开发出了基于回归的矩阵分解。<ul>
+<li>所谓的回归部分，也就是从显式特性出发，建立从显式特性到隐变量之间关系的流程，从而使我们能够把更多的信号放进模型中。</li>
+<li>在一定程度上，基于回归的隐变量模型实现了把显式变量和隐变量结合的目的<ul>
+<li>但是这类模型的学习过程非常麻烦。实际上，因为这类模型复杂的训练流程，其在实际应用中并不常见。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>那么，有没有其他思路来统一显式变量和隐变量的处理方式呢？</p>
+<h4 id="分解机"><a href="#分解机" class="headerlink" title="分解机"></a>分解机</h4><ul>
+<li><p>核心原理</p>
+<ul>
+<li>核心就是认为<font color="red">需要预测的变量（这里我们依然讨论评分）是所有显式变量的一个回归结果</font><ul>
+<li>分解机直接借鉴了这一点，也就是说，<font color="blue">分解机的输入是所有的显式变量</font></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>个人理解</p>
+<ul>
+<li>这种推荐模型本质可以看做是个回归模型：需要预测的变量（这里我们依然讨论评分）是所有显式变量的一个回归结果 </li>
+<li><font color="purple">分解机本质就是增加了更多的特征，比如各个显示变量的两两乘积生成新特征</font></li>
+<li>适当增加模型复杂度，泛化性强：结合了隐变量，比如显示变量的两两乘积用隐变量的乘积来表示(一种显示变量就用隐变量vector表示)</li>
+</ul>
+</li>
+<li><p>基本思想</p>
+<ul>
+<li>第一步:把用户的年龄和物品的种类直接当作特性输入到模型中</li>
+<li>第二步:分解机是把这两个特性的数值进行乘积，当作一个新的特性，然后进一步处理这种两两配对的关系<ul>
+<li>增加了特征(<font color="blue">显示变量两两配对</font>)<br>分解机在对待显式变量的手法上更进了一步，那就是不仅直接对显式变量进行建模，还对显示变量的两两关系进行建模。当然，在原始的论文中，分解机其实还可以对更加高维的关系进行建模，我们这里局限在两两关系上<ul>
+<li><font color="blue">把原始特性进行两两配对是构建模型的一种重要的方法，特别是对于非深度学习模型，需要自己做特征工程的模型</font></li>
+<li>两两配对问题<ul>
+<li>一个问题就是<font color="blue"><strong>特性空间会急速增长</strong></font></li>
+<li>另一个更严重的问题就是，如果我们的单独特性中，有一些是“类别特性”（Categorical Feature），那么在两两配对之后就会产生大量的 0，从而变成一个巨大的<font color="blue">稀疏矩阵</font></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="如何建模-如何解决上面问题"><a href="#如何建模-如何解决上面问题" class="headerlink" title="如何建模(如何解决上面问题)"></a>如何建模(如何解决上面问题)</h4><ul>
+<li>分解机利用了<font color="blue">矩阵分解的降维思路</font></li>
+<li>我们不对一个稀疏矩阵直接建模，而是把这个稀疏矩阵分解之后再进行建模</li>
+<li>就是先假定，<font color="blue">所有特性都对应一个隐变量向量，两个显式特性的乘积是两个特性的隐变量的点积</font><ul>
+<li>也就是说，我们把两个显式特性的乘积分解为了两个向量的乘积。这样，我们就不需要直接表示原来的稀疏矩阵。<p></p></li>
+</ul>
+</li>
+<li>在这样的思路下，分解机成功地把隐变量和显式变量结合到了一起<ul>
+<li>当我们的显式特性仅仅是用户 ID 和物品 ID 的时候，分解机的表达退回了最原始的矩阵分解</li>
+<li>也就是说，矩阵分解其实可以表达成为特性的两两作用矩阵的分解</li>
+</ul>
+</li>
+<li>在原始的论文中，作者还用分解机模拟了好几种流行的模型</li>
+<li>虽然也是为了建立从显式特性到隐变量的关系，但是对比基于回归的矩阵分解而言，分解机的训练过程大大简化了。在实际应用中，我们经常使用“<strong>随机梯度下降</strong>”（SGD, Stochastic Gradient Descent）来对分解机直接进行求解</li>
+</ul>
+<h4 id="思考问题"><a href="#思考问题" class="headerlink" title="思考问题"></a>思考问题</h4><ul>
+<li>分解机能够解决“冷启动”的问题吗<ul>
+<li>个人认为是可以解决的：因为本质就是一个回归模型，由隐变量得到显变量的映射。然后映射到指标(比如说点击率，评论得分)</li>
+<li>所以在冷启动问题上，对缺失的变量可以看其分布，然后拿到期望值，这样来处理</li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+	
+    
+	
+      	    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/26/rs/基于隐变量的模型之二：基于回归的矩阵分解/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/26/rs/基于隐变量的模型之二：基于回归的矩阵分解/" itemprop="url">基于隐变量的模型之二：基于回归的矩阵分解</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-26T08:15:19+08:00">
+                2019-02-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/推荐系统/" itemprop="url" rel="index">
+                    <span itemprop="name">推荐系统</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/推荐系统/推荐模型简介/" itemprop="url" rel="index">
+                    <span itemprop="name">推荐模型简介</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="基础矩阵分解问题"><a href="#基础矩阵分解问题" class="headerlink" title="基础矩阵分解问题"></a>基础矩阵分解问题</h4><ul>
+<li>第一，矩阵分解的矩阵仅仅是对用户和物品的喜好进行了“编码”（Encode），但在融合多种不同的推荐元素方面，表现却很一般</li>
+<li>第二，矩阵分解的核心是学习用户的隐向量和物品的隐向量。原则上，这两类隐向量的学习仅能通过训练过程获得。<ul>
+<li>我们无法获得新来用户或者新来物品的隐向量了，因为这些用户和物品并不在训练集里</li>
+<li>冷启动问题<br>在推荐系统中，这种情况就叫作不能处理“冷启动”（Cold Start）问题，也就是不能处理“冷”用户和“冷”物品。在这样的场景下，直接使用矩阵分解就会有问题</li>
+</ul>
+</li>
+</ul>
+<h4 id="基于回归的矩阵分解"><a href="#基于回归的矩阵分解" class="headerlink" title="基于回归的矩阵分解"></a>基于回归的矩阵分解</h4><ul>
+<li>首先，有一组用户特性和物品特性来表述每一个用户和物品。这些特性不是隐变量，是显式表达的特性<ul>
+<li>用户特性比如用户的年龄、性别、经常出现的地区、已经表达了喜好的类别等</li>
+<li>物品特性比如物品的种类、描述等等</li>
+<li>这两组显式的特性就是为了解决我们刚才说的第一个问题(融入更多元素)，矩阵分解无法抓住更多的信号。</li>
+</ul>
+</li>
+<li>现在我们有两个独立的部分<ul>
+<li>一个是基于矩阵分解的部分，这一部分是分解一个已知的评分矩阵，从而学习到用户和物品的隐向量</li>
+<li>另外一个部分，就是用户特性和物品特性</li>
+</ul>
+</li>
+<li>关联两部分<br>用户的隐向量，其实是从用户的显式特性变换而来的<ul>
+<li><font color="blue">我们建立一个从显式特性到隐向量的回归模型，使得隐向量受到两方面的制约：从评分矩阵的分解得来的信息和从显式特性回归得来的信息</font></li>
+</ul>
+</li>
+<li>不怕冷启动<br>不再怕“冷启动”了。或者说，在有一部分“冷启动”的情况下，这样的模型可以处理得更好。原因就是我们使用了显示特性来回归隐向量</li>
+<li>贝叶斯角度理解<br>我们还可以从贝叶斯的角度来理解基于回归的矩阵分解。把用户的隐向量和物品的隐向量看作是两个随机变量。我们可以认为这些随机变量加上了先验概率分布。只不过，这个先验概率分布的均值不是我们经常使用的 0，而是一个以回归函数的结果为均值的高斯分布，这个回归函数就是我们由显式特性得到的。本质上，我们认为显示特性的某种变换成为了隐向量的先验信息</li>
+</ul>
+<h4 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h4><ul>
+<li>第一，我们简要介绍了矩阵分解的一些问题</li>
+<li>第二，我们详细介绍了基于回归的矩阵分解的基本思路，以及这样的模型如何解决了传统矩阵分解关于“冷启动”的难题</li>
+<li>第三，如何学习的问题，需要查阅其他资料</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+	
+    
+	
+      	    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/26/rs/基于隐变量的模型之一：矩阵分解/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/26/rs/基于隐变量的模型之一：矩阵分解/" itemprop="url">基于隐变量的模型之一：矩阵分解</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-26T07:10:19+08:00">
+                2019-02-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/推荐系统/" itemprop="url" rel="index">
+                    <span itemprop="name">推荐系统</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/推荐系统/推荐模型简介/" itemprop="url" rel="index">
+                    <span itemprop="name">推荐模型简介</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="什么是隐变量"><a href="#什么是隐变量" class="headerlink" title="什么是隐变量"></a>什么是隐变量</h4><ul>
+<li>就是“隐藏的变量”或者叫“隐藏的参数”，这里主要是指我们假定实际的数据是由一系列的隐含变量产生的</li>
+<li>我们通过模型的假设，知道隐变量之间的关系，但暂时并不知道隐变量的取值。因此需要通过“推断”（Inference）过程来确定隐变量的实际取值</li>
+<li><p>隐变量往往还带有“统计分布”（Distribution）的假设。什么意思呢？就是隐变量之间，或者隐变量和显式变量之间的关系，我们往往认为是由某种分布产生的</p>
+<ul>
+<li>举例:高斯混合模型<br>高斯混合模型假设数据是由多个不同的高斯分布产生的，每一个高斯分布有自己的均值和方差<ul>
+<li>对于每一个数据点，我们就有一个隐含的变量，来表达当前这个数据点究竟来自哪一个高斯分布</li>
+<li>两个高斯分布的均值和方法其实也不知道</li>
+</ul>
+</li>
+</ul>
+<p>高斯混合模型，几乎是最简单的隐变量模型，但也给我们了展示了使用隐变量模型对数据建模的灵活性以及训练的复杂性</p>
+</li>
+</ul>
+<h4 id="矩阵分解作为隐变量模型"><a href="#矩阵分解作为隐变量模型" class="headerlink" title="矩阵分解作为隐变量模型"></a>矩阵分解作为隐变量模型</h4><ul>
+<li>关系矩阵(用户，物品，评分)<br>在推荐系统中，有一种最普遍的数据表达，那就是用户和物品的交互，比如评分、点击等等<ul>
+<li>这里我们用评分作为一般性的讨论。对于每一个用户，如果我们用一个向量来表达其对所有可能物品的评分，那么把所有用户的向量堆积起来，就可以得到一个矩阵</li>
+<li>这个矩阵的每一行代表一个用户，每一列代表一个物品，每一个交叉的元素代表某一个用户对于某一个商品的评分</li>
+<li>特点<br>这个矩阵的数据其实非常稀少。因为在一个现实的系统中，一个用户不可能对所有的物品都进行评分</li>
+<li>补全任务<br>我们的任务其实就是根据有评分的用户物品交互，对那些还没有评分信息的物品进行预测。如果我们能够“补全”（Complete）整个矩阵里的其他元素</li>
+</ul>
+</li>
+</ul>
+<h4 id="如何补全-矩阵分解"><a href="#如何补全-矩阵分解" class="headerlink" title="如何补全(矩阵分解)"></a>如何补全(矩阵分解)</h4><ul>
+<li><p>核心<br>我们可以看到，矩阵分解的核心其实就是刚才的假设，用隐向量来表达用户和物品，他们的乘积关系就成为了原始的元素。不同的假设可以得到不同的矩阵分解模型</p>
+</li>
+<li><p>效果<br>在这样的一个假设下，一个原本 1 百万乘以 1 万的矩阵就可以被分解为 1 百万乘以 100 的用户矩阵和 100 乘以 1 万的物品矩阵的乘</p>
+</li>
+<li><p>降维<br>原本是需要对整个矩阵，也就是 1 百万乘以 1 万个数据进行建模，而现在缩减到了两个小一些的矩阵 1 百万乘以 100 和 100 乘以 1 万</p>
+<ul>
+<li>对比来看，之前对于每一个用户，我们需要一万个元素来表达用户对于这一万个物品的评分喜好；现在，对每个用于仅仅需要保存 100 个元素</li>
+<li>这一百个元素的数值并不代表任何意义。从这个层面上理解矩阵分解，也就能够帮助我们知道，这个方法其实是一种“<strong>降维</strong></li>
+</ul>
+</li>
+</ul>
+<h4 id="如何学习"><a href="#如何学习" class="headerlink" title="如何学习"></a>如何学习</h4><ul>
+<li>目标函数<br>前面讲到，矩阵里的每一个元素来自于<font color="blue">两个隐向量的点积</font>，我们就可以利用这一点来构造一个目标函数。<ul>
+<li>利用<strong>最小二乘法</strong>的原理（Least Square）来拟合求解这些隐向量</li>
+<li>这个目标函数其实就是说，这两个隐向量的点积一定要与我们观测到的矩阵数值相近。这里的“相近”是用这两个数值的误差，在这里也就是<strong>平方差</strong>（Square Error）来衡量的</li>
+</ul>
+</li>
+</ul>
+<h4 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h4><ul>
+<li>第一，我们简要介绍了隐变量模型的基本原理</li>
+<li>第二，我们详细介绍了矩阵分解作为隐变量模型的假设和原理</li>
+<li>第三，我们简要地讨论了如何求解矩阵分解里的隐变量</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+	
+    
+	
+      	    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/25/rs/简单推荐模型之三 基于内容信息的推荐模型/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/25/rs/简单推荐模型之三 基于内容信息的推荐模型/" itemprop="url">简单推荐模型之三:基于内容信息的推荐模型</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-25T07:32:10+08:00">
+                2019-02-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/推荐系统/" itemprop="url" rel="index">
+                    <span itemprop="name">推荐系统</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/推荐系统/推荐模型简介/" itemprop="url" rel="index">
+                    <span itemprop="name">推荐模型简介</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h4><ul>
+<li>对于基于流行度预测的推荐的问题<ul>
+<li>推荐结果不是个性化的。因为流行度预测是一种全局的预测，每个人得到的推荐结果是一样的</li>
+</ul>
+</li>
+<li>而协同过滤的问题<ul>
+<li>强烈依赖相似用户以及相似物品的定义</li>
+<li>而且对于新用户或者新物品来说有数据稀缺的问题</li>
+</ul>
+</li>
+</ul>
+<p>因此，在实际应用中，往往不能在整个系统中单独使用协同过滤</p>
+<h4 id="基于内容信息的推荐系统"><a href="#基于内容信息的推荐系统" class="headerlink" title="基于内容信息的推荐系统"></a>基于内容信息的推荐系统</h4><ul>
+<li>定义<br>基于内容信息的推荐系统，其实就是<font color="blue">用特征（Feature）来表示用户、物品以及用户和物品的交互，从而能够把推荐问题转换成为监督学习任务</font></li>
+</ul>
+<h4 id="特征工程"><a href="#特征工程" class="headerlink" title="特征工程"></a>特征工程</h4><ul>
+<li>特征工程(物品信息)<br>需要将用户和物品的所有信号用特征来表示<ul>
+<li>物品的文本信息<ul>
+<li>用 TF-IDF 的方法来形成文本向量。当然，因为文本信息的噪声相对比较大，并且数据维度也比较大（维度等于文本所对应语言的词汇量），很多时候我们都寻求降低这部分数据的维度，降低到一个固定的维度。这种时候，很多所谓“降维”的工具就很有必要了</li>
+<li>用“<strong>话题模型</strong>”（Topic Model）对文本进行降维的。也就是说，我们针对每一个文字描述都可以学习到一个话题的分布，这个分布向量可能是 50 维、100 维等等</li>
+<li>使用各种“<strong>词嵌入向量</strong>”（Word Embedding）的方法来为文字信息降维，从而能够使用一个固定的维度来表达文字信息</li>
+</ul>
+</li>
+<li>物品的类别信息<ul>
+<li>直接获取分类，比如新闻的分类，或者通过其他渠道得到直接的分类</li>
+<li>使用ML的手段，来得到分类</li>
+</ul>
+</li>
+<li>知识图谱挖掘信息<ul>
+<li>利用知识图谱进行知识的深挖</li>
+<li>举个例子，某一篇新闻文章是关于美国总统特朗普的，于是这篇文章可能就会自动被打上美国总统、美国政治等其他标签。这种通过一些原始的信息来进一步推断更加丰富的知识信息，也是重要的物品类别特征的处理工作</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>特征工程(用户信息)<ul>
+<li>最基础、最首要的肯定是用户的基本特性，包括性别、年龄、地理位置</li>
+<li>还有围绕这三个特性发展出来的三大种类的特性。比如，不同性别在文章点击率上的差异，不同年龄层在商品购买上的差异，不同地理位置对不同影视作品的喜好等</li>
+<li>我们可以为用户进行画像（Profiling）<ul>
+<li>有显式的用户画像，比如用户自己定义的喜好，或者用户自己认为不愿意看到的物品或者类别</li>
+<li>隐式的：通过用户的“隐反馈”（Implicit Feedback），来对用户的喜好进行建模</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="目标函数"><a href="#目标函数" class="headerlink" title="目标函数"></a>目标函数</h4><p>对于究竟在哪种场景中使用什么样的目标函数，这依然是当前的一个主要研究方向</p>
+<ul>
+<li>基于评分<br>纯粹的基于评分（Rating）的协同过滤推荐系统一样，我们可以设置监督学习的目标函数是<strong>拟合评分</strong>。当然，已经有很多学者指出评分并不是推荐系统的真正目标。</li>
+<li>基于点击率，购买率<br>在实际系统中比较常见的目标函数有点击率和购买率，也有一些相对比较复杂的目标函数，比如预测用户在某一个物品上的停留时长</li>
+</ul>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><ul>
+<li>背景：基于流行度和协同过滤的缺点</li>
+<li>如何构建特征工程，包括物品和用户</li>
+<li>目标函数的确定很重要</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+	
+    
+	
+      	    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/24/rs/简单推荐模型之二 基于相似信息的推荐模型/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/24/rs/简单推荐模型之二 基于相似信息的推荐模型/" itemprop="url">简单推荐模型之二:基于相似信息的推荐模型</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-24T15:30:10+08:00">
+                2019-02-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/推荐系统/" itemprop="url" rel="index">
+                    <span itemprop="name">推荐系统</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/推荐系统/推荐模型简介/" itemprop="url" rel="index">
+                    <span itemprop="name">推荐模型简介</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="什么是相似信息的推荐模型"><a href="#什么是相似信息的推荐模型" class="headerlink" title="什么是相似信息的推荐模型"></a>什么是相似信息的推荐模型</h4><ul>
+<li>定义<br>相似信息的推荐模型又叫<strong>“临近”（Neighborhood）模型</strong>。顾名思义，就是我们希望利用临近、或者相似的数据点来为用户推荐。</li>
+<li>协同过滤<br>临近模型的内在假设是推荐系统中著名的“<strong>协同过滤</strong>”（Collaborative Filtering）<ul>
+<li><strong>相似的用户可能会有相似的喜好，相似的物品可能会被相似的人所偏好</strong>。</li>
+<li>于是，如果我们能够定义怎么寻找相似的用户或者相似的物品，那么我们就可以利用这些类别的人群或者物品来给用户进行推荐。<p></p></li>
+</ul>
+</li>
+<li>举例<br>A,B都看了战狼2，B还看了红海，那么就给A推荐红海<br>思考过程：<ul>
+<li>第一，联系用户 A 和用户 B 的是他们都看过《战狼 2》。这就帮助我们定义了 A 和 B 是相似用户</li>
+<li>第二，我们的假定是，相似的用户有相似的观影偏好，于是我们就直接把 B 的另外一个观看过的电影《红海行动》拿来推荐给了 A</li>
+<li>意义：</li>
+<li>这两个步骤其实就很好地解释了“协同过滤”中“协同”的概念，意思就是<font color="blue">相似的用户互相协同，互相过滤信息</font></li>
+<li><strong>“协同过滤”从统计模型的意义上来讲，其实就是“借用数据”，<font color="blue">在数据稀缺的情况下帮助建模</font></strong>。掌握这个思路是非常重要的建模手段</li>
+<li>在用户 A 数据不足的情况下，我们挖掘到可以借鉴用户 B 的数据<ul>
+<li>因此，我们其实是把用户 A 和用户 B“聚类”到了一起，认为他们代表了一个类型的用户。</li>
+<li>当我们把对单个用户的建模<font color="red">抽象上升到某一个类型的用户</font>的时候，这就把更多的数据放到了一起</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="基于相似用户的协同过滤"><a href="#基于相似用户的协同过滤" class="headerlink" title="基于相似用户的协同过滤"></a>基于相似用户的协同过滤</h4><p>如何才能够比较系统地定义这样的流程呢？</p>
+<ul>
+<li>首先，问题被抽象为我们需要估计用户 I 针对一个没有“触碰过”（这里指点击、购买、或者评分等行为）的物品 J 的偏好<ul>
+<li>第一步，我们需要构建一个用户集合，这个用户集合得满足两个标准：<ul>
+<li>第一，这些用户需要已经触碰过物品 J，这是与用户 I 的一大区别；</li>
+<li>第二，这些用户在其他的行为方面需要与用户 I 类似</li>
+</ul>
+</li>
+<li>然后进行打分<ul>
+<li>简单的做法<br>首先，我们已经得到了所有和 I 相似的用户对 J 的打分。那么，一种办法就是，直接用这些打分的平均值来预估 J 的评分。也就是说，如果我们认为这个相似集合都是和用户 I 相似的用户，那么他们对 J 的偏好，我们就认为是 I 的偏好。显然这是一个很粗糙的做法</li>
+<li>改进方法<ul>
+<li>采用加权平均的做法<br>也就是说，和用户 I 越相似的用户，我们越倚重这些人对 J 的偏好</li>
+<li>我们也需要对整个评分进行一个修正<ul>
+<li>虽然这个相似集合的人都对 J 进行过触碰，但是每个人的喜好毕竟还是不一样的。比如有的用户可能习惯性地会<font color="blue">对很多物品有很强的偏好</font>。因此，仅仅是借鉴每个人的偏好，而忽略了这些用户的偏差，这显然是不够的。所以，<font color="blue">我们需要对这些评分做这样的修正，那就是减去这些相似用户对所有东西的平均打分</font>，也就是说，我们需要把这些用户本人的<font color="blue">偏差</font>给去除掉</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>方法总结：<br>综合刚才说的两个因素，可以得到一个更加合适的打分算法，那就是，用户 I 对物品 J 的打分来自两个部分：<ul>
+<li>一部分是 I 的平均打分</li>
+<li>另外一部分是 I 对于 J 的一个在平均打分之上的补充打分<ul>
+<li>这个补充打分来自于刚才我们建立的相似用户集，是这个相似用户集里每个用户对于 J 的补充打分的一个<font color="blue">加权平均<ul>
+<li>权重依赖于这个用户和 I 的相似度</li>
+<li>每个用户对于 J 的补充打分是他们对于 J 的直接打分减去他们自己的平均打分</li></ul></font></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
+<h4 id="相似信息的构建"><a href="#相似信息的构建" class="headerlink" title="相似信息的构建"></a>相似信息的构建</h4><p>几个关键要素：</p>
+<ul>
+<li>我们怎么来定义两个用户是相似的<ul>
+<li>一种最简单的办法，就是计算两个用户对于他们都偏好物品的“<strong>皮尔森相关度</strong>”（Pearson Correlation）</li>
+<li>皮尔森相关度是针对每一个“两个用户”都同时偏好过的物品，看他们的偏好是否相似，这里的相似是用乘积的形式出现的。当两个偏好的值都比较大的时候，乘积也就比较大</li>
+</ul>
+</li>
+<li>设定一些“阈值”来筛选刚才所说的相关用户集合<ul>
+<li>我们可以设置最多达到前 K 个相似用户（比如 K 等于 100 或者 200）</li>
+</ul>
+</li>
+<li>加权平均里面的权重问题<ul>
+<li>一种权重，就是直接使用两个用户的相似度，也就是我们刚计算的皮尔森相关度<ul>
+<li>当然，这里有一个问题，如果直接使用，我们可能会过分“相信”有一些相关度高但自身数据也不多的用户</li>
+<li>所以我们可以把皮尔森相关度乘以一个系数，这个系数是根据自身的偏好数量来定的</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><ul>
+<li>协同过滤<br>相似的用户可能会有相似的喜好，相似的物品可能会被相似的人所偏好</li>
+<li>基于相似用户协同过滤<ul>
+<li>问题被抽象为我们需要估计用户 I 针对一个没有“触碰过”（这里指点击、购买、或者评分等行为）的物品 J 的偏好</li>
+<li>假设已经构建了这样的用户组，然后就是对需要推荐的物品进行打分，有分为简单的平均打分，和加权打分等</li>
+</ul>
+</li>
+<li>相似信息的构建(皮尔森相似度，设置阈值构建用户集合)</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+	
+    
+	
+      	    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/23/rs/简单推荐模型之一 基于流行度的推荐模型/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/23/rs/简单推荐模型之一 基于流行度的推荐模型/" itemprop="url">简单推荐模型之一:基于流行度的推荐模型</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-23T19:30:13+08:00">
+                2019-02-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/推荐系统/" itemprop="url" rel="index">
+                    <span itemprop="name">推荐系统</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/推荐系统/推荐模型简介/" itemprop="url" rel="index">
+                    <span itemprop="name">推荐模型简介</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="最简单的流行度估计"><a href="#最简单的流行度估计" class="headerlink" title="最简单的流行度估计"></a>最简单的流行度估计</h4><ul>
+<li><p>定义<br>什么是基于流行度（Popularity-based）？通俗地讲，就是什么内容吸引用户，就给用户推荐什么内容</p>
+<ul>
+<li>隐含假设：就是物品质量的好坏和流行度成正比例关系</li>
+</ul>
+</li>
+<li><p>流行度常见影响因素<br>不能简单看流量或者点击的绝对量来评价</p>
+<ul>
+<li>时间<br>比如用户对新闻的观看时间一般是有规律的，所以会影响绝对数据</li>
+<li>位置<br>物品显示的位置也会影响绝对数据</li>
+</ul>
+</li>
+<li><p>如何衡量</p>
+<ul>
+<li>采用比值Ratio,或者某种可能性<ul>
+<li>比如点击率，但是点击率估计所需要的数据依赖会收到时间和位置的偏差的影响，所以如何构建无偏差数据呢？</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>构建无偏差数据(点击率)<br>本身就是一个负责的问题，这里举简单的解放办法：</p>
+<ul>
+<li>EE算法(Exploitation &amp; Exploration)(epsilon贪心算法)<br>就是将流量分为两部分，一部分随机显示物品，然后基于这部分流量计算流行度，第二部分跟进这个流行度来显示物品</li>
+</ul>
+</li>
+</ul>
+<h4 id="对点击率建模"><a href="#对点击率建模" class="headerlink" title="对点击率建模"></a>对点击率建模</h4><p>如果从数学上对点击率建模，其实可以把一个物品在显示之后是否被点击看成是一个“<strong>伯努利随机变量</strong>”，于是对点击率的估计，就变成了对一个<font cloor="blue">伯努利分布参数估计的过程</font></p>
+<ul>
+<li>最大似然估计(Maximum Likelihood Estimation)<ul>
+<li>定义<br>就是说，<font color="blue">希望找到参数的取值可以最大限度地解释当前的数据</font><ul>
+<li>这个估计的数值就是某个物品当前的点击总数除以被显示的次数。通俗地讲，如果我们显示某个物品 10 次，被点击了 5 次，那么在最大似然估计的情况下，点击率的估计值就是 0.5</li>
+</ul>
+</li>
+<li>弊端<br>如果我们并没有显示当前的物品，那么，最大似然估计的分母就是 0；如果当前的物品没有被点击过，那么分子就是 0<ul>
+<li>在这两种情况下，最大似然估计都无法真正体现出物品的流行度</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="高级流行度估计"><a href="#高级流行度估计" class="headerlink" title="高级流行度估计"></a>高级流行度估计</h4><p>我们从统计学的角度来讲了讲，如何利用<font color="blue">最大似然估计法来对一个伯努利分布所代表的点击率的参数进行估计</font>。这里面的第一个问题就是刚才我们提到的分子或者分母为 0 的情况。显然，<font color="blue">这种情况下并不能很好地反应这些物品的真实属性</font></p>
+<ul>
+<li><p>先验信息(解决方案之一)<br>虽然我们现在没有显示这个物品或者这个物品没有被点击，但是，我们“主观”地认为，比如说在显示 100 次的情况下，会有 60 次的点击</p>
+<ul>
+<li>注意，这些显示次数和点击次数都还没有发生</li>
+<li>在这样的先验概率的影响下，点击率的估计，或者说得更加精确一些，点击率的后验概率分布的均值，<font color="blue">就成为了实际的点击加上先验的点击，除以实际的显示次数加上先验的显示次</font>数。</li>
+<li>你可以看到，在有先验分布的情况下，这个比值永远不可能为 0<ul>
+<li>利用先验信息来“平滑”（Smooth）概率的估计，<font color="blue">是贝叶斯统计（Bayesian Statistics）中经常使用的方法</font></li>
+</ul>
+</li>
+<li>如果用更加精准的数学语言来表述这个过程，我们其实是为这个伯努利分布加上了一个 Beta 分布的先验概率，并且推导出了后验概率也是一个 Beta 分布。这个 Beta 分布参数的均值，就是我们刚才所说的均值</li>
+</ul>
+</li>
+<li><p>时间折扣(基于前后时间关联)(另一种方法)<br>每个时段的估计和前面的时间是有一定关联的。这也就提醒我们是不是可以用之前的点击信息，来更加准确地估计现在这个时段的点击率</p>
+<ul>
+<li>一种最简单的方法还是利用我们刚才所说的先验概率的思想<ul>
+<li>那就是，当前 T 时刻的点击和显示的先验数值是 T-1 时刻的某种变换<ul>
+<li>比如早上 9 点到 10 点，某个物品有 40 次点击，100 次显示。那么 10 点到 11 点，我们在还没有显示的情况下，就可以认为这个物品会有 20 次点击，50 次显示。注意，我们把 9 点到 10 点的真实数据乘以 0.5 用于 10 点到 11 点的先验数据</li>
+</ul>
+</li>
+<li>这种做法是一种主观的做法。而且是否乘以 0.5 还是其他数值需要取决于测试。但是这种思想，有时候叫作“<strong>时间折扣</strong>”（Temporal Discount），是一种非常普遍的时序信息处理的手法</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><ul>
+<li>我们简要介绍了为什么需要基于流行度进行推荐</li>
+<li>我们详细介绍了如何对流行度进行估计以及从统计角度看其含义</li>
+<li>我们简要地提及了一些更加高级的流行度估计的方法</li>
+</ul>
+<p><a href="https://time.geekbang.org/column/article/4090?code=9OSAmHd%2525252FF2EaNhyxDg%2525252FluR3kRDdJC3ytZGLNXMqbtFY%2525253D" target="_blank" rel="noopener">极客时间版权所有</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+	
+    
+	
+      	    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/22/rl/强化学习现状与未来/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/22/rl/强化学习现状与未来/" itemprop="url">强化学习现状与未来</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-22T07:11:13+08:00">
+                2019-02-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/强化学习/" itemprop="url" rel="index">
+                    <span itemprop="name">强化学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><a href="https://www.colabug.com/3621547.html" target="_blank" rel="noopener">强化学习路在何方</a></p>
+<h3 id="深度强化学习的泡沫"><a href="#深度强化学习的泡沫" class="headerlink" title="深度强化学习的泡沫"></a>深度强化学习的泡沫</h3><h4 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h4><ul>
+<li>2015年，DeepMind的Volodymyr Mnih等研究员在《自然》杂志上发表论文Human-level control through deep reinforcement learning[1]，该论文提出了一个结合深度学习（DL）技术和强化学习（RL）思想的模型Deep Q-Network(DQN)，在Atari游戏平台上展示出超越人类水平的表现。自此以后，结合DL与RL的深度强化学习（Deep Reinforcement Learning, DRL）迅速成为人工智能界的焦点</li>
+<li>过去三年间，DRL算法在不同领域大显神通，DeepMind负责AlphaGo项目的研究员David Silver喊出“AI = RL + DL”，认为结合了DL的表示能力与RL的推理能力的DRL将会是人工智能的终极答案</li>
+</ul>
+<h4 id="DRL的可复现性危机"><a href="#DRL的可复现性危机" class="headerlink" title="DRL的可复现性危机"></a>DRL的可复现性危机</h4><ul>
+<li>由于发表的文献中往往不提供重要参数设置和工程解决方案的细节，很多算法都难以复现，RL专家直指当前DRL领域论文数量多却水分大、实验难以复现等问题。该文在学术界和工业界引发热烈反响。很多人对此表示认同，并对DRL的实际能力产生强烈怀疑<ul>
+<li>针对DRL领域，Pineau展示了该研究组对当前不同DRL算法的大量可复现性实验。实验结果表明，不同DRL算法在不同任务、不同超参数、不同随机种子下的效果大相径庭</li>
+</ul>
+</li>
+</ul>
+<h4 id="DRL研究存在多少坑"><a href="#DRL研究存在多少坑" class="headerlink" title="DRL研究存在多少坑"></a>DRL研究存在多少坑</h4><p>2018年的情人节当天，曾经就读于伯克利人工智能研究实验室的Alexirpan通过一篇博文Deep Reinforcement Learning Doesn’t Work Yet[13]给DRL圈送来了一份苦涩的礼物，从实验角度总结了DRL算法存在的几大问题：</p>
+<ul>
+<li>样本利用率非常低；</li>
+<li>最终表现不够好，经常比不过基于模型的方法；</li>
+<li>好的奖励函数难以设计；</li>
+<li>难以平衡 “ 探索 ” 和 “ 利用 ” ,以致算法陷入局部极小；</li>
+<li>对环境的过拟合；</li>
+<li>灾难性的不稳定性…</li>
+</ul>
+<p>负面评论还将持续发酵。那么， DRL的问题根结在哪里？前景真的如此黯淡吗？如果不与深度学习结合，RL的出路又在哪里？</p>
+<h3 id="免模型强化学习的本质缺陷"><a href="#免模型强化学习的本质缺陷" class="headerlink" title="免模型强化学习的本质缺陷"></a>免模型强化学习的本质缺陷</h3><h4 id="RL分类"><a href="#RL分类" class="headerlink" title="RL分类"></a>RL分类</h4><p>RL算法可以分为基于模型的方法（Model-based）与免模型的方法（Model-free）</p>
+<ul>
+<li><font color="blue">前者主要发展自最优控制领域</font>。通常先通过高斯过程（GP）或贝叶斯网络（BN）等工具针对具体问题建立模型，然后再通过机器学习的方法或最优控制的方法，如模型预测控制（MPC）、线性二次调节器（LQR）、线性二次高斯（LQG）、迭代学习控制（ICL）等进行求解</li>
+<li><font color="blue">而后者更多地发展自机器学习领域</font>，属于数据驱动的方法。算法<font color="blue">通过大量采样，估计代理的状态、动作的值函数或回报函数，从而优化动作策略</font>
+
+</li>
+</ul>
+<h4 id="免模型缺陷"><a href="#免模型缺陷" class="headerlink" title="免模型缺陷"></a>免模型缺陷</h4><ul>
+<li>Ben Recht连发了13篇博文，从控制与优化的视角，重点探讨了RL中的免模型方法[18]。Recht指出免模型方法自身存在以下几大缺陷<ul>
+<li>免模型方法无法从不带反馈信号的样本中学习，<font color="blue">而反馈本身就是稀疏的，因此免模型方向样本利用率很低，而数据驱动的方法则需要大量采样</font><ul>
+<li>比如在Atari平台上的《Space Invader》和《Seaquest》游戏中，智能体所获得的分数会随训练数据增加而增加。利用免模型DRL方法可能需要 2 亿帧画面才能学到比较好的效果。AlphaGo 最早在 Nature 公布的版本也需要 3000 万个盘面进行训练。而但凡与机械控制相关的问题，训练数据远不如视频图像这样的数据容易获取，<font color="blue">因此只能在模拟器中进行训练</font>。而模拟器与现实世界间的Reality Gap，直接限制了训练自其中算法的泛化性能。另外，数据的稀缺性也影响了其与DL技术的结合</li>
+</ul>
+</li>
+<li>免模型方法不对具体问题进行建模，而是尝试用一个通用的算法解决所有问题。而基于模型的方法则通过针对特定问题建立模型，充分利用了问题固有的信息。免模型方法在追求通用性的同时放弃这些富有价值的信息</li>
+<li>基于模型的方法针对问题建立动力学模型，这个模型具有解释性。而免模型方法因为没有模型，解释性不强，调试困难</li>
+<li>相比基于模型的方法，尤其是基于简单线性模型的方法，免模型方法不够稳定，在训练中极易发散</li>
+</ul>
+</li>
+</ul>
+<p>通过Recht的分析，我们似乎找到了DRL问题的根结。近三年在机器学习领域大火的DRL算法，多将免模型方法与DL结合，而免模型算法的天然缺陷，恰好与Alexirpan总结的DRL几大问题相对应</p>
+<h4 id="为什么多数DRL的工作都是基于免模型方法呢"><a href="#为什么多数DRL的工作都是基于免模型方法呢" class="headerlink" title="为什么多数DRL的工作都是基于免模型方法呢"></a>为什么多数DRL的工作都是基于免模型方法呢</h4><ul>
+<li>免模型的方法相对简单直观，开源实现丰富，比较容易上手</li>
+<li>当前RL的发展还处于初级阶段，<font color="blue">学界的研究重点还是集中在环境是确定的、静态的，状态主要是离散的、静态的、完全可观察的，反馈也是确定的问题（如Atari游戏）上。针对这种相对“简单”、基础、通用的问题</font>，免模型方法本身很合适</li>
+<li>绝大多数DRL方法是对DQN的扩展，属于免模型方法<img src="/2019/02/22/rl/强化学习现状与未来/resources/27517C5AFA3857CE6A330D86CB12A334.jpg">
+</li>
+</ul>
+<h3 id="基于模型或免模型，问题没那么简单"><a href="#基于模型或免模型，问题没那么简单" class="headerlink" title="基于模型或免模型，问题没那么简单"></a>基于模型或免模型，问题没那么简单</h3><h4 id="基于模型的方法，未来潜力巨大"><a href="#基于模型的方法，未来潜力巨大" class="headerlink" title="基于模型的方法，未来潜力巨大"></a>基于模型的方法，未来潜力巨大</h4><p>基于模型的方法一般先从数据中学习模型，然后基于学到的模型对策略进行优化。学习模型的过程和控制论中的系统参数辨识类似</p>
+<ul>
+<li>因为模型的存在，基于模型的方法可以充分利用每一个样本来逼近模型，数据利用率极大提高</li>
+<li>基于模型的方法则在一些控制问题中，相比于免模型方法，通常有10^2级的采样率提升。</li>
+<li>此外，学到的模型往往对环境的变化鲁棒,当遇到新环境时，算法可以依靠已学到的模型做推理，具有很好的泛化性能</li>
+<li>预测学习（Predictive Learning)关系<br>基于模型的方法还与潜力巨大的预测学习（Predictive Learning）紧密相关。由于建立了模型，本身就可以通过模型预测未来，这与Predictive Learning的需求不谋而合<ul>
+<li>基于模型的RL方法可能是实现Predictive Learning的重要技术之一</li>
+</ul>
+</li>
+</ul>
+<h4 id="基于模型问题也较多，免模型方法，依旧是第一选择"><a href="#基于模型问题也较多，免模型方法，依旧是第一选择" class="headerlink" title="基于模型问题也较多，免模型方法，依旧是第一选择"></a>基于模型问题也较多，免模型方法，依旧是第一选择</h4><p>基于模型的DRL方法相对而言不那么简单直观，RL与DL的结合方式相对更复杂，设计难度更高。目前基于模型的DRL方法通常用高斯过程、贝叶斯网络或概率神经网络（PNN）来构建模型<br>基于模型的方法也还若干自身缺陷</p>
+<ul>
+<li>针对无法建模的问题束手无策</li>
+<li>建模会带来误差，而且误差往往随着算法与环境的迭代交互越来越大，使得算法难以保证收敛到最优解</li>
+<li>模型缺乏通用性，每次换一个问题，就要重新建模</li>
+<li>可能的工作，笔者认为<ul>
+<li>我们可以考虑多做一些基于模型的DRL方面的工作，克服当前DRL存在的诸多问题</li>
+<li>此外，还可以多研究结合基于模型方法与免模型方法的<font color="blue">半模型方法</font>，兼具两种方法的优势<ul>
+<li>这方面经典的工作有RL泰斗Rich Sutton提出的<font color="blue">Dyna框架和Dyna-2框架[28]</font></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="其他问题"><a href="#其他问题" class="headerlink" title="其他问题"></a>其他问题</h4><ul>
+<li>模拟器存在非常大的问题，经过调试的线性策略就已经可以取得非常好的效果——这样的模拟器实在过于粗糙，难怪基于随机搜索的方法可以在同样的模拟器上战胜免模型方法<ul>
+<li>可见目前RL领域的实验平台还非常不成熟，在这样的测试环境中的实验实验结果没有足够的说服力。很多研究结论都未必可信</li>
+</ul>
+</li>
+<li>一些学者指出当前RL算法的性能评判准则也不科学</li>
+</ul>
+<h3 id="重新审视强化学习"><a href="#重新审视强化学习" class="headerlink" title="重新审视强化学习"></a>重新审视强化学习</h3><ul>
+<li>DQN和AlphaGo系列工作给人留下深刻印象，但是这两种任务本质上其实相对“简单”。因为这些任务的环境是<font color="blue">确定的、静态的，状态主要是离散的、静态的、完全可观察的，反馈是确定的，代理也是单一的</font></li>
+<li>目前DRL在解决<font color="blue">部分可见状态任务（如StarCraft），状态连续的任务（如机械控制任务），动态反馈任务和多代理任务中</font>还没取得令人惊叹的突破<img src="/2019/02/22/rl/强化学习现状与未来/resources/9D2F9556CB9C1DB7A2AEF9EA54261CDC.jpg">
+</li>
+</ul>
+<h4 id="重新审视RL的研究-或不足-值得研究的方向"><a href="#重新审视RL的研究-或不足-值得研究的方向" class="headerlink" title="重新审视RL的研究(或不足)(值得研究的方向)"></a>重新审视RL的研究(或不足)(值得研究的方向)</h4><p>机器学习是个跨学科的研究领域，而RL则是其中跨学科性质非常显著的一个分支。RL理论的发展受到生理学、神经科学和最优控制等领域的启发，现在依旧在很多相关领域被研究<br><img src="/2019/02/22/rl/强化学习现状与未来/resources/44D46B5545AB96FA9EE7D659C5008C69.jpg"></p>
+<ul>
+<li>基于模型的方法<br>如上文所述，基于模型的方法不仅能大幅降低采样需求，还可以通过学习任务的动力学模型，为预测学习打下基础</li>
+<li>提高免模型方法的数据利用率和扩展性<br>这是免模型学习的两处硬伤，也是Rich Sutton的终极研究目标。这个领域很艰难，但是任何有意义的突破也将带来极大价值</li>
+<li>更高效的探索策略（Exploration Strategies）<br><font color="blue">平衡“探索”与“利用”是RL的本质问题</font>，这需要我们设计更加高效的探索策略。除了若干经典的算法如Softmax、ϵ-Greedy[1]、UCB[72]和Thompson Sampling[73]等，近期学界陆续提出了大批新算法，如Intrinsic Motivation [74]、Curiosity-driven Exploration[75]、Count-based Exploration [76]等。其实这些“新”算法的思想不少早在80年代就已出现[77]，而与DL的有机结合使它们重新得到重视。此外，OpenAI与DeepMind先后提出通过在策略参数[78]和神经网络权重[79]上引入噪声来提升探索策略, 开辟了一个新方向</li>
+<li>与模仿学习（Imitation Learning, IL）结合<br>机器学习与自动驾驶领域最早的成功案例ALVINN[33]就是基于IL；当前RL领域最顶级的学者Pieter Abbeel在跟随Andrew Ng读博士时候,设计的通过IL控制直升机的算法[34]成为IL领域的代表性工作.IL介于RL与监督学习之间，兼具两者的优势，既能更快地得到反馈、更快地收敛，又有推理能力，很有研究价值</li>
+<li>奖赏塑形（Reward Shaping）<br>奖赏即反馈，其对RL算法性能的影响是巨大的。<ul>
+<li>Alexirpan的博文中已经展示了没有精心设计的反馈信号会让RL算法产生多么差的结果</li>
+<li>设计好的反馈信号一直是RL领域的研究热点</li>
+<li>近年来涌现出很多基于“好奇心”的RL算法和层级RL算法<ul>
+<li>这两类算法的思路都是在模型训练的过程中插入反馈信号，从而部分地克服了反馈过于稀疏的问题。</li>
+</ul>
+</li>
+<li>另一种思路是学习反馈函数，这是逆强化学习（Inverse RL, IRL）的主要方式之一。<ul>
+<li>近些年大火的GAN也是基于这个思路来解决生成建模问题, GAN的提出者Ian Goodfellow也认为GAN就是RL的一种方式 [36]。而将GAN于传统IRL结合的GAIL[37]已经吸引了很多学者的注意</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>RL中的迁移学习与多任务学习<br>当前RL的采样效率极低，而且学到的知识不通用。迁移学习与多任务学习可以有效解决这些问题</li>
+<li>提升RL的的泛化能力<ul>
+<li>机器学习最重要的目标就是泛化能力, 而现有的RL方法大多在这一指标上表现糟糕[8]，无怪乎Jacob Andreas会批评RL的成功是来自“train on the test set”</li>
+<li>研究者们试图通过学习环境的动力学模型[80]、降低模型复杂度[29]或模型无关学习[81]来提升泛化能力，这也促进了基于模型的方法与元学习（Meta-Learning）方法的发展</li>
+</ul>
+</li>
+<li>层级RL（Hierarchical RL, HRL）</li>
+<li>与序列预测（Sequence Prediction）结合<ul>
+<li>Sequence Prediction与RL、IL解决的问题相似又不相同。三者间有很多思想可以互相借鉴</li>
+</ul>
+</li>
+<li>免模型方法探索行为的安全性（Safe RL）<ul>
+<li>相比于基于模型的方法，免模型方法缺乏预测能力，这使得其探索行为带有更多不稳定性。一种研究思路是结合贝叶斯方法为RL代理行为的不确定性建模，从而避免过于危险的探索行为</li>
+</ul>
+</li>
+<li>关系RL<br>近期学习客体间关系从而进行推理与预测的“关系学习”受到了学界的广泛关注。关系学习往往在训练中构建的状态链，而中间状态与最终的反馈是脱节的</li>
+<li>对抗样本RL</li>
+<li>处理其他模态的输入</li>
+</ul>
+<h4 id="重新审视RL的应用"><a href="#重新审视RL的应用" class="headerlink" title="重新审视RL的应用"></a>重新审视RL的应用</h4><p>RL只能打游戏、下棋，其他的都做不了？</p>
+<ul>
+<li>我们不应对RL过于悲观。其实能在视频游戏与棋类游戏中超越人类，已经证明了RL推理能力的强大。通过合理改进后，有希望得到广泛应用</li>
+<li>控制领域<br>这是RL思想的发源地之一，也是RL技术应用最成熟的领域。控制领域和机器学习领域各自发展了相似的思想、概念与技术，可以互相借鉴</li>
+<li>自动驾驶领域<br>驾驶就是一<font color="blue">个序列决策过程</font>，因此天然适合用RL来处理</li>
+<li>NLP领域<br>相比于计算机视觉领域的任务，NLP领域的很多<font color="blue">任务是多轮的</font>，即需<font color="blue">通过多次迭代交互来寻求最优解（如对话系统）</font>；而且任务的<font color="blue">反馈信号往往需要在一系列决策后才能获得（如机器写作）</font>。这样的问题的特<font color="purple">性自然适合用RL来解决</font><ul>
+<li>因而近年来RL被应用于NLP领域中的诸多任务中，如文本生成、文本摘要、序列标注、对话机器人（文字/语音）、机器翻译、关系抽取和知识图谱推理等等</li>
+</ul>
+</li>
+<li>推荐系统与检索系统领域<br>RL中的Bandits系列算法早已被广泛应用于商品推荐、新闻推荐和在线广告等领域。近年也有一系列的工作将RL应用于信息检索、排序的任务中</li>
+<li>金融领域<br>RL强大的序列决策能力已经被金融系统所关注。无论是华尔街巨头摩根大通还是创业公司如Kensho，都在其交易系统中引入了RL技术</li>
+<li>对数据的选择<br>在数据足够多的情况下，如何选择数据来实现“快、好、省”地学习，具有非常大的应用价值</li>
+<li>通讯、生产调度、规划和资源访问控制等运筹领域<br>这些领域的任务往往<font color="blue">涉及“选择”动作的过程</font>，而且带标签数据难以取得，因此广泛使用RL进行求解</li>
+</ul>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><ul>
+<li>虽然有上文列举的诸多成功应用，但我们依旧要认识到，当前RL的发展还处于初级阶段，不能包打天下。目前还没有一个通用的RL解决方案像DL一样成熟到成为一种即插即用的算法。RL算法的输出存在随机性，这是其“探索”哲学带来的本质问题，因此我们不能盲目 All in RL, 也不应该RL in All<img src="/2019/02/22/rl/强化学习现状与未来/resources/62484FF7A8A452030E96A9841B776B72.jpg">
+</li>
+</ul>
+<h3 id="广义的RL——从反馈学习"><a href="#广义的RL——从反馈学习" class="headerlink" title="广义的RL——从反馈学习"></a>广义的RL——从反馈学习</h3><h4 id="定义与意义"><a href="#定义与意义" class="headerlink" title="定义与意义"></a>定义与意义</h4><ul>
+<li>本节使用“广义的RL”一词指代针对“从反馈学习”的横跨多个学科的研究。与上文中介绍的来自机器学习、控制论、经济学等领域的RL不同，本节涉及的学科更宽泛，<font color="blue">一切涉及从反馈学习的系统，都暂且称为广义的RL</font></li>
+<li><font color="blue">行为和反馈是智能形成的基石</font><ul>
+<li>生成论（Enactivism）认为行为是认知的基础，行为与感知是互相促进的，智能体通过感知获得行为的反馈，而行为则带给智能体对环境的真实有意义的经验[65]。</li>
+</ul>
+</li>
+</ul>
+<h4 id="广义的RL，是未来一切机器学习系统的形式"><a href="#广义的RL，是未来一切机器学习系统的形式" class="headerlink" title="广义的RL，是未来一切机器学习系统的形式"></a>广义的RL，是未来一切机器学习系统的形式</h4><p>只要一个机器学习系统会通过接收外部的反馈进行改进，这个系统就不仅仅是一个机器学习系统，而且是一个RL系统。当前在互联网领域广为使用的A/B测试就是RL的一种最简单的形式。而未来的机器学习系统，都要处理分布动态变化的数据并从反馈中学习。因此可以说，我们即将处于一个“一切机器学习都是RL”的时代，学界和工业界都亟需加大对RL的研究力度</p>
+<h4 id="广义的RL，是很多领域研究的共同目标"><a href="#广义的RL，是很多领域研究的共同目标" class="headerlink" title="广义的RL，是很多领域研究的共同目标"></a>广义的RL，是很多领域研究的共同目标</h4><p>节已经提到RL在机器学习相关的领域被分别发明与研究，其实这种从<font color="blue">反馈中学习的思想</font>，在很多其他领域也被不断地研究。仅举几例如下</p>
+<ul>
+<li>在心理学领域，经典条件反射与操作性条件反射的对比</li>
+<li>在教育学领域，一直有关于“主动学习”与“被动学习”两种方式的对比与研究</li>
+<li>在组织行为学领域，学者们探究“主动性人格”与“被动性人格”的不同以及对组织的影响</li>
+<li>在企业管理学领域，企业的“探索式行为”和“利用式行为”一直是一个研究热点</li>
+</ul>
+<p>可以说，<font color="blue">一切涉及通过选择然后得到反馈，然后从反馈中学习的领域，几乎都有RL的思想以各种形式存在</font>，因此笔者称之为广义的RL</p>
+<ul>
+<li>这些学科为RL的发展提供了丰富的研究素材，积累了大量的思想与方法。同时，RL的发展不会仅仅对人工智能领域产生影响，也会推动广义的RL所包含的诸多学科共同前进。</li>
+</ul>
+<h3 id="束语"><a href="#束语" class="headerlink" title="束语"></a>束语</h3><ul>
+<li>虽然RL领域目前还存在诸多待解决的问题，在DRL这一方向上也出现不少泡沫，但我们应该看到RL领域本身在研究和应用领域取得的长足进步</li>
+<li>这一领域值得持续投入研究，但在应用时需保持理性</li>
+<li>而对基于反馈的学习的研究，不仅有望实现人工智能的最终目标，也对机器学习领域和诸多其他领域的发展颇有意义</li>
+<li>这确实是通向人工智能的最佳路径。这条路上布满荆棘，但曙光已现</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+	
+    
+	
+      	    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/03/rl/基于模型的学习和规划/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/03/rl/基于模型的学习和规划/" itemprop="url">基于模型的学习和规划</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-03T13:11:12+08:00">
+                2019-02-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/强化学习/" itemprop="url" rel="index">
+                    <span itemprop="name">强化学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><ul>
+<li>前面的算法都是与真实的环境进行交互，个体并不试图去理解环境动力学</li>
+<li>如果能构建一个较为准确地模拟环境动力学特 征的模型或者问题的模型本身就类似于一些棋类游戏是明确或者简单的，个体就可以通过<font color="blue">构建这样的模型来模拟其与环境的交互</font>，这种依靠模型模拟而不实际与环境交互的过程<font color="blue">类似于“思考”过程</font><ul>
+<li>通过思考，个体可以对问题进行规划、在与环境实际交互时<font color="blue">搜索交互可能产生的各种 后果</font>并从中选择对个体有利的结果<ul>
+<li><font color="purple">我理解是通过模拟的环境，得到各自行为，然后与真实环境进行交互的时候，从这些模拟环境得到的行为中搜索，选择最优的结果 </font>
+
+
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="环境的模型"><a href="#环境的模型" class="headerlink" title="环境的模型"></a>环境的模型</h3><p>模型是个体构建的对于环境动力学特征的表示</p>
+<h4 id="基于模型的强化学习流程"><a href="#基于模型的强化学习流程" class="headerlink" title="基于模型的强化学习流程"></a>基于模型的强化学习流程</h4><ul>
+<li><p>当个体得到了一 个较为准确的描述环境动力学的模型时，它在与环境交互的过程中，既可以通过实际交互来提高模型的准确程度，也可以在交互间隙利用构建的模型进行思考、规划，决策出对个体有力的行为</p>
+<img src="/2019/02/03/rl/基于模型的学习和规划/resources/FAAFC16238D8AB743A35514D8FA86155.jpg">
+</li>
+<li><p>学习一个模型相当于丛经历 $S_1, A_1, R_2, . . . , S_T$ 中通过监督学习得到一个模型 $M_η$</p>
+<ul>
+<li>训练数据为<br>$S_1,A_1 →R_2,S_2$<br>$S_2,A_2 →R_3,S_3$..<br>$S_{T−1},A_{T−1} →R_T,S_T$</li>
+</ul>
+</li>
+<li><p>使用近似的模型解决强化学习问题与使用价值函数或策略函数的近似表达来解决强化学习问题并不冲突，它们是从不同角度来近似求解一个强化学习问题</p>
+<ul>
+<li>当构建一个模型比构建近似价值函数 或近似策略函数更方便时，那么使用近似模型来求解会更加高效</li>
+</ul>
+</li>
+<li><p>特别注意模型参数要随着个体与环境交互而不断地动态更新，<font color="blue">即通过实际经历要与使用模型产生的虚拟经历相结合来解决问题</font></p>
+<ul>
+<li>这就催生了一类整合了学习与规划的强化学习算法——Dyna</li>
+</ul>
+</li>
+</ul>
+<h4 id="Dyna算法-整合学习与规划"><a href="#Dyna算法-整合学习与规划" class="headerlink" title="Dyna算法(整合学习与规划)"></a>Dyna算法(整合学习与规划)</h4><ul>
+<li>Dyna 算法从实际经历中学习得到模型，同时<font color="blue">联合</font>使用实际经历和基于模型采样得到的虚拟经历来学习和规划，更新价值和 (或) 策略函数<img src="/2019/02/03/rl/基于模型的学习和规划/resources/DC72D9AC050BA5334B17A5B74CDAA7C9.jpg"></li>
+<li>伪代码<img src="/2019/02/03/rl/基于模型的学习和规划/resources/B080914282D2D2B32DECD04A75A4DFDB.jpg">
+<ul>
+<li>我的理解：<ul>
+<li>从开始是通过真实环境去得到模型环境Model</li>
+<li>下面会使用Model得到虚拟的经历，结合上面真实经历来更新Q(S,A)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="基于模拟的搜索"><a href="#基于模拟的搜索" class="headerlink" title="基于模拟的搜索"></a>基于模拟的搜索</h4><ul>
+<li>前向搜索形式<br>在强化学习中，基于模拟的搜索 (simulation-based search) 是一种前向搜索形式,它从当前 时刻的状态开始，<font color="blue">利用模型来模拟采样，构建一个关注短期未来的前向搜索树</font>，将构建得到的搜索树作为一个<font color="blue">学习资源</font>，使用不基于模型的强化学习方法来寻找当前状态下的最优策略<ul>
+<li><font color="purple">我的理解就是通过模型来构造一颗状态行为树，然后搜索在当前状态下的最优行为，也就是最优策略</font></li>
+</ul>
+</li>
+<li>如果使用蒙特卡罗学习方法则称为蒙特卡罗搜索，如果使用 Sarsa 学习方法，则称为 TD 搜索</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+	
+    
+	
+      	    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/02/rl/基于策略梯度的深度强化学习/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/02/rl/基于策略梯度的深度强化学习/" itemprop="url">基于策略梯度的深度强化学习</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-02T23:10:15+08:00">
+                2019-02-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/强化学习/" itemprop="url" rel="index">
+                    <span itemprop="name">强化学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><ul>
+<li><p>在行为空间规模庞大或者是连续行为的情况下，基于价值的强化学习将很难学习到一个好的结果，这种情况下可以直接进行策略的学习</p>
+<ul>
+<li>即将策略看成是状态和行为的带参数的策略函 数，通过建立恰当的目标函数、利用个体与环境进行交互产生的奖励来学习得到策略函数的参数。</li>
+<li>策略函数针对连续行为空间将可以<font color="blue">直接产生具体的行为值，进而绕过对状态的价值的学习</font></li>
+</ul>
+</li>
+<li><p>在实际应用中通过<font color="blue">建立分别对于状态价值的近似函数和策略函数</font></p>
+<ul>
+<li>使得一方面可以基于价值函 数进行策略评估和优化</li>
+<li>另一方面优化的策略函数又会使得价值函数更加准确的反应状态的价 值，两者相互促进最终得到最优策略</li>
+</ul>
+</li>
+</ul>
+<h3 id="基于策略学习的意义"><a href="#基于策略学习的意义" class="headerlink" title="基于策略学习的意义"></a>基于策略学习的意义</h3><h4 id="背景-1"><a href="#背景-1" class="headerlink" title="背景"></a>背景</h4><p>基于价值的强化学习虽然能出色地解决很多问题，但面对行为空间连续、观测受 限、随机策略的学习等问题时仍然显得力不从心</p>
+<ul>
+<li><p>问题1(行为空间连续)</p>
+<ul>
+<li>基于近似价值函数的学习可以较高效率地解决连续状态空间的强化学习问题，但其行为空间仍然是离散的</li>
+<li>如果行为空间是连续的，可以认为单纯基于价值函数近似的强化 学习无法解决连续行为空间的问题，其中每一 个方向上的分量可以是 [-1,1] 之间的任何连续值。在这个例子 (图 7.1) 中，行为由两个特征来描 述，其中每一个特征具体的值是连续的。比如：<img src="/2019/02/02/rl/基于策略梯度的深度强化学习/resources/249F71A8DFF7CC68F09189A2CBD8FA32.jpg">
+</li>
+</ul>
+</li>
+<li><p>问题2(观测受限)</p>
+<ul>
+<li>此外，在使用特征来描述状态空间中的某一个状态时，有可能因为个体观测的限制或者建 模的局限，导致本来不同的两个状态却拥有相同的特征描述，进而导致无法得到最优解<ul>
+<li>在这种情况下，由于个体对于状态观测的特征不够多，导致了多个状 态发生重名情况，进而导致基于价值的学习得不到最优解<img src="/2019/02/02/rl/基于策略梯度的深度强化学习/resources/62B8EFCF8DD2ED23F7457C8AE9F9D726.jpg">
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>问题3(随机策略的学习)</p>
+<ul>
+<li>基于价值的学习对应的最优策略通常是确定性策略，因为其是从众多行为价值中选择一个 最大价值的行为，而有些问题的最优策略却是随机策略，这种情况下同样是无法通过基于价值的学习来求解的。</li>
+<li>这其中最简单的一个例子是人们小时候经常玩的“石头剪刀布”游戏。对于这个 游戏，玩家的最优策略是随机出石头剪刀布中的一个，因为一旦你遵循一个确定的策略，将很容 易被对手发现并利用进而输给对方</li>
+</ul>
+</li>
+</ul>
+<h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><ul>
+<li>策略 π 可以被被描述为一个包含参数 θ 的函数<br>$π_θ(s,a) = P[a | s,θ]$</li>
+<li>含义：<br>策略函数 $π_θ$ 确定了在给定的状态和一定的参数设置下，采取任何可能行为的概率，<font color="blue">是一个概率密度函数</font><ul>
+<li>在实际应用这个策略时，<font color="blue">选择最大概率对应的行为</font>或者以此为基础进行一定程度的采样探索。可以认为，参数 θ 决定了策略的具体形式。</li>
+<li>因而求解基于策略的学习问题就转变为了如何确定策略函数的参数 θ。同样可以通过设计一个基于参数 θ 的目标函数 J(θ)，通过相应 的算法来寻找最优参数</li>
+</ul>
+</li>
+</ul>
+<h3 id="策略目标函数"><a href="#策略目标函数" class="headerlink" title="策略目标函数"></a>策略目标函数</h3><p>强化学习的目标就是让个体在与环境交互过程中获得尽可能多的累计奖励，一个好的策略 应该能准确反映强化学习的目标</p>
+<ul>
+<li>初始状态收获的期望<br>对于一个能够形成完整状态序列的交互环境来说，由于一个策 略决定了个体与环境的交互，因而可以设计目标函数 J1(θ) 为使用策略 πθ 时初始状态价值 (start value):<br>$J_1(θ) = V_{π_θ} (s_1) = E_{π_θ} [G_1]$</li>
+<li>有些环境是没有明确的起始状态和终止状态，个体持续的与环境进行交互。在这种情况下可以使 用平均价值 (average value) 或者每一时间步的平均奖励 (average reward per time-step) 来设计策<br>略目标函数:<ul>
+<li>$d^{π<em>θ} (s)$ 是基于策略 $π</em>θ$生成的马尔科夫链关于状态的静态分布<img src="/2019/02/02/rl/基于策略梯度的深度强化学习/resources/8C3E7DC59B8D8ED2899C674AD3D6EE09.jpg"></li>
+</ul>
+</li>
+<li>与价值函数近似的目标函数 不同，策略目标函数的值越大代表着策略越优秀。可以使用与梯度下降相反的梯度上升来求解最优参数</li>
+<li>假设现在有一个单步马尔科夫决策过程，对应的强化学习问题是个体与环境每产生一个行 为交互一次即得到一个即时奖励 r = Rs,a，并形成一个完整的状态序列。根据公式 (7.1)，策略目 标函数为<img src="/2019/02/02/rl/基于策略梯度的深度强化学习/resources/28D0F3C14799FD88BB04860C6B0192D6.jpg"></li>
+<li>分值函数(score function)<br>上式中 $∇<em>θlogπ</em>θ(s,a)$ 称为分值函数 (score function)。<ul>
+<li>存在如下的策略梯度定理:<br>对于任何 可微的策略函数 $π_θ(s, a)$ 以及三种策略目标函数 $J = J_1, J_{avV} 和 J_{avR}$ 中的任意一种来说，策略 目标函数的梯度 (策略梯度) 都可以写成用分值函数表示的形式:<img src="/2019/02/02/rl/基于策略梯度的深度强化学习/resources/F403A2CB9D3BD5E27FBDB2DC8B8F5BB4.jpg"></li>
+<li>意义<ul>
+<li><font color="blue">分值越高意味着在当前策略下对应行为被选中的概率越大</font></li>
+<li>算法将结合某一行为的分值对应的奖励来得到对应的梯度，并在此基础上调整参 数，<font color="blue">最终使得奖励越大的行为对应的分值越高</font></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Actor-Critic-算法"><a href="#Actor-Critic-算法" class="headerlink" title="Actor-Critic 算法"></a>Actor-Critic 算法</h3><h4 id="定义-1"><a href="#定义-1" class="headerlink" title="定义"></a>定义</h4><ul>
+<li>Actor-Critic 算法的名字很形象，它包含一个策略函数和行为价值函数<ul>
+<li>其中策略函数充当 演员 (Actor), 生成行为与环境交互</li>
+<li>行为价值函数充当 (Critic)，负责评价演员的表现，并指导 演员的后续行为动作</li>
+</ul>
+</li>
+<li>Critic 的行为价值函数是基于策略 $π_θ$ 的一个近似<br>$Q_w(s, a) ≈ Q_{π_θ} (s, a)$</li>
+<li>基于此，Actor-Critic 算法遵循一个近似的策略梯度进行学习<img src="/2019/02/02/rl/基于策略梯度的深度强化学习/resources/832F18299F2131CC68EA719ECB28EFE0.jpg">
+</li>
+</ul>
+<h4 id="QAC算法-最基本的基于行为价值-Q-的-Actor-Critic-算法"><a href="#QAC算法-最基本的基于行为价值-Q-的-Actor-Critic-算法" class="headerlink" title="QAC算法(最基本的基于行为价值 Q 的 Actor-Critic 算法)"></a>QAC算法(最基本的基于行为价值 Q 的 Actor-Critic 算法)</h4><img src="/2019/02/02/rl/基于策略梯度的深度强化学习/resources/BAE69DD8E4E51BE876EA997076555EE1.jpg">
+<h4 id="参数更新"><a href="#参数更新" class="headerlink" title="参数更新"></a>参数更新</h4><ul>
+<li>Critic 的函数 $V_w(s)$ 的参数 w更新<img src="/2019/02/02/rl/基于策略梯度的深度强化学习/resources/A499D8701005947722D2C5F6A40E3C49.jpg"></li>
+<li>策略函数 $π_θ(s,a)$ 的参数θ更新<img src="/2019/02/02/rl/基于策略梯度的深度强化学习/resources/9796183388A806045FA369B4ADA63A36.jpg">
+</li>
+</ul>
+<h3 id="深度确定性策略梯度-DDPG-算法"><a href="#深度确定性策略梯度-DDPG-算法" class="headerlink" title="深度确定性策略梯度(DDPG)算法"></a>深度确定性策略梯度(DDPG)算法</h3><p>DDPG算法能较为稳定地解决连续行为空间下强化学习问题</p>
+<h4 id="算法理解"><a href="#算法理解" class="headerlink" title="算法理解"></a>算法理解</h4><ul>
+<li>深度确定性策略梯度算法是使用深度学习技术、同时基于 Actor-Critic 算法的确定性策略算法</li>
+<li>该算法中的 Actor 和 Critic 都使用深度神经网络来建立近似函数</li>
+<li>由于该算法可以直接从 Actor 的策略生成确定的行为而不需要依据行为的概率分布进行采样而被称为确定性策略</li>
+<li>噪声函数<br>该算法在学习阶段通过在确定性的行为基础上增加一个噪声函数而实现在确定性行为周围的小范围 内探索</li>
+<li>备份了一套参数<ul>
+<li>该算法还为 Actor 和 Critic 网络各备份了一套参数<font color="blue">用来计算行为价值的期待值</font>以更稳定地提升 Critic 的策略指导水平。使用备份参数的网络称为目标网络，其对应的参数每次更新的幅度很小</li>
+<li>另一套参数对应的 Actor 和 Critic 则用来生成实际交互的行为以及计算相应 的策略梯度，这一套参数每学习一次就更新一次。这种双参数设置的目的是为了减少因近似数据 的引导而发生不收敛的情形。</li>
+</ul>
+</li>
+<li>这四个网络具体使用的情景为<ul>
+<li>Actor 网络:根据当前状态 $s_0$ 生成的探索或不探索的具体行为$a_0$;</li>
+<li>Target Actor 网络:根据环境给出的后续状态$s_1$ 生成预估价值用到的$a_1$;</li>
+<li>Critic 网络:计算状态$s_0$和生成的行为$a_0$ 对应的行为价值;</li>
+<li>Target Critic 网络:根据后续状态$ s_1,a_1 生成用来计算目标价值 y = Q(s_0, a_0) 的 Q′(s_1, a_1)$</li>
+</ul>
+</li>
+</ul>
+<h4 id="伪代码"><a href="#伪代码" class="headerlink" title="伪代码"></a>伪代码</h4><img src="/2019/02/02/rl/基于策略梯度的深度强化学习/resources/83B47D21AA2E85D11C6D3C28FA6816ED.jpg">
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+	
+    
   </section>
 
-  {% include '_partials/pagination.swig' %}
-{% endblock %}
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
+  </nav>
 
-{% block sidebar %}
-  {{ sidebar_template.render(false) }}
-{% endblock %}
+
+
+          </div>
+          
+
+
+          
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/favicon.ico" alt="雷哥">
+          <p class="site-author-name" itemprop="name">雷哥</p>
+           
+              <p class="site-description motion-element" itemprop="description">不积跬步无以至千里</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">73</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/yuancl" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-雷哥"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">雷哥</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Gemini
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  
+    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
