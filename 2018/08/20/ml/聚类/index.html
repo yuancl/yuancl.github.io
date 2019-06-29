@@ -107,7 +107,8 @@
 <meta property="og:image" content="http://yoursite.com/2018/08/20/ml/聚类/resources/78391F39AD86022E73BD024B2FF230C8.jpg">
 <meta property="og:image" content="http://yoursite.com/2018/08/20/ml/聚类/resources/E1734D53B25C4D0019F957BEAB0042B7.jpg">
 <meta property="og:image" content="http://yoursite.com/2018/08/20/ml/聚类/resources/AE0804FF1B1322B4E95E28E786386EA3.jpg">
-<meta property="og:updated_time" content="2019-01-19T04:57:03.666Z">
+<meta property="og:image" content="http://yoursite.com/2018/08/20/ml/聚类/resources/729572530662A9FC2EFCF920DF512324.jpg">
+<meta property="og:updated_time" content="2019-06-29T12:04:35.883Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="聚类">
 <meta name="twitter:description" content="聚类任务 在无监督学习中（unsupervised learning）中，训练样本的标记信息是未知的，目标是通过对无标记的训练样本的学习来揭示数据的内在性质及规律，为进一步的数据分析提供基础。此类学习任务中研究最多、应用最广的是“聚类”（clustering） 聚类试图将数据集中的样本划分为若干通常是不相交的子集，每个子集称为一个“簇”（cluster）。 聚类既能作为一个单独的过程，用于找寻数据">
@@ -437,15 +438,32 @@
 </ul>
 </li>
 <li><p>学习向量量化<br>与k均值算法类似，“学习向量量化”（Learning Vector Quantization，简称LVQ）也是试图找到一组原型向量来刻画聚类结构，但与一般的聚类算法不同的是，LVQ假设数据样本带有类别标记，学习过程用样本的这些监督信息来辅助聚类</p>
+<ul>
+<li>和KMeans的区别：<ul>
+<li>LVQ数据样本带有标签 </li>
+<li>初始化方式不同，LVQ是初始化一组向量，KMeans初始化几个簇点</li>
+<li>迭代方式不同，LVQ是循环找到每个样本点和向量簇最近的向量，然后根据该样本点的类别是否和该向量表示的类别是否相同，另该向量靠近或更远离该点<img src="/2018/08/20/ml/聚类/resources/729572530662A9FC2EFCF920DF512324.jpg">
+</li>
+</ul>
+</li>
+</ul>
 </li>
 <li><p>高斯混合聚类<br>与k均值、LVQ用原型向量来刻画聚类结构不同，高斯混合（Mixture-of-Gaussian）聚类采用概率模型来表达聚类原型</p>
+<ul>
+<li>选择了高斯混合模型作为原型表示</li>
+<li><a href="https://blog.csdn.net/lin_limin/article/details/81048411" target="_blank" rel="noopener">结合高斯混合模型理解</a></li>
+</ul>
 </li>
 </ul>
 <h4 id="密度聚类"><a href="#密度聚类" class="headerlink" title="密度聚类"></a>密度聚类</h4><p>密度聚类亦称“基于密度的聚类”（density-based clustering），此类算法<font color="blue">假设聚类结构能通过样本分布的紧密程度确定</font>。通常情况下，密度聚类算法从样本密度的角度来考察样本之间的可连接性，并基于可连接样本不断扩展聚类簇以获得最终的聚类结果。</p>
 <ul>
 <li>DBSCAN是一种著名的密度聚类算法</li>
 </ul>
-<h4 id="层次聚类"><a href="#层次聚类" class="headerlink" title="层次聚类"></a>层次聚类</h4><p>层次聚类（hierarchical clustering）<font color="blue">试图在不同层次对数据集进行划分，从而形成树形的聚类结构</font>。数据集的划分可采用“自底向上”的聚合策略，也可采用“自顶向下”的分拆策略。<br>AGNES是一种采用自底向上聚合策略的层次聚类算法</p>
+<h4 id="层次聚类"><a href="#层次聚类" class="headerlink" title="层次聚类"></a>层次聚类</h4><p>层次聚类（hierarchical clustering）<font color="blue">试图在不同层次对数据集进行划分，从而形成树形的聚类结构</font>。数据集的划分可采用“自底向上”的聚合策略，也可采用“自顶向下”的分拆策略。</p>
+<ul>
+<li>AGNES 是一种采用自底 向上聚合策略的层次聚类算法.它先将数据集中 的每个样本看作一个初始聚类簇，然后在算法运行的每一步中找 出距离最近的两个粟类簇进行合并，该过程不断重复，直至达到预设的聚类簇个数</li>
+<li><a href="https://yuancl.github.io/2019/05/22/ml/层次聚类Louvain/" target="_blank" rel="noopener">Louvain算法</a></li>
+</ul>
 
       
     </div>
@@ -565,7 +583,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">73</span>
+                <span class="site-state-item-count">75</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -576,7 +594,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-count">22</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -587,7 +605,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-count">20</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

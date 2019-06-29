@@ -115,9 +115,11 @@
 <meta property="og:image" content="http://yoursite.com/2019/03/15/rl/强化学习基础算法对比总结/resources/330CF01329E0F79CDFBF7B3AFABE1701.jpg">
 <meta property="og:image" content="http://yoursite.com/2019/03/15/rl/强化学习基础算法对比总结/resources/873B2AE82C380A0DF20A408BAB193BE0.jpg">
 <meta property="og:image" content="http://yoursite.com/2019/03/15/rl/强化学习基础算法对比总结/resources/FCB9ECAB27436A64F27F0C3564176EDC.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/03/15/rl/强化学习基础算法对比总结/resources/C5285EA40617696A6C7AB03D0049EB03.jpg">
 <meta property="og:image" content="http://yoursite.com/2019/03/15/rl/强化学习基础算法对比总结/resources/956A445EB3C04AB5746C141CC6B281B6.jpg">
 <meta property="og:image" content="http://yoursite.com/2019/03/15/rl/强化学习基础算法对比总结/resources/61940048D6BE768A829798B0ACDD87BF.jpg">
-<meta property="og:updated_time" content="2019-03-17T12:29:23.409Z">
+<meta property="og:image" content="http://yoursite.com/2019/03/15/rl/强化学习基础算法对比总结/resources/10C881AA627B5435DA098EC77BEC80A7.jpg">
+<meta property="og:updated_time" content="2019-05-31T02:54:20.111Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="强化学习基础算法对比总结">
 <meta name="twitter:description" content="我的强化学习文章网络:强化学习算法汇总1网络:强化学习算法汇总2 不同角度分类 Model free/Model based Mode based:比如基于MDP(马尔科夫处理过程)，必须知道很多的环境状态，比如状态转移矩阵,reward等 Model free:不用知道环境的一些信息   基于价值还是基于策略 基于价值，比如V(s),Q(s,a)等，只能处理离散的行为，状态。得到最优值，对连续行">
@@ -485,9 +487,10 @@
 <li>其中Actor 类似于Policy Gradient，以状态s为输入，神经网络输出动作actions，并从在这些连续动作中按照一定的概率选取合适的动作action。 </li>
 <li>Critic 类似于 Q-Learning 等以值为基础的算法，由于在Actor模块中选择了合适的动作action，通过与环境交互可得到新的状态s_, 奖励r，将状态 s_作为神经网络的输入，得到v_，而原来的状态s通过神经网络输出后得到v。 <img src="/2019/03/15/rl/强化学习基础算法对比总结/resources/330CF01329E0F79CDFBF7B3AFABE1701.jpg">
 <img src="/2019/03/15/rl/强化学习基础算法对比总结/resources/873B2AE82C380A0DF20A408BAB193BE0.jpg">
-<img src="/2019/03/15/rl/强化学习基础算法对比总结/resources/FCB9ECAB27436A64F27F0C3564176EDC.jpg">
-</li>
+<img src="/2019/03/15/rl/强化学习基础算法对比总结/resources/FCB9ECAB27436A64F27F0C3564176EDC.jpg"></li>
 </ul>
+</li>
+<li>QAC算法(最基本的基于行为价值 Q 的 Actor-Critic 算法)<img src="/2019/03/15/rl/强化学习基础算法对比总结/resources/C5285EA40617696A6C7AB03D0049EB03.jpg">
 </li>
 </ul>
 <h4 id="A3C"><a href="#A3C" class="headerlink" title="A3C"></a>A3C</h4><ul>
@@ -500,6 +503,13 @@
 <li>所属范畴<br>Model free/(基于策略 and 价值/策略近似函数)/TD</li>
 <li>DDPG算法能较为稳定地解决连续行为空间下强化学习问题</li>
 <li>DDPG用到的神经网络是怎么样的？它其实有点类似于Actor-Critic，也需要有基于策略Policy 的神经网络 和 基于价值 Value 的神经网络，但是为了体现DQN的思想，每种神经网络我们都需要再细分成俩个。Policy Gradient 这边有估计网络和现实网络，估计网络用来输出实时的动作，而现实网络则是用来更新价值网络系统的。再看看价值系统这边，我们也有现实网络和估计网络，他们都在输出这个状态的价值，而输入端却有不同，状态现实网络这边会拿着当时actor施加的动作当做输入。在实际运用中，DDPG的这种做法的确带来了更有效的学习过程<img src="/2019/03/15/rl/强化学习基础算法对比总结/resources/61940048D6BE768A829798B0ACDD87BF.jpg"></li>
+<li>噪音函数<ul>
+<li>该算法在学习阶段通过在确定性的行为基础上增加一个噪声函数而实现在确定性行为周围的<font color="blue">小范围内探索</font></li>
+<li>该算法还为 Actor 和 Critic 网络各备份了一套参数用来计算行为价值的期待值以<font color="blue">更稳定地提升 Critic 的策略指导水平</font>。使用备份参数的网络称为目标网络，其对应的参数每次更新的幅度很小</li>
+</ul>
+</li>
+<li>伪代码<img src="/2019/03/15/rl/强化学习基础算法对比总结/resources/10C881AA627B5435DA098EC77BEC80A7.jpg">
+</li>
 </ul>
 
       
@@ -620,7 +630,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">73</span>
+                <span class="site-state-item-count">75</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -631,7 +641,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-count">22</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -642,7 +652,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-count">20</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

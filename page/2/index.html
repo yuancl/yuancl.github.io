@@ -274,6 +274,469 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/15/rl/强化学习基础算法对比总结/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/15/rl/强化学习基础算法对比总结/" itemprop="url">强化学习基础算法对比总结</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-15T22:11:15+08:00">
+                2019-03-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/强化学习/" itemprop="url" rel="index">
+                    <span itemprop="name">强化学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><a href="https://yuancl.github.io/categories/机器学习/强化学习/" target="_blank" rel="noopener">我的强化学习文章</a><br><a href="https://blog.csdn.net/Hansry/article/details/80808097" target="_blank" rel="noopener">网络:强化学习算法汇总1</a><br><a href="https://blog.csdn.net/hansry/article/details/80829127" target="_blank" rel="noopener">网络:强化学习算法汇总2</a></p>
+<h4 id="不同角度分类"><a href="#不同角度分类" class="headerlink" title="不同角度分类"></a>不同角度分类</h4><ul>
+<li>Model free/Model based<ul>
+<li>Mode based:比如基于MDP(马尔科夫处理过程)，必须知道很多的环境状态，比如状态转移矩阵,reward等</li>
+<li>Model free:不用知道环境的一些信息</li>
+</ul>
+</li>
+<li>基于价值还是基于策略<ul>
+<li>基于价值，比如V(s),Q(s,a)等，只能处理离散的行为，状态。得到最优值，对连续行为不好处理(Q-Learning,Sarsa,DQN及其变种)</li>
+<li>基于策略，能够解决连续行为状态的场景，比如对状态行为进行建模，能够输出该状态行为的价值数值，所以就可以根据所以行为价值值选择最优的进行迭代(Actor-critic,A3C,DDPG等)</li>
+<li>只是基于价值的模型(Critic only)，只会对整个序列完成后才给reward，对中间好的action损失较多，而基于价值和策略的模型就不会(例如Actor-critic),从Loss函数就能看出来<img src="/2019/03/15/rl/强化学习基础算法对比总结/resources/7A5A633D6270A244F2F0BC809FF24466.jpg"></li>
+</ul>
+</li>
+<li>是否使用函数近似<ul>
+<li>使用类似神经网络模型逼近V(s),Q(s,a)的真实值，本质就是对参数的求解，一定程度上能够解决连续状态行为的问题</li>
+</ul>
+</li>
+<li>迭代更新策略(MC,TD,DP)<ul>
+<li>基于采样的MC,TD,区别是迭代关注到后面的几步问题,实用性讲大部分都是基于TD的</li>
+<li>DP不基于采样，所以状态都需要探索</li>
+</ul>
+</li>
+<li>一套架构与否(行为策略和目的策略是否一致)<ul>
+<li>行为策略和目的策略分开，或两套深度学习模型，典型的如Actor-critic </li>
+</ul>
+</li>
+</ul>
+<h4 id="Q-Learning"><a href="#Q-Learning" class="headerlink" title="Q-Learning"></a>Q-Learning</h4><ul>
+<li><p>所属范畴<br>Model free/基于价值/TD/Off-Policy  </p>
+</li>
+<li><p>Q-Table(状态-行为表)<br>会有一个状态-行为表，来存储对应的价值，使用的时候只需要查表</p>
+<img src="/2019/03/15/rl/强化学习基础算法对比总结/resources/FA2597ED524C0B0B01F2501C2CFA8C7A.jpg">
+</li>
+<li><p>更新Q-Table</p>
+<ul>
+<li>注意这里是选择s2状态下的最大行为值max $Q(s_2,a)$<img src="/2019/03/15/rl/强化学习基础算法对比总结/resources/69AF8FAD960EF5E9B78057E0E9ECF094.jpg">
+</li>
+</ul>
+</li>
+<li><p>算法伪代码</p>
+<img src="/2019/03/15/rl/强化学习基础算法对比总结/resources/FF39F31C3A0DBB2EE7363ECFDD4A778D.jpg">
+</li>
+</ul>
+<h4 id="Sarsa"><a href="#Sarsa" class="headerlink" title="Sarsa"></a>Sarsa</h4><ul>
+<li>所属范畴<br>Model free/基于价值/TD and MC(Sarsa($\lambda$))/On-policy</li>
+<li><p>和QLearning区别<br>Q-learning 在从状态s−&gt;s′的时候，考虑到的为 max Q(s′,a′), 在s′状态中选取 a′时，永远考虑的是最大。而对于Sarsa 而言，在从s′状态中选取 a′时，会采取与从s选取a 的策略一样，即采用 greedy 或者 ϵ−greedy</p>
+<img src="/2019/03/15/rl/强化学习基础算法对比总结/resources/0222EC07D3FE2473155650099A69B238.jpg">
+<img src="/2019/03/15/rl/强化学习基础算法对比总结/resources/D42F10E3F36A9105D5A55E2262C8E55B.jpg">
+</li>
+<li><p>算法伪代码</p>
+<img src="/2019/03/15/rl/强化学习基础算法对比总结/resources/5504404F4F95CA41BCB2D2F638CA1333.jpg">
+</li>
+<li><p>Sarsa($\lambda$)</p>
+<img src="/2019/03/15/rl/强化学习基础算法对比总结/resources/15578715F45608C37432FD7A4DA06887.jpg">
+</li>
+</ul>
+<h4 id="DQN"><a href="#DQN" class="headerlink" title="DQN"></a>DQN</h4><ul>
+<li><p>所属范畴<br>Model free/价值近似函数/TD</p>
+</li>
+<li><p>和QLearning比较<br>在Q-Learning中，我们提到了用Q表来存储当前状态s1下采取的动作action的值（value，在Q表中也称为Q值）。但是在实际过程中，一个状态s1到下一状态s2，这里的s2可能有很多不同的情况，这将会导致Q表存储的值会很多，不仅占内存，且在搜索的时候也是十分耗时的</p>
+<ul>
+<li>用神经网络来替代行为策略和目的策略<ul>
+<li>输入为状态s和动作a，得到所有的动作值（Q值）</li>
+<li>只输入状态值，然后输出所有的动作值<img src="/2019/03/15/rl/强化学习基础算法对比总结/resources/458CEACC21DCDCA5B1DBE0672EDBE177.jpg">
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>伪代码</p>
+<img src="/2019/03/15/rl/强化学习基础算法对比总结/resources/B8A8E886CEF92ACAB6702E24C4E4FFA0.jpg">
+</li>
+<li><p>变种Double DQN， Dueling DQN等</p>
+<ul>
+<li>DDQN<br>使用借鉴的思路，使用两个架构相同的近似价值函数<ul>
+<li>其中一个用来根据策略生成交互行为并随 时频繁参数 (θ)</li>
+<li>另一个则用来生成目标价值</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="Policy-Gradients"><a href="#Policy-Gradients" class="headerlink" title="Policy Gradients"></a>Policy Gradients</h4><ul>
+<li>可以解决连续行为空间的情况</li>
+<li>强化学习是一个通过奖惩来学习正确行为的机制，有学习奖惩值，根据自己认为的高价值选择行为的，如Q Learning、Deep Q Network 等。也有不通过分析奖励值，直接输出行为的方法，如Policy Gradient。Policy Gradient 直接输出动作的最大好处就是，能够在一个连续区间内挑选动作，而基于值的，往往是在所有动作中计算值，然后选择值最高的那个行为</li>
+</ul>
+<h4 id="Actor-Critic"><a href="#Actor-Critic" class="headerlink" title="Actor-Critic"></a>Actor-Critic</h4><ul>
+<li><p>所属范畴<br>Model free/(基于策略 and 价值/策略近似函数)/TD</p>
+</li>
+<li><p>Actor Critic 为类似于Policy Gradient 和 Q-Learning 等以值为基础的算法的组合</p>
+</li>
+<li>Actor Critic 结合了 Policy Gradient（Actor）和 Function Approximation Critic）。Actor 基于概率选择行为，Critic 基于 Actor 的行为评判行为的得分，Actor 根据 Critic 的评分修改选择行为</li>
+<li>逻辑<ul>
+<li>其中Actor 类似于Policy Gradient，以状态s为输入，神经网络输出动作actions，并从在这些连续动作中按照一定的概率选取合适的动作action。 </li>
+<li>Critic 类似于 Q-Learning 等以值为基础的算法，由于在Actor模块中选择了合适的动作action，通过与环境交互可得到新的状态s_, 奖励r，将状态 s_作为神经网络的输入，得到v_，而原来的状态s通过神经网络输出后得到v。 <img src="/2019/03/15/rl/强化学习基础算法对比总结/resources/330CF01329E0F79CDFBF7B3AFABE1701.jpg">
+<img src="/2019/03/15/rl/强化学习基础算法对比总结/resources/873B2AE82C380A0DF20A408BAB193BE0.jpg">
+<img src="/2019/03/15/rl/强化学习基础算法对比总结/resources/FCB9ECAB27436A64F27F0C3564176EDC.jpg"></li>
+</ul>
+</li>
+<li>QAC算法(最基本的基于行为价值 Q 的 Actor-Critic 算法)<img src="/2019/03/15/rl/强化学习基础算法对比总结/resources/C5285EA40617696A6C7AB03D0049EB03.jpg">
+</li>
+</ul>
+<h4 id="A3C"><a href="#A3C" class="headerlink" title="A3C"></a>A3C</h4><ul>
+<li>所属范畴<br>Model free/(基于策略 and 价值/策略近似函数)/TD</li>
+<li>A3C 其实采用了Actor-Critic 的形式，但是引入了并行计算的概念。为了训练一对Actor 和 Critic，我们将Actor 和 Critic 复制成多份，然后放在不同的核中进行训练。其中需要声明一个主要的Actor-Critic (global)，不断从多个副本中更新的参数进行学习，获得新的参数，同时副本中的参数也不断从 Actor-Critic (global) 中获得并更新。</li>
+<li>A3C 是Google DeepMind 提出的一种解决 Actor Critic 不收敛问题的算法。A3C会创建多个并行的环境，让多个拥有副结构的 agent 同时在这些并行环境上更新主结构中的参数。并行中的 agent 们互不干扰，而主结构的参数更新受到副结构提交更新的不连续性干扰，所以更新的相关性被降低，收敛性提高<img src="/2019/03/15/rl/强化学习基础算法对比总结/resources/956A445EB3C04AB5746C141CC6B281B6.jpg">
+</li>
+</ul>
+<h4 id="DDPG-Deep-Deterministic-Policy-Gradient"><a href="#DDPG-Deep-Deterministic-Policy-Gradient" class="headerlink" title="DDPG(Deep Deterministic Policy Gradient)"></a>DDPG(Deep Deterministic Policy Gradient)</h4><ul>
+<li>所属范畴<br>Model free/(基于策略 and 价值/策略近似函数)/TD</li>
+<li>DDPG算法能较为稳定地解决连续行为空间下强化学习问题</li>
+<li>DDPG用到的神经网络是怎么样的？它其实有点类似于Actor-Critic，也需要有基于策略Policy 的神经网络 和 基于价值 Value 的神经网络，但是为了体现DQN的思想，每种神经网络我们都需要再细分成俩个。Policy Gradient 这边有估计网络和现实网络，估计网络用来输出实时的动作，而现实网络则是用来更新价值网络系统的。再看看价值系统这边，我们也有现实网络和估计网络，他们都在输出这个状态的价值，而输入端却有不同，状态现实网络这边会拿着当时actor施加的动作当做输入。在实际运用中，DDPG的这种做法的确带来了更有效的学习过程<img src="/2019/03/15/rl/强化学习基础算法对比总结/resources/61940048D6BE768A829798B0ACDD87BF.jpg"></li>
+<li>噪音函数<ul>
+<li>该算法在学习阶段通过在确定性的行为基础上增加一个噪声函数而实现在确定性行为周围的<font color="blue">小范围内探索</font></li>
+<li>该算法还为 Actor 和 Critic 网络各备份了一套参数用来计算行为价值的期待值以<font color="blue">更稳定地提升 Critic 的策略指导水平</font>。使用备份参数的网络称为目标网络，其对应的参数每次更新的幅度很小</li>
+</ul>
+</li>
+<li>伪代码<img src="/2019/03/15/rl/强化学习基础算法对比总结/resources/10C881AA627B5435DA098EC77BEC80A7.jpg">
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+	
+    
+	
+      	    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/28/rs/高级推荐模型之二：协同矩阵分解/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/28/rs/高级推荐模型之二：协同矩阵分解/" itemprop="url">高级推荐模型之二：协同矩阵分解</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-28T07:20:21+08:00">
+                2019-02-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/推荐系统/" itemprop="url" rel="index">
+                    <span itemprop="name">推荐系统</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/推荐系统/推荐模型简介/" itemprop="url" rel="index">
+                    <span itemprop="name">推荐模型简介</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="为什么需要协同矩阵分解"><a href="#为什么需要协同矩阵分解" class="headerlink" title="为什么需要协同矩阵分解"></a>为什么需要协同矩阵分解</h4><p>矩阵分解的核心就是通过矩阵，这个二维的数据结构，来对用户和物品的交互信息进行建模（如何融入更多信息）</p>
+<ul>
+<li>因为其二维的属性，矩阵往往只能对用户的某一种交互信息直接进行建模，这就带来很大的局限性</li>
+<li>思路一，就是通过建立显式变量和隐变量之间的回归关系，从而让矩阵分解的核心结构可以获得更多信息的帮助。</li>
+<li>思路二，则是采用分解机这样的集大成模型，从而把所有的特性，都融入到一个统一的模型中去。</li>
+<li>思路三，就是我们这周已经讲到的，利用张量，把二维的信息扩展到 N 维进行建模</li>
+</ul>
+<h4 id="如何组织更多的二元关系"><a href="#如何组织更多的二元关系" class="headerlink" title="如何组织更多的二元关系"></a>如何组织更多的二元关系</h4><p>除了用户和物品这样很明显的二元关系以外，还有其他也很明显的二元关系，如何把这些二元关系有效地组织起来，就变成了一个有挑战的任务</p>
+<ul>
+<li>在前面的思路里面可以看到，我们似乎需要选择一个主要的关系来作为这个模型的基础框架，<font color="blue">然后把其他的信息作为补充</font>。在这样两类关系中，选择哪一个作为主要关系，哪一个作为补充关系，就显得有一点困难了</li>
+<li>这也就让研究人员想出了协同矩阵分解的思路</li>
+</ul>
+<h4 id="协同矩阵分解的基本思路"><a href="#协同矩阵分解的基本思路" class="headerlink" title="协同矩阵分解的基本思路"></a>协同矩阵分解的基本思路</h4><ul>
+<li>协同矩阵分解的基本思路其实非常直观，那就是有多少种二元关系，就用多少个矩阵分解去建模这些关系</li>
+<li><p>如果协同(如果让这多个矩阵产生关系?)</p>
+<ul>
+<li>理论上基于矩阵分解得到的隐变量，相互是独立的，没有关系的</li>
+<li>我们必须有其他的假设。这里的其他假设就是，两组不同的用户隐变量其实是一样的。也就是说，我们假设，或者认定，用户隐变量在用户与用户的关系中，以及在用户与物品的关系中，<font color="blue">是同一组用户隐变量在起作用</font><ul>
+<li>说得直白一些，我们认定从两个矩阵分解出来的两组来自同一个因素（这里是用户）的<font color="blue">隐变量是完全一样的</font>。用更加学术的语言来说，这就是将两组矩阵分别投影到了相同的用户空间和物品空间</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>优点<br>我们使用“相同隐变量”这样的假设，可以把这些关系都串联起来，然后减少了总的变量数目，同时也让各种关系互相影响</p>
+</li>
+<li>缺点<ul>
+<li>使用同样的一组隐变量去表达所有的同类关系，这样的假设存在一定的局限性，比较难找到</li>
+<li>不同关系的数据量会有很大的差距。比如，用户和物品关系的数据总量可能要比用户与用户的多。所以，由于用户和物品关系的数据多，两个矩阵分解用的同一组用户隐变量，很可能会更多地解释用户和物品的部分，从而造成了学到的隐变量未必能够真正表达所有的关系</li>
+</ul>
+</li>
+</ul>
+<h4 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h4><p>从概念上来看，协同矩阵分解和张量分解之间有怎样的关系？是不是所有的张量分解都可以化为多个协同矩阵分解呢</p>
+<ul>
+<li>我的理解是ok的</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+	
+    
+	
+      	    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/27/rs/高级推荐模型之一：张量分解模型/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -2095,468 +2558,6 @@
 
 	
     
-	
-      	    
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/03/rl/基于模型的学习和规划/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="雷哥">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/favicon.ico">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="雷哥的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/02/03/rl/基于模型的学习和规划/" itemprop="url">基于模型的学习和规划</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-03T13:11:12+08:00">
-                2019-02-03
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/机器学习/" itemprop="url" rel="index">
-                    <span itemprop="name">机器学习</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/机器学习/强化学习/" itemprop="url" rel="index">
-                    <span itemprop="name">强化学习</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><ul>
-<li>前面的算法都是与真实的环境进行交互，个体并不试图去理解环境动力学</li>
-<li>如果能构建一个较为准确地模拟环境动力学特 征的模型或者问题的模型本身就类似于一些棋类游戏是明确或者简单的，个体就可以通过<font color="blue">构建这样的模型来模拟其与环境的交互</font>，这种依靠模型模拟而不实际与环境交互的过程<font color="blue">类似于“思考”过程</font><ul>
-<li>通过思考，个体可以对问题进行规划、在与环境实际交互时<font color="blue">搜索交互可能产生的各种 后果</font>并从中选择对个体有利的结果<ul>
-<li><font color="purple">我理解是通过模拟的环境，得到各自行为，然后与真实环境进行交互的时候，从这些模拟环境得到的行为中搜索，选择最优的结果 </font>
-
-
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="环境的模型"><a href="#环境的模型" class="headerlink" title="环境的模型"></a>环境的模型</h3><p>模型是个体构建的对于环境动力学特征的表示</p>
-<h4 id="基于模型的强化学习流程"><a href="#基于模型的强化学习流程" class="headerlink" title="基于模型的强化学习流程"></a>基于模型的强化学习流程</h4><ul>
-<li><p>当个体得到了一 个较为准确的描述环境动力学的模型时，它在与环境交互的过程中，既可以通过实际交互来提高模型的准确程度，也可以在交互间隙利用构建的模型进行思考、规划，决策出对个体有力的行为</p>
-<img src="/2019/02/03/rl/基于模型的学习和规划/resources/FAAFC16238D8AB743A35514D8FA86155.jpg">
-</li>
-<li><p>学习一个模型相当于丛经历 $S_1, A_1, R_2, . . . , S_T$ 中通过监督学习得到一个模型 $M_η$</p>
-<ul>
-<li>训练数据为<br>$S_1,A_1 →R_2,S_2$<br>$S_2,A_2 →R_3,S_3$..<br>$S_{T−1},A_{T−1} →R_T,S_T$</li>
-</ul>
-</li>
-<li><p>使用近似的模型解决强化学习问题与使用价值函数或策略函数的近似表达来解决强化学习问题并不冲突，它们是从不同角度来近似求解一个强化学习问题</p>
-<ul>
-<li>当构建一个模型比构建近似价值函数 或近似策略函数更方便时，那么使用近似模型来求解会更加高效</li>
-</ul>
-</li>
-<li><p>特别注意模型参数要随着个体与环境交互而不断地动态更新，<font color="blue">即通过实际经历要与使用模型产生的虚拟经历相结合来解决问题</font></p>
-<ul>
-<li>这就催生了一类整合了学习与规划的强化学习算法——Dyna</li>
-</ul>
-</li>
-</ul>
-<h4 id="Dyna算法-整合学习与规划"><a href="#Dyna算法-整合学习与规划" class="headerlink" title="Dyna算法(整合学习与规划)"></a>Dyna算法(整合学习与规划)</h4><ul>
-<li>Dyna 算法从实际经历中学习得到模型，同时<font color="blue">联合</font>使用实际经历和基于模型采样得到的虚拟经历来学习和规划，更新价值和 (或) 策略函数<img src="/2019/02/03/rl/基于模型的学习和规划/resources/DC72D9AC050BA5334B17A5B74CDAA7C9.jpg"></li>
-<li>伪代码<img src="/2019/02/03/rl/基于模型的学习和规划/resources/B080914282D2D2B32DECD04A75A4DFDB.jpg">
-<ul>
-<li>我的理解：<ul>
-<li>从开始是通过真实环境去得到模型环境Model</li>
-<li>下面会使用Model得到虚拟的经历，结合上面真实经历来更新Q(S,A)</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="基于模拟的搜索"><a href="#基于模拟的搜索" class="headerlink" title="基于模拟的搜索"></a>基于模拟的搜索</h4><ul>
-<li>前向搜索形式<br>在强化学习中，基于模拟的搜索 (simulation-based search) 是一种前向搜索形式,它从当前 时刻的状态开始，<font color="blue">利用模型来模拟采样，构建一个关注短期未来的前向搜索树</font>，将构建得到的搜索树作为一个<font color="blue">学习资源</font>，使用不基于模型的强化学习方法来寻找当前状态下的最优策略<ul>
-<li><font color="purple">我的理解就是通过模型来构造一颗状态行为树，然后搜索在当前状态下的最优行为，也就是最优策略</font></li>
-</ul>
-</li>
-<li>如果使用蒙特卡罗学习方法则称为蒙特卡罗搜索，如果使用 Sarsa 学习方法，则称为 TD 搜索</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-	
-    
-	
-      	    
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/02/rl/基于策略梯度的深度强化学习/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="雷哥">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/favicon.ico">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="雷哥的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/02/02/rl/基于策略梯度的深度强化学习/" itemprop="url">基于策略梯度的深度强化学习</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-02T23:10:15+08:00">
-                2019-02-02
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/机器学习/" itemprop="url" rel="index">
-                    <span itemprop="name">机器学习</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/机器学习/强化学习/" itemprop="url" rel="index">
-                    <span itemprop="name">强化学习</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><ul>
-<li><p>在行为空间规模庞大或者是连续行为的情况下，基于价值的强化学习将很难学习到一个好的结果，这种情况下可以直接进行策略的学习</p>
-<ul>
-<li>即将策略看成是状态和行为的带参数的策略函 数，通过建立恰当的目标函数、利用个体与环境进行交互产生的奖励来学习得到策略函数的参数。</li>
-<li>策略函数针对连续行为空间将可以<font color="blue">直接产生具体的行为值，进而绕过对状态的价值的学习</font></li>
-</ul>
-</li>
-<li><p>在实际应用中通过<font color="blue">建立分别对于状态价值的近似函数和策略函数</font></p>
-<ul>
-<li>使得一方面可以基于价值函 数进行策略评估和优化</li>
-<li>另一方面优化的策略函数又会使得价值函数更加准确的反应状态的价 值，两者相互促进最终得到最优策略</li>
-</ul>
-</li>
-</ul>
-<h3 id="基于策略学习的意义"><a href="#基于策略学习的意义" class="headerlink" title="基于策略学习的意义"></a>基于策略学习的意义</h3><h4 id="背景-1"><a href="#背景-1" class="headerlink" title="背景"></a>背景</h4><p>基于价值的强化学习虽然能出色地解决很多问题，但面对行为空间连续、观测受 限、随机策略的学习等问题时仍然显得力不从心</p>
-<ul>
-<li><p>问题1(行为空间连续)</p>
-<ul>
-<li>基于近似价值函数的学习可以较高效率地解决连续状态空间的强化学习问题，但其行为空间仍然是离散的</li>
-<li>如果行为空间是连续的，可以认为单纯基于价值函数近似的强化 学习无法解决连续行为空间的问题，其中每一 个方向上的分量可以是 [-1,1] 之间的任何连续值。在这个例子 (图 7.1) 中，行为由两个特征来描 述，其中每一个特征具体的值是连续的。比如：<img src="/2019/02/02/rl/基于策略梯度的深度强化学习/resources/249F71A8DFF7CC68F09189A2CBD8FA32.jpg">
-</li>
-</ul>
-</li>
-<li><p>问题2(观测受限)</p>
-<ul>
-<li>此外，在使用特征来描述状态空间中的某一个状态时，有可能因为个体观测的限制或者建 模的局限，导致本来不同的两个状态却拥有相同的特征描述，进而导致无法得到最优解<ul>
-<li>在这种情况下，由于个体对于状态观测的特征不够多，导致了多个状 态发生重名情况，进而导致基于价值的学习得不到最优解<img src="/2019/02/02/rl/基于策略梯度的深度强化学习/resources/62B8EFCF8DD2ED23F7457C8AE9F9D726.jpg">
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>问题3(随机策略的学习)</p>
-<ul>
-<li>基于价值的学习对应的最优策略通常是确定性策略，因为其是从众多行为价值中选择一个 最大价值的行为，而有些问题的最优策略却是随机策略，这种情况下同样是无法通过基于价值的学习来求解的。</li>
-<li>这其中最简单的一个例子是人们小时候经常玩的“石头剪刀布”游戏。对于这个 游戏，玩家的最优策略是随机出石头剪刀布中的一个，因为一旦你遵循一个确定的策略，将很容 易被对手发现并利用进而输给对方</li>
-</ul>
-</li>
-</ul>
-<h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><ul>
-<li>策略 π 可以被被描述为一个包含参数 θ 的函数<br>$π_θ(s,a) = P[a | s,θ]$</li>
-<li>含义：<br>策略函数 $π_θ$ 确定了在给定的状态和一定的参数设置下，采取任何可能行为的概率，<font color="blue">是一个概率密度函数</font><ul>
-<li>在实际应用这个策略时，<font color="blue">选择最大概率对应的行为</font>或者以此为基础进行一定程度的采样探索。可以认为，参数 θ 决定了策略的具体形式。</li>
-<li>因而求解基于策略的学习问题就转变为了如何确定策略函数的参数 θ。同样可以通过设计一个基于参数 θ 的目标函数 J(θ)，通过相应 的算法来寻找最优参数</li>
-</ul>
-</li>
-</ul>
-<h3 id="策略目标函数"><a href="#策略目标函数" class="headerlink" title="策略目标函数"></a>策略目标函数</h3><p>强化学习的目标就是让个体在与环境交互过程中获得尽可能多的累计奖励，一个好的策略 应该能准确反映强化学习的目标</p>
-<ul>
-<li>初始状态收获的期望<br>对于一个能够形成完整状态序列的交互环境来说，由于一个策 略决定了个体与环境的交互，因而可以设计目标函数 J1(θ) 为使用策略 πθ 时初始状态价值 (start value):<br>$J_1(θ) = V_{π_θ} (s_1) = E_{π_θ} [G_1]$</li>
-<li>有些环境是没有明确的起始状态和终止状态，个体持续的与环境进行交互。在这种情况下可以使 用平均价值 (average value) 或者每一时间步的平均奖励 (average reward per time-step) 来设计策<br>略目标函数:<ul>
-<li>$d^{π<em>θ} (s)$ 是基于策略 $π</em>θ$生成的马尔科夫链关于状态的静态分布<img src="/2019/02/02/rl/基于策略梯度的深度强化学习/resources/8C3E7DC59B8D8ED2899C674AD3D6EE09.jpg"></li>
-</ul>
-</li>
-<li>与价值函数近似的目标函数 不同，策略目标函数的值越大代表着策略越优秀。可以使用与梯度下降相反的梯度上升来求解最优参数</li>
-<li>假设现在有一个单步马尔科夫决策过程，对应的强化学习问题是个体与环境每产生一个行 为交互一次即得到一个即时奖励 r = Rs,a，并形成一个完整的状态序列。根据公式 (7.1)，策略目 标函数为<img src="/2019/02/02/rl/基于策略梯度的深度强化学习/resources/28D0F3C14799FD88BB04860C6B0192D6.jpg"></li>
-<li>分值函数(score function)<br>上式中 $∇<em>θlogπ</em>θ(s,a)$ 称为分值函数 (score function)。<ul>
-<li>存在如下的策略梯度定理:<br>对于任何 可微的策略函数 $π_θ(s, a)$ 以及三种策略目标函数 $J = J_1, J_{avV} 和 J_{avR}$ 中的任意一种来说，策略 目标函数的梯度 (策略梯度) 都可以写成用分值函数表示的形式:<img src="/2019/02/02/rl/基于策略梯度的深度强化学习/resources/F403A2CB9D3BD5E27FBDB2DC8B8F5BB4.jpg"></li>
-<li>意义<ul>
-<li><font color="blue">分值越高意味着在当前策略下对应行为被选中的概率越大</font></li>
-<li>算法将结合某一行为的分值对应的奖励来得到对应的梯度，并在此基础上调整参 数，<font color="blue">最终使得奖励越大的行为对应的分值越高</font></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="Actor-Critic-算法"><a href="#Actor-Critic-算法" class="headerlink" title="Actor-Critic 算法"></a>Actor-Critic 算法</h3><h4 id="定义-1"><a href="#定义-1" class="headerlink" title="定义"></a>定义</h4><ul>
-<li>Actor-Critic 算法的名字很形象，它包含一个策略函数和行为价值函数<ul>
-<li>其中策略函数充当 演员 (Actor), 生成行为与环境交互</li>
-<li>行为价值函数充当 (Critic)，负责评价演员的表现，并指导 演员的后续行为动作</li>
-</ul>
-</li>
-<li>Critic 的行为价值函数是基于策略 $π_θ$ 的一个近似<br>$Q_w(s, a) ≈ Q_{π_θ} (s, a)$</li>
-<li>基于此，Actor-Critic 算法遵循一个近似的策略梯度进行学习<img src="/2019/02/02/rl/基于策略梯度的深度强化学习/resources/832F18299F2131CC68EA719ECB28EFE0.jpg">
-</li>
-</ul>
-<h4 id="QAC算法-最基本的基于行为价值-Q-的-Actor-Critic-算法"><a href="#QAC算法-最基本的基于行为价值-Q-的-Actor-Critic-算法" class="headerlink" title="QAC算法(最基本的基于行为价值 Q 的 Actor-Critic 算法)"></a>QAC算法(最基本的基于行为价值 Q 的 Actor-Critic 算法)</h4><img src="/2019/02/02/rl/基于策略梯度的深度强化学习/resources/BAE69DD8E4E51BE876EA997076555EE1.jpg">
-<h4 id="参数更新"><a href="#参数更新" class="headerlink" title="参数更新"></a>参数更新</h4><ul>
-<li>Critic 的函数 $V_w(s)$ 的参数 w更新<img src="/2019/02/02/rl/基于策略梯度的深度强化学习/resources/A499D8701005947722D2C5F6A40E3C49.jpg"></li>
-<li>策略函数 $π_θ(s,a)$ 的参数θ更新<img src="/2019/02/02/rl/基于策略梯度的深度强化学习/resources/9796183388A806045FA369B4ADA63A36.jpg">
-</li>
-</ul>
-<h3 id="深度确定性策略梯度-DDPG-算法"><a href="#深度确定性策略梯度-DDPG-算法" class="headerlink" title="深度确定性策略梯度(DDPG)算法"></a>深度确定性策略梯度(DDPG)算法</h3><p>DDPG算法能较为稳定地解决连续行为空间下强化学习问题</p>
-<h4 id="算法理解"><a href="#算法理解" class="headerlink" title="算法理解"></a>算法理解</h4><ul>
-<li>深度确定性策略梯度算法是使用深度学习技术、同时基于 Actor-Critic 算法的确定性策略算法</li>
-<li>该算法中的 Actor 和 Critic 都使用深度神经网络来建立近似函数</li>
-<li>由于该算法可以直接从 Actor 的策略生成确定的行为而不需要依据行为的概率分布进行采样而被称为确定性策略</li>
-<li>噪声函数<br>该算法在学习阶段通过在确定性的行为基础上增加一个噪声函数而实现在确定性行为周围的小范围 内探索</li>
-<li>备份了一套参数<ul>
-<li>该算法还为 Actor 和 Critic 网络各备份了一套参数<font color="blue">用来计算行为价值的期待值</font>以更稳定地提升 Critic 的策略指导水平。使用备份参数的网络称为目标网络，其对应的参数每次更新的幅度很小</li>
-<li>另一套参数对应的 Actor 和 Critic 则用来生成实际交互的行为以及计算相应 的策略梯度，这一套参数每学习一次就更新一次。这种双参数设置的目的是为了减少因近似数据 的引导而发生不收敛的情形。</li>
-</ul>
-</li>
-<li>这四个网络具体使用的情景为<ul>
-<li>Actor 网络:根据当前状态 $s_0$ 生成的探索或不探索的具体行为$a_0$;</li>
-<li>Target Actor 网络:根据环境给出的后续状态$s_1$ 生成预估价值用到的$a_1$;</li>
-<li>Critic 网络:计算状态$s_0$和生成的行为$a_0$ 对应的行为价值;</li>
-<li>Target Critic 网络:根据后续状态$ s_1,a_1 生成用来计算目标价值 y = Q(s_0, a_0) 的 Q′(s_1, a_1)$</li>
-</ul>
-</li>
-</ul>
-<h4 id="伪代码"><a href="#伪代码" class="headerlink" title="伪代码"></a>伪代码</h4><img src="/2019/02/02/rl/基于策略梯度的深度强化学习/resources/83B47D21AA2E85D11C6D3C28FA6816ED.jpg">
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-	
-    
   </section>
 
   
@@ -2605,7 +2606,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">73</span>
+                <span class="site-state-item-count">75</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -2616,7 +2617,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-count">22</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -2627,7 +2628,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-count">20</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

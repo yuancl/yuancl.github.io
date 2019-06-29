@@ -111,9 +111,10 @@
 <meta property="og:image" content="http://yoursite.com/2018/06/28/ml/支持向量机(SVM)/resources/67CA8735991FC2CCCEA06FDDE4F2EC87.jpg">
 <meta property="og:image" content="http://yoursite.com/2018/06/28/ml/支持向量机(SVM)/resources/D2C130615908A44229AA9B8C067B4A80.jpg">
 <meta property="og:image" content="http://yoursite.com/2018/06/28/ml/支持向量机(SVM)/resources/8B3EC6F476E13888172948983D4EAE13.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/06/28/ml/支持向量机(SVM)/resources/2208BA1FA121BBD9C040C774A7CA5721.jpg">
 <meta property="og:image" content="http://yoursite.com/2018/06/28/ml/支持向量机(SVM)/resources/23FCF88EDB0FDB93728C5A2548BE7E14.jpg">
 <meta property="og:image" content="http://yoursite.com/2018/06/28/ml/支持向量机(SVM)/resources/127FBB39702127EC06BEE121F38B013B.jpg">
-<meta property="og:updated_time" content="2019-01-19T04:57:03.665Z">
+<meta property="og:updated_time" content="2019-05-24T07:35:59.626Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SVM">
 <meta name="twitter:description" content="间隔与支持向量 支持向量：假设超平面(w,b)能将训练样本正确分类，即对于$(x_i,y_i)\in D$,若$y_i=1$,则有$w^Tx_i+b&amp;gt;0$;若$y_i=-1$,则有$w^Tx_i+b&amp;lt;0$令 如图 6.2所示，距离超平面最近的这几个训练样本点使式(6.3)的等号成立， 它们被称为”支持向量” (support vector) svm是解决分类问题，但并不会计算所以的点,">
@@ -414,7 +415,8 @@
 <h4 id="约束求解-amp-拉格朗日乘子求解-amp-KKT"><a href="#约束求解-amp-拉格朗日乘子求解-amp-KKT" class="headerlink" title="约束求解&amp;拉格朗日乘子求解&amp;KKT"></a>约束求解&amp;拉格朗日乘子求解&amp;KKT</h4><ul>
 <li>求解最优问题：1.无约束（一般直接求导）2.等式约束（用拉格朗日求解）3.不等式约束（用KKT求解）</li>
 <li>拉格朗日乘子：通过拉格朗日这位大神的办法重新定义一个无约束问题（大家都喜欢无拘无束），这个无约束问题等价于原来的约束优化问题，从而将约束问题无约束化</li>
-<li>式(6.35)中每个样本都有一个对应的松弛变量， 用 以表征该样本不满 足约束(6.28)的程度.但是，与式(6.6)相似，这仍是一个二次规划问题于是?类 似式 (6.8)，通过拉格朗日乘子法可得到式 (6.35)的拉格朗日函 数<img src="/2018/06/28/ml/支持向量机(SVM)/resources/8B3EC6F476E13888172948983D4EAE13.jpg">
+<li>式(6.35)中每个样本都有一个对应的松弛变量， 用 以表征该样本不满 足约束(6.28)的程度.但是，与式(6.6)相似，这仍是一个二次规划问题于是?类 似式 (6.8)，通过拉格朗日乘子法可得到式 (6.35)的拉格朗日函 数<img src="/2018/06/28/ml/支持向量机(SVM)/resources/8B3EC6F476E13888172948983D4EAE13.jpg"></li>
+<li>推导<br><a href="https://www.jianshu.com/p/f4c7bc6c4ce2" target="_blank" rel="noopener">参考1</a><br><a href="https://www.jianshu.com/p/bce3b2850406" target="_blank" rel="noopener">参考2</a><img src="/2018/06/28/ml/支持向量机(SVM)/resources/2208BA1FA121BBD9C040C774A7CA5721.jpg">
 </li>
 </ul>
 <h4 id="核函数"><a href="#核函数" class="headerlink" title="核函数"></a>核函数</h4><img src="/2018/06/28/ml/支持向量机(SVM)/resources/23FCF88EDB0FDB93728C5A2548BE7E14.jpg">
@@ -538,7 +540,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">73</span>
+                <span class="site-state-item-count">75</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -549,7 +551,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-count">22</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -560,7 +562,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-count">20</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
