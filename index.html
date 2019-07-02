@@ -700,6 +700,393 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/19/ml/LightGBM模型/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/19/ml/LightGBM模型/" itemprop="url">LightGBM模型</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-19T07:10:10+08:00">
+                2019-05-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/集成学习/" itemprop="url" rel="index">
+                    <span itemprop="name">集成学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><a href="https://www.zhihu.com/question/51644470" target="_blank" rel="noopener">LightGBM优缺点比较</a></p>
+<h4 id="直方图"><a href="#直方图" class="headerlink" title="直方图"></a>直方图</h4><p><a href="https://blog.csdn.net/anshuai_aw1/article/details/83040541" target="_blank" rel="noopener">直方图优化算法深入理解</a></p>
+<ul>
+<li>和xgboost的pre-order比较<br>xgboost 采用了预排序的方法来处理节点分裂，这样计算的分裂点比较精确。但是，时间空间上都造成了很大的时间开销<font color="blue">(但这个也是当时相比GBDT的重要提升点)</font>。为了解决这个问题，Lightgbm 选择了基于 histogram 的决策树算法。相比于 pre-sorted算法，histogram 在内存消耗和计算代价上都有不少优势</li>
+<li>LightGBM和最近的FastBDT都采取了提前histogram binning再在bin好的数据上面进行搜索。并在pre-bin之后的histogram的求和用了一个非常巧妙的<font color="blue">减法trick(histogram加速)</font>，省了一半的时间</li>
+</ul>
+<h4 id="leaf-wise替代level-wise"><a href="#leaf-wise替代level-wise" class="headerlink" title="leaf-wise替代level-wise"></a>leaf-wise替代level-wise</h4><p>在 histogram 算法之上， LightGBM 进行进一步的优化。首先它抛弃了大多数 GBDT 工具使用的按层生长<br>(level-wise) 的决策树生长策略，而使用了带有深度限制的按叶子生长 (leaf-wise) 算法  </p>
+<ul>
+<li><p>在 histogram 算法之上， LightGBM 进行进一步的优化。首先它抛弃了大多数 GBDT 工具使用的按层生长(level-wise) 的决策树生长策略，而使用了带有深度限制的按叶子生长 (leaf-wise) 算法。 level-wise 过一次数据可以同时分裂同一层的叶子，容易进行多线程优化，不容易过拟合。<font color="blue">但实际上level-wise是一种低效的算法，因为它不加区分的对待同一层的叶子，带来了很多没必要的开销</font>。因为实际上很多叶子的分裂增益较低，没必要进行搜索和分裂。</p>
+<ul>
+<li>leaf-wise则是一种更为高效的策略，每次从当前所有叶子中，<font color="blue">找到分裂增益最大(一般也是数据量最大)的一个叶子</font>，然后分裂，如此循环</li>
+<li>因此同 level-wise 相比，在分裂次数相同的情况下，leaf-wise 可以降低更多的误差，得到更好的精度。</li>
+<li>leaf-wise 的缺点是可能会长出比较深的决策树，产生过拟合。因此 LightGBM 在leaf-wise 之上增加了一个最大深度的限制，在保证高效率的同时防止过拟合</li>
+</ul>
+</li>
+<li><p>Level wise方式：<br>Level-wise过一次数据可以同时分裂同一层的叶子，容易进行多线程优化，也好控制模型复杂度，不容易过拟合。但实际上Level-wise是一种低效的算法，因为它<font color="blue">不加区分的对待同一层的叶子，带来了很多没必要的开销</font>，因为实际上很多叶子的分裂增益较低，没必要进行搜索和分裂</p>
+<img src="/2019/05/19/ml/LightGBM模型/resources/9A84741C62CECD29301748C37573B157.jpg">
+</li>
+<li><p>Leaf wise方式:<br>Leaf-wise则是一种更为高效的策略，<font color="blue">每次从当前所有叶子中，找到分裂增益最大的一个叶子，然后分裂</font>，如此循环。因此同Level-wise相比，在分裂次数相同的情况下，Leaf-wise可以降低更多的误差，得到更好的精度。Leaf-wise的缺点是可能会长出比较深的决策树，产生过拟合。因此LightGBM在Leaf-wise之上增加了一个最大深度的限制，在保证高效率的同时防止过拟合。</p>
+<img src="/2019/05/19/ml/LightGBM模型/resources/7E07549EF03D83F8CAAEDAC5DF13EFB3.jpg">
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+	
+    
+	
+      	    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/17/ml/XGboost模型/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/17/ml/XGboost模型/" itemprop="url">XGboost模型</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-17T07:19:11+08:00">
+                2019-05-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/集成学习/" itemprop="url" rel="index">
+                    <span itemprop="name">集成学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><a href="https://blog.csdn.net/guoxinian/article/details/79243307" target="_blank" rel="noopener">https://blog.csdn.net/guoxinian/article/details/79243307</a><br><a href="https://blog.csdn.net/matrix_zzl/article/details/78635221#2-xgboost%E5%8E%9F%E7%90%86%E6%8E%A8%E5%AF%BC" target="_blank" rel="noopener">https://blog.csdn.net/matrix_zzl/article/details/78635221#2-xgboost%E5%8E%9F%E7%90%86%E6%8E%A8%E5%AF%BC</a></p>
+<h4 id="boosting集成框架"><a href="#boosting集成框架" class="headerlink" title="boosting集成框架"></a>boosting集成框架</h4><ul>
+<li>boosting集成是后一个模型是对前一个模型产生<font color="blue">误差信息进行矫正</font></li>
+<li>gradient boost更具体，新模型的引入是为了<font color="blue">减少上个模型的残差(residual)</font>，我们可以在<font color="red">残差减少的梯度(Gradient)方向上</font>建立一个新的模型</li>
+<li>框架算法：<img src="/2019/05/17/ml/XGboost模型/resources/0317F68CB4256A79486DF6B5D164BE3F.jpg">
+<ul>
+<li>1.设定函数初始值F0，为一个恒值函数，论文中基于变量优化出恒值，实际上也可以给定任意值或者直接为0</li>
+<li>2.泛函优化<br>根据参数MM，进行MM次迭代，不断将当前函数$F_{m−1}$往最优函数F∗空间上逼近，<font color="blue">逼近方向就是当前函数下的函数负梯度方向</font>-$\delta L(y,F)$,由于优化函数，而非变量，本质上属于泛函优化</li>
+<li>3.每次迭代计算出函数负梯度，<font color="red">基于训练数据构建模型来拟合负梯度</font>。原则上可以选择任何模型：树模型，线性模型或者神经网络等等，很少框架支持神经网络，推测：神经网络容易过拟合，后续函数负梯度恒为0就无法继续迭代优化下去。如果用树模型进行拟合，就是我们熟悉的CART建树过程</li>
+</ul>
+</li>
+<li>泛函优化与变量优化<img src="/2019/05/17/ml/XGboost模型/resources/74A523412DEFC18E07ABF4E2D8EABAA5.jpg"></li>
+<li>和bagging比较并行性<br>谈到集成学习，不得不说bagging集成，比如随机森林<ul>
+<li>1）建树前对样本随机抽样（行采样）</li>
+<li>2）每个特征分裂随机采样生成特征候选集（列采样）</li>
+<li>3）根据增益公式选取最优分裂特征和对应特征分裂值建树。<ul>
+<li>建树过程完全独立，不像boosting训练中下一颗树需要依赖前一颗树训练构建完成，因此能够完全并行化。Python机器学习包sklearn中随机森林RF能完全并行训练</li>
+<li>而GBDT算法不行，训练过程还是单线程，无法利用多核导致速度慢。希望后续优化实现并行，Boosting并行不是同时构造N颗树，<font color="blue">而是单颗树构建中遍历最优特征时的并行</font>，类似XGBoost实现过程。随机森林中行采样与列采样有效抑制模型过拟合，XGBoost也支持这2种特性，此外其还支持Dropout抗过拟合。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="XGboost改进-Loss方程"><a href="#XGboost改进-Loss方程" class="headerlink" title="XGboost改进-Loss方程"></a>XGboost改进-Loss方程</h4><ul>
+<li><p>Loss进行泰勒二阶展开并且加入了惩罚项</p>
+<img src="/2019/05/17/ml/XGboost模型/resources/DBE01DCBB543EA600C500B25827EA668.jpg">
+<ul>
+<li><p>目标函数通过二阶泰勒展开式做近似。传统GBDT在优化时只用到一阶导数信息，xgboost则对代价函数进行了二阶泰勒展开，同时用到了一阶和二阶导数。注：支持自定义代价函数，只要函数可一阶和二阶求导</p>
+<ul>
+<li><a href="https://blog.csdn.net/s12117719679/article/details/87883168" target="_blank" rel="noopener">泰勒展开理解</a> <ul>
+<li>如何让两个人运动轨迹一样？<br>就是让两个人的速度，加速度，加速度的加速度…都一致。那么翻译成数学语言，也就是两条曲线想要一样，那么在某一点的一阶导数，二阶导数，三阶导数，四阶导数….n阶导数也相同，就说这两条曲线是相同的。也就是泰勒展开式的核心思想</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>定义了树的复杂度，即xgboost在代价函数里加入了正则项，用于控制模型的复杂度，<font color="blue">正则项里包含了树的叶子节点个数、每个叶子节点上输出的score的L2模的平方和</font>。代替了剪枝。</p>
+<img src="/2019/05/17/ml/XGboost模型/resources/C0930E7CC44A216A76354A27B6EAE3F8.jpg">
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="XGboost改进-特征树分割点选择-精确法与近似方法比较"><a href="#XGboost改进-特征树分割点选择-精确法与近似方法比较" class="headerlink" title="XGboost改进-特征树分割点选择(精确法与近似方法比较)"></a>XGboost改进-特征树分割点选择(精确法与近似方法比较)</h4><ul>
+<li>XGBoost在单机默认是exact greedy，搜索所有的可能分割点。分布式是dynamic histogram</li>
+<li>精确算法由于需要遍历特征的所有取值，计算效率低，适合单机小数据，对于大数据、分布式场景并不适合</li>
+<li>可并行的近似直方图算法，用于高效地生成候选的分割点。用于加速和减小内存消耗<ul>
+<li>分裂结点处通过结构打分和分割损失动态生长。结构分数代替了回归树的误差平方和。</li>
+</ul>
+</li>
+</ul>
+<h4 id="XGboost改进-并行化"><a href="#XGboost改进-并行化" class="headerlink" title="XGboost改进-并行化"></a>XGboost改进-并行化</h4><p>支持并行化处理。xgboost的并行是在特征粒度上的，<font color="blue">在训练之前，预先对特征进行了排序，然后保存为block结构，后面的迭代中重复地使用这个结构，大大减小计算量</font>。在进行节点的分裂时，需要计算每个特征的增益，最终选增益最大的那个特征去做分裂，那么各个特征的增益计算就可以开多线程进行，即在不同的特征属性上采用多线程并行方式寻找最佳分割点。</p>
+<h4 id="XGboost改进-其他"><a href="#XGboost改进-其他" class="headerlink" title="XGboost改进-其他"></a>XGboost改进-其他</h4><ul>
+<li>自定义损失函数</li>
+<li>可以处理稀疏、缺失数据(节点分裂算法能自动利用特征的稀疏性),可以学习出它的分裂方向，加快稀疏计算速度。</li>
+<li>列抽样（column subsampling）[传统GBDT没有]xgboost借鉴了随机森林的做法，支持列抽样，不仅能降低过拟合，还能减少计算，这也是xgboost异于传统gbdt的一个特性</li>
+<li>Shrinkage(缩减)，相当于学习速率(xgboost中的eta)[传统GBDT也有]</li>
+<li>传统GBDT以CART作为基分类器，xgboost还支持线性分类器</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+	
+    
+	
+      	    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/07/ad/总结篇-AD算法总结/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1712,10 +2099,6 @@
 
 	
     
-	
-    
-	
-    
   </section>
 
   
@@ -1764,7 +2147,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">75</span>
+                <span class="site-state-item-count">77</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1775,7 +2158,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-count">23</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -1786,7 +2169,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-count">21</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

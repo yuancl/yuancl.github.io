@@ -274,6 +274,550 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/23/rs/简单推荐模型之一 基于流行度的推荐模型/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/23/rs/简单推荐模型之一 基于流行度的推荐模型/" itemprop="url">简单推荐模型之一:基于流行度的推荐模型</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-23T19:30:13+08:00">
+                2019-02-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/推荐系统/" itemprop="url" rel="index">
+                    <span itemprop="name">推荐系统</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/推荐系统/推荐模型简介/" itemprop="url" rel="index">
+                    <span itemprop="name">推荐模型简介</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="最简单的流行度估计"><a href="#最简单的流行度估计" class="headerlink" title="最简单的流行度估计"></a>最简单的流行度估计</h4><ul>
+<li><p>定义<br>什么是基于流行度（Popularity-based）？通俗地讲，就是什么内容吸引用户，就给用户推荐什么内容</p>
+<ul>
+<li>隐含假设：就是物品质量的好坏和流行度成正比例关系</li>
+</ul>
+</li>
+<li><p>流行度常见影响因素<br>不能简单看流量或者点击的绝对量来评价</p>
+<ul>
+<li>时间<br>比如用户对新闻的观看时间一般是有规律的，所以会影响绝对数据</li>
+<li>位置<br>物品显示的位置也会影响绝对数据</li>
+</ul>
+</li>
+<li><p>如何衡量</p>
+<ul>
+<li>采用比值Ratio,或者某种可能性<ul>
+<li>比如点击率，但是点击率估计所需要的数据依赖会收到时间和位置的偏差的影响，所以如何构建无偏差数据呢？</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>构建无偏差数据(点击率)<br>本身就是一个负责的问题，这里举简单的解放办法：</p>
+<ul>
+<li>EE算法(Exploitation &amp; Exploration)(epsilon贪心算法)<br>就是将流量分为两部分，一部分随机显示物品，然后基于这部分流量计算流行度，第二部分跟进这个流行度来显示物品</li>
+</ul>
+</li>
+</ul>
+<h4 id="对点击率建模"><a href="#对点击率建模" class="headerlink" title="对点击率建模"></a>对点击率建模</h4><p>如果从数学上对点击率建模，其实可以把一个物品在显示之后是否被点击看成是一个“<strong>伯努利随机变量</strong>”，于是对点击率的估计，就变成了对一个<font cloor="blue">伯努利分布参数估计的过程</font></p>
+<ul>
+<li>最大似然估计(Maximum Likelihood Estimation)<ul>
+<li>定义<br>就是说，<font color="blue">希望找到参数的取值可以最大限度地解释当前的数据</font><ul>
+<li>这个估计的数值就是某个物品当前的点击总数除以被显示的次数。通俗地讲，如果我们显示某个物品 10 次，被点击了 5 次，那么在最大似然估计的情况下，点击率的估计值就是 0.5</li>
+</ul>
+</li>
+<li>弊端<br>如果我们并没有显示当前的物品，那么，最大似然估计的分母就是 0；如果当前的物品没有被点击过，那么分子就是 0<ul>
+<li>在这两种情况下，最大似然估计都无法真正体现出物品的流行度</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="高级流行度估计"><a href="#高级流行度估计" class="headerlink" title="高级流行度估计"></a>高级流行度估计</h4><p>我们从统计学的角度来讲了讲，如何利用<font color="blue">最大似然估计法来对一个伯努利分布所代表的点击率的参数进行估计</font>。这里面的第一个问题就是刚才我们提到的分子或者分母为 0 的情况。显然，<font color="blue">这种情况下并不能很好地反应这些物品的真实属性</font></p>
+<ul>
+<li><p>先验信息(解决方案之一)<br>虽然我们现在没有显示这个物品或者这个物品没有被点击，但是，我们“主观”地认为，比如说在显示 100 次的情况下，会有 60 次的点击</p>
+<ul>
+<li>注意，这些显示次数和点击次数都还没有发生</li>
+<li>在这样的先验概率的影响下，点击率的估计，或者说得更加精确一些，点击率的后验概率分布的均值，<font color="blue">就成为了实际的点击加上先验的点击，除以实际的显示次数加上先验的显示次</font>数。</li>
+<li>你可以看到，在有先验分布的情况下，这个比值永远不可能为 0<ul>
+<li>利用先验信息来“平滑”（Smooth）概率的估计，<font color="blue">是贝叶斯统计（Bayesian Statistics）中经常使用的方法</font></li>
+</ul>
+</li>
+<li>如果用更加精准的数学语言来表述这个过程，我们其实是为这个伯努利分布加上了一个 Beta 分布的先验概率，并且推导出了后验概率也是一个 Beta 分布。这个 Beta 分布参数的均值，就是我们刚才所说的均值</li>
+</ul>
+</li>
+<li><p>时间折扣(基于前后时间关联)(另一种方法)<br>每个时段的估计和前面的时间是有一定关联的。这也就提醒我们是不是可以用之前的点击信息，来更加准确地估计现在这个时段的点击率</p>
+<ul>
+<li>一种最简单的方法还是利用我们刚才所说的先验概率的思想<ul>
+<li>那就是，当前 T 时刻的点击和显示的先验数值是 T-1 时刻的某种变换<ul>
+<li>比如早上 9 点到 10 点，某个物品有 40 次点击，100 次显示。那么 10 点到 11 点，我们在还没有显示的情况下，就可以认为这个物品会有 20 次点击，50 次显示。注意，我们把 9 点到 10 点的真实数据乘以 0.5 用于 10 点到 11 点的先验数据</li>
+</ul>
+</li>
+<li>这种做法是一种主观的做法。而且是否乘以 0.5 还是其他数值需要取决于测试。但是这种思想，有时候叫作“<strong>时间折扣</strong>”（Temporal Discount），是一种非常普遍的时序信息处理的手法</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><ul>
+<li>我们简要介绍了为什么需要基于流行度进行推荐</li>
+<li>我们详细介绍了如何对流行度进行估计以及从统计角度看其含义</li>
+<li>我们简要地提及了一些更加高级的流行度估计的方法</li>
+</ul>
+<p><a href="https://time.geekbang.org/column/article/4090?code=9OSAmHd%2525252FF2EaNhyxDg%2525252FluR3kRDdJC3ytZGLNXMqbtFY%2525253D" target="_blank" rel="noopener">极客时间版权所有</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+	
+    
+	
+      	    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/22/rl/强化学习现状与未来/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/22/rl/强化学习现状与未来/" itemprop="url">强化学习现状与未来</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-22T07:11:13+08:00">
+                2019-02-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/强化学习/" itemprop="url" rel="index">
+                    <span itemprop="name">强化学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><a href="https://www.colabug.com/3621547.html" target="_blank" rel="noopener">强化学习路在何方</a></p>
+<h3 id="深度强化学习的泡沫"><a href="#深度强化学习的泡沫" class="headerlink" title="深度强化学习的泡沫"></a>深度强化学习的泡沫</h3><h4 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h4><ul>
+<li>2015年，DeepMind的Volodymyr Mnih等研究员在《自然》杂志上发表论文Human-level control through deep reinforcement learning[1]，该论文提出了一个结合深度学习（DL）技术和强化学习（RL）思想的模型Deep Q-Network(DQN)，在Atari游戏平台上展示出超越人类水平的表现。自此以后，结合DL与RL的深度强化学习（Deep Reinforcement Learning, DRL）迅速成为人工智能界的焦点</li>
+<li>过去三年间，DRL算法在不同领域大显神通，DeepMind负责AlphaGo项目的研究员David Silver喊出“AI = RL + DL”，认为结合了DL的表示能力与RL的推理能力的DRL将会是人工智能的终极答案</li>
+</ul>
+<h4 id="DRL的可复现性危机"><a href="#DRL的可复现性危机" class="headerlink" title="DRL的可复现性危机"></a>DRL的可复现性危机</h4><ul>
+<li>由于发表的文献中往往不提供重要参数设置和工程解决方案的细节，很多算法都难以复现，RL专家直指当前DRL领域论文数量多却水分大、实验难以复现等问题。该文在学术界和工业界引发热烈反响。很多人对此表示认同，并对DRL的实际能力产生强烈怀疑<ul>
+<li>针对DRL领域，Pineau展示了该研究组对当前不同DRL算法的大量可复现性实验。实验结果表明，不同DRL算法在不同任务、不同超参数、不同随机种子下的效果大相径庭</li>
+</ul>
+</li>
+</ul>
+<h4 id="DRL研究存在多少坑"><a href="#DRL研究存在多少坑" class="headerlink" title="DRL研究存在多少坑"></a>DRL研究存在多少坑</h4><p>2018年的情人节当天，曾经就读于伯克利人工智能研究实验室的Alexirpan通过一篇博文Deep Reinforcement Learning Doesn’t Work Yet[13]给DRL圈送来了一份苦涩的礼物，从实验角度总结了DRL算法存在的几大问题：</p>
+<ul>
+<li>样本利用率非常低；</li>
+<li>最终表现不够好，经常比不过基于模型的方法；</li>
+<li>好的奖励函数难以设计；</li>
+<li>难以平衡 “ 探索 ” 和 “ 利用 ” ,以致算法陷入局部极小；</li>
+<li>对环境的过拟合；</li>
+<li>灾难性的不稳定性…</li>
+</ul>
+<p>负面评论还将持续发酵。那么， DRL的问题根结在哪里？前景真的如此黯淡吗？如果不与深度学习结合，RL的出路又在哪里？</p>
+<h3 id="免模型强化学习的本质缺陷"><a href="#免模型强化学习的本质缺陷" class="headerlink" title="免模型强化学习的本质缺陷"></a>免模型强化学习的本质缺陷</h3><h4 id="RL分类"><a href="#RL分类" class="headerlink" title="RL分类"></a>RL分类</h4><p>RL算法可以分为基于模型的方法（Model-based）与免模型的方法（Model-free）</p>
+<ul>
+<li><font color="blue">前者主要发展自最优控制领域</font>。通常先通过高斯过程（GP）或贝叶斯网络（BN）等工具针对具体问题建立模型，然后再通过机器学习的方法或最优控制的方法，如模型预测控制（MPC）、线性二次调节器（LQR）、线性二次高斯（LQG）、迭代学习控制（ICL）等进行求解</li>
+<li><font color="blue">而后者更多地发展自机器学习领域</font>，属于数据驱动的方法。算法<font color="blue">通过大量采样，估计代理的状态、动作的值函数或回报函数，从而优化动作策略</font>
+
+</li>
+</ul>
+<h4 id="免模型缺陷"><a href="#免模型缺陷" class="headerlink" title="免模型缺陷"></a>免模型缺陷</h4><ul>
+<li>Ben Recht连发了13篇博文，从控制与优化的视角，重点探讨了RL中的免模型方法[18]。Recht指出免模型方法自身存在以下几大缺陷<ul>
+<li>免模型方法无法从不带反馈信号的样本中学习，<font color="blue">而反馈本身就是稀疏的，因此免模型方向样本利用率很低，而数据驱动的方法则需要大量采样</font><ul>
+<li>比如在Atari平台上的《Space Invader》和《Seaquest》游戏中，智能体所获得的分数会随训练数据增加而增加。利用免模型DRL方法可能需要 2 亿帧画面才能学到比较好的效果。AlphaGo 最早在 Nature 公布的版本也需要 3000 万个盘面进行训练。而但凡与机械控制相关的问题，训练数据远不如视频图像这样的数据容易获取，<font color="blue">因此只能在模拟器中进行训练</font>。而模拟器与现实世界间的Reality Gap，直接限制了训练自其中算法的泛化性能。另外，数据的稀缺性也影响了其与DL技术的结合</li>
+</ul>
+</li>
+<li>免模型方法不对具体问题进行建模，而是尝试用一个通用的算法解决所有问题。而基于模型的方法则通过针对特定问题建立模型，充分利用了问题固有的信息。免模型方法在追求通用性的同时放弃这些富有价值的信息</li>
+<li>基于模型的方法针对问题建立动力学模型，这个模型具有解释性。而免模型方法因为没有模型，解释性不强，调试困难</li>
+<li>相比基于模型的方法，尤其是基于简单线性模型的方法，免模型方法不够稳定，在训练中极易发散</li>
+</ul>
+</li>
+</ul>
+<p>通过Recht的分析，我们似乎找到了DRL问题的根结。近三年在机器学习领域大火的DRL算法，多将免模型方法与DL结合，而免模型算法的天然缺陷，恰好与Alexirpan总结的DRL几大问题相对应</p>
+<h4 id="为什么多数DRL的工作都是基于免模型方法呢"><a href="#为什么多数DRL的工作都是基于免模型方法呢" class="headerlink" title="为什么多数DRL的工作都是基于免模型方法呢"></a>为什么多数DRL的工作都是基于免模型方法呢</h4><ul>
+<li>免模型的方法相对简单直观，开源实现丰富，比较容易上手</li>
+<li>当前RL的发展还处于初级阶段，<font color="blue">学界的研究重点还是集中在环境是确定的、静态的，状态主要是离散的、静态的、完全可观察的，反馈也是确定的问题（如Atari游戏）上。针对这种相对“简单”、基础、通用的问题</font>，免模型方法本身很合适</li>
+<li>绝大多数DRL方法是对DQN的扩展，属于免模型方法<img src="/2019/02/22/rl/强化学习现状与未来/resources/27517C5AFA3857CE6A330D86CB12A334.jpg">
+</li>
+</ul>
+<h3 id="基于模型或免模型，问题没那么简单"><a href="#基于模型或免模型，问题没那么简单" class="headerlink" title="基于模型或免模型，问题没那么简单"></a>基于模型或免模型，问题没那么简单</h3><h4 id="基于模型的方法，未来潜力巨大"><a href="#基于模型的方法，未来潜力巨大" class="headerlink" title="基于模型的方法，未来潜力巨大"></a>基于模型的方法，未来潜力巨大</h4><p>基于模型的方法一般先从数据中学习模型，然后基于学到的模型对策略进行优化。学习模型的过程和控制论中的系统参数辨识类似</p>
+<ul>
+<li>因为模型的存在，基于模型的方法可以充分利用每一个样本来逼近模型，数据利用率极大提高</li>
+<li>基于模型的方法则在一些控制问题中，相比于免模型方法，通常有10^2级的采样率提升。</li>
+<li>此外，学到的模型往往对环境的变化鲁棒,当遇到新环境时，算法可以依靠已学到的模型做推理，具有很好的泛化性能</li>
+<li>预测学习（Predictive Learning)关系<br>基于模型的方法还与潜力巨大的预测学习（Predictive Learning）紧密相关。由于建立了模型，本身就可以通过模型预测未来，这与Predictive Learning的需求不谋而合<ul>
+<li>基于模型的RL方法可能是实现Predictive Learning的重要技术之一</li>
+</ul>
+</li>
+</ul>
+<h4 id="基于模型问题也较多，免模型方法，依旧是第一选择"><a href="#基于模型问题也较多，免模型方法，依旧是第一选择" class="headerlink" title="基于模型问题也较多，免模型方法，依旧是第一选择"></a>基于模型问题也较多，免模型方法，依旧是第一选择</h4><p>基于模型的DRL方法相对而言不那么简单直观，RL与DL的结合方式相对更复杂，设计难度更高。目前基于模型的DRL方法通常用高斯过程、贝叶斯网络或概率神经网络（PNN）来构建模型<br>基于模型的方法也还若干自身缺陷</p>
+<ul>
+<li>针对无法建模的问题束手无策</li>
+<li>建模会带来误差，而且误差往往随着算法与环境的迭代交互越来越大，使得算法难以保证收敛到最优解</li>
+<li>模型缺乏通用性，每次换一个问题，就要重新建模</li>
+<li>可能的工作，笔者认为<ul>
+<li>我们可以考虑多做一些基于模型的DRL方面的工作，克服当前DRL存在的诸多问题</li>
+<li>此外，还可以多研究结合基于模型方法与免模型方法的<font color="blue">半模型方法</font>，兼具两种方法的优势<ul>
+<li>这方面经典的工作有RL泰斗Rich Sutton提出的<font color="blue">Dyna框架和Dyna-2框架[28]</font></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="其他问题"><a href="#其他问题" class="headerlink" title="其他问题"></a>其他问题</h4><ul>
+<li>模拟器存在非常大的问题，经过调试的线性策略就已经可以取得非常好的效果——这样的模拟器实在过于粗糙，难怪基于随机搜索的方法可以在同样的模拟器上战胜免模型方法<ul>
+<li>可见目前RL领域的实验平台还非常不成熟，在这样的测试环境中的实验实验结果没有足够的说服力。很多研究结论都未必可信</li>
+</ul>
+</li>
+<li>一些学者指出当前RL算法的性能评判准则也不科学</li>
+</ul>
+<h3 id="重新审视强化学习"><a href="#重新审视强化学习" class="headerlink" title="重新审视强化学习"></a>重新审视强化学习</h3><ul>
+<li>DQN和AlphaGo系列工作给人留下深刻印象，但是这两种任务本质上其实相对“简单”。因为这些任务的环境是<font color="blue">确定的、静态的，状态主要是离散的、静态的、完全可观察的，反馈是确定的，代理也是单一的</font></li>
+<li>目前DRL在解决<font color="blue">部分可见状态任务（如StarCraft），状态连续的任务（如机械控制任务），动态反馈任务和多代理任务中</font>还没取得令人惊叹的突破<img src="/2019/02/22/rl/强化学习现状与未来/resources/9D2F9556CB9C1DB7A2AEF9EA54261CDC.jpg">
+</li>
+</ul>
+<h4 id="重新审视RL的研究-或不足-值得研究的方向"><a href="#重新审视RL的研究-或不足-值得研究的方向" class="headerlink" title="重新审视RL的研究(或不足)(值得研究的方向)"></a>重新审视RL的研究(或不足)(值得研究的方向)</h4><p>机器学习是个跨学科的研究领域，而RL则是其中跨学科性质非常显著的一个分支。RL理论的发展受到生理学、神经科学和最优控制等领域的启发，现在依旧在很多相关领域被研究<br><img src="/2019/02/22/rl/强化学习现状与未来/resources/44D46B5545AB96FA9EE7D659C5008C69.jpg"></p>
+<ul>
+<li>基于模型的方法<br>如上文所述，基于模型的方法不仅能大幅降低采样需求，还可以通过学习任务的动力学模型，为预测学习打下基础</li>
+<li>提高免模型方法的数据利用率和扩展性<br>这是免模型学习的两处硬伤，也是Rich Sutton的终极研究目标。这个领域很艰难，但是任何有意义的突破也将带来极大价值</li>
+<li>更高效的探索策略（Exploration Strategies）<br><font color="blue">平衡“探索”与“利用”是RL的本质问题</font>，这需要我们设计更加高效的探索策略。除了若干经典的算法如Softmax、ϵ-Greedy[1]、UCB[72]和Thompson Sampling[73]等，近期学界陆续提出了大批新算法，如Intrinsic Motivation [74]、Curiosity-driven Exploration[75]、Count-based Exploration [76]等。其实这些“新”算法的思想不少早在80年代就已出现[77]，而与DL的有机结合使它们重新得到重视。此外，OpenAI与DeepMind先后提出通过在策略参数[78]和神经网络权重[79]上引入噪声来提升探索策略, 开辟了一个新方向</li>
+<li>与模仿学习（Imitation Learning, IL）结合<br>机器学习与自动驾驶领域最早的成功案例ALVINN[33]就是基于IL；当前RL领域最顶级的学者Pieter Abbeel在跟随Andrew Ng读博士时候,设计的通过IL控制直升机的算法[34]成为IL领域的代表性工作.IL介于RL与监督学习之间，兼具两者的优势，既能更快地得到反馈、更快地收敛，又有推理能力，很有研究价值</li>
+<li>奖赏塑形（Reward Shaping）<br>奖赏即反馈，其对RL算法性能的影响是巨大的。<ul>
+<li>Alexirpan的博文中已经展示了没有精心设计的反馈信号会让RL算法产生多么差的结果</li>
+<li>设计好的反馈信号一直是RL领域的研究热点</li>
+<li>近年来涌现出很多基于“好奇心”的RL算法和层级RL算法<ul>
+<li>这两类算法的思路都是在模型训练的过程中插入反馈信号，从而部分地克服了反馈过于稀疏的问题。</li>
+</ul>
+</li>
+<li>另一种思路是学习反馈函数，这是逆强化学习（Inverse RL, IRL）的主要方式之一。<ul>
+<li>近些年大火的GAN也是基于这个思路来解决生成建模问题, GAN的提出者Ian Goodfellow也认为GAN就是RL的一种方式 [36]。而将GAN于传统IRL结合的GAIL[37]已经吸引了很多学者的注意</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>RL中的迁移学习与多任务学习<br>当前RL的采样效率极低，而且学到的知识不通用。迁移学习与多任务学习可以有效解决这些问题</li>
+<li>提升RL的的泛化能力<ul>
+<li>机器学习最重要的目标就是泛化能力, 而现有的RL方法大多在这一指标上表现糟糕[8]，无怪乎Jacob Andreas会批评RL的成功是来自“train on the test set”</li>
+<li>研究者们试图通过学习环境的动力学模型[80]、降低模型复杂度[29]或模型无关学习[81]来提升泛化能力，这也促进了基于模型的方法与元学习（Meta-Learning）方法的发展</li>
+</ul>
+</li>
+<li>层级RL（Hierarchical RL, HRL）</li>
+<li>与序列预测（Sequence Prediction）结合<ul>
+<li>Sequence Prediction与RL、IL解决的问题相似又不相同。三者间有很多思想可以互相借鉴</li>
+</ul>
+</li>
+<li>免模型方法探索行为的安全性（Safe RL）<ul>
+<li>相比于基于模型的方法，免模型方法缺乏预测能力，这使得其探索行为带有更多不稳定性。一种研究思路是结合贝叶斯方法为RL代理行为的不确定性建模，从而避免过于危险的探索行为</li>
+</ul>
+</li>
+<li>关系RL<br>近期学习客体间关系从而进行推理与预测的“关系学习”受到了学界的广泛关注。关系学习往往在训练中构建的状态链，而中间状态与最终的反馈是脱节的</li>
+<li>对抗样本RL</li>
+<li>处理其他模态的输入</li>
+</ul>
+<h4 id="重新审视RL的应用"><a href="#重新审视RL的应用" class="headerlink" title="重新审视RL的应用"></a>重新审视RL的应用</h4><p>RL只能打游戏、下棋，其他的都做不了？</p>
+<ul>
+<li>我们不应对RL过于悲观。其实能在视频游戏与棋类游戏中超越人类，已经证明了RL推理能力的强大。通过合理改进后，有希望得到广泛应用</li>
+<li>控制领域<br>这是RL思想的发源地之一，也是RL技术应用最成熟的领域。控制领域和机器学习领域各自发展了相似的思想、概念与技术，可以互相借鉴</li>
+<li>自动驾驶领域<br>驾驶就是一<font color="blue">个序列决策过程</font>，因此天然适合用RL来处理</li>
+<li>NLP领域<br>相比于计算机视觉领域的任务，NLP领域的很多<font color="blue">任务是多轮的</font>，即需<font color="blue">通过多次迭代交互来寻求最优解（如对话系统）</font>；而且任务的<font color="blue">反馈信号往往需要在一系列决策后才能获得（如机器写作）</font>。这样的问题的特<font color="purple">性自然适合用RL来解决</font><ul>
+<li>因而近年来RL被应用于NLP领域中的诸多任务中，如文本生成、文本摘要、序列标注、对话机器人（文字/语音）、机器翻译、关系抽取和知识图谱推理等等</li>
+</ul>
+</li>
+<li>推荐系统与检索系统领域<br>RL中的Bandits系列算法早已被广泛应用于商品推荐、新闻推荐和在线广告等领域。近年也有一系列的工作将RL应用于信息检索、排序的任务中</li>
+<li>金融领域<br>RL强大的序列决策能力已经被金融系统所关注。无论是华尔街巨头摩根大通还是创业公司如Kensho，都在其交易系统中引入了RL技术</li>
+<li>对数据的选择<br>在数据足够多的情况下，如何选择数据来实现“快、好、省”地学习，具有非常大的应用价值</li>
+<li>通讯、生产调度、规划和资源访问控制等运筹领域<br>这些领域的任务往往<font color="blue">涉及“选择”动作的过程</font>，而且带标签数据难以取得，因此广泛使用RL进行求解</li>
+</ul>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><ul>
+<li>虽然有上文列举的诸多成功应用，但我们依旧要认识到，当前RL的发展还处于初级阶段，不能包打天下。目前还没有一个通用的RL解决方案像DL一样成熟到成为一种即插即用的算法。RL算法的输出存在随机性，这是其“探索”哲学带来的本质问题，因此我们不能盲目 All in RL, 也不应该RL in All<img src="/2019/02/22/rl/强化学习现状与未来/resources/62484FF7A8A452030E96A9841B776B72.jpg">
+</li>
+</ul>
+<h3 id="广义的RL——从反馈学习"><a href="#广义的RL——从反馈学习" class="headerlink" title="广义的RL——从反馈学习"></a>广义的RL——从反馈学习</h3><h4 id="定义与意义"><a href="#定义与意义" class="headerlink" title="定义与意义"></a>定义与意义</h4><ul>
+<li>本节使用“广义的RL”一词指代针对“从反馈学习”的横跨多个学科的研究。与上文中介绍的来自机器学习、控制论、经济学等领域的RL不同，本节涉及的学科更宽泛，<font color="blue">一切涉及从反馈学习的系统，都暂且称为广义的RL</font></li>
+<li><font color="blue">行为和反馈是智能形成的基石</font><ul>
+<li>生成论（Enactivism）认为行为是认知的基础，行为与感知是互相促进的，智能体通过感知获得行为的反馈，而行为则带给智能体对环境的真实有意义的经验[65]。</li>
+</ul>
+</li>
+</ul>
+<h4 id="广义的RL，是未来一切机器学习系统的形式"><a href="#广义的RL，是未来一切机器学习系统的形式" class="headerlink" title="广义的RL，是未来一切机器学习系统的形式"></a>广义的RL，是未来一切机器学习系统的形式</h4><p>只要一个机器学习系统会通过接收外部的反馈进行改进，这个系统就不仅仅是一个机器学习系统，而且是一个RL系统。当前在互联网领域广为使用的A/B测试就是RL的一种最简单的形式。而未来的机器学习系统，都要处理分布动态变化的数据并从反馈中学习。因此可以说，我们即将处于一个“一切机器学习都是RL”的时代，学界和工业界都亟需加大对RL的研究力度</p>
+<h4 id="广义的RL，是很多领域研究的共同目标"><a href="#广义的RL，是很多领域研究的共同目标" class="headerlink" title="广义的RL，是很多领域研究的共同目标"></a>广义的RL，是很多领域研究的共同目标</h4><p>节已经提到RL在机器学习相关的领域被分别发明与研究，其实这种从<font color="blue">反馈中学习的思想</font>，在很多其他领域也被不断地研究。仅举几例如下</p>
+<ul>
+<li>在心理学领域，经典条件反射与操作性条件反射的对比</li>
+<li>在教育学领域，一直有关于“主动学习”与“被动学习”两种方式的对比与研究</li>
+<li>在组织行为学领域，学者们探究“主动性人格”与“被动性人格”的不同以及对组织的影响</li>
+<li>在企业管理学领域，企业的“探索式行为”和“利用式行为”一直是一个研究热点</li>
+</ul>
+<p>可以说，<font color="blue">一切涉及通过选择然后得到反馈，然后从反馈中学习的领域，几乎都有RL的思想以各种形式存在</font>，因此笔者称之为广义的RL</p>
+<ul>
+<li>这些学科为RL的发展提供了丰富的研究素材，积累了大量的思想与方法。同时，RL的发展不会仅仅对人工智能领域产生影响，也会推动广义的RL所包含的诸多学科共同前进。</li>
+</ul>
+<h3 id="束语"><a href="#束语" class="headerlink" title="束语"></a>束语</h3><ul>
+<li>虽然RL领域目前还存在诸多待解决的问题，在DRL这一方向上也出现不少泡沫，但我们应该看到RL领域本身在研究和应用领域取得的长足进步</li>
+<li>这一领域值得持续投入研究，但在应用时需保持理性</li>
+<li>而对基于反馈的学习的研究，不仅有望实现人工智能的最终目标，也对机器学习领域和诸多其他领域的发展颇有意义</li>
+<li>这确实是通向人工智能的最佳路径。这条路上布满荆棘，但曙光已现</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+	
+    
+	
+      	    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/03/rl/基于模型的学习和规划/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -2267,578 +2811,6 @@
 
 	
     
-	
-      	    
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/16/gan/Conditional GAN/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="雷哥">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/favicon.ico">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="雷哥的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/16/gan/Conditional GAN/" itemprop="url">Conditional GAN</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-16T07:10:10+08:00">
-                2019-01-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/机器学习/" itemprop="url" rel="index">
-                    <span itemprop="name">机器学习</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/机器学习/GAN/" itemprop="url" rel="index">
-                    <span itemprop="name">GAN</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="Conditional-GAN介绍"><a href="#Conditional-GAN介绍" class="headerlink" title="Conditional GAN介绍"></a>Conditional GAN介绍</h3><h4 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h4><ul>
-<li><p>Traditional supervised approach</p>
-<ul>
-<li>正面火车和侧面火车都是好的结果，这会导致最后图片很模糊，因为是多张图片的平均<img src="/2019/01/16/gan/Conditional%20GAN/resources/B506E2E85727105810C3FD98DE358329.jpg">
-</li>
-</ul>
-</li>
-<li><p>GAN</p>
-<ul>
-<li>G其实可以很容易忽略D,从而可以无视G的输入(这里是c:train)<ul>
-<li>比如如果G发现每次输出猫都能得到高分，那么不管G的输入，只要我我每次都输出是清晰的猫就好了</li>
-<li>输出低分基本上有下面三种场景<img src="/2019/01/16/gan/Conditional%20GAN/resources/06288B8EFB718B40410ACFE58F20E136.jpg"></li>
-</ul>
-</li>
-<li>后面的Conditional GAN可以解决这个问题</li>
-</ul>
-</li>
-</ul>
-<h4 id="Conditional-GAN"><a href="#Conditional-GAN" class="headerlink" title="Conditional GAN"></a>Conditional GAN</h4><ul>
-<li>输入<ul>
-<li>G的输出x：图片</li>
-<li>G的输入c：train</li>
-</ul>
-</li>
-<li>目标<ul>
-<li>x is realistic or not</li>
-<li>c ans x are matched or not<img src="/2019/01/16/gan/Conditional%20GAN/resources/71EAA38F9930A85049893063F5F499DD.jpg"></li>
-</ul>
-</li>
-<li>演算法<ul>
-<li>核心思想：找到Loss(上面三种情况集合)，然后用梯度提升方法去优化<img src="/2019/01/16/gan/Conditional%20GAN/resources/0FC60DD9F76548EDD7675B99F770ED9E.jpg">
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="Contitional-GAN-D网络架构"><a href="#Contitional-GAN-D网络架构" class="headerlink" title="Contitional GAN(D网络架构)"></a>Contitional GAN(D网络架构)</h4><ul>
-<li>分别将x是否是真实图片和c and x是否match分别输出会比较好一点<img src="/2019/01/16/gan/Conditional%20GAN/resources/3EC8A1DCCF4EDAA9523E2F085EF824F0.jpg">
-</li>
-</ul>
-<h3 id="Stack-GAN"><a href="#Stack-GAN" class="headerlink" title="Stack GAN"></a>Stack GAN</h3><ul>
-<li>思想就是先产生小图，然后产生大图<img src="/2019/01/16/gan/Conditional%20GAN/resources/C1400E303DB9A50B6CC45300D159FEB4.jpg">
-</li>
-</ul>
-<h3 id="Image-to-Image"><a href="#Image-to-Image" class="headerlink" title="Image to Image"></a>Image to Image</h3><h4 id="传统方法-Supervised-Learning"><a href="#传统方法-Supervised-Learning" class="headerlink" title="传统方法(Supervised Learning)"></a>传统方法(Supervised Learning)</h4><ul>
-<li>也是一样，最后输出会很模糊<ul>
-<li>因为一个input对应了多个好图（多张图片），就会把这些图片做平均来输出<img src="/2019/01/16/gan/Conditional%20GAN/resources/9A949394AE46F6D8145151F92CE0611D.jpg">
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="GAN方法"><a href="#GAN方法" class="headerlink" title="GAN方法"></a>GAN方法</h4><ul>
-<li>testing中的close图片，就是supervised learning的结果，比较模糊</li>
-<li>GAN比较清晰了，但是会产生一些其他的内容</li>
-<li>GAN+close，再加入一些限制条件，就是让G产生的图片更接近真实图片<img src="/2019/01/16/gan/Conditional%20GAN/resources/9EAD3C30D5E435ED7070F5B291B3639A.jpg">
-</li>
-</ul>
-<h4 id="Patch-GAN"><a href="#Patch-GAN" class="headerlink" title="Patch GAN"></a>Patch GAN</h4><ul>
-<li>图像太大，容易出现各种问题<img src="/2019/01/16/gan/Conditional%20GAN/resources/3AE30BDB0CD1A217FCFFB482DB274D10.jpg">
-</li>
-</ul>
-<h3 id="GAN用到其他场景"><a href="#GAN用到其他场景" class="headerlink" title="GAN用到其他场景"></a>GAN用到其他场景</h3><h4 id="Speech去杂音"><a href="#Speech去杂音" class="headerlink" title="Speech去杂音"></a>Speech去杂音</h4><ul>
-<li>speech生谱图就当做图片，也使用Conditional GAN思想<img src="/2019/01/16/gan/Conditional%20GAN/resources/C11F3C210E44F4A4E9CE5C96C89C7CFF.jpg">
-</li>
-</ul>
-<h4 id="Video"><a href="#Video" class="headerlink" title="Video"></a>Video</h4><ul>
-<li>判断是否是正确的连续的影片<ul>
-<li>将影片一张张剪辑，形成图片，然后进行训练<img src="/2019/01/16/gan/Conditional%20GAN/resources/E9F52BFDB4677AE62051EA82760CADC3.jpg"></li>
-</ul>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-	
-    
-	
-      	    
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/10/gan/GAN基础/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="雷哥">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/favicon.ico">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="雷哥的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/10/gan/GAN基础/" itemprop="url">GAN基础</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-10T22:10:12+08:00">
-                2019-01-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/机器学习/" itemprop="url" rel="index">
-                    <span itemprop="name">机器学习</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/机器学习/GAN/" itemprop="url" rel="index">
-                    <span itemprop="name">GAN</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="Basic-idea-of-GAN"><a href="#Basic-idea-of-GAN" class="headerlink" title="Basic idea of GAN"></a>Basic idea of GAN</h3><h4 id="Generator"><a href="#Generator" class="headerlink" title="Generator"></a>Generator</h4><img src="/2019/01/10/gan/GAN基础/resources/66AEF5EADDEC96BE3DA212E758624834.jpg">
-<img src="/2019/01/10/gan/GAN基础/resources/9E2ECC940FEAF9C96D8CEE35311233A2.jpg">
-<h4 id="Discriminator-辨别者，鉴别器"><a href="#Discriminator-辨别者，鉴别器" class="headerlink" title="Discriminator(辨别者，鉴别器)"></a>Discriminator(辨别者，鉴别器)</h4><ul>
-<li>产出一个标量<img src="/2019/01/10/gan/GAN基础/resources/6998CF78D25699B4821C46E82C0998DE.jpg">
-</li>
-</ul>
-<h4 id="形容关系：猎食者和天敌都在净化"><a href="#形容关系：猎食者和天敌都在净化" class="headerlink" title="形容关系：猎食者和天敌都在净化"></a>形容关系：猎食者和天敌都在净化</h4><ul>
-<li>天敌-Discriminator</li>
-<li><p>枯叶蝶-Generator</p>
-<ul>
-<li>枯叶蝶为了躲避猎食者的捕猎，不行进化自身<img src="/2019/01/10/gan/GAN基础/resources/8344AE0D169C537B6DF1D907BC7348D3.jpg">
-</li>
-</ul>
-</li>
-<li><p>二次元也是一样的</p>
-<ul>
-<li>Generator,Discriminator不断进化Discriminator2骗过Generator1，Discriminator3骗过Generator2等</li>
-<li>看起来Generator,Discriminator像是对抗的样子，所以是adversarial的由来<img src="/2019/01/10/gan/GAN基础/resources/9D1A3879E4E766C5138C872EE7020170.jpg">
-</li>
-</ul>
-</li>
-<li><p>对抗只是拟人的方法，下面就是和平的比喻</p>
-<ul>
-<li>问题：<ul>
-<li>1.为什么Generator不能自己学,而需要Discriminator驱动</li>
-<li>2.为什么Discriminator不自己做<img src="/2019/01/10/gan/GAN基础/resources/17AAF5A1E271847BB8A9565F19E6F561.jpg">
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="Algorithm"><a href="#Algorithm" class="headerlink" title="Algorithm"></a>Algorithm</h4><ul>
-<li><p>step1</p>
-<ul>
-<li>训练Discriminator，使database中产生的结果很接近1，Generator产生的结果很接近0<img src="/2019/01/10/gan/GAN基础/resources/E91AB963E417F2AF849AA38157129079.jpg">
-</li>
-</ul>
-</li>
-<li><p>step2</p>
-<ul>
-<li>Fix Discriminator,update Generator</li>
-<li>Generator，Discriminator合一起，成一个巨大的网络，比如前几层是Generator，后几层是Discriminator</li>
-<li>这一步目标就是巨大网络输出scala值要大(Gradient Ascent)<ul>
-<li>通常情况下，要让最后的输出很大，只需要调整最后一层softmax层就可以了</li>
-<li>但是这里固定住后面几层，只让调整Generator<img src="/2019/01/10/gan/GAN基础/resources/F11F16B8F1D8F59E45D03467FD6AEE4A.jpg">
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>整体算法</p>
-<ul>
-<li>Learning D<ul>
-<li>sample from database:$x^m$,noise samples:$z^m$</li>
-<li>$\tilde x^m=G(z^m)$表示Genertor产生的vector</li>
-<li>然后通过梯度提升算法，最优化$\tilde V$,含义就是让$D(x^i)尽量大,D(\tilde x^i)$尽量小</li>
-</ul>
-</li>
-<li>Learning G<ul>
-<li>目的就是update G，使其能够骗过D</li>
-<li>$D(G(z^i))$，理解其含义就是让noise数据经过G处理后，然后通过D（骗过D），得到最大的标量值<img src="/2019/01/10/gan/GAN基础/resources/5E52567B26EE736450698E2A8BF45E80.jpg">
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="GAN-as-structured-learning"><a href="#GAN-as-structured-learning" class="headerlink" title="GAN as structured learning"></a>GAN as structured learning</h3><h4 id="Structured-Learning"><a href="#Structured-Learning" class="headerlink" title="Structured Learning"></a>Structured Learning</h4><ul>
-<li>当输出不是一个标量数值或者分类，是更负责的模型的时候，比如seq，matrix，graph等<img src="/2019/01/10/gan/GAN基础/resources/436BF7130FE4A4A66B51511F88BF4640.jpg"></li>
-<li>Why structured learning challenging<ul>
-<li>必须考虑大局观<img src="/2019/01/10/gan/GAN基础/resources/DE35D645A761A70023B790B3E4071884.jpg"></li>
-</ul>
-</li>
-<li>Structured Learning Approach<ul>
-<li>Bottom up方法容易失去大局观<ul>
-<li>一个componet一个component地生成 </li>
-<li>component与component之间的关系不容易把握</li>
-</ul>
-</li>
-<li>Top Down方法不容易train<img src="/2019/01/10/gan/GAN基础/resources/9C427F41E805E3C0017D49FA943E5150.jpg">
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="Can-Generator-learn-by-itself"><a href="#Can-Generator-learn-by-itself" class="headerlink" title="Can Generator learn by itself"></a>Can Generator learn by itself</h3><h4 id="NN-Generator和NN-Classifier比较类似"><a href="#NN-Generator和NN-Classifier比较类似" class="headerlink" title="NN Generator和NN Classifier比较类似"></a>NN Generator和NN Classifier比较类似</h4><ul>
-<li>只是一个是输入vector，一个输入图像</li>
-<li>问题：NN Generator如何产生输入的vector(将图片进行编码)?<ul>
-<li>不能够随机产生，因为如果随机产生，就无法表示出向量的相似性了(比如图片1有很多种，左斜，右斜等)<img src="/2019/01/10/gan/GAN基础/resources/B17EF3ED0C502169303D060B02B9803D.jpg">
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="Auto-Encoder-Decoder"><a href="#Auto-Encoder-Decoder" class="headerlink" title="Auto Encoder-Decoder"></a>Auto Encoder-Decoder</h4><ul>
-<li>解决上面：NN Generator如何产生输入vector问题</li>
-<li>如图：encode模块，对输入和输出图片越接近越好<img src="/2019/01/10/gan/GAN基础/resources/02DBAADA9FFA8D1FD2E7FB2CB90BCC25.jpg"></li>
-<li>训练后好的Anto encoder中的NN Decoder其实就可以理解为NN Generator<ul>
-<li>简单来说就是输入一个vector，然后输出图像<img src="/2019/01/10/gan/GAN基础/resources/B8B0E5D6B03F0A4982F7A5E15E425116.jpg"></li>
-</ul>
-</li>
-<li>如果训练集数据比较小，当出现0.5a + 0.5b输入时无法判断<ul>
-<li>a,b都能正确判断，但是当各0.5的时候就不好使了</li>
-<li>如下使用VAE解决<img src="/2019/01/10/gan/GAN基础/resources/A774B365F5C4321FBFA92BAD08736468.jpg">
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="VAE"><a href="#VAE" class="headerlink" title="VAE"></a>VAE</h4><img src="/2019/01/10/gan/GAN基础/resources/77926F12725C356845A4CC5FB5877E9F.jpg">
-<ul>
-<li>如何更好的判断input img和output img相似，如何取舍？<ul>
-<li>比如我们不能简单的用pixel不同个数来决定，如下图明显6 pixel error更好<img src="/2019/01/10/gan/GAN基础/resources/BD30A4E204F8A4C2BE6EC062FFB978D1.jpg">
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="单纯的learn-Generator困难的地方-Auto-encoder可能遇见问题"><a href="#单纯的learn-Generator困难的地方-Auto-encoder可能遇见问题" class="headerlink" title="单纯的learn Generator困难的地方(Auto encoder可能遇见问题)"></a>单纯的learn Generator困难的地方(Auto encoder可能遇见问题)</h4><ul>
-<li>邻近的component无法交流<ul>
-<li>当然如果考虑更加深的NN，多加入些隐层，可能能够解决<img src="/2019/01/10/gan/GAN基础/resources/022A31BA195753A93ABF96710BEAAB8D.jpg"></li>
-</ul>
-</li>
-<li>例如:<ul>
-<li>绿色为GAN得到的结论</li>
-<li>蓝色为Auto-encoder(单纯Generator)得到的</li>
-<li>原因是无法得到邻近的component的关系<img src="/2019/01/10/gan/GAN基础/resources/BA81A7B818E0D517E2047D745B53AE9A.jpg">
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="Can-Discriminator-generate"><a href="#Can-Discriminator-generate" class="headerlink" title="Can Discriminator generate"></a>Can Discriminator generate</h3><h4 id="Discriminator复习"><a href="#Discriminator复习" class="headerlink" title="Discriminator复习"></a>Discriminator复习</h4><ul>
-<li>Discriminator在不同的领域有不同的名字,evaluation function,potential function….<img src="/2019/01/10/gan/GAN基础/resources/7D4F8ADAF45151FA632840F0CCF981DB.jpg">
-</li>
-</ul>
-<h4 id="Discriminator容易解决component与component之间的关系"><a href="#Discriminator容易解决component与component之间的关系" class="headerlink" title="Discriminator容易解决component与component之间的关系"></a>Discriminator容易解决component与component之间的关系</h4><ul>
-<li>如果已经有了整张图片，来判断图片是否ok，比较好处理<ul>
-<li>比如下图中，Discriminator就是一个CNN，这个CNN中有一个检测是否有独立的的filter，这样就很容易检测了<img src="/2019/01/10/gan/GAN基础/resources/251216A45C8730808FACD751AC7F86BB.jpg">
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="Discriminator擅长批评，不擅长生成"><a href="#Discriminator擅长批评，不擅长生成" class="headerlink" title="Discriminator擅长批评，不擅长生成"></a>Discriminator擅长批评，不擅长生成</h4><img src="/2019/01/10/gan/GAN基础/resources/415E152AE13988117AAAA3E8485D1FCD.jpg">
-<ul>
-<li>need some negative example<ul>
-<li>所以产生negative example是关键<img src="/2019/01/10/gan/GAN基础/resources/E809C331F97DED3FEBF074A9F71546CA.jpg"></li>
-<li>可能需要一个好的程序去产生negative example<ul>
-<li>并不能随机生成，如果随机生成，那么一些处于中间状态的图片也没有办法处理</li>
-<li>而且需要一个Discriminator来判断是否是好的negative example<ul>
-<li>这样就会有鸡生蛋，蛋生鸡的问题了:我们需要好的negative example来训练Discriminator,同时又需要好的Discriminator来协助产生negative example<img src="/2019/01/10/gan/GAN基础/resources/60F6EC38D31F5F0A61D3421E4955FF57.jpg"></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>Iteration方法解决<ul>
-<li>Discriminator Training<ul>
-<li>只要能够找到$\tilde x=arg maxD(x)$,Discriminator就能够自己train，而不需要Generator</li>
-<li>用iteration方法，不断用此轮迭代得到的D去产生negative example(用D去找出自己的弱点)，然后迭代训练<img src="/2019/01/10/gan/GAN基础/resources/5323A485E0B3877A1816C4156D24F3EB.jpg"></li>
-</ul>
-</li>
-<li>Discriminator Training实际类似曲线图<ul>
-<li>第一张图中，可以看见在没有sample区域，D(x)也可能判断出很高的分数</li>
-<li>第二张图中，用得到的D(x)生成新的negative example,然后再从新调整D(x)(让随机产生的negative example分数低)</li>
-<li>第三张图中，就是第二轮训练后的曲线图<ul>
-<li>直观感觉：总体说就是用D(x)去生成非real example区域的高分negative example，然后不断调整自己，让其分数变低<img src="/2019/01/10/gan/GAN基础/resources/3BC158DF7FB206E0ABB9BD3EC8417C9A.jpg"></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>Graphical model<ul>
-<li>其实就是用的Discriminator方法，在ml中其他的structure modle其实方法也是类似：<br>就是有一些negative和positive的样本，然后产生一个model，然后用此model再生成些negative example,然后再train….<img src="/2019/01/10/gan/GAN基础/resources/8C8C6F5948E5A3311053250CE5B92454.jpg">
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="Generator与Discriminator"><a href="#Generator与Discriminator" class="headerlink" title="Generator与Discriminator"></a>Generator与Discriminator</h4><ul>
-<li>优缺点<ul>
-<li>Generator容易生成，但不易判断组件与组件直接的关系</li>
-<li>Discriminator有全局观，但不易做生成<img src="/2019/01/10/gan/GAN基础/resources/FF1C2EB528B230870F7CE2971B5F749E.jpg"></li>
-</ul>
-</li>
-<li>组合<ul>
-<li>Generator就替代了arg maxD(x),解决了Discriminator很难做生成的问题<img src="/2019/01/10/gan/GAN基础/resources/E74CAFA5583574E1C5FD53E60141C4A4.jpg">
-<img src="/2019/01/10/gan/GAN基础/resources/6B95811287B3A08F948052B44AA87F83.jpg"></li>
-</ul>
-</li>
-<li>VAE &amp; GAN<img src="/2019/01/10/gan/GAN基础/resources/5BAAC471C2277A43B3B60F12485B0C76.jpg">
-<ul>
-<li>VAE比较稳，但最终的效果还是没有GAN好</li>
-<li>各种GAN其实效果没有太大区别<img src="/2019/01/10/gan/GAN基础/resources/D8BB36BDDE1EA4D6A5AB28EC2203807B.jpg"></li>
-</ul>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-	
-    
   </section>
 
   
@@ -2887,7 +2859,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">75</span>
+                <span class="site-state-item-count">77</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -2898,7 +2870,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-count">23</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -2909,7 +2881,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-count">21</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

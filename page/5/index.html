@@ -261,6 +261,288 @@
   <section id="posts" class="posts-expand">
     
 	
+    
+	
+      	    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/06/dl/第五门课-第三周/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/06/dl/第五门课-第三周/" itemprop="url">第五门课-第三周</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-06T08:17:19+08:00">
+                2018-12-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/深度学习/" itemprop="url" rel="index">
+                    <span itemprop="name">深度学习</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/深度学习/吴恩达课程总结/" itemprop="url" rel="index">
+                    <span itemprop="name">吴恩达课程总结</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><a href="https://github.com/yuancl/dl-algorithm/tree/master/5-RecurrentNeuralNetworks/Week3/Machine-Translation" target="_blank" rel="noopener">习题代码:Machine-Translation</a><br><a href="https://github.com/yuancl/dl-algorithm/tree/master/5-RecurrentNeuralNetworks/Week3/Trigger-word-detection" target="_blank" rel="noopener">习题代码:Trigger-word-detection</a></p>
+<h4 id="序列结构的各种序列"><a href="#序列结构的各种序列" class="headerlink" title="序列结构的各种序列"></a>序列结构的各种序列</h4><ul>
+<li><p>seq2seq<br>分为编码网络的解码网络</p>
+<img src="/2018/12/06/dl/第五门课-第三周/resources/4A4F9C5B535DDB65265853ACD2EDC912.jpg">
+</li>
+<li><p>应用场景</p>
+<ul>
+<li>机器翻译，比如英文和法文的互相翻译</li>
+<li>Image-to-seq<br>例子中使用的AlexNet网络，将最后的softmax输出替换为RNN网络，输出为一个序列<img src="/2018/12/06/dl/第五门课-第三周/resources/49BD4A13FE8A1C4571A631492527A168.jpg">
+</li>
+</ul>
+</li>
+<li><p>选择最可能的句子</p>
+<ul>
+<li>语言模型和翻译模型比较<ul>
+<li>语言模型总是以零向量开始$(P(y^{&lt; 1 &gt;},y^{&lt; 2 &gt;},y^{&lt; 3 &gt;}…y^{&lt; n &gt;}))$</li>
+<li>而翻译模型输入是法语的encoder，可以理解为条件模型:$P(y^{&lt; 1 &gt;},y^{&lt; 2 &gt;},y^{&lt; 3 &gt;}…y^{&lt; n &gt;}|x^{&lt; 1 &gt;},x^{&lt; 2 &gt;},x^{&lt; 3 &gt;}…x^{&lt; n &gt;})$</li>
+<li>所以一个是随机输出seq，另一个是需要概率最大的seq<img src="/2018/12/06/dl/第五门课-第三周/resources/BB67CF9637B51A081225158E964A74BA.jpg"></li>
+<li>如何保证翻译模型中的条件概率最大<ul>
+<li>贪心算法：没一个输出都保证当前一个term($y^{&lt; i &gt;}$)概率最大，但是并不能保证<font color="red">整个序列概率最大</font>，所以一次挑选一个词并不是最佳的选择</li>
+<li>穷举法：将所有句子进行穷举测试，但由单词生成的句子量太大，无法穷举</li>
+<li>集束算法</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="集束算法-Beam-Search"><a href="#集束算法-Beam-Search" class="headerlink" title="集束算法(Beam Search)"></a>集束算法(Beam Search)</h4><ul>
+<li><p>集束算法</p>
+<ul>
+<li>贪婪算法只会挑出最可能的那一个单词，然后继续。而集束搜索则会考虑多个选择，选择数量就是集束宽(Beam width)</li>
+<li>第一步：<br>需要 输入法语句子到编码网络，然后会解码这个网络，这个 softmax 层(上图编号 3 所示)会输 出 10,000 个概率值，得到这 10,000 个输出的概率值，取前三个存起来</li>
+<li>第二步：<ul>
+<li>选择第一步中的一个词$P(y^{<2>}|x, y^{<1>})$如下图3，输入为第一步的输出和x</1></2></li>
+<li>不仅仅 是第二个单词有最大的概率，而是第一个、第二个单词对有最大的概率</li>
+<li>$P(y^{<1>},y^{<2>}|x)=P(y^{<1>}|x)P(y^{<2>}|x, y^{<1>})$</1></2></1></2></1></li>
+</ul>
+</li>
+<li>后面的步骤也是模仿第二步进行计算</li>
+<li>重复第二步，选择第一步中的其他词进行计算<img src="/2018/12/06/dl/第五门课-第三周/resources/09E08ACC8EC0182CF63C63DD96E9F0EC.jpg">
+<img src="/2018/12/06/dl/第五门课-第三周/resources/D81DFB526C95CD2E4362B500F8E26472.jpg"></li>
+<li>可以看见，如果集束宽为1，那么其实就是贪心算法</li>
+</ul>
+</li>
+<li><p>改进集束搜索</p>
+<ul>
+<li><p>问题1：$P(y^{<1>}|x)P(y^{<2>}|x, y^{<1>})$…..由于每一步概率值都小于0，所以比容易造成数值下溢，也就是导致电脑的浮点表示不能精确的存储</1></2></1></p>
+<ul>
+<li>解决方案：<br>我们总是记录概率的对数和，而不是概率的乘积，就用到了对数函数乘积的性质<img src="/2018/12/06/dl/第五门课-第三周/resources/A0E79789CBD92DE575602B479DAD35D3.jpg">
+</li>
+</ul>
+</li>
+<li><p>问题2：由于每一项乘积都小于1，并且目标函数是最大概率的输出，所以一般会偏向于比较短的句子，这样乘积项就比较少</p>
+<ul>
+<li>解决方案：<br>通过除以翻译结果的单词数量。这样就是取每个单词的概率对数值的平均了，这样很明显地 减少了对输出长的结果的惩罚</li>
+</ul>
+</li>
+<li><p>更柔和的方法：并不直接除以单词数，而是会乘上一个超参数a,比如a=0.7，如果a=1那么就相当于完全用长度来做归一化</p>
+</li>
+<li><p>集束宽选择<br>集束宽越大效果当然越好，但是计算也越复杂。在产品中，经常可以看到把束宽设到 10</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="集束搜索误差分析"><a href="#集束搜索误差分析" class="headerlink" title="集束搜索误差分析"></a>集束搜索误差分析</h4><h4 id="Bleu得分"><a href="#Bleu得分" class="headerlink" title="Bleu得分"></a>Bleu得分</h4><ul>
+<li>背景：比如机器翻译会得到很多都不错的答案，那么如何选择呢？Bleu得分算法，就是解决这个问题，它做的是；给定一个机器生成的翻译，能够自动地计算一个分数来衡量好坏</li>
+</ul>
+<h4 id="注意力模型"><a href="#注意力模型" class="headerlink" title="注意力模型"></a>注意力模型</h4><ul>
+<li>背景：从Bleu评分可以看出，长句的效果比较差<img src="/2018/12/06/dl/第五门课-第三周/resources/37CDD1E8D8F3D180CB8C734953DD30E0.jpg"></li>
+<li><font color="blue">原理：模仿人工翻译，不会一次性把整个文章都读完再翻译，会读一部分内容，翻译一部分</font><ul>
+<li>下层的双向LSTM就是先跑所有的法语单词，然后形成context，看具体时间步的注意力需要多少前后关注做准备</li>
+</ul>
+</li>
+<li>理解：在计算当前时间步的时候，会花多少精力去关注多少当前词附近的词语<ul>
+<li>这些是注意力权重，即$a^{&lt;t,t’&gt;}$告诉你，当你尝试生成第𝑡个英文词，它应该花多少注意力在第𝑡个法语词上面。当生成一个 特定的英文词时，这允许它在每个时间步去看周围词距内的法语词要花多少注意力<img src="/2018/12/06/dl/第五门课-第三周/resources/EEBE423431B34A94171A26BDFA7882A4.jpg"></li>
+</ul>
+</li>
+<li><p>编程练习：</p>
+<ul>
+<li>将人工理解(Tuesday 09 Oct 1993)的日期翻译为机器理解的日期(1993-10-09)</li>
+<li>这里前一个时间步的输出不用喂给后一个输入，并不像前面练习的恐龙名字一样，前后两个单词是有关联的</li>
+<li>在训练过程中，每一个时间步的注意力长度是不一样的<img src="/2018/12/06/dl/第五门课-第三周/resources/691EABB718941C596A7B2C25AF3B853D.jpg"></li>
+<li><p>model：<br>总体分为2步，1：右边，one “Attention”如何计算,2:左边，整体的attention模型<br>In this part, you will implement the attention mechanism presented in the lecture videos. Here is a figure to remind you how the model works. The diagram on the left shows the attention model. The diagram on the right shows what one “Attention” step does to calculate the attention variables $\alpha^{\langle t, t’ \rangle}$, which are used to compute the context variable $context^{\langle t \rangle}$ for each timestep in the output ($t=1, \ldots, T_y$).</p>
+<img src="/2018/12/06/dl/第五门课-第三周/resources/2868A3ED41699CAA4210EAF9E26E0328.jpg">
+<p>Here are some properties of the model that you may notice: </p>
+<ul>
+<li><p>模型分两个LSTM层，下面一个双向LSTM根据前向后向计算的激活值a，然后匹配上各个时间步的注意力的长度，产出context，第二层LSTM是用context和前一个时间步的输出$S^{&lt; t-1 &gt;}$输出最终值<br>There are two separate LSTMs in this model (see diagram on the left). Because the one at the bottom of the picture is a Bi-directional LSTM and comes <em>before</em> the attention mechanism, we will call it <em>pre-attention</em> Bi-LSTM. The LSTM at the top of the diagram comes <em>after</em> the attention mechanism, so we will call it the <em>post-attention</em> LSTM. The pre-attention Bi-LSTM goes through $T_x$ time steps; the post-attention LSTM goes through $T_y$ time steps. </p>
+</li>
+<li><p>The post-attention LSTM passes $s^{\langle t \rangle}, c^{\langle t \rangle}$ from one time step to the next. In the lecture videos, we were using only a basic RNN for the post-activation sequence model, so the state captured by the RNN output activations $s^{\langle t\rangle}$. But since we are using an LSTM here, the LSTM has both the output activation $s^{\langle t\rangle}$ and the hidden cell state $c^{\langle t\rangle}$. However, unlike previous text generation examples (such as Dinosaurus in week 1), in this model the post-activation LSTM at time $t$ does will not take the specific generated $y^{\langle t-1 \rangle}$ as input; it only takes $s^{\langle t\rangle}$ and $c^{\langle t\rangle}$ as input. We have designed the model this way, because (unlike language generation where adjacent characters are highly correlated) there isn’t as strong a dependency between the previous character and the next character in a YYYY-MM-DD date. </p>
+</li>
+<li><p>We use $a^{\langle t \rangle} = [\overrightarrow{a}^{\langle t \rangle}; \overleftarrow{a}^{\langle t \rangle}]$ to represent the concatenation of the activations of both the forward-direction and backward-directions of the pre-attention Bi-LSTM. </p>
+</li>
+<li><p>The diagram on the right uses a <code>RepeatVector</code> node to copy $s^{\langle t-1 \rangle}$’s value $T_x$ times, and then <code>Concatenation</code> to concatenate $s^{\langle t-1 \rangle}$ and $a^{\langle t \rangle}$ to compute $e^{\langle t, t’}$, which is then passed through a softmax to compute $\alpha^{\langle t, t’ \rangle}$. We’ll explain how to use <code>RepeatVector</code> and <code>Concatenation</code> in Keras below. </p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="语音模型"><a href="#语音模型" class="headerlink" title="语音模型"></a>语音模型</h4><ul>
+<li>CTC cost<ul>
+<li>背景：很多时候语音输入比输出会多很多，如何在RNN中相同输入输出的模型中使用呢？</li>
+<li>CTC 损失函数的一个基本规则是 将空白符之间的重复的字符折叠起来，再说清楚一些，我这里用下划线来表示这个特殊的空 白符(a special blank character)，这样就可以让输出和输入相同数量了</li>
+</ul>
+</li>
+</ul>
+<h4 id="触发字检测"><a href="#触发字检测" class="headerlink" title="触发字检测"></a>触发字检测</h4><ul>
+<li>生谱图特征得到特征向量$x^{<1>},x^{<2>,…}$</2></1></li>
+<li>训练集如何标注：检测到关键词的以后就标注为1，未检测到就标注为0<img src="/2018/12/06/dl/第五门课-第三周/resources/EBCF128EB7F18F6FFFC673EA682EAFE1.jpg"></li>
+<li>问题：这样导致0和1的数量很不平衡，简单的处理方式：比 起只在一个时间步上去输出 1，其实你可以在输出变回 0 之前，多次输出 1，或说在固定的 一段时间内输出多个 1</li>
+<li>练习题：<ul>
+<li>网络架构<img src="/2018/12/06/dl/第五门课-第三周/resources/3927A66C61616AB5B8F15E0F82790B80.jpg"></li>
+<li>首先通过生谱图将声音转换为特征向量</li>
+<li>然后开始使用了CNN，使5511时间步减小到1375，这个在RNN中大量减小了复杂大</li>
+<li>然后用两层RNN，进行0，1预测输出，注意并没有使用双向RNN，因为语音说完就要快速给出结果，并不是等10s说完后才给</li>
+<li>Here’s what you should remember:<ul>
+<li>Data synthesis is an effective way to create a large training set for speech problems, specifically trigger word detection. </li>
+<li>Using a spectrogram and optionally a 1D conv layer is a common pre-processing step prior to passing audio data to an RNN, GRU or LSTM.</li>
+<li>An end-to-end deep learning approach can be used to built a very effective trigger word detection system. </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+	
+    
+	
       	    
 
   
@@ -1405,263 +1687,6 @@ code:<img src="/2018/11/26/dl/第四门课-第四周/resources/BD74761FA9DA43CE2
     
 	
     
-	
-      	    
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/14/dl/第四门课-第二周/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="雷哥">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/favicon.ico">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="雷哥的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/14/dl/第四门课-第二周/" itemprop="url">第四门课-第二周</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-14T21:10:09+08:00">
-                2018-11-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/深度学习/" itemprop="url" rel="index">
-                    <span itemprop="name">深度学习</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/深度学习/吴恩达课程总结/" itemprop="url" rel="index">
-                    <span itemprop="name">吴恩达课程总结</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><a href="https://github.com/yuancl/dl-algorithm/tree/master/4-ConvolutionNeuralNetworks/Week2/ResNets" target="_blank" rel="noopener">习题代码</a></p>
-<h5 id="LeNet5"><a href="#LeNet5" class="headerlink" title="LeNet5"></a>LeNet5</h5><ul>
-<li>它是针对灰色图片训练的</li>
-<li>架构：CONV-POOL-CONV-POOL-FC-FC-SOFTMAX</li>
-<li>CONV使用5x5 filter，POOL使用2x2，padding都为0，图片宽高在逐渐减小，信道数在逐渐增大</li>
-<li>还有一种模型多卷积，一个池化，多卷积，一个池化…现在也经常使用</li>
-<li>经典LeNet5使用了非常复杂的计算方式，每个过滤器都采用和输入模块一样的通道数量，现在一般不会这么做了</li>
-<li>使用的是sigmod，不是ReLU<img src="/2018/11/14/dl/第四门课-第二周/resources/FFB32954180F01A43DAE62D2E79B442D">
-</li>
-</ul>
-<h5 id="AlexNet"><a href="#AlexNet" class="headerlink" title="AlexNet"></a>AlexNet</h5><ul>
-<li>之前在语音方面已经得到了很大的进展，这是这篇论文，让人们觉得深度学习能够对CV有很大帮助</li>
-<li>AlexNet是更大的网络，大约6000万个参数，而LeNet5大约6万个参数</li>
-<li><strong>AlexNet能够处理非常相似的基本构造模块(没有理解)？</strong></li>
-<li>比LeNet表现另一个原因是使用了ReLu激活函数</li>
-<li>Multiple GPUs:Alex用了非常复杂的方法使这些层拆分到两个不同的GPU上</li>
-<li>LRN(Local Response Normalization)：选取一个位置，贯穿整个通道，得到256个数字，并进行归一化。局部归一化的动机是，对于13x13的图像中的每个位置来说，我们可能并不需要太多的高激活神经元。也没有理解</li>
-<li>网络特点：卷积核除了第一个，全部采用same卷积<img src="/2018/11/14/dl/第四门课-第二周/resources/95ED2FBAA8AEC165904C8B9DE4A6670A">
-</li>
-</ul>
-<h5 id="VGG-16"><a href="#VGG-16" class="headerlink" title="VGG-16"></a>VGG-16</h5><ul>
-<li>和LeNet比，它<strong>非常规整</strong></li>
-<li>简化了神经网络的结构，卷积层采用same卷积，信道数翻倍。池化层宽带高度都减半(每次池化后宽高缩小一倍，每次卷积后通道数也增加一倍)</li>
-<li>16代表包含有16个卷积层和全连接层，确实是很大的网络。但是非常规整，都是几个卷积后跟着一个压缩图像大小的池化层，这一点很吸引人。信道数64-128-256-512…可能认为已经足够大了，就没有再翻倍了</li>
-<li>缺点是需要训练的特征数量非常巨大</li>
-<li>还有VGG-19，是更庞大的网络，但效果其实和VGG-16差不多<img src="/2018/11/14/dl/第四门课-第二周/resources/2C14B193C833B6DFE0463405C9D003D5">
-</li>
-</ul>
-<h5 id="ResNets"><a href="#ResNets" class="headerlink" title="ResNets"></a>ResNets</h5><p><a href="https://github.com/yuancl/dl-algorithm/tree/master/4-ConvolutionNeuralNetworks/Week2/ResNets" target="_blank" rel="noopener">可参看习题</a></p>
-<ul>
-<li><strong>解决问题</strong>(注意和梯度优化算法指数加权平均的区别)<br>网络越深，越容易出现梯度消失问题，因为在反向传播算法就是梯度的时候，和各个层级的系数相关，相乘，所以很容易出现接近于0去情况，所以一开始就很快出现梯度消失问题，导致学习(learning speed)非常慢，性能很差(图上可以看见，越是前面的层级问题越严重)<img src="/2018/11/14/dl/第四门课-第二周/resources/61F21AE03F6475441BFAE38139170DFE.jpg" title="=561x267">
-</li>
-</ul>
-<ul>
-<li><p><strong>网络结构：</strong></p>
-<ul>
-<li>a[l+2]=g(z[l+2]+a[l]),其中a[l]就是残差块,是插在非线性变换前</li>
-<li>对于一个普通网络来说深度越深优化算法越难训练，训练误差越来越多。但ResNet表现比较好</li>
-<li>因为这种方式有助于解决梯度消失和梯度爆炸的问题，让我们训练更深的网络的同时，又能保证性能<img src="/2018/11/14/dl/第四门课-第二周/resources/2BDA2C468464C84C78603227B52C78E3"></li>
-</ul>
-</li>
-<li><p><strong>为什么能work？</strong></p>
-<ul>
-<li>a[l+2]=g(z[l+2]+a[l])=g(w[l+2]∗a[l+1]+b[l+2]+a[l])可见，当使用L2正则化或者其他方法，导致权重w会不断衰减(<strong>个人理解就容易出现梯度消失问题</strong>)，我们直接让w[l+2]=0并且b[l+2]=0，有了残差块，所以a[l+2]=g(a[l])=a<a href="因为Rele(x">l</a>中x>0)，这样来解决更容易出现的提交消失问题</li>
-<li>残差网络学习这种恒等函数非常容易</li>
-<li>z[l+2]+a[l]由于这里有向量的加减法，所以这两个层的维度必须想办法相对，比较简单的方式是使用same卷积</li>
-<li>网络结构：经常多个卷积接一个池化，CONV-CONV-CONV-POOL-CONV-CONV-CONV-POOL……FC-FC-SOFTMAX，无论网络如何，都会进行矩阵维度调整</li>
-<li>ResNet还提到了使用1*1的卷积，会在后面讲解<img src="/2018/11/14/dl/第四门课-第二周/resources/7F98489A2561372FB25FC4939CA2F778">
-</li>
-</ul>
-</li>
-</ul>
-<h5 id="Inception-GoogleNet"><a href="#Inception-GoogleNet" class="headerlink" title="Inception(GoogleNet)"></a>Inception(GoogleNet)</h5><ul>
-<li><p>网络中的网络已经1x1卷积</p>
-<ul>
-<li>改变通道数<img src="/2018/11/14/dl/第四门课-第二周/resources/59405B33A45ED9994661CC21A765DDC6"></li>
-</ul>
-</li>
-<li><p>Incption模块</p>
-<ul>
-<li>作用：避免人工确定卷积层中的过滤器类型，或者确定是否需要创建卷积层或池化层</li>
-<li>各种大小filter，pool相组合。缺点是计算复杂<img src="/2018/11/14/dl/第四门课-第二周/resources/A1892AE97B02F31DB72FC0BC2C6B5AA5"></li>
-<li>1x1卷积(瓶颈层)，降低通道数，降低计算复杂性(使用瓶颈层来缩小网络)<img src="/2018/11/14/dl/第四门课-第二周/resources/943071A79A4B72BD6C85D71BFD5B213B">
-使用瓶颈层来缩小网络<img src="/2018/11/14/dl/第四门课-第二周/resources/2895B32491E5564FDB45A8903147F4F2"></li>
-</ul>
-</li>
-<li><p>Inception网络</p>
-<ul>
-<li>Inception module<img src="/2018/11/14/dl/第四门课-第二周/resources/CF1D396466A7E5FD698DDE8160C77CF0"></li>
-<li>Inception网络就是将这些模块都组合到一起<img src="/2018/11/14/dl/第四门课-第二周/resources/B4825BB37EAF8E3586791DEDE6D02E25"></li>
-<li>隐藏层和中间层也能进行预测，确保了他们也参加特征计算，并且能够防止网络过拟合 <ul>
-<li>看途中的分支(编号2，就是通过隐藏层，编号3做的sotmax预测)</li>
-</ul>
-</li>
-<li>当然也有一些比较新的Inception论文，比如Inception V2,V3等，但都是基于这个搭积木的思想</li>
-</ul>
-</li>
-<li><p>如果构建自己的CV网络</p>
-<ul>
-<li>使用开源的实现方案：使用别人已经训练好的网络结构及权重，通常能够进展得相当快，用这个作为预训练，然后转换到你感兴趣的任务上</li>
-<li>如何迁移？主要根据你自己的数据量大小 <ul>
-<li>Train数据很少，你只需要训练替换后的你自己的softmax层相关参数，而冻结其他层的所有参数 <ul>
-<li>其他有个技巧，就是把softmax的输入直接存入硬盘</li>
-</ul>
-</li>
-<li>有一定的数据量，冻结的层数就少一点</li>
-<li>大量数据，不进行冻结，只是使用这些参数作为<strong>初始化参数</strong></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>数据扩充</p>
-<ul>
-<li>镜像对称</li>
-<li>随机裁剪(Rotation，Shearing，Local warping)</li>
-<li>旋转</li>
-<li>彩色转换，就是给R,G,B通道上加上不同的失真值(注意PCA对其影响)</li>
-<li>可以用CPU多线程进行数据扩充，然后用GPU训练<img src="/2018/11/14/dl/第四门课-第二周/resources/0885F9F3C1D49D58CB4CA297DC68E67B"></li>
-</ul>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-	
-    
-	
-    
   </section>
 
   
@@ -1710,7 +1735,7 @@ code:<img src="/2018/11/26/dl/第四门课-第四周/resources/BD74761FA9DA43CE2
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">75</span>
+                <span class="site-state-item-count">77</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1721,7 +1746,7 @@ code:<img src="/2018/11/26/dl/第四门课-第四周/resources/BD74761FA9DA43CE2
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-count">23</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -1732,7 +1757,7 @@ code:<img src="/2018/11/26/dl/第四门课-第四周/resources/BD74761FA9DA43CE2
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-count">21</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

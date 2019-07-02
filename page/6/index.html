@@ -261,6 +261,263 @@
   <section id="posts" class="posts-expand">
     
 	
+      	    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/14/dl/第四门课-第二周/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/14/dl/第四门课-第二周/" itemprop="url">第四门课-第二周</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-14T21:10:09+08:00">
+                2018-11-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/深度学习/" itemprop="url" rel="index">
+                    <span itemprop="name">深度学习</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/深度学习/吴恩达课程总结/" itemprop="url" rel="index">
+                    <span itemprop="name">吴恩达课程总结</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><a href="https://github.com/yuancl/dl-algorithm/tree/master/4-ConvolutionNeuralNetworks/Week2/ResNets" target="_blank" rel="noopener">习题代码</a></p>
+<h5 id="LeNet5"><a href="#LeNet5" class="headerlink" title="LeNet5"></a>LeNet5</h5><ul>
+<li>它是针对灰色图片训练的</li>
+<li>架构：CONV-POOL-CONV-POOL-FC-FC-SOFTMAX</li>
+<li>CONV使用5x5 filter，POOL使用2x2，padding都为0，图片宽高在逐渐减小，信道数在逐渐增大</li>
+<li>还有一种模型多卷积，一个池化，多卷积，一个池化…现在也经常使用</li>
+<li>经典LeNet5使用了非常复杂的计算方式，每个过滤器都采用和输入模块一样的通道数量，现在一般不会这么做了</li>
+<li>使用的是sigmod，不是ReLU<img src="/2018/11/14/dl/第四门课-第二周/resources/FFB32954180F01A43DAE62D2E79B442D">
+</li>
+</ul>
+<h5 id="AlexNet"><a href="#AlexNet" class="headerlink" title="AlexNet"></a>AlexNet</h5><ul>
+<li>之前在语音方面已经得到了很大的进展，这是这篇论文，让人们觉得深度学习能够对CV有很大帮助</li>
+<li>AlexNet是更大的网络，大约6000万个参数，而LeNet5大约6万个参数</li>
+<li><strong>AlexNet能够处理非常相似的基本构造模块(没有理解)？</strong></li>
+<li>比LeNet表现另一个原因是使用了ReLu激活函数</li>
+<li>Multiple GPUs:Alex用了非常复杂的方法使这些层拆分到两个不同的GPU上</li>
+<li>LRN(Local Response Normalization)：选取一个位置，贯穿整个通道，得到256个数字，并进行归一化。局部归一化的动机是，对于13x13的图像中的每个位置来说，我们可能并不需要太多的高激活神经元。也没有理解</li>
+<li>网络特点：卷积核除了第一个，全部采用same卷积<img src="/2018/11/14/dl/第四门课-第二周/resources/95ED2FBAA8AEC165904C8B9DE4A6670A">
+</li>
+</ul>
+<h5 id="VGG-16"><a href="#VGG-16" class="headerlink" title="VGG-16"></a>VGG-16</h5><ul>
+<li>和LeNet比，它<strong>非常规整</strong></li>
+<li>简化了神经网络的结构，卷积层采用same卷积，信道数翻倍。池化层宽带高度都减半(每次池化后宽高缩小一倍，每次卷积后通道数也增加一倍)</li>
+<li>16代表包含有16个卷积层和全连接层，确实是很大的网络。但是非常规整，都是几个卷积后跟着一个压缩图像大小的池化层，这一点很吸引人。信道数64-128-256-512…可能认为已经足够大了，就没有再翻倍了</li>
+<li>缺点是需要训练的特征数量非常巨大</li>
+<li>还有VGG-19，是更庞大的网络，但效果其实和VGG-16差不多<img src="/2018/11/14/dl/第四门课-第二周/resources/2C14B193C833B6DFE0463405C9D003D5">
+</li>
+</ul>
+<h5 id="ResNets"><a href="#ResNets" class="headerlink" title="ResNets"></a>ResNets</h5><p><a href="https://github.com/yuancl/dl-algorithm/tree/master/4-ConvolutionNeuralNetworks/Week2/ResNets" target="_blank" rel="noopener">可参看习题</a></p>
+<ul>
+<li><strong>解决问题</strong>(注意和梯度优化算法指数加权平均的区别)<br>网络越深，越容易出现梯度消失问题，因为在反向传播算法就是梯度的时候，和各个层级的系数相关，相乘，所以很容易出现接近于0去情况，所以一开始就很快出现梯度消失问题，导致学习(learning speed)非常慢，性能很差(图上可以看见，越是前面的层级问题越严重)<img src="/2018/11/14/dl/第四门课-第二周/resources/61F21AE03F6475441BFAE38139170DFE.jpg" title="=561x267">
+</li>
+</ul>
+<ul>
+<li><p><strong>网络结构：</strong></p>
+<ul>
+<li>a[l+2]=g(z[l+2]+a[l]),其中a[l]就是残差块,是插在非线性变换前</li>
+<li>对于一个普通网络来说深度越深优化算法越难训练，训练误差越来越多。但ResNet表现比较好</li>
+<li>因为这种方式有助于解决梯度消失和梯度爆炸的问题，让我们训练更深的网络的同时，又能保证性能<img src="/2018/11/14/dl/第四门课-第二周/resources/2BDA2C468464C84C78603227B52C78E3"></li>
+</ul>
+</li>
+<li><p><strong>为什么能work？</strong></p>
+<ul>
+<li>a[l+2]=g(z[l+2]+a[l])=g(w[l+2]∗a[l+1]+b[l+2]+a[l])可见，当使用L2正则化或者其他方法，导致权重w会不断衰减(<strong>个人理解就容易出现梯度消失问题</strong>)，我们直接让w[l+2]=0并且b[l+2]=0，有了残差块，所以a[l+2]=g(a[l])=a<a href="因为Rele(x">l</a>中x>0)，这样来解决更容易出现的提交消失问题</li>
+<li>残差网络学习这种恒等函数非常容易</li>
+<li>z[l+2]+a[l]由于这里有向量的加减法，所以这两个层的维度必须想办法相对，比较简单的方式是使用same卷积</li>
+<li>网络结构：经常多个卷积接一个池化，CONV-CONV-CONV-POOL-CONV-CONV-CONV-POOL……FC-FC-SOFTMAX，无论网络如何，都会进行矩阵维度调整</li>
+<li>ResNet还提到了使用1*1的卷积，会在后面讲解<img src="/2018/11/14/dl/第四门课-第二周/resources/7F98489A2561372FB25FC4939CA2F778">
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="Inception-GoogleNet"><a href="#Inception-GoogleNet" class="headerlink" title="Inception(GoogleNet)"></a>Inception(GoogleNet)</h5><ul>
+<li><p>网络中的网络已经1x1卷积</p>
+<ul>
+<li>改变通道数<img src="/2018/11/14/dl/第四门课-第二周/resources/59405B33A45ED9994661CC21A765DDC6"></li>
+</ul>
+</li>
+<li><p>Incption模块</p>
+<ul>
+<li>作用：避免人工确定卷积层中的过滤器类型，或者确定是否需要创建卷积层或池化层</li>
+<li>各种大小filter，pool相组合。缺点是计算复杂<img src="/2018/11/14/dl/第四门课-第二周/resources/A1892AE97B02F31DB72FC0BC2C6B5AA5"></li>
+<li>1x1卷积(瓶颈层)，降低通道数，降低计算复杂性(使用瓶颈层来缩小网络)<img src="/2018/11/14/dl/第四门课-第二周/resources/943071A79A4B72BD6C85D71BFD5B213B">
+使用瓶颈层来缩小网络<img src="/2018/11/14/dl/第四门课-第二周/resources/2895B32491E5564FDB45A8903147F4F2"></li>
+</ul>
+</li>
+<li><p>Inception网络</p>
+<ul>
+<li>Inception module<img src="/2018/11/14/dl/第四门课-第二周/resources/CF1D396466A7E5FD698DDE8160C77CF0"></li>
+<li>Inception网络就是将这些模块都组合到一起<img src="/2018/11/14/dl/第四门课-第二周/resources/B4825BB37EAF8E3586791DEDE6D02E25"></li>
+<li>隐藏层和中间层也能进行预测，确保了他们也参加特征计算，并且能够防止网络过拟合 <ul>
+<li>看途中的分支(编号2，就是通过隐藏层，编号3做的sotmax预测)</li>
+</ul>
+</li>
+<li>当然也有一些比较新的Inception论文，比如Inception V2,V3等，但都是基于这个搭积木的思想</li>
+</ul>
+</li>
+<li><p>如果构建自己的CV网络</p>
+<ul>
+<li>使用开源的实现方案：使用别人已经训练好的网络结构及权重，通常能够进展得相当快，用这个作为预训练，然后转换到你感兴趣的任务上</li>
+<li>如何迁移？主要根据你自己的数据量大小 <ul>
+<li>Train数据很少，你只需要训练替换后的你自己的softmax层相关参数，而冻结其他层的所有参数 <ul>
+<li>其他有个技巧，就是把softmax的输入直接存入硬盘</li>
+</ul>
+</li>
+<li>有一定的数据量，冻结的层数就少一点</li>
+<li>大量数据，不进行冻结，只是使用这些参数作为<strong>初始化参数</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>数据扩充</p>
+<ul>
+<li>镜像对称</li>
+<li>随机裁剪(Rotation，Shearing，Local warping)</li>
+<li>旋转</li>
+<li>彩色转换，就是给R,G,B通道上加上不同的失真值(注意PCA对其影响)</li>
+<li>可以用CPU多线程进行数据扩充，然后用GPU训练<img src="/2018/11/14/dl/第四门课-第二周/resources/0885F9F3C1D49D58CB4CA297DC68E67B"></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+	
+    
+	
+    
+	
     
 	
       	    
@@ -1355,407 +1612,6 @@
 
 	
     
-	
-      	    
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/10/dl/第二门课-第二周/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="雷哥">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/favicon.ico">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="雷哥的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/09/10/dl/第二门课-第二周/" itemprop="url">第二门课-第二周</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-10T22:40:03+08:00">
-                2018-09-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/深度学习/" itemprop="url" rel="index">
-                    <span itemprop="name">深度学习</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/深度学习/吴恩达课程总结/" itemprop="url" rel="index">
-                    <span itemprop="name">吴恩达课程总结</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="第二周"><a href="#第二周" class="headerlink" title="第二周"></a>第二周</h3><p>第二周主要学习如何优化算法，优化算法能够让你快速训练模型，主要分三类：</p>
-<ul>
-<li>Mini-batch</li>
-<li>指数加权平均(Momentum，RMSprop，Adam)</li>
-<li>学习率衰减</li>
-</ul>
-<h4 id="2-1-Mini-batch梯度下降-amp-理解"><a href="#2-1-Mini-batch梯度下降-amp-理解" class="headerlink" title="2.1 Mini-batch梯度下降&amp;理解"></a>2.1 Mini-batch梯度下降&amp;理解</h4><ul>
-<li>迭代中的cost一定是逐渐减小</li>
-<li>三种梯度下降方法(Batch，随机梯度，Mini-Batch)，cost图如下： <ul>
-<li>蓝色为常用Batch方式，梯度不会抖动，缺点是每次迭代是全部样本比较慢，一次迭代只改变一次梯度</li>
-<li>紫色为随机梯度，每次一个样本，这种方式cost的计算抖动比较大，在最优点附近也是抖动，并不会停留在此</li>
-<li>绿色为Mini-batch方式： <ul>
-<li>也会出现抖动，因为Cost的计算是随意加入的样本，而每次epom样本都在变化。</li>
-<li>它也不一定会在很小范围内收敛或者波动，这种情况就可以考虑减小学习率了</li>
-<li>Mini-batch size选择，一般选择2n，64–512比较常见</li>
-</ul>
-</li>
-<li>三种方式如何选择，主要还是看样本量，一般随机梯度不会选，如果样本量\&lt;2000，选择Batch，否则选择Mini-batch<img src="/2018/09/10/dl/第二门课-第二周/resources/3BC2DF36EFE921C9C0EEB02EBBEB579D">
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="2-3-指数加权平均数-amp-理解"><a href="#2-3-指数加权平均数-amp-理解" class="headerlink" title="2.3 指数加权平均数 &amp; 理解"></a>2.3 指数加权平均数 &amp; 理解</h4><ul>
-<li>也叫做移动平均值，就是计算局部范围的平均值：$v_t=\beta v_{t-1}+(1-\beta)\theta_{t-1}$(公式1),其中$\frac 1{(1-\beta)}$代表的所要计算的平均范围(这结论数学推导可查阅资料)，比如计算温度的指数加权平均&gt;值 $\theta=0.9$,那么$\frac 1{(1-\beta)}=10$,表示计算的10的平均温度</li>
-</ul>
-<h4 id="2-5-指数加权平均的偏差修正"><a href="#2-5-指数加权平均的偏差修正" class="headerlink" title="2.5 指数加权平均的偏差修正"></a>2.5 指数加权平均的偏差修正</h4><ul>
-<li><p><strong>蓝色</strong>是没有添加指数加权平均的各个离散点，<strong>红色</strong>为$\beta=0.9$的加权平均值曲线，<strong>绿色</strong>为$\beta=0.98$加权平均值曲线，<strong>紫色</strong>为$\beta=0.98$并且进行修正后的加权平均值曲线</p>
-<img src="/2018/09/10/dl/第二门课-第二周/resources/BE291D0E3476361A7A64454978286DA9">
-</li>
-<li><p>上图可以看见绿色和紫色的区别是在初始阶段，通过公式(1)计算得到的$v_0,v_1$和实际值差别是比较大的，造成了前面几个数不太准确,方法：使用$\frac{v_t}{1-\beta_t}$而不是直接用$v_t$进行评估,可以看见初期比较准确，然后后期$\beta_t$很小,所以$\frac{v_t}{1-\beta_t}\approx{v_t}$</p>
-</li>
-</ul>
-<h4 id="2-6-动态梯度下降"><a href="#2-6-动态梯度下降" class="headerlink" title="2.6 动态梯度下降"></a>2.6 动态梯度下降</h4><ul>
-<li><strong>目的</strong>：想让在x方向上梯度变化大一点，但是在纵轴方向，来回抖动，想要修正y方向上的抖动。<strong>方案</strong>：在x，y轴分别使用2.5中的指数加权平均法，对y轴的<strong>正负抖动进行抵扣平均</strong>，达到y轴抖动较小目的:<br>$v_{dw}=\beta v_{dw-1}+(1-\beta)d_{dw-1}$<br>W=W-$\alpha v_{dw}$<br>$v_{db}=\beta v_{db-1}+(1-\beta)d_{db-1}$<br>b=b-$\alpha v_{db}$<img src="/2018/09/10/dl/第二门课-第二周/resources/B75553739F2911D13CCF981D2AC5D707"></li>
-<li>假设W，b分别表示x，y轴。看下面计算公式，其中学习率$\alpha$也是有影响的，会在下面介绍<img src="/2018/09/10/dl/第二门课-第二周/resources/DBAC055D9744073F23A30ECC596CA307">
-</li>
-</ul>
-<h4 id="2-7-RMSprop"><a href="#2-7-RMSprop" class="headerlink" title="2.7 RMSprop"></a>2.7 RMSprop</h4><ul>
-<li>RMSprop是微分平方加权平均:<br>$S_{dw}=\beta S_{dw-1}+(1-\beta)d_{dw-1}^2$  <strong>1式</strong><br>W=W-$\alpha \frac{dw}{\sqrt S_{dw} + \epsilon}$ <strong>2式</strong>($\epsilon$避免非0,一般$10^{-8}$)<br>$v_{db}=\beta v_{db-1}+(1-\beta)d_{db-1}^2$<br>和动态梯度下降区别：<ul>
-<li>并不是正负抵消，这些计算的是微分平方加权平均，然后计算梯度变化的时候除以平方根</li>
-<li>原理<strong>(我理解就是将大值调小，小值调大)</strong>：<ul>
-<li>如果dw大，那么1式结果$S_{dw}$也会比较大，但2式结果W就会小</li>
-<li>如果dw小，那么1式结果$S_{dw}$也会比较小，但2式结果W就会大</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>RMSprop我理解就是将大值调小，小值调大,个人觉得Momentum(平均后正负抵消)更有效<img src="/2018/09/10/dl/第二门课-第二周/resources/F8B3F5FAEE78DF176AD2D9D1EA759F73">
-</li>
-</ul>
-<h4 id="2-8-Adam优化算法"><a href="#2-8-Adam优化算法" class="headerlink" title="2.8 Adam优化算法"></a>2.8 Adam优化算法</h4><ul>
-<li>Momentum与RMSprop的结合</li>
-<li>其中有多个超参数及默认值α,β1​(0.9),β2​(0.98),ϵ(10−8)<img src="/2018/09/10/dl/第二门课-第二周/resources/01107664832D4483D8213338204FC312">
-</li>
-</ul>
-<h4 id="2-9-学习率衰减"><a href="#2-9-学习率衰减" class="headerlink" title="2.9 学习率衰减"></a>2.9 学习率衰减</h4><ul>
-<li>如果学习率α一直是一个值，在使用Mini-batch方法的时候，就会在收敛值附件波动，根本原因就是在收敛期α过大，变化过多的原因</li>
-<li>动态变化α值，开始α希望较大，收敛时α逐渐变小，类似于绿色曲线，在收敛值较小范围波动</li>
-</ul>
-<img src="/2018/09/10/dl/第二门课-第二周/resources/9E1821378657CB076651F5DC38160B3C">
-<h4 id="2-10-局部最优问题"><a href="#2-10-局部最优问题" class="headerlink" title="2.10 局部最优问题"></a>2.10 局部最优问题</h4><ul>
-<li>担忧深度学习优化算法总是困在极差的局部最优</li>
-<li>通常梯度为0的点并不是局部最优点，实际上成本函数的零梯度点，即鞍点<img src="/2018/09/10/dl/第二门课-第二周/resources/68F0C0CA5B07EF344E68284131BA8147"></li>
-<li>普通优化算法一般都是沿着蓝色点坡度向下，比较难走出平稳期。为什么Momentum，RMSprop和Adam能尽早往下坡出平稳期？<img src="/2018/09/10/dl/第二门课-第二周/resources/FA0191259C4FB3E25C573FEA9CF7DEDF">
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-	
-    
-	
-      	    
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/01/dl/第二门课-第一周/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="雷哥">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/favicon.ico">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="雷哥的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/09/01/dl/第二门课-第一周/" itemprop="url">第二门课-第一周</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-01T22:49:03+08:00">
-                2018-09-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/深度学习/" itemprop="url" rel="index">
-                    <span itemprop="name">深度学习</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/深度学习/吴恩达课程总结/" itemprop="url" rel="index">
-                    <span itemprop="name">吴恩达课程总结</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="第一周"><a href="#第一周" class="headerlink" title="第一周"></a>第一周</h3><h4 id="1-1-训练-验证-测试集"><a href="#1-1-训练-验证-测试集" class="headerlink" title="1.1 训练,验证,测试集"></a>1.1 训练,验证,测试集</h4><p>1.训练,验证,测试集 数据一定需要同分布<br> 2.训练,验证,测试集 能够更好的衡量偏差和方差</p>
-<h4 id="1-2-amp-1-3-偏差-方差-Bias-Variance"><a href="#1-2-amp-1-3-偏差-方差-Bias-Variance" class="headerlink" title="1.2&amp;1.3 偏差,方差(Bias/Variance)"></a>1.2&amp;1.3 偏差,方差(Bias/Variance)</h4><p>1.偏差,方差最终的值都是基于人眼的,如果人眼误差也比较高的话,那么训练测试误差比较高也比较正常<br> 2.训练集,测试集数据来自同分布<br> 3.高方差可以解释为：拟合了数据集中的错误样本和中间的一些活跃数据<br> 4.首先看偏差，偏差可以接受后，然后评估下验证集的性能来评估方差<br> 5.一般可以根据训练，测试cost曲线来判断高偏差或者高方差,具体可以参考我<a href="https://github.com/yuancl/ml-algorithm/tree/master/exe5-Regularized-LinearR-and-Bias-Variance" target="_blank" rel="noopener">github:正则化以及偏差方差检测</a></p>
-<h4 id="1-4-amp-1-5-正则化"><a href="#1-4-amp-1-5-正则化" class="headerlink" title="1.4&amp;1.5 正则化"></a>1.4&amp;1.5 正则化</h4><p>1.解决高方差一般有两种方法：一个是正则化，另外是准备更多的数据<br> 2.L2正则化有时候也称为”权重衰减”，因为在用梯度下降计算参数的时候会在前面乘以小于1的数值<br> 3.疑问：为什么很少使用L2做正则化<br> 3.为什么能防止过拟合？(过拟合的本质就是参数过多，参数过大，维数过高)</p>
-<ul>
-<li>a.直观上理解当lambda足够大的时候，权重矩阵w接近于0，就把很多隐藏单元给消除了一样</li>
-<li>b.sigmoid,tanh激活函数的曲线可以发现，当x值在0附件的时候，曲线接近于直线，呈现直线的性质，并不是非直线</li>
-</ul>
-<h4 id="1-6-amp-1-7-正则化-Dropout"><a href="#1-6-amp-1-7-正则化-Dropout" class="headerlink" title="1.6&amp;1.7 正则化(Dropout)"></a>1.6&amp;1.7 正则化(Dropout)</h4><p>1.为了不影响Z[4]的期望值，我们需要用Z[4]a[3]/0.8来修正或弥补我们所需要的那20%<br> 2.在测试阶段不能用dropout，因为我们不需要在测试阶段结果是随机的<br> 3.直观理解Dropout和L2正则比较像<br> 4.不能只依赖任何一个特征，因为都有可能被删除<br> 5.根据过拟合的程度设置keep-prob的值，比如W[1]：7x3，W[2]：7x7,W[3]：7x3,所以W[2]层参数最多，可以设置keep-prob稍小一些，比如0.7，第一层可以设置为1，第一层不应该dropout。<br> 6.过拟合才用Dropout方法，CV上通常没有足够多的数据，所以经常会用到<br> 7.Dropout<strong>缺点</strong>：使代价函数J不再被明确定义，个人理解因为中间的神经元不确定是否被dropout，所以每次都神经元个数什么的都不一样</p>
-<h4 id="1-8-其他正则化方法"><a href="#1-8-其他正则化方法" class="headerlink" title="1.8 其他正则化方法"></a>1.8 其他正则化方法</h4><p>1.数据扩展(通过旋转，缩放，裁剪等)<br> 2.early stoping</p>
-<ul>
-<li><strong>为什么能工作：</strong> 因为随机初始的w值都是比较小的，在刚开始训练的时候也不会很大，在后面迭代次数多的时候，w值就会比较大了，这就会使Loss比较大，这个时候stoping是比较好的</li>
-<li><strong>缺点:</strong> 如果提早停止了梯度下降，也就停止了J的继续优化，不能得到更小的代价函数J</li>
-<li><strong>与正则化lambda比较:</strong> lambda会尝试多轮的值，进行选择</li>
-</ul>
-<h4 id="1-9-归一化输入"><a href="#1-9-归一化输入" class="headerlink" title="1.9 归一化输入"></a>1.9 归一化输入</h4><p>1.标准化:零均值，归一化方差<br> 2.为什么能归一化效果更好</p>
-<ul>
-<li><strong>a.从Loss效果图分析：</strong> 归一化后数据更均匀，可以从任何一点入手进行GD迭代，否则曲线就比较凌乱<br><img src="resources/C9C7B619F7FAA0D0649EA455EA4710A8" alt=""></li>
-<li><strong>b.从sigmoid或者tanh的曲线图分析：</strong> 归一化后区间在0附件的时候，梯度变化最大的<br><img src="resources/9273406DEF474A8262863E9EDDD8598F" alt=""></li>
-</ul>
-<p>3.<strong>不用Normalize：</strong> 如果数据本身就处于相似范围，比如已经是1–2，或者0–1，区别不大：1–100</p>
-<h4 id="1-10-梯度消失或爆炸"><a href="#1-10-梯度消失或爆炸" class="headerlink" title="1.10 梯度消失或爆炸"></a>1.10 梯度消失或爆炸</h4><p>1.这里只讨论了激活函数的指数级数增长或下降，但它也适用于L相关的导数或者梯度问题，比如另一篇文章<a href="https://app.yinxiang.com/shard/s48/nl/12303615/fbbe860b-d780-4ea0-86e2-b3281095f018/" target="_blank" rel="noopener">梯度问题</a>就是讨论的梯度指数问题<br> <img src="resources/A6E21F3566635A3FFFFD3E6CFF2F3A9E" alt=""></p>
-<p>2.见另一篇<a href="https://app.yinxiang.com/shard/s48/nl/12303615/fbbe860b-d780-4ea0-86e2-b3281095f018/" target="_blank" rel="noopener">梯度问题</a></p>
-<h4 id="1-11-神经网络权重初始化"><a href="#1-11-神经网络权重初始化" class="headerlink" title="1.11 神经网络权重初始化"></a>1.11 神经网络权重初始化</h4><p>见权重初始化练习：<a href="https://github.com/yuancl/dl-algorithm/blob/master/2-ImprovingDeepNeuralNetworks/Week1/1.Initialization.ipynb" target="_blank" rel="noopener">Initialization</a><br> <img src="resources/3FA08AC1BC944F534A96C4DD711D4E86" alt=""></p>
-<p>In general, initializing all the weights to zero results in the network failing to break symmetry. This means that every neuron in each layer will learn the same thing<br> 初始化参数全部为0的时候，每一层的梯度变化的一样的，有就是每一层学习到的是一样的，就不会有比较好的结果</p>
-<p>The cost starts very high. This is because with large random-valued weights, the last activation (sigmoid) outputs results that are very close to 0 or 1 for some examples, and when it gets that example wrong it incurs a very high loss for that example. Indeed, when log(a[3])=log(0)log⁡(a[3])=log⁡(0) , the loss goes to infinity.<br> Poor initialization can lead to vanishing/exploding gradients, which also slows down the optimization algorithm.<br> If you train this network longer you will see better results, but initializing with overly large random numbers slows down the optimization.<br> 当随机初始值比较大的时候，最后的输出sigmoid就是0或者1，这个时候如果碰见是0，那么计算lost的时候log(0)就是无限大，所以第一次迭代 Cost after iteration 0: inf<br> 初始化参数过大会使开始训练的时候梯度下降得比较慢，Loss比较大，迭代会比较慢，当然最后也会收敛</p>
-<p>Different initializations lead to different results<br> Random initialization is used to break symmetry and make sure different hidden units can learn different things<br> Don’t intialize to values that are too large<br> He initialization works well for networks with ReLU activations.</p>
-<h4 id="1-12-amp-1-13-梯度的数值逼近及注意项"><a href="#1-12-amp-1-13-梯度的数值逼近及注意项" class="headerlink" title="1.12&amp;1.13 梯度的数值逼近及注意项"></a>1.12&amp;1.13 梯度的数值逼近及注意项</h4><p>1.双边误差比单边误差小<br> 2.误差值如果小于10−7是比较安全的，如果大于10−5就需要多注意下，如果大于10−3那么应该是有bug<br> 3.如果J包含了正则项，那么求梯度D的时候也一定要包含正则项，感觉这个不用担心，因为有正则项的J，用数学公式求梯度函数一定会有正则项<br> 4.Dropout和梯度逼近不能同时使用，个人理解是因为梯度逼近是对最终的<strong>真实</strong>的J做的梯度逼近，而Dropout国产中个的J′去掉了多个神经元并不是真实的J<br> 5.参考<a href="https://github.com/yuancl/ml-algorithm/blob/master/exe4-NeuralNetwork/nn_cost_fun.py" target="_blank" rel="noopener">NeuralNetwork</a>中的梯度的数值逼近计算</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-	
-    
   </section>
 
   
@@ -1804,7 +1660,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">75</span>
+                <span class="site-state-item-count">77</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1815,7 +1671,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-count">23</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -1826,7 +1682,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-count">21</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
