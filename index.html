@@ -1,23 +1,2169 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
 
-{% block title %}{{ config.title }}{% if theme.index_with_subtitle and config.subtitle %} - {{config.subtitle }}{% endif %}{% endblock %}
 
-{% block page_class %}
-  {% if is_home() %} page-home {% endif %}
-{% endblock %}
 
-{% block content %}
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="不积跬步无以至千里">
+<meta property="og:type" content="website">
+<meta property="og:title" content="雷哥的博客">
+<meta property="og:url" content="http://yoursite.com/index.html">
+<meta property="og:site_name" content="雷哥的博客">
+<meta property="og:description" content="不积跬步无以至千里">
+<meta property="og:locale" content="zh-Hans">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="雷哥的博客">
+<meta name="twitter:description" content="不积跬步无以至千里">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '雷哥'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/">
+
+
+
+
+
+  <title>雷哥的博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left 
+   page-home 
+ ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">雷哥的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
   <section id="posts" class="posts-expand">
-    {% for post in page.posts %}
-      	{{ post_template.render(post, true) }}
-    {% endfor %}
+    
+	
+      	    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/22/ml/层次聚类Louvain/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/22/ml/层次聚类Louvain/" itemprop="url">层次聚类Louvain</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-22T22:01:10+08:00">
+                2019-05-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><a href="https://yuancl.github.io/2018/08/20/ml/聚类/" target="_blank" rel="noopener">聚类总结</a></p>
+<h4 id="模块度"><a href="#模块度" class="headerlink" title="模块度"></a>模块度</h4><p><a href="https://blog.csdn.net/aspirinvagrant/article/details/45577033" target="_blank" rel="noopener">社区划分的标准–模块度</a><br><a href="https://blog.csdn.net/wangyibo0201/article/details/52048248" target="_blank" rel="noopener">社区划分的标准–模块度2</a></p>
+<ul>
+<li>概念<br>模块度（Modularity）用来衡量一个社区的划分是不是相对比较好的结果。<font color="blue">一个相对好的结果在社区内部的节点相似度较高，而在社区外部节点的相似度较低</font></li>
+<li>定义<br>社区内部的总边数和网络中总边数的比例减去一个期望值，该期望值是将网络设定为随机网络时同样的社区分配所形成的社区内部的总边数和网络中总边数的比例的大小<ul>
+<li>公式一:<img src="/2019/05/22/ml/层次聚类Louvain/resources/84A5EA4853C12869CF52242DE25C84BE.jpg"></li>
+<li>$k_v*k_w$,及随机网络的理解，可以<a href="https://blog.csdn.net/wangyibo0201/article/details/52048248" target="_blank" rel="noopener">参考</a><img src="/2019/05/22/ml/层次聚类Louvain/resources/737C25A63A47EC602CB2F93036C708F6.jpg"></li>
+<li>公式二:<img src="/2019/05/22/ml/层次聚类Louvain/resources/22E09A2D22EB3AB921C861FE8FE9C8F7.jpg"></li>
+<li><img src="/2019/05/22/ml/层次聚类Louvain/resources/D4A72022E1512AE4E3F16210BCAE1FF9.jpg"></li>
+<li>举例：<img src="/2019/05/22/ml/层次聚类Louvain/resources/7D473F48C579B1842C9272A1D813BB8B.jpg">
+<ul>
+<li>第一项是三项合在一起</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="Louvain算法"><a href="#Louvain算法" class="headerlink" title="Louvain算法"></a>Louvain算法</h4><p><a href="https://www.cnblogs.com/fengfenggirl/p/louvain.html" target="_blank" rel="noopener">参考文章</a></p>
+<ul>
+<li>Louvain算法是由底向上的层次聚类算法的一种，目的是优化提升模块度</li>
+<li>步骤<ul>
+<li>1.将图中的每个节点看成一个独立的社区，次数社区的数目与节点个数相同；</li>
+<li>2.对每个节点i，依次尝试把节点i分配到其每个邻居节点所在的社区，计算分配前与<font color="blue">分配后的模块度变化ΔQ</font>，并记录ΔQ最大的那个邻居节点，如果maxΔQ&gt;0，则把节点i分配ΔQ最大的那个邻居节点所在的社区，否则保持不变；</li>
+<li>3.重复2），<font color="blue">直到所有节点的所属社区不再变化</font>；</li>
+<li>4.对图进行压缩，将所有在同一个社区的节点压缩成一个新节点，<font color="blue">社区内节点之间的边的权重转化为新节点的环的权重，社区间的边权重转化为新节点间的边权重</font>；</li>
+<li>5.重复1）直到整个图的模块度不再发生变化</li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+	
+    
+	
+      	    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/19/ml/LightGBM模型/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/19/ml/LightGBM模型/" itemprop="url">LightGBM模型</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-19T07:10:10+08:00">
+                2019-05-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/集成学习/" itemprop="url" rel="index">
+                    <span itemprop="name">集成学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><a href="https://www.zhihu.com/question/51644470" target="_blank" rel="noopener">LightGBM优缺点比较</a></p>
+<h4 id="直方图"><a href="#直方图" class="headerlink" title="直方图"></a>直方图</h4><p><a href="https://blog.csdn.net/anshuai_aw1/article/details/83040541" target="_blank" rel="noopener">直方图优化算法深入理解</a></p>
+<ul>
+<li>和xgboost的pre-order比较<br>xgboost 采用了预排序的方法来处理节点分裂，这样计算的分裂点比较精确。但是，时间空间上都造成了很大的时间开销<font color="blue">(但这个也是当时相比GBDT的重要提升点)</font>。为了解决这个问题，Lightgbm 选择了基于 histogram 的决策树算法。相比于 pre-sorted算法，histogram 在内存消耗和计算代价上都有不少优势</li>
+<li>LightGBM和最近的FastBDT都采取了提前histogram binning再在bin好的数据上面进行搜索。并在pre-bin之后的histogram的求和用了一个非常巧妙的<font color="blue">减法trick(histogram加速)</font>，省了一半的时间</li>
+</ul>
+<h4 id="leaf-wise替代level-wise"><a href="#leaf-wise替代level-wise" class="headerlink" title="leaf-wise替代level-wise"></a>leaf-wise替代level-wise</h4><p>在 histogram 算法之上， LightGBM 进行进一步的优化。首先它抛弃了大多数 GBDT 工具使用的按层生长<br>(level-wise) 的决策树生长策略，而使用了带有深度限制的按叶子生长 (leaf-wise) 算法  </p>
+<ul>
+<li><p>在 histogram 算法之上， LightGBM 进行进一步的优化。首先它抛弃了大多数 GBDT 工具使用的按层生长(level-wise) 的决策树生长策略，而使用了带有深度限制的按叶子生长 (leaf-wise) 算法。 level-wise 过一次数据可以同时分裂同一层的叶子，容易进行多线程优化，不容易过拟合。<font color="blue">但实际上level-wise是一种低效的算法，因为它不加区分的对待同一层的叶子，带来了很多没必要的开销</font>。因为实际上很多叶子的分裂增益较低，没必要进行搜索和分裂。</p>
+<ul>
+<li>leaf-wise则是一种更为高效的策略，每次从当前所有叶子中，<font color="blue">找到分裂增益最大(一般也是数据量最大)的一个叶子</font>，然后分裂，如此循环</li>
+<li>因此同 level-wise 相比，在分裂次数相同的情况下，leaf-wise 可以降低更多的误差，得到更好的精度。</li>
+<li>leaf-wise 的缺点是可能会长出比较深的决策树，产生过拟合。因此 LightGBM 在leaf-wise 之上增加了一个最大深度的限制，在保证高效率的同时防止过拟合</li>
+</ul>
+</li>
+<li><p>Level wise方式：<br>Level-wise过一次数据可以同时分裂同一层的叶子，容易进行多线程优化，也好控制模型复杂度，不容易过拟合。但实际上Level-wise是一种低效的算法，因为它<font color="blue">不加区分的对待同一层的叶子，带来了很多没必要的开销</font>，因为实际上很多叶子的分裂增益较低，没必要进行搜索和分裂</p>
+<img src="/2019/05/19/ml/LightGBM模型/resources/9A84741C62CECD29301748C37573B157.jpg">
+</li>
+<li><p>Leaf wise方式:<br>Leaf-wise则是一种更为高效的策略，<font color="blue">每次从当前所有叶子中，找到分裂增益最大的一个叶子，然后分裂</font>，如此循环。因此同Level-wise相比，在分裂次数相同的情况下，Leaf-wise可以降低更多的误差，得到更好的精度。Leaf-wise的缺点是可能会长出比较深的决策树，产生过拟合。因此LightGBM在Leaf-wise之上增加了一个最大深度的限制，在保证高效率的同时防止过拟合。</p>
+<img src="/2019/05/19/ml/LightGBM模型/resources/7E07549EF03D83F8CAAEDAC5DF13EFB3.jpg">
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+	
+    
+	
+      	    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/17/ml/XGboost模型/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/17/ml/XGboost模型/" itemprop="url">XGboost模型</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-17T07:19:11+08:00">
+                2019-05-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/集成学习/" itemprop="url" rel="index">
+                    <span itemprop="name">集成学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><a href="https://blog.csdn.net/guoxinian/article/details/79243307" target="_blank" rel="noopener">https://blog.csdn.net/guoxinian/article/details/79243307</a><br><a href="https://blog.csdn.net/matrix_zzl/article/details/78635221#2-xgboost%E5%8E%9F%E7%90%86%E6%8E%A8%E5%AF%BC" target="_blank" rel="noopener">https://blog.csdn.net/matrix_zzl/article/details/78635221#2-xgboost%E5%8E%9F%E7%90%86%E6%8E%A8%E5%AF%BC</a></p>
+<h4 id="boosting集成框架"><a href="#boosting集成框架" class="headerlink" title="boosting集成框架"></a>boosting集成框架</h4><ul>
+<li>boosting集成是后一个模型是对前一个模型产生<font color="blue">误差信息进行矫正</font></li>
+<li>gradient boost更具体，新模型的引入是为了<font color="blue">减少上个模型的残差(residual)</font>，我们可以在<font color="red">残差减少的梯度(Gradient)方向上</font>建立一个新的模型</li>
+<li>框架算法：<img src="/2019/05/17/ml/XGboost模型/resources/0317F68CB4256A79486DF6B5D164BE3F.jpg">
+<ul>
+<li>1.设定函数初始值F0，为一个恒值函数，论文中基于变量优化出恒值，实际上也可以给定任意值或者直接为0</li>
+<li>2.泛函优化<br>根据参数MM，进行MM次迭代，不断将当前函数$F_{m−1}$往最优函数F∗空间上逼近，<font color="blue">逼近方向就是当前函数下的函数负梯度方向</font>-$\delta L(y,F)$,由于优化函数，而非变量，本质上属于泛函优化</li>
+<li>3.每次迭代计算出函数负梯度，<font color="red">基于训练数据构建模型来拟合负梯度</font>。原则上可以选择任何模型：树模型，线性模型或者神经网络等等，很少框架支持神经网络，推测：神经网络容易过拟合，后续函数负梯度恒为0就无法继续迭代优化下去。如果用树模型进行拟合，就是我们熟悉的CART建树过程</li>
+</ul>
+</li>
+<li>泛函优化与变量优化<img src="/2019/05/17/ml/XGboost模型/resources/74A523412DEFC18E07ABF4E2D8EABAA5.jpg"></li>
+<li>和bagging比较并行性<br>谈到集成学习，不得不说bagging集成，比如随机森林<ul>
+<li>1）建树前对样本随机抽样（行采样）</li>
+<li>2）每个特征分裂随机采样生成特征候选集（列采样）</li>
+<li>3）根据增益公式选取最优分裂特征和对应特征分裂值建树。<ul>
+<li>建树过程完全独立，不像boosting训练中下一颗树需要依赖前一颗树训练构建完成，因此能够完全并行化。Python机器学习包sklearn中随机森林RF能完全并行训练</li>
+<li>而GBDT算法不行，训练过程还是单线程，无法利用多核导致速度慢。希望后续优化实现并行，Boosting并行不是同时构造N颗树，<font color="blue">而是单颗树构建中遍历最优特征时的并行</font>，类似XGBoost实现过程。随机森林中行采样与列采样有效抑制模型过拟合，XGBoost也支持这2种特性，此外其还支持Dropout抗过拟合。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="XGboost改进-Loss方程"><a href="#XGboost改进-Loss方程" class="headerlink" title="XGboost改进-Loss方程"></a>XGboost改进-Loss方程</h4><ul>
+<li><p>Loss进行泰勒二阶展开并且加入了惩罚项</p>
+<img src="/2019/05/17/ml/XGboost模型/resources/DBE01DCBB543EA600C500B25827EA668.jpg">
+<ul>
+<li><p>目标函数通过二阶泰勒展开式做近似。传统GBDT在优化时只用到一阶导数信息，xgboost则对代价函数进行了二阶泰勒展开，同时用到了一阶和二阶导数。注：支持自定义代价函数，只要函数可一阶和二阶求导</p>
+<ul>
+<li><a href="https://blog.csdn.net/s12117719679/article/details/87883168" target="_blank" rel="noopener">泰勒展开理解</a> <ul>
+<li>如何让两个人运动轨迹一样？<br>就是让两个人的速度，加速度，加速度的加速度…都一致。那么翻译成数学语言，也就是两条曲线想要一样，那么在某一点的一阶导数，二阶导数，三阶导数，四阶导数….n阶导数也相同，就说这两条曲线是相同的。也就是泰勒展开式的核心思想</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>定义了树的复杂度，即xgboost在代价函数里加入了正则项，用于控制模型的复杂度，<font color="blue">正则项里包含了树的叶子节点个数、每个叶子节点上输出的score的L2模的平方和</font>。代替了剪枝。</p>
+<img src="/2019/05/17/ml/XGboost模型/resources/C0930E7CC44A216A76354A27B6EAE3F8.jpg">
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="XGboost改进-特征树分割点选择-精确法与近似方法比较"><a href="#XGboost改进-特征树分割点选择-精确法与近似方法比较" class="headerlink" title="XGboost改进-特征树分割点选择(精确法与近似方法比较)"></a>XGboost改进-特征树分割点选择(精确法与近似方法比较)</h4><ul>
+<li>XGBoost在单机默认是exact greedy，搜索所有的可能分割点。分布式是dynamic histogram</li>
+<li>精确算法由于需要遍历特征的所有取值，计算效率低，适合单机小数据，对于大数据、分布式场景并不适合</li>
+<li>可并行的近似直方图算法，用于高效地生成候选的分割点。用于加速和减小内存消耗<ul>
+<li>分裂结点处通过结构打分和分割损失动态生长。结构分数代替了回归树的误差平方和。</li>
+</ul>
+</li>
+</ul>
+<h4 id="XGboost改进-并行化"><a href="#XGboost改进-并行化" class="headerlink" title="XGboost改进-并行化"></a>XGboost改进-并行化</h4><p>支持并行化处理。xgboost的并行是在特征粒度上的，<font color="blue">在训练之前，预先对特征进行了排序，然后保存为block结构，后面的迭代中重复地使用这个结构，大大减小计算量</font>。在进行节点的分裂时，需要计算每个特征的增益，最终选增益最大的那个特征去做分裂，那么各个特征的增益计算就可以开多线程进行，即在不同的特征属性上采用多线程并行方式寻找最佳分割点。</p>
+<h4 id="XGboost改进-其他"><a href="#XGboost改进-其他" class="headerlink" title="XGboost改进-其他"></a>XGboost改进-其他</h4><ul>
+<li>自定义损失函数</li>
+<li>可以处理稀疏、缺失数据(节点分裂算法能自动利用特征的稀疏性),可以学习出它的分裂方向，加快稀疏计算速度。</li>
+<li>列抽样（column subsampling）[传统GBDT没有]xgboost借鉴了随机森林的做法，支持列抽样，不仅能降低过拟合，还能减少计算，这也是xgboost异于传统gbdt的一个特性</li>
+<li>Shrinkage(缩减)，相当于学习速率(xgboost中的eta)[传统GBDT也有]</li>
+<li>传统GBDT以CART作为基分类器，xgboost还支持线性分类器</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+	
+    
+	
+      	    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/07/ad/总结篇-AD算法总结/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/07/ad/总结篇-AD算法总结/" itemprop="url">总结篇-AD算法总结</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-07T12:38:21+08:00">
+                2019-04-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/广告系统/" itemprop="url" rel="index">
+                    <span itemprop="name">广告系统</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/广告系统/广告系统总结篇/" itemprop="url" rel="index">
+                    <span itemprop="name">广告系统总结篇</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>实际是对推荐算法总结的补充<br><a href="https://yuancl.github.io/2019/03/26/rs/总结篇-推荐算法总结/" target="_blank" rel="noopener">推荐算法总结</a></p>
+<p><a href="https://mp.weixin.qq.com/s/s79Dpq5v6ouvCE_vneTYBA" target="_blank" rel="noopener">主流CTR预估模型的演化及对比</a></p>
+<h4 id="MLR-混合逻辑回归"><a href="#MLR-混合逻辑回归" class="headerlink" title="MLR(混合逻辑回归)"></a>MLR(混合逻辑回归)</h4><p>MLR算法是alibaba在2012年提出并使用的广告点击率预估模型，2017年发表出来。MLR模型是对线性LR模型的推广，它利用分片线性方式对数据进行拟合。基本思路是采用分而治之的策略：如果分类空间本身是非线性的，则按照合适的方式把空间分为多个区域，每个区域里面可以用线性的方式进行拟合，最后MLR的输出就变为了多个子区域预测值的加权平均。如下图(C)所示，就是使用4个分片的MLR模型学到的结果</p>
+<ul>
+<li>MLR模型在大规模稀疏数据上探索和实现了非线性拟合能力，在分片数足够多时，有较强的非线性能力；</li>
+<li>同时模型复杂度可控，有较好泛化能力；同时保留了LR模型的自动特征选择能力。</li>
+</ul>
+<p>MLR模型的思路非常简单，难点和挑战在于MLR模型的目标函数是非凸非光滑的，使得传统的梯度下降算法并不适用</p>
+<img src="/2019/04/07/ad/总结篇-AD算法总结/resources/36E40ADDAE0EB9BAD6C708132D4D923D.jpg">
+<img src="/2019/04/07/ad/总结篇-AD算法总结/resources/E0F2E5377BAB16C76EFBB091D1A2382A.jpg">
+<ul>
+<li>上式即为MLR的目标函数，其中m为分片数（当m=1时，MLR退化为LR模型）</li>
+<li>$\pi _i(x,\mu)$是聚类参数，决定分片空间的划分，即某个样本属于某个特定分片的概率<ul>
+<li><font color="purple">softmax也是这样做分类</font> </li>
+</ul>
+</li>
+<li>$\eta _i(x,w)$是分类参数，决定分片空间内的预测</li>
+<li><p>$\mu$和w都是待学习的参数。<font color="blue">最终模型的预测值为所有分片对应的子模型的预测值的期望</font></p>
+</li>
+<li><p>神经网络思路<br>另一方面，MLR模型可以看作带有一个隐层的神经网络。如下图，是大规模的稀疏输入数据，MLR模型第一步是做了一个Embedding操作，分为两个部分，一种叫聚类Embedding（绿色），另一种是分类Embedding（红色）。两个投影都投到低维的空间，维度为，是MLR模型中的分片数。完成投影之后，通过很简单的内积（Inner Product）操作便可以进行预测，得到输出</p>
+<img src="/2019/04/07/ad/总结篇-AD算法总结/resources/A569FBA9DF35A6EF30E28FD5D388D097.jpg">
+</li>
+</ul>
+<h4 id="FNN-Factorization-machine-supported-Neural-Network"><a href="#FNN-Factorization-machine-supported-Neural-Network" class="headerlink" title="FNN (Factorization-machine supported Neural Network)"></a>FNN (Factorization-machine supported Neural Network)</h4><ul>
+<li>思路类似于LR+GBDT,两个阶段：<ul>
+<li>第一个阶段先用一个模型做特征工程<br>除了神经网络模型，FM模型也可以用来学习到特征的隐向量（embedding表示），因此一个自然的想法就是先用FM模型学习到特征的embedding表示</li>
+<li>第二个阶段用第一个阶段学习到新特征训练最终的模型<img src="/2019/04/07/ad/总结篇-AD算法总结/resources/AC576F8DE4AE1DAACD41D481C0C90807.jpg">
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="PNN（Product-based-Neural-Networks）"><a href="#PNN（Product-based-Neural-Networks）" class="headerlink" title="PNN（Product-based Neural Networks）"></a>PNN（Product-based Neural Networks）</h4><ul>
+<li>背景<br>MLP中的节点add操作可能不能有效探索到<font color="blue">不同类别数据之间的交互关系</font>，虽然MLP理论上可以以任意精度逼近任意函数，但越泛化的表达，<font color="blue">拟合到具体数据的特定模式越不容易</font></li>
+<li>PNN主要是在深度学习网络中增加了一个inner/outer product layer，用来建模特征之间的关系<img src="/2019/04/07/ad/总结篇-AD算法总结/resources/9A57014E1A75FD0E7171E3AB6E9F6F72.jpg"></li>
+<li>Product Layer的节点分为两部分，一部分是z向量，另一部分是p向量。z向量的维数与输入层的Field个数（N）相同，$z=(f_1,f_2,…f_N)$。p向量的每个元素的值由embedding层的feature向量两两成对并经过Product操作之后生成,$p={g(f_i,f_j)}$i=1…N,j=1…N，因此p向量的维度为N*(N-1)</li>
+<li>Product操作有两种：内积和外积；对应的网络结构分别为IPNN和OPNN<img src="/2019/04/07/ad/总结篇-AD算法总结/resources/687578A02977199E59A71A4F99444654.jpg">
+</li>
+</ul>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><ul>
+<li>主流的CTR预估模型已经从传统的宽度模型向深度模型转变，与之相应的人工特征工程的工作量也逐渐减少</li>
+<li>上文提到的深度学习模型，除了DIN对输入数据的处理比较特殊之外，其他几个模型还是比较类似的，它们之间的区别主要在于网络结构的不同<img src="/2019/04/07/ad/总结篇-AD算法总结/resources/511CC0E7C440402456000FAD79AA8740.jpg"></li>
+<li>这四种深度学习模型的比较见下表<img src="/2019/04/07/ad/总结篇-AD算法总结/resources/8E076CF4EE82071302B94C0C64A49739.jpg"></li>
+<li>综上，深度学习技术主要有三点优势<ul>
+<li><font color="purple">个人觉得在是否都能包含高低维特征，特征是否需要工程化上面很重要,并且也在向这个方向发展</font></li>
+<li>模型设计组件化<br>组件化是指在构建模型时，可以更多的关注idea和motivation本身，在真正数学化实现时可以像<font color="blue">搭积木</font>一样进行网络结构的设计和搭建。</li>
+<li>深度学习可以帮助我们实现设计与优化的解耦，将设计和优化分阶段进行<ul>
+<li>对于工业界的同学来说，可以更加关注从问题本身出发，抽象和拟合领域知识。然后用一些标准的优化方法和框架来进行求解</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+	
+    
+	
+      	    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/31/rs/总结篇-推荐系统难点/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/31/rs/总结篇-推荐系统难点/" itemprop="url">总结篇-推荐系统难点</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-31T20:31:22+08:00">
+                2019-03-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/推荐系统/" itemprop="url" rel="index">
+                    <span itemprop="name">推荐系统</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/推荐系统/推荐系统总结篇/" itemprop="url" rel="index">
+                    <span itemprop="name">推荐系统总结篇</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><a href="https://mp.weixin.qq.com/s/0a4Ne9lgx1rmnE1jXfH6zQ" target="_blank" rel="noopener">达观数据个性化推荐系统实践</a><br><a href="https://mp.weixin.qq.com/s/SAmTNxTgtGLZ9cUH81FYgg" target="_blank" rel="noopener">刘志强 奇虎360:机器学习与推荐系统实践</a></p>
+<h4 id="整体过程"><a href="#整体过程" class="headerlink" title="整体过程"></a>整体过程</h4><ul>
+<li>用户<br>推荐系统本质是将人和物品关联起来，而系统对用户的理解也是由浅入深，初来时彼此陌生，需要有一个冷启的过程，逐渐把握用户的喜好。随着用户行为的丰富，系统对用户兴趣的描述也越来越客观，此时便可能得到更准确的用户偏好，进而完成更精准的推荐。然而物极必反，用户对于一个平台的认知与期望也是一样。随着用户的深度使用，势必对推荐系统生出更高的期待和要求。这时，便可能需要系统在满足深度用户某种刁钻的口味，与大众用户的普遍期待中做出某种取舍。用户也就不可避免的出现了流失。因为系统的能力终归有限，而用户的期望无限。</li>
+<li>资源<br>此外资源也会经历类似的过程，新进场的资源虽然天然有某种内容的属性，但其被用户接受，仍然不可避免需要经历一个过程。过程中有些资源会被淘汰，有些则会成长为热门。在不断地引入新资源的过程中，再热门的资源都会有过期的一天。就好比，再会保养的人，也逃不过岁月的流逝。甚至，为了保持系统的实时性，热门的资源需要主动地让出在系统中的曝光份额<img src="/2019/03/31/rs/总结篇-推荐系统难点/resources/E6D14C085DD134BA899AAC947BFA222A.jpg">
+</li>
+</ul>
+<h4 id="如何精准把握用户兴趣"><a href="#如何精准把握用户兴趣" class="headerlink" title="如何精准把握用户兴趣"></a>如何精准把握用户兴趣</h4><p>用户兴趣不仅存在多样性，而且会随着时间的变化而变化</p>
+<ul>
+<li>长短期兴趣画像让模型效果稳定提升</li>
+<li>通过引入时间因子，基于不同的时间周期做用户画像<ul>
+<li>比如基于最近半年的或更久的数据做长期用户画像，基于近一个月或三个月做短期用户画像，同时还会有实时用户画像，基于这三种类型用户画像之间的差异化，能够感知用户的兴趣变更<img src="/2019/03/31/rs/总结篇-推荐系统难点/resources/6D356B47DE2BCDD89642BEA83EFF8C2F.jpg"></li>
+</ul>
+</li>
+<li>基于用户画像后做一个过滤机制，把推荐过或者质量不佳先过滤。这样做排序时会引入一个时间因子做一个衰减，另外也会做机器学习的预测，可以方便地调整推荐顺序。</li>
+<li>接下来做优化，随着时间的推移，对于用户的刻画会更清晰准确</li>
+</ul>
+<h4 id="冷启动"><a href="#冷启动" class="headerlink" title="冷启动"></a>冷启动</h4><ul>
+<li>主要分为:用户冷启动，物品冷启动，系统冷启动</li>
+<li>用户冷启动<ul>
+<li>和其他领域做映射<br>从其他维度或领域的数据来判断新用户对现存物品的喜好。具体解释就是某个用户可能在已有领域current domain和另一领域out domain都有相关行为，可对两个不同领域的行为建立一个mapping，<font color="blue">当新用户来的时候，如果在另一领域有相关行为，可用该mapping作出prediction</font>，得到新用户对item的喜好程度<img src="/2019/03/31/rs/总结篇-推荐系统难点/resources/3C5075A26ABD3D104FE440464149FFDC.jpg"></li>
+<li>先给用户推荐热门内容，等行为多后再进行个性化推荐</li>
+<li>利用注册信息<br>根据用户注册账号时填写的性别、年龄、地址等信息，推荐相关性高的内容或者商品<ul>
+<li>比如说一个人的性别是男、年龄是40岁、职业是老师，那么就会有对应“性别是男、年龄是40岁、职业是老师”的三个相关推荐列表，再根据筛选，确定最终的推荐列表</li>
+</ul>
+</li>
+<li>授权设备信息<br>通过授权，可以获得手机中的位置，通讯录，按照app等，然后通过这些信息来做进一步聚合推荐<ul>
+<li>指的是允许app访问手机的一些信息，比如定位、安装信息、通讯录等，这样就可以推荐通讯录好友喜欢过的内容或商品</li>
+<li>或者说你手机里安装过懂球帝，就可以给你推荐足球相关的内容</li>
+<li>假如你安装了美丽说、蘑菇街、大姨妈等app，就可以判定你是女性了，更进一步还可以判定你是备孕还是少女</li>
+</ul>
+</li>
+<li>首次登录选标签<br>要求用户进来时选择一个或者多个标签，然后收集整理用户感兴趣的范围，去推荐相关性高的内容和商品</li>
+<li>绑定社交账号<br>利用用户的社交网络账号登录（需要用户授权），导入用户在社交网站上的好友信息，然后给用户推荐其好友喜欢的内容或物品</li>
+</ul>
+</li>
+<li>物品冷启动<ul>
+<li>对物品分类，可以使用Item-CF方法，推荐给相关用户</li>
+<li>设置一定概率的曝光机会，然后根据收益进行调整</li>
+</ul>
+</li>
+<li>系统冷启动<ul>
+<li>采用专家标注<br>对物品进行人工的标记，比如电影可以标记心情、剧情类型、类别、故事时间、地点、观众类型、获奖情况、风格、主旨、画面技术等等。在专家标记了一定样本之后使用自然语言理解和机器学习技术，通过分析用户对电影的评价和电影自身的内容属性对新电影进行自我标记。同时还设置了用户反馈界面，通过用户反馈进行改善</li>
+</ul>
+</li>
+</ul>
+<h4 id="回声室效应"><a href="#回声室效应" class="headerlink" title="回声室效应"></a>回声室效应</h4><p>为了满足用户的兴趣。第二部分是重复，如果依赖于内容标签或者内容分类，对于标签或者类目来不断地召回新的推荐结果，这会导致推荐结果没有新鲜感</p>
+<h4 id="性能方面"><a href="#性能方面" class="headerlink" title="性能方面"></a>性能方面</h4><ul>
+<li>采用离线，近实时，实时三层架构解决，可以参考推荐系统架构篇</li>
+</ul>
+<h4 id="其他问题"><a href="#其他问题" class="headerlink" title="其他问题"></a>其他问题</h4><ul>
+<li>精准兴趣<br>在推荐系统中，我们往往使用用户的点击行为来估计用户的喜好类型。然而用户的每次点击未必都是经过其深思熟虑之后的结果，因此行为本身会存在一个置信度的问题。而这个置信度是未知的</li>
+<li>新资源找不到合适用户<br>大量优质资源找不到需要的用户，成为层面资源，而低俗的内容大量曝光</li>
+<li>EE问题</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+	
+    
+	
+      	    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/30/rs/总结篇-推荐系统架构/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/30/rs/总结篇-推荐系统架构/" itemprop="url">总结篇-推荐系统架构</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-30T07:30:21+08:00">
+                2019-03-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/推荐系统/" itemprop="url" rel="index">
+                    <span itemprop="name">推荐系统</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/推荐系统/推荐系统总结篇/" itemprop="url" rel="index">
+                    <span itemprop="name">推荐系统总结篇</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><a href="https://mp.weixin.qq.com/s/0a4Ne9lgx1rmnE1jXfH6zQ" target="_blank" rel="noopener">达观数据个性化推荐系统实践</a><br><a href="https://zhuanlan.zhihu.com/p/59528983" target="_blank" rel="noopener">张俊林</a><br><a href="http://www.shuang0420.com/2017/03/13/论文笔记%20-%20Wide%20and%20Deep%20Learning%20for%20Recommender%20Systems/" target="_blank" rel="noopener">GP应用推荐举例</a></p>
+<h4 id="推荐系统应用方向"><a href="#推荐系统应用方向" class="headerlink" title="推荐系统应用方向"></a>推荐系统应用方向</h4><p>个性化推荐，相关推荐，热门推荐。。。<br><img src="/2019/03/30/rs/总结篇-推荐系统架构/resources/6BB63FB58358AAA9C67664EAA8E9A26A.jpg"></p>
+<h4 id="推荐系统设计目标"><a href="#推荐系统设计目标" class="headerlink" title="推荐系统设计目标"></a>推荐系统设计目标</h4><ul>
+<li>功能：功能上要全面些，包括相关推荐、个性化推荐、热门推荐等还包括混合推荐</li>
+<li>效果：效果在不同领域有差异，如在直播领域关注送礼物、打赏收入等，而资讯行业较关注人均点击数量、用户停留时长等；</li>
+<li>性能：性能在不同领域也是有差异的，但是必须是快速、稳定的，不允许出现推荐位置的留白，也就是你的推荐系统可以效果不好但是不能空白，在高并发时要求性能稳定快速。其实在实际业务场景中这三者是相互影响，权衡利弊的<img src="/2019/03/30/rs/总结篇-推荐系统架构/resources/348F4BA3140EE1B899EB1C2B7E8D868B.jpg">
+</li>
+</ul>
+<h4 id="系统层次图"><a href="#系统层次图" class="headerlink" title="系统层次图"></a>系统层次图</h4><ul>
+<li>基础层，对于服务多家客户来说首先是基础运算平台，全部基于Hadoop和Spark。基础存储平台是基于HBase、MySQL、Redis、HDFS等，传输平台是DgIO，主要基于消息队列的方式。</li>
+<li>在组件层有各种各样的组件和算法库，实现多个产品服务都可以复用。对于这些组件也有相应的研发团队进行升级和维护，如文本分类、标签、语义理解都是由文本组处理，对于搜索引擎性能、相关性等的优化升级是由搜索组完成，组件都是共同使用共同维护。<ul>
+<li>组件层有一系列小的组件，基于组件可以做一些模型层的事情，比如推荐相关的做用户画像，因为对于不同行业的用户画像有不同的标准，我们拿到的就是用户id和行为数据，刻画用户画像主要基于向量方式。物品画像主要解决流向，就是物品来了如何及时曝光，这时就需要依据其初始信息进行预估打分，对于已经曝光的物品会记录一段时间的收益情况（点击率、收藏数据等）形成物品画像做一些过滤信息。趋势分析主要是物品曝光后接下来是怎么样的，用户关系主要是基于用户行为分析的，主要做社交关系的推荐。物品关系主要是做算法方面的处理。</li>
+</ul>
+</li>
+<li>算法层主要是包括基于内容的推荐、矩阵分解、协同过滤、深度学习等。基于内容推荐如标签召回、热门召回、内容召回，深度学习各行业都在使用。</li>
+<li>组合层，对各种单一推荐算法的召回结果，使用机器学习的方式进行融合，以达到推荐效果的最优化。</li>
+<li>应用层，目前提供三种推荐，同时还有推荐理由，就是可解释性<img src="/2019/03/30/rs/总结篇-推荐系统架构/resources/8462B373BB26CD4BC997344AECED2D4A.jpg">
+</li>
+</ul>
+<h4 id="整体架构"><a href="#整体架构" class="headerlink" title="整体架构"></a>整体架构</h4><img src="/2019/03/30/rs/总结篇-推荐系统架构/resources/486690233E22E3AC4A925A9A2B5FEDCF.jpg">
+<ul>
+<li>在线部分<ul>
+<li>召回：通过召回环节，将给用户推荐的物品降到千以下规模</li>
+<li>粗排：如果召回阶段返回的物品还是太多，可以加入粗排阶段，这个阶段是可选的，粗排可以通过一些简单排序模型进一步减少往后续环节传递的物品</li>
+<li>精排：使用复杂的模型来对少量物品精准排序</li>
+<li>其他逻辑：即使精排推荐结果出来了，一般并不会直接展示给用户，可能还要上一些业务策略，比如去已读，推荐多样化，加入广告等各种业务策略。之后形成最终推荐结果，将结果展示给用户</li>
+</ul>
+</li>
+<li>近线部分<br>主要目的是<font color="blue">实时收集用户行为反馈</font>，并选择训练实例，实时抽取拼接特征，并近乎实时地更新在线推荐模型。这样做的好处是用户的最新兴趣能够近乎实时地体现到推荐结果里</li>
+<li>离线部分<br>通过对<font color="blue">线上用户点击日志的存储和清理，整理离线训练数据</font>，并周期性地更新推荐模型。对于超大规模数据和机器学习模型来说，往往需要高效地分布式机器学习平台来对离线训练进行支持</li>
+</ul>
+<img src="/2019/03/30/rs/总结篇-推荐系统架构/resources/B03559C0A23985CDE678B71B18B84A36.jpg">
+<ul>
+<li>GP应用推荐举例<img src="/2019/03/30/rs/总结篇-推荐系统架构/resources/0E258B35C68F04D2A827637698CD061A.jpg">
+</li>
+</ul>
+<h4 id="在线部分"><a href="#在线部分" class="headerlink" title="在线部分"></a>在线部分</h4><ul>
+<li>召回阶段<br>将物料从千万级别，降低到百级别<img src="/2019/03/30/rs/总结篇-推荐系统架构/resources/D61302841462A503D6067A318B735A5A.jpg"></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+	
+    
+	
+    
+	
+    
+	
+      	    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/26/rs/总结篇-推荐算法总结/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/26/rs/总结篇-推荐算法总结/" itemprop="url">总结篇-推荐算法总结</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-26T07:30:21+08:00">
+                2019-03-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/推荐系统/" itemprop="url" rel="index">
+                    <span itemprop="name">推荐系统</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/推荐系统/推荐系统总结篇/" itemprop="url" rel="index">
+                    <span itemprop="name">推荐系统总结篇</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="相关文章"><a href="#相关文章" class="headerlink" title="相关文章"></a>相关文章</h4><p><a href="https://mp.weixin.qq.com/s/i8ClwpTGMB5cu0evrrZQGw" target="_blank" rel="noopener">算法粗略介绍：搜索与推荐中的深度学习匹配：推荐篇</a><br><a href="https://www.ibm.com/developerworks/cn/web/1103_zhaoct_recommstudy1" target="_blank" rel="noopener">探索推荐引擎内部的秘密</a><br><a href="https://zhuanlan.zhihu.com/c_188941548" target="_blank" rel="noopener">张俊林-推荐系统召回模型</a><br><a href="https://www.hrwhisper.me/machine-learning-fm-ffm-deepfm-deepffm/" target="_blank" rel="noopener">FM、FFM与DeepFM</a><br><a href="http://www.shuang0420.com/2017/03/13/论文笔记%20-%20Wide%20and%20Deep%20Learning%20for%20Recommender%20Systems/" target="_blank" rel="noopener">WDL论文笔记</a></p>
+<h4 id="算法分类"><a href="#算法分类" class="headerlink" title="算法分类"></a>算法分类</h4><ul>
+<li><p>分类方法1</p>
+<ul>
+<li>传统<ul>
+<li>协调过滤</li>
+<li>矩阵分解(MF)</li>
+<li>因式分解机(FM)</li>
+</ul>
+</li>
+<li>基于embedding(深度学习兴起后)<ul>
+<li>word-embedding:skip-gram等</li>
+<li>graph-embedding:DeepWalk,TransE等</li>
+</ul>
+</li>
+<li>基于深度神经网络<ul>
+<li>Deep &amp; Wide</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>分类方法2</p>
+<ul>
+<li>线性<ul>
+<li>LR</li>
+<li>在排序模型方面很多基于LR模型，现在很多都是基于深度学习来做，不同模型都有不同的应用场景，并不是单一使用一种场景。<font color="blue">LR模型利用人工特征工程</font>，相对于深度学习的优点是可以感知的，是可以debug的</li>
+</ul>
+</li>
+<li>非线性<ul>
+<li>FM,FFM,GBDT+LR,XGboost+LR</li>
+<li>LR模型对于特征处理是线性的，利用Xgboost+LR或者GBDT+LR<font color="blue">由线性向非线性转化，能够做到多特征组合</font>，对推荐效果也有不同程度的提升</li>
+</ul>
+</li>
+<li>神经网络<ul>
+<li>DeepFM,Wide&amp;Deep</li>
+<li>目前还有利用Wide&amp;Deep，可以从特征工程中解放出来，在特征选取方面不需要做很多工作,但是在调参方面工作量比较大</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<img src="/2019/03/26/rs/总结篇-推荐算法总结/resources/E3D0F465A0C9A650AFE3BEB09F26AAFA.jpg">
+<h4 id="GBDT-LR"><a href="#GBDT-LR" class="headerlink" title="GBDT+LR"></a>GBDT+LR</h4><ul>
+<li>LR特征工程很难，那能否自动完成呢？模型级联提供了一种思路，典型的例子就是Facebook 2014年的论文中介绍的通过GBDT（Gradient Boost Decision Tree）模型<font color="blue">解决LR模型的特征组合问题</font>。思路很简单，特征工程分为两部分<ul>
+<li>一部分特征用于训练一个GBDT模型，把GBDT模型每颗树的叶子节点编号作为新的特征，加入到原始特征集中</li>
+<li>再用LR模型训练最终的模型</li>
+</ul>
+</li>
+<li>GBDT模型能够学习高阶非线性特征组合，对应树的一条路径（用叶子节点来表示）<ul>
+<li><font color="blue">通常把一些连续值特征、值空间不大的categorical特征</font>都丢给GBDT模型</li>
+<li>空间很大的ID特征（比如商品ID）留在LR模型中训练，<font color="red">既能做高阶特征组合又能利用线性模型易于处理大规模稀疏数据的优势</font><img src="/2019/03/26/rs/总结篇-推荐算法总结/resources/1D843A0BFB0672616943E4C315E62417.jpg"></li>
+</ul>
+</li>
+<li>树模型缺点<ul>
+<li>基于树的模型适合<font color="blue">连续中低度稀疏数据，容易学到高阶组合</font></li>
+<li>但是树模型却不适合学习高度稀疏数据的特征组合<ul>
+<li>一方面高度稀疏数据的特征维度一般很高，这时基于树的模型学习效率很低，甚至不可行；</li>
+<li>另一方面树模型也不能学习到训练数据中很少或没有出现的特征组合(比如训练数据完全没有特征x和特征y的训练数据出现)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="协同过滤"><a href="#协同过滤" class="headerlink" title="协同过滤"></a>协同过滤</h4><p><a href="https://www.ibm.com/developerworks/cn/web/1103_zhaoct_recommstudy1" target="_blank" rel="noopener">探索推荐引擎内部的秘密</a></p>
+<ul>
+<li>基于协同过滤的推荐可以分为三个子类：基于用户的推荐（User-based Recommendation），基于项目的推荐（Item-based Recommendation）和基于模型的推荐（Model-based Recommendation）</li>
+<li>基于用户的协同过滤推荐<ul>
+<li>基于用户的协同过滤推荐的基本原理是，根据所有用户对物品或者信息的偏好，发现与当前用户口味和偏好相似的“邻居”用户群，在一般的应用中是采用计算“K- 邻居”的算法；然后，基于这 K 个邻居的历史偏好信息，为当前用户进行推荐<img src="/2019/03/26/rs/总结篇-推荐算法总结/resources/F711DB43A7FFBE6FE172AA4E89A3AA25.jpg"></li>
+</ul>
+</li>
+<li>基于项目的协同过滤推荐<ul>
+<li>基于项目的协同过滤推荐的基本原理也是类似的，只是说它使用所有用户对物品或者信息的偏好，发现物品和物品之间的相似度，然后根据用户的历史偏好信息，将类似的物品推荐给用户<img src="/2019/03/26/rs/总结篇-推荐算法总结/resources/F7D855B58A3BA17FE77017B75EEAC6F1.jpg"></li>
+</ul>
+</li>
+<li>基于协同过滤的推荐机制是现今应用最为广泛的推荐机制，它有以下几个显著的优点：<ul>
+<li>它不需要对物品或者用户进行严格的建模，而且不要求物品的描述是机器可理解的，所以这种方法也是领域无关的。</li>
+<li>这种方法计算出来的推荐是开放的，可以共用他人的经验，很好的支持用户发现潜在的兴趣偏好</li>
+</ul>
+</li>
+<li>存在以下几个问题：<ul>
+<li>方法的核心是基于历史数据，所以对新物品和新用户都有“冷启动”的问题。</li>
+<li>推荐的效果依赖于用户历史偏好数据的多少和准确性。</li>
+<li>在大部分的实现中，用户历史偏好是用稀疏矩阵进行存储的，而稀疏矩阵上的计算有些明显的问题，包括可能少部分人的错误偏好会对推荐的准确度有很大的影响等等。</li>
+<li>对于一些特殊品味的用户不能给予很好的推荐。</li>
+<li>由于以历史数据为基础，抓取和建模用户的偏好后，很难修改或者根据用户的使用演变，从而导致这个方法不够灵活。</li>
+</ul>
+</li>
+</ul>
+<h4 id="MF"><a href="#MF" class="headerlink" title="MF"></a>MF</h4><ul>
+<li>MF（Matrix Factorization，矩阵分解）模型是个在推荐系统领域里资格很深的老前辈协同过滤模型了。核心思想是通过两个低维小矩阵（一个代表用户embedding矩阵，一个代表物品embedding矩阵）的乘积计算，来模拟真实用户点击或评分产生的大的协同信息稀疏矩阵，本质上是编码了用户和物品协同信息的降维模型<img src="/2019/03/26/rs/总结篇-推荐算法总结/resources/D766787AD9BABE291715A7FA78CA0483.jpg"></li>
+<li>当训练完成，每个用户和物品得到对应的低维embedding表达后，如果要预测某个 $User_i 对 Item_j 的评分的时候，只要它们做个内积计算 〈User_i,Item_j 〉$ ，这个得分就是预测得分<img src="/2019/03/26/rs/总结篇-推荐算法总结/resources/7C24B08BD0F51553C0BC91BCA91A3AD3.jpg">
+</li>
+</ul>
+<h4 id="SVD-MF-FISM-SVD"><a href="#SVD-MF-FISM-SVD" class="headerlink" title="SVD,MF,FISM,SVD++"></a>SVD,MF,FISM,SVD++</h4><ul>
+<li>CF本质就是解决矩阵填充问题<img src="/2019/03/26/rs/总结篇-推荐算法总结/resources/2BD3B5476445D05EDCC0CEBD67A69CEF.jpg"></li>
+<li>矩阵填充一般是用SVD分解来解决<img src="/2019/03/26/rs/总结篇-推荐算法总结/resources/249CBC7DD767EC261F4F6E690BFF123F.jpg">
+<ul>
+<li>SVD就是在解决以下问题(Loss)<img src="/2019/03/26/rs/总结篇-推荐算法总结/resources/749D83FC437F6C72D57EBC9593D4C313.jpg"></li>
+<li>svd有以下缺点：<ul>
+<li>missing data(就是没打分的，占比99%)和observed data（观测到的、已打分的）有一样的权重</li>
+<li>没有加正则，容易过拟合</li>
+</ul>
+</li>
+<li><font color="purple">注意和MF的区别，这边没没有使用embedding，user，item词嵌入的概念。而是用数学的方法求解的</font></li>
+</ul>
+</li>
+<li>MF<ul>
+<li>user和item分别用一个embedding表示，然后用户对item的偏好程度用这两个embedding的内积表示<img src="/2019/03/26/rs/总结篇-推荐算法总结/resources/6244EB6F4E2E5E8FF59AEF1F74BFDE70.jpg"></li>
+<li>使用L2-loss（其它loss也可以）和正则：<img src="/2019/03/26/rs/总结篇-推荐算法总结/resources/46C9358BD6ADCED970682B6604BF028F.jpg"></li>
+</ul>
+</li>
+<li>FISM(Factored Item Similarity Model)<ul>
+<li><font color="blue">用user作用过的item的embedding的和来表示user</font>，item用另一套embedding下的一个embedding来表示，最后两者的内积表示user对该item的偏好<ul>
+<li>这个模型也叫item-based的CF，因为把括号里的东西展开后，<font color="blue">其实就是找用户作用过的item和item[j]的相似度</font><img src="/2019/03/26/rs/总结篇-推荐算法总结/resources/E213592DC17DC84F8E8B69B950B774CE.jpg"></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>SVD++<ul>
+<li>很简单，另外用一个user的embedding，和上述的FISM的方法，融合来表示user。这曾经是netflix比赛中连续三年效果最好的单模型<img src="/2019/03/26/rs/总结篇-推荐算法总结/resources/8113DCE6ED7DFF4BF45247EB2E34189F.jpg">
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="FM"><a href="#FM" class="headerlink" title="FM"></a>FM</h4><p><a href="https://zhuanlan.zhihu.com/c_188941548" target="_blank" rel="noopener">张俊林-推荐系统召回模型</a></p>
+<ul>
+<li><p>从LR到SVM再到FM模型<br>LR模型简单易懂，但不能捕获更高维的特征，比如特征组合这类特征，所以不能很好拟合较复杂的场景(欠拟合)</p>
+<img src="/2019/03/26/rs/总结篇-推荐算法总结/resources/232BB3F732AD29ECA8A9CDB044A3B36F.jpg">
+</li>
+<li><p>加入特征组合(提升模型复杂度)</p>
+<ul>
+<li>虽然这个模型看上去貌似解决了二阶特征组合问题了，但是它有个潜在的问题：它对组合特征建模，泛化能力比较弱</li>
+<li>尤其是在大规模稀疏特征存在的场景下，这个毛病尤其突出，比如CTR预估和推荐排序</li>
+<li>这些场景的最大特点就是特征的大规模稀疏。所以上述模型并未在工业界广泛采用</li>
+<li><font color="blue">主要原因：由于数据稀疏，$x_i x_j$的权重参数$w_{i,j}$很多为0，导致不能学习</font><ul>
+<li>在训练数据里两个特征并未同时在训练实例里见到过，意味着 $x_i  and x_j$ 一起出现的次数为0，如果换做SVM的模式，是无法学会这个特征组合的权重的<img src="/2019/03/26/rs/总结篇-推荐算法总结/resources/0405C4C1759F61DB053CCDB696B99C7F.jpg">
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>FM模型<br>对于因子分解机FM来说，<font color="blue">利用特征的嵌入方式，最大的特点是对于稀疏的数据具有很好的学习能力。现实中稀疏的数据很多</font></p>
+<ul>
+<li>觉得可以看做是LR和MF的组合</li>
+<li><font color="blue">核心：这本质上是在对特征进行embedding化表征</font></li>
+<li><p>和SVM模型最大的不同，在于<font color="blue">特征组合权重</font>的计算方法。FM对于每个特征，学习一个大小为k的一维向量，于是，两个特征 $x_i 和 x_j 的特征组合的权重值，通过特征对应的向量 v_i 和 v_j 的内积 &lt;v_i,v_j&gt;$来表示。</p>
+<img src="/2019/03/26/rs/总结篇-推荐算法总结/resources/5D30E7FAEDECBCA1AD37754267567059.jpg">
+</li>
+<li><p>为什么模型泛华能力强，能够解决稀疏数据的问题</p>
+<ul>
+<li>在训练数据里两个特征并未同时在训练实例里见到过，意味着 $x_i  and x_j$ 一起出现的次数为0，如果换做SVM的模式，是无法学会这个特征组合的权重的。</li>
+<li>但是因为FM是学习单个特征的embedding，并不依赖某个特定的特征组合是否出现过，所以只要特征 x_i 和其它<font color="blue">任意特征组合</font>出现过，那么就可以学习自己对应的embedding向量<ul>
+<li>于是，尽管 $x_i  and x_j$ 这个特征组合没有看到过，但是在预测的时候，如果看到这个新的特征组合，因为 $x_i 和 x_j$ 都能学会自己对应的embedding，所以可以通过内积算出这个新特征组合的权重。</li>
+<li>这是为何说FM模型泛化能力强的根本原因 <img src="/2019/03/26/rs/总结篇-推荐算法总结/resources/7C5B35BBD0C7325E782FFC16AC89535C.jpg">
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>上式只是对数据的拟合函数，还要根据具体问题比如回归还是分类设以不同的Loss方法进行求解。以及数学求解的方法需要另参考其他资料</p>
+</li>
+<li><p>算法的效率</p>
+<ul>
+<li>粗略的看<br>从FM的原始数学公式看，因为在进行二阶（2-order）特征组合的时候，假设有n个不同的特征，那么二阶特征组合意味着任意两个特征都要进行交叉组合，所以可以直接推论得出：FM的时间复杂度是n的平方。但是如果故事仅仅讲到这里，FM模型是不太可能如此广泛地被工业界使用的。因为现实生活应用中的n往往是个非常巨大的特征数，如果FM是n平方的时间复杂度，那估计基本就没人带它玩了</li>
+<li>数学公式演示改进(细节也可以参考论文资料等)<br>FM如今被广泛采用并成功替代LR模型的一个关键所在是：它可以通过数学公式改写，把表面貌似是 $O(k<em>n^2 ) 的复杂度降低到 O(k</em>n)$</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="MF到FM的转换理解"><a href="#MF到FM的转换理解" class="headerlink" title="MF到FM的转换理解"></a>MF到FM的转换理解</h4><ul>
+<li>本质上，MF模型是FM模型的特例，<font color="blue">MF可以被认为是只有User ID 和Item ID这两个特征Fields的FM模型</font>，MF将这两类特征通过矩阵分解，来达到将这两类特征embedding化表达的目的</li>
+<li>而FM则可以看作是MF模型的进一步拓展，除了User ID和Item ID这两类特征外，很多其它类型的特征，都可以进一步融入FM模型里，它将所有这些特征转化为embedding低维向量表达，并计算任意两个特征embedding的内积，就是特征组合的权重<img src="/2019/03/26/rs/总结篇-推荐算法总结/resources/270EA9D3CF21C4F363002E84A5E9D766.jpg">
+</li>
+</ul>
+<h4 id="FFM-Field-aware-FM"><a href="#FFM-Field-aware-FM" class="headerlink" title="FFM(Field-aware FM)"></a>FFM(Field-aware FM)</h4><ul>
+<li><p>核心思想</p>
+<ul>
+<li>FM模型的某个特征，在和任意其它特征域的特征进行组合求权重的时候，共享了同一个embedding特征向量</li>
+<li>FFM模型是做得更细腻一些，在做特征组合的时候使用的embedding不同的特征向量。</li>
+<li>这意味着，如果有F个特征域，那么每个特征由FM模型的一个k维特征embedding，拓展成了（F-1）个k维特征embedding</li>
+<li>这个就是Field-aware的深层含义吧</li>
+</ul>
+</li>
+<li><p>算法效率问题</p>
+<ul>
+<li>FM模型可以通过公式改写，把本来看着是n的平方的计算复杂度，降低到 $O(k*n)$ </li>
+<li>而FFM无法做类似的改写，所以它的计算复杂度是 $O(k*n^2$ ) ，这明显在计算速度上也比FM模型慢得多</li>
+<li>所以，无论是急剧膨胀的参数量，还是变慢的计算速度，无论从哪个角度看，相对FM模型，FFM模型是略显笨重的。</li>
+<li>正因为FFM模型参数量太大，所以在训练FFM模型的时候，很容易过拟合，需要采取早停等防止过拟合的手段</li>
+</ul>
+</li>
+<li><p>数学公式</p>
+<ul>
+<li>其中$f_i和f_j$分别代表第i个特征和第j个特征所属的field<img src="/2019/03/26/rs/总结篇-推荐算法总结/resources/0A702A17B2566CC94E06A8D70A4EF0E5.jpg">
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="DeepFM"><a href="#DeepFM" class="headerlink" title="DeepFM"></a>DeepFM</h4><ul>
+<li><p>FM模型可以用神经网络进行表示</p>
+<img src="/2019/03/26/rs/总结篇-推荐算法总结/resources/2B105C5A04F5C58A4B7AB7B7113F3A85.jpg">
+<ul>
+<li>这里需要<font color="red">理解Sparse Feature层和Embeddings层的表示，如何和原始的FM模型等价</font><ul>
+<li>Sparse Feature层中维数数据可能不一样，有可能是多维的one-hot向量，比如分类的数据，如果是连续的数值型，那么就是本身<ul>
+<li>即使各个field的维度是不一样的，但是它们embedding后长度均为k</li>
+<li><font color="blue">也就是说one-hot只有一位为非0，其实就是通过矩阵相乘后就表示和原始的FM模型是等价了</font><img src="/2019/03/26/rs/总结篇-推荐算法总结/resources/E65E503C55862E88CCD45DBDB8D3B395.jpg"></li>
+</ul>
+</li>
+<li>最终表现就是这个模型<img src="/2019/03/26/rs/总结篇-推荐算法总结/resources/AE8DD79D27067ABD87C903A33567DD8B.jpg">
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>DeepFM的模型如下图<br><font color="red">共享整个embedding层，进行多层网络训练，提取高阶特征</font></p>
+<ul>
+<li>左边就是刚才将的FM模型的神经网络表示</li>
+<li>右边的则为deep部分，<font color="blue">为全连接的网络，用于挖掘高阶的交叉特征</font>。整个模型共享embedding层，最后的结果就是把FM部分和DNN的部分做sigmoid<br>$Y=sigmoid(Y_{FM}+Y_{DNN})$<img src="/2019/03/26/rs/总结篇-推荐算法总结/resources/3DE3419525ED615318B841FF4E302F5A.jpg">
+</li>
+</ul>
+</li>
+<li><p>DeepFM的结构中包含了因子分解机部分以及深度神经网络部分，分别负责低阶特征的提取和高阶特征的提取</p>
+</li>
+<li><p>与图像或者语音这类输入不同，图像语音的输入一般是连续而且密集的，然而用于CTR的输入一般是<font color="blue">及其稀疏的</font>。Embedding嵌入层就是这个作用</p>
+</li>
+<li><p>类比DeepFFM<br>类似于FFM对于FM模型来说，划分了field，对于不同的field内积时采用对应的隐向量。同样可以把DeepFM进行进化为DeepFFM，<font color="blue">即将每一个field embedding为m个维度为k的隐向量</font>（m为field的个数）</p>
+</li>
+</ul>
+<h4 id="WDL"><a href="#WDL" class="headerlink" title="WDL"></a>WDL</h4><ul>
+<li><p>Wide and Deep Learning<br>简单来说，<font color="blue">人脑就是一个不断记忆（memorization）并且归纳（generalization）的过程</font>，而这篇论文的思想，就是将<font color="red">宽线性模型（Wide Model，用于记忆，下图左侧）和深度神经网络模型（Deep Model，用于归纳，下图右侧）结合</font>，汲取各自优势形成了 Wide &amp; Deep 模型用于推荐排序</p>
+<img src="/2019/03/26/rs/总结篇-推荐算法总结/resources/EE2B4D289C05BA7DAE1AB4E0D88A0D10.jpg">
+</li>
+<li><p>Wide Model<br>要理解的概念是 Memorization，主要是学习特征的共性或者说相关性，产生的推荐是和已经<font color="blue">有用户行为的物品直接相关的物品</font></p>
+<ul>
+<li>通过线性模型 + 特征交叉。所带来的Memorization以及记忆能力非常有效和可解释。但是Generalization（泛化能力）需要更多的人工特征工程</li>
+<li>用的模型是 逻辑回归(logistic regression, LR)，LR 的优点就是简单(simple)、容易规模化(scalable)、可解释性强(interpretable)。LR 的特征往往是二值且稀疏的(binary and sparse)</li>
+<li>总结一下，宽度模型的输入是用户安装应用(installation)和为用户展示（impression）的应用间的向量积（叉乘），模型通常训练 one-hot 编码后的二值特征<ul>
+<li>缺点：这种操作不会归纳出训练集中未出现的特征对</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Deep Model<br>要理解的概念是 Generalization，可以理解为<font color="blue">相关性的传递(transitivity)，会学习新的特征组合</font>，来提高推荐物品的多样性，或者说提供泛化能力(Generalization)</p>
+<font color="purple">我的理解就是要用DL能够学习各种未出现的特征组合能力，特征模型的泛化能力</font><br>- DNN几乎不需要特征工程。通过对低纬度的dense embedding进行组合可以学习到更深层次的隐藏特征<br>  - 泛化往往是通过学习 <font color="blue">low-dimensional dense embeddings</font> 来探索过去从未或很少出现的新的特征组合来实现的<br>  - 缺点是有点over-generalize（过度泛化）<br>    - 当query-item矩阵是稀疏并且是high-rank的时候（比如user有特殊的爱好，或item比较小众），很难非常效率的学习出低维度的表示。这种情况下，大部分的query-item都没有什么关系。但是dense embedding会导致几乎所有的query-item预测值都是非0的，<font color="blue">这就导致了推荐过度泛化，会推荐一些不那么相关的物品</font><br>  - 相反，linear model却可以通过<font color="red">cross-product transformation</font>来记住这些<font color="blue">exception rules</font>，而且仅仅使用了非常少的参数<br>- <font color="blue">所以WDL结合LR，这点和 LR 正好互补，因为 LR 只能记住很少的特征组合，能够帮助识别Deep Model中《所有 query-item pair 非零的预测》情况</font>
+</li>
+<li><p>两者区别与互补</p>
+<ul>
+<li>Memorization趋向于更加保守，推荐用户之前有过行为的items(只认识出现过的)</li>
+<li>generalization更加趋向于提高推荐系统的多样性（diversity）</li>
+<li>所以WDL结合LR，这点和 LR 正好互补，因为 LR 只能记住很少的特征组合，能够帮助识别Deep Model中《所有 query-item pair 非零的预测》情况</li>
+</ul>
+</li>
+<li><p>GP推荐系统的整体架构</p>
+<ul>
+<li>由两个部分组成,检索系统(或者说候选生成系统）和排序系统(排序网络)。</li>
+<li>首先，用 检索(retrieval) 的方法对大数据集进行初步筛选，返回最匹配 query 的一部分物品列表，这里的检索通常会结合采用 机器学习模型(machine-learned models) 和 人工定义规则(human-defined rules) 两种方法。从大规模样本中召回最佳候选集之后</li>
+<li>再使用 排序系统 对每个物品进行算分、排序，分数 P(y|x)。WDL 就是用在排序系统中<img src="/2019/03/26/rs/总结篇-推荐算法总结/resources/3122D99113950432B7C98420BD44982B.jpg"></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+	
+    
+	
+    
   </section>
 
-  {% include '_partials/pagination.swig' %}
-{% endblock %}
+  
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+  </nav>
 
-{% block sidebar %}
-  {{ sidebar_template.render(false) }}
-{% endblock %}
+
+
+          </div>
+          
+
+
+          
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/favicon.ico" alt="雷哥">
+          <p class="site-author-name" itemprop="name">雷哥</p>
+           
+              <p class="site-description motion-element" itemprop="description">不积跬步无以至千里</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">76</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/yuancl" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-雷哥"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">雷哥</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Gemini
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  
+    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

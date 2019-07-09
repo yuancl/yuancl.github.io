@@ -1,23 +1,2201 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
 
-{% block title %}{{ config.title }}{% if theme.index_with_subtitle and config.subtitle %} - {{config.subtitle }}{% endif %}{% endblock %}
 
-{% block page_class %}
-  {% if is_home() %} page-home {% endif %}
-{% endblock %}
 
-{% block content %}
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="不积跬步无以至千里">
+<meta property="og:type" content="website">
+<meta property="og:title" content="雷哥的博客">
+<meta property="og:url" content="http://yoursite.com/page/4/index.html">
+<meta property="og:site_name" content="雷哥的博客">
+<meta property="og:description" content="不积跬步无以至千里">
+<meta property="og:locale" content="zh-Hans">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="雷哥的博客">
+<meta name="twitter:description" content="不积跬步无以至千里">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '雷哥'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/page/4/">
+
+
+
+
+
+  <title>雷哥的博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left 
+   page-home 
+ ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">雷哥的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
   <section id="posts" class="posts-expand">
-    {% for post in page.posts %}
-      	{{ post_template.render(post, true) }}
-    {% endfor %}
+    
+	
+      	    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/10/gan/GAN基础/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/10/gan/GAN基础/" itemprop="url">GAN基础</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-10T22:10:12+08:00">
+                2019-01-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/GAN/" itemprop="url" rel="index">
+                    <span itemprop="name">GAN</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="Basic-idea-of-GAN"><a href="#Basic-idea-of-GAN" class="headerlink" title="Basic idea of GAN"></a>Basic idea of GAN</h3><h4 id="Generator"><a href="#Generator" class="headerlink" title="Generator"></a>Generator</h4><img src="/2019/01/10/gan/GAN基础/resources/66AEF5EADDEC96BE3DA212E758624834.jpg">
+<img src="/2019/01/10/gan/GAN基础/resources/9E2ECC940FEAF9C96D8CEE35311233A2.jpg">
+<h4 id="Discriminator-辨别者，鉴别器"><a href="#Discriminator-辨别者，鉴别器" class="headerlink" title="Discriminator(辨别者，鉴别器)"></a>Discriminator(辨别者，鉴别器)</h4><ul>
+<li>产出一个标量<img src="/2019/01/10/gan/GAN基础/resources/6998CF78D25699B4821C46E82C0998DE.jpg">
+</li>
+</ul>
+<h4 id="形容关系：猎食者和天敌都在净化"><a href="#形容关系：猎食者和天敌都在净化" class="headerlink" title="形容关系：猎食者和天敌都在净化"></a>形容关系：猎食者和天敌都在净化</h4><ul>
+<li>天敌-Discriminator</li>
+<li><p>枯叶蝶-Generator</p>
+<ul>
+<li>枯叶蝶为了躲避猎食者的捕猎，不行进化自身<img src="/2019/01/10/gan/GAN基础/resources/8344AE0D169C537B6DF1D907BC7348D3.jpg">
+</li>
+</ul>
+</li>
+<li><p>二次元也是一样的</p>
+<ul>
+<li>Generator,Discriminator不断进化Discriminator2骗过Generator1，Discriminator3骗过Generator2等</li>
+<li>看起来Generator,Discriminator像是对抗的样子，所以是adversarial的由来<img src="/2019/01/10/gan/GAN基础/resources/9D1A3879E4E766C5138C872EE7020170.jpg">
+</li>
+</ul>
+</li>
+<li><p>对抗只是拟人的方法，下面就是和平的比喻</p>
+<ul>
+<li>问题：<ul>
+<li>1.为什么Generator不能自己学,而需要Discriminator驱动</li>
+<li>2.为什么Discriminator不自己做<img src="/2019/01/10/gan/GAN基础/resources/17AAF5A1E271847BB8A9565F19E6F561.jpg">
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="Algorithm"><a href="#Algorithm" class="headerlink" title="Algorithm"></a>Algorithm</h4><ul>
+<li><p>step1</p>
+<ul>
+<li>训练Discriminator，使database中产生的结果很接近1，Generator产生的结果很接近0<img src="/2019/01/10/gan/GAN基础/resources/E91AB963E417F2AF849AA38157129079.jpg">
+</li>
+</ul>
+</li>
+<li><p>step2</p>
+<ul>
+<li>Fix Discriminator,update Generator</li>
+<li>Generator，Discriminator合一起，成一个巨大的网络，比如前几层是Generator，后几层是Discriminator</li>
+<li>这一步目标就是巨大网络输出scala值要大(Gradient Ascent)<ul>
+<li>通常情况下，要让最后的输出很大，只需要调整最后一层softmax层就可以了</li>
+<li>但是这里固定住后面几层，只让调整Generator<img src="/2019/01/10/gan/GAN基础/resources/F11F16B8F1D8F59E45D03467FD6AEE4A.jpg">
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>整体算法</p>
+<ul>
+<li>Learning D<ul>
+<li>sample from database:$x^m$,noise samples:$z^m$</li>
+<li>$\tilde x^m=G(z^m)$表示Genertor产生的vector</li>
+<li>然后通过梯度提升算法，最优化$\tilde V$,含义就是让$D(x^i)尽量大,D(\tilde x^i)$尽量小</li>
+</ul>
+</li>
+<li>Learning G<ul>
+<li>目的就是update G，使其能够骗过D</li>
+<li>$D(G(z^i))$，理解其含义就是让noise数据经过G处理后，然后通过D（骗过D），得到最大的标量值<img src="/2019/01/10/gan/GAN基础/resources/5E52567B26EE736450698E2A8BF45E80.jpg">
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="GAN-as-structured-learning"><a href="#GAN-as-structured-learning" class="headerlink" title="GAN as structured learning"></a>GAN as structured learning</h3><h4 id="Structured-Learning"><a href="#Structured-Learning" class="headerlink" title="Structured Learning"></a>Structured Learning</h4><ul>
+<li>当输出不是一个标量数值或者分类，是更负责的模型的时候，比如seq，matrix，graph等<img src="/2019/01/10/gan/GAN基础/resources/436BF7130FE4A4A66B51511F88BF4640.jpg"></li>
+<li>Why structured learning challenging<ul>
+<li>必须考虑大局观<img src="/2019/01/10/gan/GAN基础/resources/DE35D645A761A70023B790B3E4071884.jpg"></li>
+</ul>
+</li>
+<li>Structured Learning Approach<ul>
+<li>Bottom up方法容易失去大局观<ul>
+<li>一个componet一个component地生成 </li>
+<li>component与component之间的关系不容易把握</li>
+</ul>
+</li>
+<li>Top Down方法不容易train<img src="/2019/01/10/gan/GAN基础/resources/9C427F41E805E3C0017D49FA943E5150.jpg">
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Can-Generator-learn-by-itself"><a href="#Can-Generator-learn-by-itself" class="headerlink" title="Can Generator learn by itself"></a>Can Generator learn by itself</h3><h4 id="NN-Generator和NN-Classifier比较类似"><a href="#NN-Generator和NN-Classifier比较类似" class="headerlink" title="NN Generator和NN Classifier比较类似"></a>NN Generator和NN Classifier比较类似</h4><ul>
+<li>只是一个是输入vector，一个输入图像</li>
+<li>问题：NN Generator如何产生输入的vector(将图片进行编码)?<ul>
+<li>不能够随机产生，因为如果随机产生，就无法表示出向量的相似性了(比如图片1有很多种，左斜，右斜等)<img src="/2019/01/10/gan/GAN基础/resources/B17EF3ED0C502169303D060B02B9803D.jpg">
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="Auto-Encoder-Decoder"><a href="#Auto-Encoder-Decoder" class="headerlink" title="Auto Encoder-Decoder"></a>Auto Encoder-Decoder</h4><ul>
+<li>解决上面：NN Generator如何产生输入vector问题</li>
+<li>如图：encode模块，对输入和输出图片越接近越好<img src="/2019/01/10/gan/GAN基础/resources/02DBAADA9FFA8D1FD2E7FB2CB90BCC25.jpg"></li>
+<li>训练后好的Anto encoder中的NN Decoder其实就可以理解为NN Generator<ul>
+<li>简单来说就是输入一个vector，然后输出图像<img src="/2019/01/10/gan/GAN基础/resources/B8B0E5D6B03F0A4982F7A5E15E425116.jpg"></li>
+</ul>
+</li>
+<li>如果训练集数据比较小，当出现0.5a + 0.5b输入时无法判断<ul>
+<li>a,b都能正确判断，但是当各0.5的时候就不好使了</li>
+<li>如下使用VAE解决<img src="/2019/01/10/gan/GAN基础/resources/A774B365F5C4321FBFA92BAD08736468.jpg">
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="VAE"><a href="#VAE" class="headerlink" title="VAE"></a>VAE</h4><img src="/2019/01/10/gan/GAN基础/resources/77926F12725C356845A4CC5FB5877E9F.jpg">
+<ul>
+<li>如何更好的判断input img和output img相似，如何取舍？<ul>
+<li>比如我们不能简单的用pixel不同个数来决定，如下图明显6 pixel error更好<img src="/2019/01/10/gan/GAN基础/resources/BD30A4E204F8A4C2BE6EC062FFB978D1.jpg">
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="单纯的learn-Generator困难的地方-Auto-encoder可能遇见问题"><a href="#单纯的learn-Generator困难的地方-Auto-encoder可能遇见问题" class="headerlink" title="单纯的learn Generator困难的地方(Auto encoder可能遇见问题)"></a>单纯的learn Generator困难的地方(Auto encoder可能遇见问题)</h4><ul>
+<li>邻近的component无法交流<ul>
+<li>当然如果考虑更加深的NN，多加入些隐层，可能能够解决<img src="/2019/01/10/gan/GAN基础/resources/022A31BA195753A93ABF96710BEAAB8D.jpg"></li>
+</ul>
+</li>
+<li>例如:<ul>
+<li>绿色为GAN得到的结论</li>
+<li>蓝色为Auto-encoder(单纯Generator)得到的</li>
+<li>原因是无法得到邻近的component的关系<img src="/2019/01/10/gan/GAN基础/resources/BA81A7B818E0D517E2047D745B53AE9A.jpg">
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Can-Discriminator-generate"><a href="#Can-Discriminator-generate" class="headerlink" title="Can Discriminator generate"></a>Can Discriminator generate</h3><h4 id="Discriminator复习"><a href="#Discriminator复习" class="headerlink" title="Discriminator复习"></a>Discriminator复习</h4><ul>
+<li>Discriminator在不同的领域有不同的名字,evaluation function,potential function….<img src="/2019/01/10/gan/GAN基础/resources/7D4F8ADAF45151FA632840F0CCF981DB.jpg">
+</li>
+</ul>
+<h4 id="Discriminator容易解决component与component之间的关系"><a href="#Discriminator容易解决component与component之间的关系" class="headerlink" title="Discriminator容易解决component与component之间的关系"></a>Discriminator容易解决component与component之间的关系</h4><ul>
+<li>如果已经有了整张图片，来判断图片是否ok，比较好处理<ul>
+<li>比如下图中，Discriminator就是一个CNN，这个CNN中有一个检测是否有独立的的filter，这样就很容易检测了<img src="/2019/01/10/gan/GAN基础/resources/251216A45C8730808FACD751AC7F86BB.jpg">
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="Discriminator擅长批评，不擅长生成"><a href="#Discriminator擅长批评，不擅长生成" class="headerlink" title="Discriminator擅长批评，不擅长生成"></a>Discriminator擅长批评，不擅长生成</h4><img src="/2019/01/10/gan/GAN基础/resources/415E152AE13988117AAAA3E8485D1FCD.jpg">
+<ul>
+<li>need some negative example<ul>
+<li>所以产生negative example是关键<img src="/2019/01/10/gan/GAN基础/resources/E809C331F97DED3FEBF074A9F71546CA.jpg"></li>
+<li>可能需要一个好的程序去产生negative example<ul>
+<li>并不能随机生成，如果随机生成，那么一些处于中间状态的图片也没有办法处理</li>
+<li>而且需要一个Discriminator来判断是否是好的negative example<ul>
+<li>这样就会有鸡生蛋，蛋生鸡的问题了:我们需要好的negative example来训练Discriminator,同时又需要好的Discriminator来协助产生negative example<img src="/2019/01/10/gan/GAN基础/resources/60F6EC38D31F5F0A61D3421E4955FF57.jpg"></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Iteration方法解决<ul>
+<li>Discriminator Training<ul>
+<li>只要能够找到$\tilde x=arg maxD(x)$,Discriminator就能够自己train，而不需要Generator</li>
+<li>用iteration方法，不断用此轮迭代得到的D去产生negative example(用D去找出自己的弱点)，然后迭代训练<img src="/2019/01/10/gan/GAN基础/resources/5323A485E0B3877A1816C4156D24F3EB.jpg"></li>
+</ul>
+</li>
+<li>Discriminator Training实际类似曲线图<ul>
+<li>第一张图中，可以看见在没有sample区域，D(x)也可能判断出很高的分数</li>
+<li>第二张图中，用得到的D(x)生成新的negative example,然后再从新调整D(x)(让随机产生的negative example分数低)</li>
+<li>第三张图中，就是第二轮训练后的曲线图<ul>
+<li>直观感觉：总体说就是用D(x)去生成非real example区域的高分negative example，然后不断调整自己，让其分数变低<img src="/2019/01/10/gan/GAN基础/resources/3BC158DF7FB206E0ABB9BD3EC8417C9A.jpg"></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Graphical model<ul>
+<li>其实就是用的Discriminator方法，在ml中其他的structure modle其实方法也是类似：<br>就是有一些negative和positive的样本，然后产生一个model，然后用此model再生成些negative example,然后再train….<img src="/2019/01/10/gan/GAN基础/resources/8C8C6F5948E5A3311053250CE5B92454.jpg">
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="Generator与Discriminator"><a href="#Generator与Discriminator" class="headerlink" title="Generator与Discriminator"></a>Generator与Discriminator</h4><ul>
+<li>优缺点<ul>
+<li>Generator容易生成，但不易判断组件与组件直接的关系</li>
+<li>Discriminator有全局观，但不易做生成<img src="/2019/01/10/gan/GAN基础/resources/FF1C2EB528B230870F7CE2971B5F749E.jpg"></li>
+</ul>
+</li>
+<li>组合<ul>
+<li>Generator就替代了arg maxD(x),解决了Discriminator很难做生成的问题<img src="/2019/01/10/gan/GAN基础/resources/E74CAFA5583574E1C5FD53E60141C4A4.jpg">
+<img src="/2019/01/10/gan/GAN基础/resources/6B95811287B3A08F948052B44AA87F83.jpg"></li>
+</ul>
+</li>
+<li>VAE &amp; GAN<img src="/2019/01/10/gan/GAN基础/resources/5BAAC471C2277A43B3B60F12485B0C76.jpg">
+<ul>
+<li>VAE比较稳，但最终的效果还是没有GAN好</li>
+<li>各种GAN其实效果没有太大区别<img src="/2019/01/10/gan/GAN基础/resources/D8BB36BDDE1EA4D6A5AB28EC2203807B.jpg"></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+	
+    
+	
+    
+	
+      	    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/08/gan/GAN概要/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/08/gan/GAN概要/" itemprop="url">GAN概要</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-08T23:11:18+08:00">
+                2019-01-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/GAN/" itemprop="url" rel="index">
+                    <span itemprop="name">GAN</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><a href="https://blog.csdn.net/qq_25737169/article/details/78857724" target="_blank" rel="noopener">参考文章</a></p>
+<h3 id="什么是GAN"><a href="#什么是GAN" class="headerlink" title="什么是GAN"></a>什么是GAN</h3><p>GAN（Generative adversarial nets）,中文是生成对抗网络，他是一种生成式模型，也是一种无监督学习模型。其最大的特点是为深度网络提供了一种对抗训练的方式，此方式有助于解决一些普通训练方式不容易解决的问题</p>
+<h3 id="GAN原理"><a href="#GAN原理" class="headerlink" title="GAN原理"></a>GAN原理</h3><p>GAN的主要灵感来源于博弈论中零和博弈的思想，应用到深度学习神经网络上来说，就是通过生成网络G（Generator）和判别网络D（Discriminator）不断博弈，进而使G学习到数据的分布</p>
+<ul>
+<li>如果用到图片生成上，则训练完成后，G可以从一段随机数中生成逼真的图像。G， D的主要功能是：<ul>
+<li>G是一个生成式的网络，它接收一个随机的噪声z（随机数），通过这个噪声生成图像</li>
+<li>D是一个判别网络，判别一张图片是不是“真实的”。它的输入参数是x，x代表一张图片，输出D（x）代表x为真实图片的概率，如果为1，就代表100%是真实的图片，而输出为0，就代表不可能是真实的图片</li>
+</ul>
+</li>
+<li>训练过程中，生成网络G的目标就是尽量生成真实的图片去欺骗判别网络D。而D的目标就是尽量辨别出G生成的假图像和真实的图像。这样，G和D构成了一个动态的“博弈过程”，最终的平衡点即纳什均衡点.</li>
+</ul>
+<img src="/2019/01/08/gan/GAN概要/resources/6242617D7479F64C26364B77799A250F.jpg">
+<h3 id="GAN特点"><a href="#GAN特点" class="headerlink" title="GAN特点"></a>GAN特点</h3><ul>
+<li>相比较传统的模型，他存在两个不同的网络，而不是单一的网络，并且训练方式采用的是对抗训练方式</li>
+<li>GAN中G的梯度更新信息来自判别器D，而不是来自数据样本</li>
+</ul>
+<h3 id="GAN优点"><a href="#GAN优点" class="headerlink" title="GAN优点"></a>GAN优点</h3><ul>
+<li>GAN是一种生成式模型，相比较其他生成模型（玻尔兹曼机和GSNs）只用到了反向传播,而不需要复杂的马尔科夫链</li>
+<li>相比其他所有模型, GAN可以产生更加清晰，真实的样本</li>
+<li>GAN采用的是一种无监督的学习方式训练，可以被广泛用在无监督学习和半监督学习领域</li>
+<li>相比于变分自编码器, GANs没有引入任何决定性偏置( deterministic bias),变分方法引入决定性偏置,因为他们优化对数似然的下界,而不是似然度本身,这看起来导致了VAEs生成的实例比GANs更模糊</li>
+<li>相比VAE, GANs没有变分下界,如果鉴别器训练良好,那么生成器可以完美的学习到训练样本的分布.换句话说,GANs是渐进一致的,但是VAE是有偏差的</li>
+<li>GAN应用到一些场景上，比如图片风格迁移，超分辨率，图像补全，去噪，避免了损失函数设计的困难，不管三七二十一，只要有一个的基准，直接上判别器，剩下的就交给对抗训练了</li>
+</ul>
+<h3 id="GAN缺点"><a href="#GAN缺点" class="headerlink" title="GAN缺点"></a>GAN缺点</h3><h4 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h4><ul>
+<li>训练GAN需要达到纳什均衡,有时候可以用梯度下降法做到,有时候做不到.我们还没有找到很好的达到纳什均衡的方法,所以训练GAN相比VAE或者PixelRNN是不稳定的,但我认为在实践中它还是比训练玻尔兹曼机稳定的多</li>
+<li>GAN不适合处理离散形式的数据，比如文本</li>
+<li>GAN存在训练不稳定、梯度消失、模式崩溃的问题（目前已解决）</li>
+</ul>
+<h4 id="为什么GAN不适合处理文本数据"><a href="#为什么GAN不适合处理文本数据" class="headerlink" title="为什么GAN不适合处理文本数据"></a>为什么GAN不适合处理文本数据</h4><ul>
+<li>文本数据相比较图片数据来说是离散的，因为对于文本来说，通常需要将一个词映射为一个高维的向量，最终预测的输出是一个one-hot向量，假设softmax的输出是（0.2， 0.3， 0.1，0.2，0.15，0.05）那么变为onehot是（0，1，0，0，0，0），如果softmax输出是（0.2， 0.25， 0.2， 0.1，0.15，0.1 ），one-hot仍然是（0， 1， 0， 0， 0， 0），所以对于生成器来说，G输出了不同的结果但是D给出了同样的判别结果，并不能将梯度更新信息很好的传递到G中去，所以D最终输出的判别没有意义。</li>
+<li>另外就是GAN的损失函数是JS散度，JS散度不适合衡量不想交分布之间的距离。<br>（WGAN虽然使用wassertein距离代替了JS散度，但是在生成文本上能力还是有限，GAN在生成文本上的应用有seq-GAN,和强化学习结合的产物）</li>
+</ul>
+<h3 id="GAN的变种"><a href="#GAN的变种" class="headerlink" title="GAN的变种"></a>GAN的变种</h3><p>自从GAN出世后，得到了广泛研究，先后几百篇不同的GANpaper横空出世，国外有大神整理了一个GAN zoo（GAN动物园），链接如下，感兴趣的可以参考一下：<br><a href="https://github.com/hindupuravinash/the-gan-zoo" target="_blank" rel="noopener">GAN zoo</a><br>GitHub上已经1200+star了，顺便附上一张GAN的成果图，可见GAN的研究火热程度：<br><img src="/2019/01/08/gan/GAN概要/resources/78C49AB46100594BDF7D685E329B6EDA.jpg"><br>由于GAN的变种实在太多，可以学习下DCGAN,, WGAN, improved-WGAN，BEGAN</p>
+<h3 id="GAN的广泛应用"><a href="#GAN的广泛应用" class="headerlink" title="GAN的广泛应用"></a>GAN的广泛应用</h3><ul>
+<li>GAN本身是一种生成式模型，所以在数据生成上用的是最普遍的，最常见的是图片生成，常用的有DCGAN WGAN，BEGAN，个人感觉在BEGAN的效果最好而且最简单。</li>
+<li>GAN本身也是一种无监督学习的典范，因此它在无监督学习，半监督学习领域都有广泛的应用，比较好的论文有<ul>
+<li>Improved Techniques for Training GANs</li>
+<li>Bayesian GAN（最新）</li>
+<li>Good Semi-supervised Learning</li>
+</ul>
+</li>
+<li>不仅在生成领域，GAN在分类领域也占有一席之地，简单来说，就是替换判别器为一个分类器，做多分类任务，而生成器仍然做生成任务，辅助分类器训练。</li>
+<li>GAN可以和强化学习结合，目前一个比较好的例子就是seq-GAN</li>
+<li>目前比较有意思的应用就是GAN用在图像风格迁移，图像降噪修复，图像超分辨率了，都有比较好的结果，详见pix-2-pix GAN 和cycle GAN。但是GAN目前在视频生成上和预测上还不是很好。</li>
+<li>目前也有研究者将GAN用在对抗性攻击上，具体就是训练GAN生成对抗文本，有针对或者无针对的欺骗分类器或者检测系统等等，但是目前没有见到很典范的文章。</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+	
+    
+	
+      	    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/06/nlp/BERT模型/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/06/nlp/BERT模型/" itemprop="url">BERT模型</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-06T19:34:10+08:00">
+                2019-01-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/NLP/" itemprop="url" rel="index">
+                    <span itemprop="name">NLP</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/NLP/模型理解/" itemprop="url" rel="index">
+                    <span itemprop="name">模型理解</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>首先理解：<br><a href="https://yuancl.github.io/2019/01/05/nlp/Attention模型/" target="_blank" rel="noopener">Attention模型</a><br><a href="https://yuancl.github.io/2019/01/06/nlp/Transformer模型/" target="_blank" rel="noopener">Transformer模型</a></p>
+<p>参考文章：<br><a href="https://blog.csdn.net/malefactor/article/details/83961886" target="_blank" rel="noopener">从Word Embedding到Bert模型——自然语言处理预训练技术发展史</a><br><a href="https://www.jiqizhixin.com/articles/2018-11-01-9?from=synced" target="_blank" rel="noopener">谷歌终于开源BERT代码：3 亿参数量，机器之心全面解读</a></p>
+<h4 id="概览"><a href="#概览" class="headerlink" title="概览"></a>概览</h4><ul>
+<li>效果：Bert 具备广泛的通用性，就是说绝大部分 NLP 任务都可以采用类似的两阶段模式直接去提升效果</li>
+</ul>
+<h4 id="预训练发展史"><a href="#预训练发展史" class="headerlink" title="预训练发展史:"></a>预训练发展史:</h4><h4 id="ELMO-Embedding-from-Language-Models"><a href="#ELMO-Embedding-from-Language-Models" class="headerlink" title="ELMO(Embedding from Language Models)"></a>ELMO(Embedding from Language Models)</h4><ul>
+<li>参考图像领域预训练<a href="https://yuancl.github.io/2018/10/10/dl/第三门课-第二周/" target="_blank" rel="noopener">预训练理解</a></li>
+<li><p>词嵌入<a href="https://yuancl.github.io/2018/12/01/dl/第五门课-第二周/" target="_blank" rel="noopener">Word Embedding,NNLM,Word2Vec(CBOW,Skip-gram),Glove</a></p>
+</li>
+<li><p>解决问题：Work Embedding的多义性问题</p>
+<ul>
+<li>静态的方式:训练好之后每个单词的表达就固定住了，以后使用的时候，不论新句子上下文单词是什么，这个单词的 Word Embedding 不会跟着上下文场景的变化而改变，所以对于比如 Bank 这个词</li>
+</ul>
+</li>
+<li>本质思想<ul>
+<li>用事先用语言模型学好一个单词的 Word Embedding，然后根据当前上下文对 Word Embedding 动态调整的思路</li>
+</ul>
+</li>
+<li>两阶段：<ul>
+<li>第一个阶段是利用语言模型进行预训练</li>
+<li>第二个阶段是在做下游任务时，从预训练网络中提取对应单词的网络各层的 Word Embedding 作为<font color="blue">新特征</font>补充到下游任务中<ul>
+<li>Feature-based Pre-Training<br>因为 ELMO给下游提供的是每个单词的特征形式，所以这一类预训练的方法被称为“Feature-based Pre-Training”<img src="/2019/01/06/nlp/BERT模型/resources/A28E00CA5B362C88488EABCE29B9311F.jpg"></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>ELMO和图像预训练的区别<ul>
+<li>ELMO 代表的这种基于特征融合的预训练方法</li>
+<li>NLP还有一种：基于 Fine-tuning 的模式,而 GPT 就是这一模式的典型开创者，这种和图像预训练比较像</li>
+</ul>
+</li>
+<li>ELMO有什么缺点(GPT和Bert出来之后对比)<ul>
+<li>LSTM抽取特征能力远低于<a href="https://yuancl.github.io/2019/01/06/nlp/Transformer模型/" target="_blank" rel="noopener">Transformer</a></li>
+<li>拼接方式双向融合特征融合能力偏弱</li>
+</ul>
+</li>
+</ul>
+<h4 id="GPT-Generative-Pre-Training"><a href="#GPT-Generative-Pre-Training" class="headerlink" title="GPT(Generative Pre-Training)"></a>GPT(Generative Pre-Training)</h4><ul>
+<li><p>和ELMO区别</p>
+<ul>
+<li>使用的Fine-tuning模式,特征抽取器不是用的 RNN，而是用的 <a href="https://yuancl.github.io/2019/01/06/nlp/Transformer模型/" target="_blank" rel="noopener">Transformer</a></li>
+<li>GPT 的预训练虽然仍然是以语言模型作为目标任务，但是采用的是单向的语言模型<ul>
+<li>这限制了其在更多应用场景的效果，比如阅读理解这种任务，在做任务的时候是可以允许同时看到上文和下文一起做决策的</li>
+</ul>
+</li>
+<li>下游使用(Fine-tuning)<ul>
+<li>要向 GPT 的网络结构看齐，把任务的网络结构改造成和 GPT 的网络结构是一样的。然后，在做下游任务的时候，利用第一步预训练好的参数初始化 GPT 的网络结构<img src="/2019/01/06/nlp/BERT模型/resources/2627CF7F4812570097CDA2E24151AC93.jpg">
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>下游任务如何改造靠近 GPT 的网络结构呢</p>
+<img src="/2019/01/06/nlp/BERT模型/resources/D424E7A94A3A8AFA95BF948622EBF372.jpg">
+</li>
+<li><p>GPT有什么问题:</p>
+<ul>
+<li>最主要的就是那个单向语言模型</li>
+</ul>
+</li>
+</ul>
+<h4 id="Bert"><a href="#Bert" class="headerlink" title="Bert"></a>Bert</h4><ul>
+<li><p>两阶段模型</p>
+<ul>
+<li>在预训练阶段采用了类似 ELMO 的双向语言模型，和GPT一样使用<a href="https://yuancl.github.io/2019/01/06/nlp/Transformer模型/" target="_blank" rel="noopener">Transformer</a>网络</li>
+<li>Fine-Tuning 阶段，这个阶段的做法和 GPT 是一样的</li>
+</ul>
+</li>
+<li><p>和GPT,ELMO关系</p>
+<ul>
+<li>如果我们把 GPT预训练阶段换成双向语言模型，那么就得到了 Bert</li>
+<li>如果我们把 ELMO 的特征抽取器换成<a href="https://yuancl.github.io/2019/01/06/nlp/Transformer模型/" target="_blank" rel="noopener">Transformer</a>，那么我们也会得到 Bert<img src="/2019/01/06/nlp/BERT模型/resources/E701F5F85BCFD4AE2C7F2ABE1AA7AE4E.jpg">
+</li>
+</ul>
+</li>
+<li><p>输入表征<br>BERT 最核心的过程就是同时预测加了 MASK 的缺失词与 A/B 句之间的二元关系，而这些首先都需要体现在模型的输入中</p>
+<ul>
+<li>特殊符 [SEP] 是用于分割两个句子的符号</li>
+<li>前面半句会加上分割编码 A，后半句会加上分割编码 B,预测 B 句是不是 A 句后面的一句话</li>
+<li>为了令 Transformer感知词与词之间的位置关系，我们需要使用位置编码给每个词加上位置信息<img src="/2019/01/06/nlp/BERT模型/resources/56096F6E25AD52E2E76CF6E2649085FB.jpg">
+</li>
+</ul>
+</li>
+<li><p>预训练过程<br>BERT 最核心的就是预训练过程，这也是该论文的亮点所在。简单而言，模型会从数据集抽取两句话，其中B句有 50% 的概率是 A句的下一句，然后将这两句话转化前面所示的输入表征。现在我们<font color="blue">随机遮掩（Mask 掉）</font>输入序列中 15% 的词，并<font color="red">要求 Transformer 预测这些被遮掩的词，以及 B 句是 A 句下一句的概率这两个任务</font></p>
+<ul>
+<li>对于二分类任务，在抽取一个序列（A+B）中，B 有 50% 的概率是 A 的下一句。如果是的话就会生成标注「IsNext」，不是的话就会生成标注「NotNext」，这些标注可以作为二元分类任务判断模型预测的凭证</li>
+<li>对于 Mask 预测任务，首先整个序列会随机 Mask 掉 15% 的词，这里的 Mask 不只是简单地用「[MASK]」符号代替某些词，因为这会引起预训练与微调两阶段不是太匹配。所以谷歌在确定需要 Mask 掉的词后，80% 的情况下会直接替代为「[MASK]」，10% 的情况会替代为其它任意的词，最后 10% 的情况会保留原词<img src="/2019/01/06/nlp/BERT模型/resources/368B1596DC8027EAB8592E9AC0B1D5C2.jpg">
+</li>
+</ul>
+</li>
+<li><p>微调过程</p>
+<ul>
+<li><p>下图展示了 BERT 在 11 种任务中的微调方法，它们都只添加了一个额外的输出层。在下图中，Tok 表示不同的词、E 表示输入的嵌入向量、T_i 表示第 i 个词在经过 BERT 处理后输出的上下文向量</p>
+<img src="/2019/01/06/nlp/BERT模型/resources/90D75BE758BD70EE89D79AB4258221C9.jpg">
+<ul>
+<li>(a)中判断问答对是不是包含正确回答的 QNLI、判断两句话有多少相似性的 STS-B 等，它们都用于处理句子之间的关系</li>
+<li>(b)中判语句中断情感趋向的 SST-2 和判断语法正确性的 CoLA 任务，它们都是处理句子内部的关系</li>
+</ul>
+</li>
+<li><p>NLP四类任务</p>
+<ul>
+<li>一类是序列标注，这是最典型的 NLP 任务，比如中文分词，词性标注，命名实体识别，语义角色标注等都可以归入这一类问题，它的特点是句子中每个单词要求模型根据上下文都要给出一个分类类别。</li>
+<li>第二类是分类任务，比如我们常见的文本分类，情感计算等都可以归入这一类。它的特点是不管文章有多长，总体给出一个分类类别即可。</li>
+<li>第三类任务是句子关系判断，比如 Entailment，QA，语义改写，自然语言推理等任务都是这个模式，它的特点是给定两个句子，模型判断出两个句子是否具备某种语义关系。</li>
+<li>第四类是生成式任务，比如机器翻译，文本摘要，写诗造句，看图说话等都属于这一类。它的特点是输入文本内容后，需要自主生成另外一段文字</li>
+<li><img src="/2019/01/06/nlp/BERT模型/resources/52B6633F1E96B86DC6B4477CA91629D3.jpg">
+</li>
+</ul>
+</li>
+</ul>
+<img src="/2019/01/06/nlp/BERT模型/resources/C8C2770559C89A232F97E4DCA20834D3.jpg">
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+	
+    
+	
+      	    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/06/nlp/Transformer模型/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/06/nlp/Transformer模型/" itemprop="url">Transformer模型</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-06T18:23:10+08:00">
+                2019-01-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/NLP/" itemprop="url" rel="index">
+                    <span itemprop="name">NLP</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/NLP/模型理解/" itemprop="url" rel="index">
+                    <span itemprop="name">模型理解</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>参考文章：<br><a href="https://shimo.im/docs/gmRW4WV2mjoXzKA1" target="_blank" rel="noopener">神经机器翻译 之 谷歌 transformer 模型</a><br><a href="https://www.cnblogs.com/robert-dlut/p/8638283.html" target="_blank" rel="noopener">Self-attention and Transformer</a><br><a href="https://mp.weixin.qq.com/s?__biz=MjM5MTQzNzU2NA==&amp;mid=2651666707&amp;idx=1&amp;sn=2e9149ccdba746eaec687038ce560349&amp;chksm=bd4c1e808a3b97968a15cb3d21032b5394461a1be275476e4fd26563aa28d99be0b798ccee17&amp;mpshare=1&amp;scene=1&amp;srcid=0111kbdci7utfkYpw9bNBcpF&amp;key=f8b9d5856fa70f7d2eabd677b381f98687650f8caf1af873c78466b32517ee5af4eecc661ae63d35bf90beca422d1abea7b7c897e43f33ab3ef7de4c816797d4bad752a5e6f5acc1908b28ffd604355f&amp;ascene=0&amp;uin=MTE0NTY4MjMyMQ%3D%3D&amp;devicetype=iMac+MacBookPro14%2C1+OSX+OSX+10.13.6+build(17G65" target="_blank" rel="noopener">大数据文摘-BERT大火却不懂Transformer</a>&amp;version=11020201&amp;lang=zh_CN&amp;pass_ticket=sLCET0Y%2BZTkYDsKSej3nfbOS885niL2%2Bt2ffNlFmQw3FszFuawe4q3nwl02gUnCe)</p>
+<h4 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h4><ul>
+<li>首先理解<a href="https://yuancl.github.io/2019/01/05/nlp/Attention模型/" target="_blank" rel="noopener">Attention模型</a>，个人理解Transformer本质其实就是对selt-attention的包装</li>
+<li>论文《Attention is all you need》特点：<br>重点关注了复杂度，并行度，长距离依赖学习三个问题<ul>
+<li>现在做神经翻译里最好的BLUE结果</li>
+<li>没有采取大热的RNN/LSTM/GRU的结构，而是使用attention layer 和全连接层，达到了较好的效果，并且解决了 RNN/LSTM/GRU 里的long dependency problem </li>
+<li>解决了传统RNN 训练并行度的问题，并降低了计算复杂度</li>
+</ul>
+</li>
+</ul>
+<h4 id="Encoder-Decoder架构"><a href="#Encoder-Decoder架构" class="headerlink" title="Encoder-Decoder架构"></a>Encoder-Decoder架构</h4><ul>
+<li><p>Encoder-Decoder架构整体</p>
+<ul>
+<li>在编码器的一个网络块中，由一个多头attention子层和一个前馈神经网络子层组成，整个编码器栈式搭建了N个块</li>
+<li>解码器的一个网络块中多了一个多头attention层。为了更好的优化深度网络，整个网络使用了残差连接和对层进行了规范化（Add&amp;Norm）<ul>
+<li>这里有个特别点就是masking,  masking 的作用就是防止在训练的时候 使用未来的输出的单词。 比如训练时， 第一个单词是不能参考第二个单词的生成结果的。 Masking就会把这个信息变成0， 用来保证预测位置 i 的信息只能基于比 i 小的输出<img src="/2019/01/06/nlp/Transformer模型/resources/C421D21BFAA4597BC61F35AC079AF098.jpg">
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Encode组件</p>
+<img src="/2019/01/06/nlp/Transformer模型/resources/93027EA8E8E28E2249EA065D24A54A0F.jpg">
+</li>
+<li><p>Decode组件</p>
+<ul>
+<li>编码器通过处理输入序列开启工作。顶端编码器的输出之后会变转化为一个包含向量K（键向量）和V（值向量）的注意力向量集 。这些向量将被每个解码器用于自身的“编码-解码注意力层”，而这些层可以帮助解码器关注输入序列哪些位置合适<img src="/2019/01/06/nlp/Transformer模型/resources/B464700544F8040B5FAC358F5070AEE0.gif"></li>
+<li>接下来的步骤重复了这个过程，直到到达一个特殊的终止符号，  -  它表示transformer的解码器已经完成了它的输出。每个步骤的输出在下一个时间步被提供给底端解码器，并且就像编码器之前做的那样，这些解码器会输出它们的解码结果</li>
+<li>这个“编码-解码注意力层”工作方式基本就像多头自注意力层一样，只不过它是通过在它下面的层来创造查询矩阵，并且从编码器的输出中取得键/值矩阵<p style="margin-left: 8px;margin-right: 8px;"><span data-ratio="1.9636363636363636" id="js_tx_video_container_0.7003880785346812" class="js_tx_video_container" style="display: block; width: 661px; height: 372px;"><iframe frameborder="0" width="661" height="371.8125" allow="autoplay; fullscreen" allowfullscreen="true" src="//v.qq.com/txp/iframe/player.html?origin=https%3A%2F%2Fmp.weixin.qq.com&amp;vid=m13563cy49o&amp;autoplay=false&amp;full=true&amp;show1080p=false&amp;isDebugIframe=false"></iframe></span></p>
+</li>
+</ul>
+</li>
+<li><p>最终的线性变换和Softmax层<br>解码组件最后会输出一个实数向量。我们如何把浮点数变成一个单词？这便是线性变换层要做的工作，它之后就是Softmax层</p>
+<ul>
+<li>线性变换层是一个简单的全连接神经网络，它可以把解码组件产生的向量投射到一个比它大得多的、被称作对数几率（logits）的向量里</li>
+<li>接下来的Softmax 层便会把那些分数变成概率（都为正数、上限1.0）。概率最高的单元格被选中，并且它对应的单词被作为这个时间步的输出<img src="/2019/01/06/nlp/Transformer模型/resources/1493FFA7472D4E31F49EF536CF6F1F54.jpg">
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="scaled-dot-Product-attention"><a href="#scaled-dot-Product-attention" class="headerlink" title="scaled dot-Product attention"></a>scaled dot-Product attention</h4><ul>
+<li>本质：其实scaled dot-Product attention就是我们常用的使用<font color="blue">点积进行相似度计算</font>的attention，只是多除了一个（为K的维度）起到调节作用，使得内积不至于太大</li>
+<li>操作步骤<ul>
+<li>每个query-key 会做出一个点乘的运算过程</li>
+<li>最后会使用soft max 把他们归一</li>
+<li>再到最后会乘以V (values) 用来当做attention vector. <img src="/2019/01/06/nlp/Transformer模型/resources/70C79702B44D8406D4B78338B0C7ADAD.jpg"></li>
+</ul>
+</li>
+<li>详细理解<img src="/2019/01/06/nlp/Transformer模型/resources/F21545F043FA58B804CAEC5D3C7EF995.jpg">
+</li>
+</ul>
+<h4 id="Multi-head-attention-1"><a href="#Multi-head-attention-1" class="headerlink" title="Multi-head attention(1)"></a>Multi-head attention(1)</h4><ul>
+<li>它扩展了模型专注于不同位置的能力<ul>
+<li><font color="blue">我理解就是不同的每个注意力头都会对会有不同的关注点,就是丰富了一个词的注意点</font></li>
+</ul>
+</li>
+<li><p>它给出了注意力层的多个“表示子空间”（representation subspaces）</p>
+<ul>
+<li>接下来我们将看到，对于“多头”注意机制，我们有多个查询/键/值权重矩阵集(Transformer使用八个注意力头，因此我们对于每个编码器/解码器有八个矩阵集合)。这些集合中的每一个都是随机初始化的</li>
+<li>在训练之后，每个集合都被用来将输入词嵌入(或来自较低编码器/解码器的向量)<font color="blue">投影到不同的表示子空间中</font><img src="/2019/01/06/nlp/Transformer模型/resources/68E2D18A10963F046370DB126E452A3F.jpg">
+</li>
+</ul>
+</li>
+<li><p>如果我们做与上述相同的自注意力计算，只需八次不同的权重矩阵运算，我们就会得到八个不同的Z矩阵</p>
+<img src="/2019/01/06/nlp/Transformer模型/resources/881CCDA1BDBA993EA7665D2F8B9FC3A9.jpg">
+</li>
+<li><p><font color="blue">前馈层不需要8个矩阵，它只需要一个矩阵</font>(由每一个单词的表示向量组成)</p>
+<ul>
+<li>所以我们需要一种方法把这八个矩阵压缩成一个矩阵。那该怎么做？其实可以直接把这些矩阵拼接在一起，然后用一个附加的权重矩阵WO与它们相乘<img src="/2019/01/06/nlp/Transformer模型/resources/7903100853302A431B813728D73BBFA0.jpg">
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="Multi-head-attention-2"><a href="#Multi-head-attention-2" class="headerlink" title="Multi-head attention(2)"></a>Multi-head attention(2)</h4><ul>
+<li>Query，Key，Value首先进过一个线性变换</li>
+<li>然后输入到放缩点积attention<ul>
+<li>注意这里要做h次，其实也就是所谓的多头，每一次算一个头</li>
+<li>每次Q，K，V进行线性变换的参数W是不一样的，所以每个头都计算自己的特征</li>
+<li>进行h个头计算好处：好处是可以允许模型在不同的表示子空间里学习到相关的信息</li>
+</ul>
+</li>
+<li>然后将h次的放缩点积attention结果进行拼接(concat)</li>
+<li>再进行一次线性变换得到的值作为多头attention的结果</li>
+</ul>
+<img src="/2019/01/06/nlp/Transformer模型/resources/8D8F43D711E9C94BA7013FD1DE9A666F.jpg">
+<h4 id="如何使用attention"><a href="#如何使用attention" class="headerlink" title="如何使用attention"></a>如何使用attention</h4><ul>
+<li>首先在编码器到解码器的地方使用了多头attention进行连接,编码器的层输出（这里K=V）和解码器中都头attention的输入。其实就和主流的机器翻译模型中的attention一样<img src="/2019/01/06/nlp/Transformer模型/resources/F318057213E0EE97E53E6A165DF5E892.jpg"></li>
+<li>在Encoder,Decoder中都使用的self-attention<ul>
+<li>例如输入一个句子，那么里面的每个词都要和该句子中的<font color="blue">所有词进行attention计算</font>。目的是<font color="blue">学习句子内部的词依赖关系，捕获句子的内部结构</font><img src="/2019/01/06/nlp/Transformer模型/resources/A60F81F9218EB99D06E9DB202DB6F8AD.jpg">
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="Transformer解决问题"><a href="#Transformer解决问题" class="headerlink" title="Transformer解决问题"></a>Transformer解决问题</h4><ul>
+<li>并行问题<ul>
+<li>首先each head， 是可以并行计算的， 然后每个head 都有自己对应的weight, 实现不同的线性转换， 这样每个head 也就有了自己特别的表达信息</li>
+<li>多头attention和CNN一样不依赖于前一时刻的计算，可以很好的并行，优于RNN</li>
+</ul>
+</li>
+<li>长距离依赖学习<ul>
+<li>self-attention是每个词和所有词都要计算attention，所以不管他们中间有多长距离，最大的路径长度也都只是1。可以捕获长距离依赖关系</li>
+</ul>
+</li>
+<li>RNN，CNN计算复杂度的比较<ul>
+<li>如果输入序列n小于表示维度d的话，每一层的时间复杂度self-attention是比较有优势的。当n比较大时，作者也给出了一种解决方案self-attention（restricted）即每个词不是和所有词计算attention，而是<font color="blue">只与限制的r个词去计算attention</font></li>
+</ul>
+</li>
+</ul>
+<h4 id="训练部分-amp-损失函数"><a href="#训练部分-amp-损失函数" class="headerlink" title="训练部分&amp;损失函数"></a>训练部分&amp;损失函数</h4><p>Transformer只是一个encode-decode框架架构，后面的，训练&amp;损失函数&amp;优化算法就也能共用其他了，比如BP，集束搜索(beam search)…</p>
+<ul>
+<li>既然我们已经过了一遍完整的transformer的前向传播过程，那我们就可以直观感受一下它的训练过程。</li>
+<li>在训练过程中，一个未经训练的模型会通过一个完全一样的前向传播。但因为我们用有标记的训练集来训练它，所以我们可以用它的输出去与真实的输出做比较</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+	
+    
+	
+      	    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/05/nlp/Attention模型/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/05/nlp/Attention模型/" itemprop="url">Attention模型</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-05T18:41:10+08:00">
+                2019-01-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/NLP/" itemprop="url" rel="index">
+                    <span itemprop="name">NLP</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/NLP/模型理解/" itemprop="url" rel="index">
+                    <span itemprop="name">模型理解</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><a href="https://yuancl.github.io/2018/12/06/dl/第五门课-第三周/" target="_blank" rel="noopener">吴恩达课程-Attention实现</a><br>参考文章：<a href="https://zhuanlan.zhihu.com/p/37601161" target="_blank" rel="noopener">深度学习中的注意力模型</a></p>
+<h4 id="Encoder-Decoder框架"><a href="#Encoder-Decoder框架" class="headerlink" title="Encoder-Decoder框架"></a>Encoder-Decoder框架</h4><ul>
+<li>可以把它看作适合处理由一个句子（或篇章）生成另外一个句子（或篇章）的通用处理模型</li>
+<li>Encoder顾名思义就是对输入句子X进行编码，将输入句子通过非线性变换转化为中间语义表示C：$C=F(X_1,X_2,…X_m)$</li>
+<li>解码器Decoder来说，其任务是根据句子X的中间语义表示C和之前已经生成的历史信息y1,y2….yi-1来生成i时刻要生成的单词yi $y_i=g(c,y_1,y_2,…y_{i-1})$</li>
+<li>总结：<ul>
+<li>Encoder-Decoder是个非常通用的计算框架，常见的比如CNN/RNN/BiRNN/GRU/LSTM/Deep LSTM等，这里的变化组合非常多</li>
+<li>框架很多应用场景：<ul>
+<li>机器翻译来说，&lt;X,Y&gt;就是对应不同语言的句子，比如X是英语句子，Y是对应的中文句子翻译</li>
+<li>对于文本摘要来说，X就是一篇文章，Y就是对应的摘要</li>
+<li>对话机器人来说，X就是某人的一句话，Y就是对话机器人的应答</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<img src="/2019/01/05/nlp/Attention模型/resources/F2F31AE3AFCF5E63870687850E25053E.jpg">
+<h4 id="Attention模型"><a href="#Attention模型" class="headerlink" title="Attention模型"></a>Attention模型</h4><ul>
+<li>分心模型：在生成目标句子的单词时，不论生成哪个单词，是y1,y2也好，还是y3也好，他们使用的句子X的<font color="blue">语义编码C都是一样的，没有任何区别。</font></li>
+<li>添加注意力：$y_i的输出对应不同的输入c_i$<img src="/2019/01/05/nlp/Attention模型/resources/24F1729383B4C502BDF631EC89F3ED8D.jpg"></li>
+<li>例如生成$y_3$:汤姆这个词的对应输入词的权重：<img src="/2019/01/05/nlp/Attention模型/resources/3C10CE8870D6AD2D2C85274AFB51FC42.jpg"></li>
+<li><p>如何确定这些权重？(可以看下面的三阶段计算Attention过程)</p>
+<ul>
+<li>通过函数F(hj,Hi)来获得目标单词Yi和每个输入单词对应的对齐可能性(<font color="blue">其实也是通过一个函数获取各个单词的权重</font>)<ul>
+<li>对于采用RNN的Decoder来说，如果要生成yi单词，在时刻i，我们是可以知道在生成Yi之前的隐层节点i时刻的输出值Hi的，而我们的目的是要计算生成Yi时的输入句子单词“Tom”、“Chase”、“Jerry”对Yi来说的注意力分配概率分布。那么可以用i时刻的隐层节点状态Hi去一一和输入句子中每个单词对应的RNN隐层节点状态hj进行对比，即通过函数F(hj,Hi)来获得目标单词Yi和每个输入单词对应的对齐可能性</li>
+</ul>
+</li>
+<li>这个F函数在不同论文里可能会采取不同的方法，然后函数F的输出经过Softmax进行归一化就得到了符合概率分布取值区间的注意力分配概率分布数值</li>
+</ul>
+</li>
+<li><p>直观理解</p>
+<ul>
+<li>目标句子生成的每个单词对应输入句子单词的概率分布可以理解为输入句子单词和这个目标生成单词的对齐概率，这在机器翻译语境下是非常直观的：传统的统计机器翻译一般在做的过程中会专门有一个短语对齐的步骤，而注意力模型其实起的是相同的作用</li>
+<li>从概念上理解的话，把AM模型理解成影响力模型也是合理的，就是说生成目标单词的时候，输入句子每个单词对于生成这个单词有多大的影响程度<ul>
+<li>例子：矩阵中每一列代表生成的目标单词对应输入句子每个单词的AM分配概率，颜色越深代表分配到的概率越大<img src="/2019/01/05/nlp/Attention模型/resources/339E562920007C2CC0BD095CE03620E4.jpg">
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Attention机制的本质思想<br>我们可以这样来看待Attention机制（参考图9）：将Source中的构成元素想象成是由一系列的&lt;Key,Value&gt;数据对构成，此时给定Target中的某个元素Query，通过计算Query和各个Key的相似性或者相关性，得到每个Key对应Value的权重系数，<font color="blue">然后对Value进行加权求和，即得到了最终的Attention数值</font>。<font color="red">所以本质上Attention机制是对Source中元素的Value值进行加权求和</font>，而Query和Key用来计算对应Value的权重系数。即可以将其本质思想改写为如下公式:</p>
+<img src="/2019/01/05/nlp/Attention模型/resources/B514B9C65D76AEC9E2D3C1BA0E1714FC.jpg">
+<img src="/2019/01/05/nlp/Attention模型/resources/08DC337F6EEC1B4ECCCE3069BCF2DEE8.jpg">
+</li>
+<li><p>三阶段计算Attention过程</p>
+<ul>
+<li>第一个阶段根据Query和Key计算两者的相似性或者相关性<ul>
+<li>可以引入不同的函数和计算机制，根据Query和某个Key_i，计算两者的相似性或者相关性，最常见的方法包括：求两者的向量点积、求两者的向量Cosine相似性或者通过再引入额外的神经网络来求值<img src="/2019/01/05/nlp/Attention模型/resources/C46D9EBEDC7DC8BDD2FD25C876452832.jpg"></li>
+</ul>
+</li>
+<li>第二个阶段对第一阶段的原始分值进行归一化处理<ul>
+<li>引入类似SoftMax的计算方式对第一阶段的得分进行数值转换，一方面可以进行归一化，将原始计算分值整理成所有元素权重之和为1的概率分布</li>
+<li>另一方面也可以通过SoftMax的内在机制更加突出重要元素的权重<img src="/2019/01/05/nlp/Attention模型/resources/CFA555D76CFF7EF83BB388D9DCC83E83.jpg"></li>
+</ul>
+</li>
+<li>第三个阶段根据权重系数对Value进行加权求和<ul>
+<li>计算结果a_i即为value_i对应的权重系数，然后进行加权求和即可得到Attention数值<img src="/2019/01/05/nlp/Attention模型/resources/670426A82FAECEDC11036020CAE91B6B.jpg">
+<img src="/2019/01/05/nlp/Attention模型/resources/B0A35F4001A8D56A581543FF91E10844.jpg"></li>
+</ul>
+</li>
+<li>总结：通过如上三个阶段的计算，即可求出针对Query的Attention数值，目前绝大多数具体的注意力机制计算方法都符合上述的三阶段抽象计算过程</li>
+</ul>
+</li>
+</ul>
+<h4 id="从微观视角看自注意力机制"><a href="#从微观视角看自注意力机制" class="headerlink" title="从微观视角看自注意力机制"></a>从微观视角看自注意力机制</h4><ul>
+<li>第一步就是从每个编码器的输入向量（每个单词的词向量）中生成三个向量<ul>
+<li>我们创造一个<font color="blue">查询向量、一个键向量和一个值向量。这三个向量是通过词嵌入与三个权重矩阵后相乘创建的</font></li>
+<li>这些新向量在维度上比词嵌入向量更低。他们的维度是64，而词嵌入和编码器的输入/输出向量的维度是512<img src="/2019/01/05/nlp/Attention模型/resources/A6F39C8F454935AAFEBB83A0ACF2E1B0.jpg"></li>
+</ul>
+</li>
+<li>第二步是计算得分<ul>
+<li>假设我们在为这个例子中的第一个词“Thinking”计算自注意力向量，我们需要拿输入句子中的每个单词对“Thinking”打分。<font color="blue">这些分数决定了在编码单词“Thinking”的过程中有多重视句子的其它部分</font><ul>
+<li>这些分数是通过打分单词（所有输入句子的单词）的键向量与“Thinking”的查询向量相点积来计算的</li>
+<li>所以如果我们是处理位置最靠前的词的自注意力的话，第一个分数是q1和k1的点积，第二个分数是q1和k2的点积<img src="/2019/01/05/nlp/Attention模型/resources/807C3954F1BF0F7C006209437905F305.jpg"></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>第三步第四步<ul>
+<li>将分数除以8(8是论文中使用的键向量的维数64的平方根，这会让梯度更稳定。这里也可以使用其它值，8只是默认值)</li>
+<li>然后通过softmax传递结果。<font color="blue">softmax的作用是使所有单词的分数归一化，得到的分数都是正值且和为1</font><ul>
+<li>这个softmax分数决定了每个单词对编码当下位置（“Thinking”）的贡献。显然，已经在这个位置上的单词将获得最高的softmax分数<img src="/2019/01/05/nlp/Attention模型/resources/EED7B3888E7ED2122DF172489F13BE4C.jpg"></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>第五步是将每个值向量乘以softmax分数(这是为了准备之后将它们求和)。<ul>
+<li>这里的直觉是<font color="blue">希望关注语义上相关的单词，并弱化不相关的单词</font>(例如，让它们乘以0.001这样的小数)</li>
+</ul>
+</li>
+<li>第六步是对加权值向量求和，然后即得到自注意力层在该位置的输出(在我们的例子中是对于第一个单词)<ul>
+<li>译注：自注意力的另一种解释就是在编码某个单词时，就是将所有单词的表示（值向量）进行加权求和，而权重是通过该词的表示（键向量）与被编码词表示（查询向量）的点积并通过softmax得到。<img src="/2019/01/05/nlp/Attention模型/resources/1748301F371EF3428E3F4DB1A5F47730.jpg">
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="Self-Attention模型"><a href="#Self-Attention模型" class="headerlink" title="Self Attention模型"></a>Self Attention模型</h4><ul>
+<li>一般任务中的情况<br>在一般任务的Encoder-Decoder框架中，输入Source和输出Target内容是不一样的，比如对于英-中机器翻译来说，Source是英文句子，Target是对应的翻译出的中文句子，<font color="blue">Attention机制发生在Target的元素Query和Source中的所有元素之间</font></li>
+<li>Self Attention<br>Attention顾名思义，指的不是Target和Source之间的Attention机制，<font color="blue">而是Source内部元素之间或者Target内部元素之间发生的Attention机制，也可以理解为Target=Source这种特殊情况下的注意力计算机制</font>。其具体计算过程是一样的，只是计算对象发生了变化而已，所以此处不再赘述其计算过程细节</li>
+<li>例子<img src="/2019/01/05/nlp/Attention模型/resources/78832378181B08156139C411039FF734.jpg"></li>
+<li>优点：<ul>
+<li>更擅长捕获句子中长距离特征<br>引入Self Attention后会更容易捕获句子中长距离的相互依赖的特征，因为如果是RNN或者LSTM，需要依次序序列计算，对于远距离的相互依赖的特征，要经过若干时间步步骤的信息累积才能将两者联系起来，而距离越远，有效捕获的可能性越小<ul>
+<li>但是SelfAttention在计算过程中会直接将句子中任意两个单词的联系通过一个计算步骤直接联系起来，所以远距离依赖特征之间的距离被极大缩短</li>
+</ul>
+</li>
+<li>增加计算的并行性</li>
+</ul>
+</li>
+</ul>
+<h4 id="Attention机制的应用"><a href="#Attention机制的应用" class="headerlink" title="Attention机制的应用"></a>Attention机制的应用</h4><p>Attention机制不仅在NLP有广泛应用，在图像和语言领域也有很多的应用</p>
+<ul>
+<li>图片描述<ul>
+<li>很明显这种应用场景也可以使用Encoder-Decoder框架来解决任务目标，此时Encoder输入部分是一张图片，一般会用CNN来对图片进行特征抽取，Decoder部分使用RNN或者LSTM来输出自然语言句子</li>
+<li>此时如果加入Attention机制能够明显改善系统输出效果，Attention模型在这里起到了类似人类视觉选择性注意的机制，在输出某个实体单词的时候会将注意力焦点聚焦在图片中相应的区域上<img src="/2019/01/05/nlp/Attention模型/resources/D65829551454CDE399C3DBE51C953E17.jpg"></li>
+</ul>
+</li>
+<li>Attention让每个单词对应图片中的注意力聚焦区域<img src="/2019/01/05/nlp/Attention模型/resources/495110CA9218AF232B0D47BE88497073.jpg"></li>
+<li>语音识别中音频序列和输出字符之间的Attention<ul>
+<li>展示了在Encoder-Decoder框架中加入Attention机制后，当用户用语音说句子how much would a woodchuck chuck 时，输入部分的声音特征信号和输出字符之间的注意力分配概率分布情况，颜色越深代表分配到的注意力概率越高。从图中可以看出，在这个场景下，Attention机制起到了将输出字符和输入语音信号进行对齐的功能<img src="/2019/01/05/nlp/Attention模型/resources/7F7EE44196F2FAAF3F1BC2BFAB29DA4A.jpg"></li>
+</ul>
+</li>
+<li>总结：Encoder-Decoder加Attention架构由于其卓越的实际效果，目前在深度学习领域里得到了广泛的使用，了解并熟练使用这一架构对于解决实际问题会有极大帮助</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+	
+    
+	
+      	    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/23/rl/强化学习(简介)/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/23/rl/强化学习(简介)/" itemprop="url">强化学习(简介)</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-23T21:30:02+08:00">
+                2018-12-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/强化学习/" itemprop="url" rel="index">
+                    <span itemprop="name">强化学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="Reforcement-Learning"><a href="#Reforcement-Learning" class="headerlink" title="Reforcement Learning"></a>Reforcement Learning</h4><ul>
+<li><p>什么叫RL<br>和监督学习的区别是，Agent会通过观察(Observation)当前环境(Environment),获得当前的State，接着Action后能够得到Environment的反馈：Reward，然后Agent根据Reward再调整做出正确的Action去改变Environment</p>
+<ul>
+<li>Agent:学习主体，可以是一个NN或者其它，作用：Learns to take actions maximizing expected reward</li>
+<li>Environment:外部环境，比如下围棋就是对手，玩电玩的时候，就是主机</li>
+<li>State：Agent通过观察获取到的当前环境的输入状态</li>
+<li>Action：根据当前状态做出的动作，当然此动作会影响Environment，比如下围棋的时候会影响对手下一步落棋</li>
+<li>Reward:做出action，当前Environment给予的评价<img src="/2018/12/23/rl/强化学习(简介)/resources/089167ED63C58D955C18087D366BF2A3.jpg">
+<img src="/2018/12/23/rl/强化学习(简介)/resources/260B08ED8010A47991A9DF4BE29D1E57.jpg">
+</li>
+</ul>
+</li>
+<li><p>Look for a function</p>
+<img src="/2018/12/23/rl/强化学习(简介)/resources/B620070EEBB401F2C731FCC8E23FAB60.jpg">
+</li>
+<li><p>举例</p>
+<ul>
+<li>state:输入为当前画面(像素值)</li>
+<li>action:左移，右移或者开火</li>
+<li>reward:Score<img src="/2018/12/23/rl/强化学习(简介)/resources/F64DEE320E6175A281141261369F122A.jpg">
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>outline<img src="/2018/12/23/rl/强化学习(简介)/resources/813056D16FC4398AB40E7F56841C8828.jpg">
+</li>
+</ul>
+<h4 id="Policy-based-Approach-Learining-an-Actor"><a href="#Policy-based-Approach-Learining-an-Actor" class="headerlink" title="Policy-based Approach(Learining an Actor)"></a>Policy-based Approach(Learining an Actor)</h4><ul>
+<li><p>总体分三步</p>
+<img src="/2018/12/23/rl/强化学习(简介)/resources/478F4C2660ABFC1B5E675896C8571F84.jpg">
+<ul>
+<li><p>First step：</p>
+<img src="/2018/12/23/rl/强化学习(简介)/resources/E5859C0699A3CB2FB7D06715DEF7C293.jpg">
+</li>
+<li><p>Second step：</p>
+<img src="/2018/12/23/rl/强化学习(简介)/resources/035061213843511C0A7561A1F0E06792.jpg">
+</li>
+<li><p>Third step(pick the best function)：</p>
+<img src="/2018/12/23/rl/强化学习(简介)/resources/FEB8FFD784F357B5CFE54CCD02E5A05B.jpg">
+</li>
+</ul>
+</li>
+<li><p>Policy Gradient作用<br>如果Actor,Env,Reward都看做是DNN，那么本质上就是一个NN网络，求极值就很容易。但实际上Env，Reward不是一个NN网络，所以就不能进行微分，不能求出极值，解决办法就是用policy gradient进行处理</p>
+<img src="/2018/12/23/rl/强化学习(简介)/resources/61A9812B02E141127554B513DA22F2CA.jpg">
+</li>
+</ul>
+<h4 id="Value-based-Approach-Learning-a-critic"><a href="#Value-based-Approach-Learning-a-critic" class="headerlink" title="Value-based Approach(Learning a critic)"></a>Value-based Approach(Learning a critic)</h4><ul>
+<li>是评价一个agent(actor)的好坏，$V^{\pi}(s)$表示给定一个Agent(Actor:$\pi$)，并给定一个State:s，到最后游戏完成后，得到最后的reward expects的值<ul>
+<li>比如下面坐标的图，有很多怪，到游戏结束期望分数就容易获得比较高的值，右边图就比较小(因为这个图看到到最后游戏结束，能杀的怪已经很少了)</li>
+<li>同一个state，不同的actor，那么$V^{\pi}(s)$值也会不一样<img src="/2018/12/23/rl/强化学习(简介)/resources/84B70D51C472CE9220B50917CF343EBE.jpg">
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>How to estimate $V^{\pi}(s)$</p>
+<ul>
+<li><p>Monte-Carlo,观察到两个state,$S_a,S_b$，并且最后episode结束，Greed为$G_a,G_b$，这个时候，只需要让$V^{\pi}(s_a)\approx G_a,V^{\pi}(s_b)\approx G_b$</p>
+<img src="/2018/12/23/rl/强化学习(简介)/resources/314B5DFA5F6A0AEEACBE25BEEC618D05.jpg">
+</li>
+<li><p>Temporal-difference,不会等到episode才开始计算(不用等到游戏结束就可以更新参数)，原理是$V^{\pi}(s_t),V^{\pi}(s_{t+1})$中间是相差的$r_t$,所以只需要$V^{\pi}(s_t)-V^{\pi}(s_{t+1})\approx r_t$</p>
+<img src="/2018/12/23/rl/强化学习(简介)/resources/D113811A3EE6DF3759AC23138C68A4C6.jpg">
+</li>
+</ul>
+</li>
+<li><p>Q Learning</p>
+<ul>
+<li><p>Another Critic</p>
+<ul>
+<li>输入为state和action,可以对所有action做穷举（如果不能穷举，其实还有其他的方法的），看哪一个reward得分最高(得到Q function)<img src="/2018/12/23/rl/强化学习(简介)/resources/26D289911C892B3832B7E88BDA9E3848.jpg">
+</li>
+</ul>
+</li>
+<li><p>每一次都找最大的Qfunction数值的action a</p>
+<img src="/2018/12/23/rl/强化学习(简介)/resources/1060DC495D95BBDB0CD2FB19749CD14E.jpg">
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="Actor-Critic"><a href="#Actor-Critic" class="headerlink" title="Actor+Critic"></a>Actor+Critic</h4><ul>
+<li>核心原理：不会像Actor那样跟着环境去学习，因为环境变化是比较多的，所以Actor-Critic是跟着critic去学习<img src="/2018/12/23/rl/强化学习(简介)/resources/EA44E3EFC2F7B6582C5207FB6461F7EE.jpg">
+<img src="/2018/12/23/rl/强化学习(简介)/resources/7BB0A900A5C3D4D5567050C7A7D0FA0A.jpg"></li>
+<li>A3C<img src="/2018/12/23/rl/强化学习(简介)/resources/1FDE16A21B149590A05D2335FFC45D90.jpg">
+</li>
+</ul>
+<h4 id="Inverse-Reforcement-learning"><a href="#Inverse-Reforcement-learning" class="headerlink" title="Inverse Reforcement learning"></a>Inverse Reforcement learning</h4><ul>
+<li>背景：其实生活中的大多数场景，都不好找reward的，不像围棋或者是电玩，有很明确的规则.<ul>
+<li>比如如果交通违规，如何处罚等。还比如说让机器人放盘子，之前并没有告诉摔坏盘子会扣分，机器人就不知道</li>
+</ul>
+</li>
+<li>原来的方案：<img src="/2018/12/23/rl/强化学习(简介)/resources/ADBCCF56067A9D873705B18C483D8B4D.jpg"></li>
+<li>Inverse Reforcement learning方案：<ul>
+<li>正好相反，并不知道Reward Function，是通过学习学习到Reward Function后，然后使用它选择出最好的actor<img src="/2018/12/23/rl/强化学习(简介)/resources/57B1F1A69DD14E80166F5776FB4E9CF5.jpg"></li>
+</ul>
+</li>
+<li><p>步骤：</p>
+<ul>
+<li>expert和IRL都会自己学习，获得最终Reward，我们假设专家的Reward总数比学习到的好</li>
+<li>然后从中我们找到一个最好的Reward Function R</li>
+<li>再通过R去得到Actor $\pi$</li>
+<li>要注意下是，如果规则变化了，那么下面的循环圈需要不断的重新循环取学习<img src="/2018/12/23/rl/强化学习(简介)/resources/DE2E7716C70854CC5CE59AC271378ED4.jpg">
+</li>
+</ul>
+</li>
+<li><p>发现和GAN比较像</p>
+<img src="/2018/12/23/rl/强化学习(简介)/resources/FE61F494902468450399EBA1D4B37642.jpg"></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+	
+    
+	
+    
+	
+    
+	
+    
   </section>
 
-  {% include '_partials/pagination.swig' %}
-{% endblock %}
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right"></i></a>
+  </nav>
 
-{% block sidebar %}
-  {{ sidebar_template.render(false) }}
-{% endblock %}
+
+
+          </div>
+          
+
+
+          
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/favicon.ico" alt="雷哥">
+          <p class="site-author-name" itemprop="name">雷哥</p>
+           
+              <p class="site-description motion-element" itemprop="description">不积跬步无以至千里</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">76</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/yuancl" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-雷哥"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">雷哥</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Gemini
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  
+    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
