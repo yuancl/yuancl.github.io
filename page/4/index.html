@@ -274,6 +274,230 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/16/gan/Conditional GAN/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/16/gan/Conditional GAN/" itemprop="url">Conditional GAN</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-16T07:10:10+08:00">
+                2019-01-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/GAN/" itemprop="url" rel="index">
+                    <span itemprop="name">GAN</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="Conditional-GAN介绍"><a href="#Conditional-GAN介绍" class="headerlink" title="Conditional GAN介绍"></a>Conditional GAN介绍</h3><h4 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h4><ul>
+<li><p>Traditional supervised approach</p>
+<ul>
+<li>正面火车和侧面火车都是好的结果，这会导致最后图片很模糊，因为是多张图片的平均<img src="/2019/01/16/gan/Conditional%20GAN/resources/B506E2E85727105810C3FD98DE358329.jpg">
+</li>
+</ul>
+</li>
+<li><p>GAN</p>
+<ul>
+<li>G其实可以很容易忽略D,从而可以无视G的输入(这里是c:train)<ul>
+<li>比如如果G发现每次输出猫都能得到高分，那么不管G的输入，只要我我每次都输出是清晰的猫就好了</li>
+<li>输出低分基本上有下面三种场景<img src="/2019/01/16/gan/Conditional%20GAN/resources/06288B8EFB718B40410ACFE58F20E136.jpg"></li>
+</ul>
+</li>
+<li>后面的Conditional GAN可以解决这个问题</li>
+</ul>
+</li>
+</ul>
+<h4 id="Conditional-GAN"><a href="#Conditional-GAN" class="headerlink" title="Conditional GAN"></a>Conditional GAN</h4><ul>
+<li>输入<ul>
+<li>G的输出x：图片</li>
+<li>G的输入c：train</li>
+</ul>
+</li>
+<li>目标<ul>
+<li>x is realistic or not</li>
+<li>c ans x are matched or not<img src="/2019/01/16/gan/Conditional%20GAN/resources/71EAA38F9930A85049893063F5F499DD.jpg"></li>
+</ul>
+</li>
+<li>演算法<ul>
+<li>核心思想：找到Loss(上面三种情况集合)，然后用梯度提升方法去优化<img src="/2019/01/16/gan/Conditional%20GAN/resources/0FC60DD9F76548EDD7675B99F770ED9E.jpg">
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="Contitional-GAN-D网络架构"><a href="#Contitional-GAN-D网络架构" class="headerlink" title="Contitional GAN(D网络架构)"></a>Contitional GAN(D网络架构)</h4><ul>
+<li>分别将x是否是真实图片和c and x是否match分别输出会比较好一点<img src="/2019/01/16/gan/Conditional%20GAN/resources/3EC8A1DCCF4EDAA9523E2F085EF824F0.jpg">
+</li>
+</ul>
+<h3 id="Stack-GAN"><a href="#Stack-GAN" class="headerlink" title="Stack GAN"></a>Stack GAN</h3><ul>
+<li>思想就是先产生小图，然后产生大图<img src="/2019/01/16/gan/Conditional%20GAN/resources/C1400E303DB9A50B6CC45300D159FEB4.jpg">
+</li>
+</ul>
+<h3 id="Image-to-Image"><a href="#Image-to-Image" class="headerlink" title="Image to Image"></a>Image to Image</h3><h4 id="传统方法-Supervised-Learning"><a href="#传统方法-Supervised-Learning" class="headerlink" title="传统方法(Supervised Learning)"></a>传统方法(Supervised Learning)</h4><ul>
+<li>也是一样，最后输出会很模糊<ul>
+<li>因为一个input对应了多个好图（多张图片），就会把这些图片做平均来输出<img src="/2019/01/16/gan/Conditional%20GAN/resources/9A949394AE46F6D8145151F92CE0611D.jpg">
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="GAN方法"><a href="#GAN方法" class="headerlink" title="GAN方法"></a>GAN方法</h4><ul>
+<li>testing中的close图片，就是supervised learning的结果，比较模糊</li>
+<li>GAN比较清晰了，但是会产生一些其他的内容</li>
+<li>GAN+close，再加入一些限制条件，就是让G产生的图片更接近真实图片<img src="/2019/01/16/gan/Conditional%20GAN/resources/9EAD3C30D5E435ED7070F5B291B3639A.jpg">
+</li>
+</ul>
+<h4 id="Patch-GAN"><a href="#Patch-GAN" class="headerlink" title="Patch GAN"></a>Patch GAN</h4><ul>
+<li>图像太大，容易出现各种问题<img src="/2019/01/16/gan/Conditional%20GAN/resources/3AE30BDB0CD1A217FCFFB482DB274D10.jpg">
+</li>
+</ul>
+<h3 id="GAN用到其他场景"><a href="#GAN用到其他场景" class="headerlink" title="GAN用到其他场景"></a>GAN用到其他场景</h3><h4 id="Speech去杂音"><a href="#Speech去杂音" class="headerlink" title="Speech去杂音"></a>Speech去杂音</h4><ul>
+<li>speech生谱图就当做图片，也使用Conditional GAN思想<img src="/2019/01/16/gan/Conditional%20GAN/resources/C11F3C210E44F4A4E9CE5C96C89C7CFF.jpg">
+</li>
+</ul>
+<h4 id="Video"><a href="#Video" class="headerlink" title="Video"></a>Video</h4><ul>
+<li>判断是否是正确的连续的影片<ul>
+<li>将影片一张张剪辑，形成图片，然后进行训练<img src="/2019/01/16/gan/Conditional%20GAN/resources/E9F52BFDB4677AE62051EA82760CADC3.jpg"></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+	
+    
+	
+      	    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/10/gan/GAN基础/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1888,8 +2112,6 @@
     
 	
     
-	
-    
   </section>
 
   
@@ -1938,7 +2160,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">76</span>
+                <span class="site-state-item-count">77</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

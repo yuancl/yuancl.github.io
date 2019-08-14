@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="NLP,NLP模型理解,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="fastText原理及实践-我爱自然语言处理fastText原理-csdn softmax回归 Softmax回归（Softmax Regression）又被称作多项逻辑回归（multinomial logistic regression），它是逻辑回归在处理多类别任务上的推广 代价函数上推导出它们的一致性   softmax函数常在神经网络输出层充当激活函数，目的就是将输出层的值归一化到0-1区">
+<meta name="keywords" content="NLP,NLP模型理解">
+<meta property="og:type" content="article">
+<meta property="og:title" content="FastText模型">
+<meta property="og:url" content="http://yoursite.com/2019/08/13/nlp/FastText模型/index.html">
+<meta property="og:site_name" content="雷哥的博客">
+<meta property="og:description" content="fastText原理及实践-我爱自然语言处理fastText原理-csdn softmax回归 Softmax回归（Softmax Regression）又被称作多项逻辑回归（multinomial logistic regression），它是逻辑回归在处理多类别任务上的推广 代价函数上推导出它们的一致性   softmax函数常在神经网络输出层充当激活函数，目的就是将输出层的值归一化到0-1区">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2019/08/13/nlp/FastText模型/resources/70870778EF50922ACDF626A7144504B3.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/13/nlp/FastText模型/resources/430068DB5AC121047B4A3C25A8011B41.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/13/nlp/FastText模型/resources/C35F9C831B7AD4E037FCA1E1280C07AB.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/13/nlp/FastText模型/resources/96F7AC4147123C58558306B052E36EF1.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/13/nlp/FastText模型/resources/B67415B091A6681D9725113B7FC621EB.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/13/nlp/FastText模型/resources/356A3D7957EBFAF7B31C291320A7E1CD.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/13/nlp/FastText模型/resources/BB48BB14D0F15156AEAA48EAF5F99498.jpg">
+<meta property="og:updated_time" content="2019-08-14T11:25:03.574Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="FastText模型">
+<meta name="twitter:description" content="fastText原理及实践-我爱自然语言处理fastText原理-csdn softmax回归 Softmax回归（Softmax Regression）又被称作多项逻辑回归（multinomial logistic regression），它是逻辑回归在处理多类别任务上的推广 代价函数上推导出它们的一致性   softmax函数常在神经网络输出层充当激活函数，目的就是将输出层的值归一化到0-1区">
+<meta name="twitter:image" content="http://yoursite.com/2019/08/13/nlp/FastText模型/resources/70870778EF50922ACDF626A7144504B3.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '雷哥'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/08/13/nlp/FastText模型/">
+
+
+
+
+
+  <title>FastText模型 | 雷哥的博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">雷哥的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/13/nlp/FastText模型/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">FastText模型</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-13T21:23:10+08:00">
+                2019-08-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/NLP/" itemprop="url" rel="index">
+                    <span itemprop="name">NLP</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/NLP/模型理解/" itemprop="url" rel="index">
+                    <span itemprop="name">模型理解</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><a href="http://www.52nlp.cn/fasttext" target="_blank" rel="noopener">fastText原理及实践-我爱自然语言处理</a><br><a href="https://blog.csdn.net/feilong_csdn/article/details/88655927" target="_blank" rel="noopener">fastText原理-csdn</a></p>
+<h4 id="softmax回归"><a href="#softmax回归" class="headerlink" title="softmax回归"></a>softmax回归</h4><ul>
+<li>Softmax回归（Softmax Regression）又被称作多项逻辑回归（multinomial logistic regression），它是<font color="blue">逻辑回归在处理多类别任务上的推广</font><ul>
+<li>代价函数上推导出它们的一致性<img src="/2019/08/13/nlp/FastText模型/resources/70870778EF50922ACDF626A7144504B3.jpg"></li>
+</ul>
+</li>
+<li>softmax函数常在神经网络输出层充当激活函数，<font color="blue">目的就是将输出层的值归一化到0-1区间，将神经元输出构造成概率分布</font>，主要就是起到将神经元输出值进行归一化的作用</li>
+</ul>
+<h4 id="FastText特点-分层softmax"><a href="#FastText特点-分层softmax" class="headerlink" title="FastText特点:分层softmax"></a>FastText特点:分层softmax</h4><ul>
+<li>背景：标准的Softmax回归中，要计算y=j时的Softmax概率，我们需要对所有的K个概率做归一化，这在|y|很大时非常耗时。于是，分层Softmax诞生了，它的基本思想是使用树的层级结构替代扁平化的标准Softmax。这样大大节省了时间空间</li>
+<li><a href="https://www.jianshu.com/p/5ad3e97d54a3" target="_blank" rel="noopener">霍夫曼树理解</a><ul>
+<li>给定n个权值作为n个叶子结点，构造一棵二叉树，若带权路径长度达到最小，称这样的二叉树为最优二叉树，也称为霍夫曼树<img src="/2019/08/13/nlp/FastText模型/resources/430068DB5AC121047B4A3C25A8011B41.jpg"></li>
+</ul>
+</li>
+<li>构造霍夫曼树方法：根据类标的频数构造的霍夫曼树<ul>
+<li>表示出现最频繁的类，路径最短<img src="/2019/08/13/nlp/FastText模型/resources/C35F9C831B7AD4E037FCA1E1280C07AB.jpg"></li>
+</ul>
+</li>
+<li>使用：当我们知道了目标类别(或者单词)x，之后，我们只需要计算root节点，到该词的路径累乘，即可. 不需要去遍历所有的节点信息，时间复杂度变为O(log2(V))<img src="/2019/08/13/nlp/FastText模型/resources/96F7AC4147123C58558306B052E36EF1.jpg"></li>
+<li><a href="https://cloud.tencent.com/developer/article/1387413" target="_blank" rel="noopener">单词预测举例</a><img src="/2019/08/13/nlp/FastText模型/resources/B67415B091A6681D9725113B7FC621EB.jpg">
+</li>
+</ul>
+<h4 id="FastText特点-n-gram特征"><a href="#FastText特点-n-gram特征" class="headerlink" title="FastText特点:n-gram特征"></a>FastText特点:n-gram特征</h4><ul>
+<li>在文本特征提取中，常常能看到n-gram的身影。它是一种基于语言模型的算法，基本思想是将文本内容按照字节顺序进行大小为N的滑动窗口操作，最终形成长度为N的字节片段序列<ul>
+<li>分字粒度和词粒度</li>
+</ul>
+</li>
+<li>n-gram产生的特征只是作为文本特征的候选集，你后面可能会采用信息熵、卡方统计、IDF等文本特征选择方式筛选出比较重要特征</li>
+<li>优势：<ul>
+<li>对于低频词生成的词向量效果会更好。因为它们的n-gram可以和其它词共享。</li>
+<li>对于训练词库之外的单词，仍然可以构建它们的词向量。我们可以叠加它们的字符级n-gram向量。</li>
+</ul>
+</li>
+</ul>
+<h4 id="word2vec-cbow"><a href="#word2vec-cbow" class="headerlink" title="word2vec:cbow"></a>word2vec:cbow</h4><ul>
+<li>背景:word2vec主要有两种模型：skip-gram 模型和CBOW模型,CBOW模型架构和fastText模型非常相似</li>
+<li>CBOW:<ul>
+<li>CBOW模型的基本思路是：用上下文预测目标词汇</li>
+<li>架构图如下所示：<img src="/2019/08/13/nlp/FastText模型/resources/356A3D7957EBFAF7B31C291320A7E1CD.jpg"></li>
+<li>神经网络模型：<br><font color="red">重点就是学习输入层到隐藏层，隐藏层到输出层的权重矩阵</font><ul>
+<li>输入层：输入层由目标词汇y的上下文单词{${x_1,x_2…x_c}$}组成，$x_i$是被onehot编码过的V维向量，其中V是词汇量</li>
+<li>隐含层：隐含层是N维向量h</li>
+<li>输出层：输出层是被onehot编码过的目标词y<br>因为词库V往往非常大，使用标准的softmax计算相当耗时，于是CBOW的输出层采用的正是上文提到过的分层Softmax</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="FastText"><a href="#FastText" class="headerlink" title="FastText"></a>FastText</h4><ul>
+<li>使用fastText进行文本分类的<font color="red">同时也会产生词的embedding</font>，即embedding是fastText分类的产物。除非你决定使用预训练的embedding来训练fastText分类模型</li>
+<li><p>对word2vec的改进</p>
+<ul>
+<li>背景：<br>word2vec把语料库中的每个单词当成原子的，它会为每个单词生成一个向量。这忽略了单词内部的形态特征，比如：“apple” 和“apples”，“达观数据”和“达观”，这两个例子中，两个单词都有较多公共字符，即它们的内部形态类似，但是在传统的word2vec中，这种单词内部形态信息因为它们被转换成不同的id丢失了</li>
+<li>fasttext方法不同与word2vec方法，引入了两类特征并进行embedding。<font color="blue">其中n-gram颗粒度是词与词之间，n-char是单个词之间</font><ul>
+<li>n-char:<br>对于单词“apple”，假设n的取值为3，则它的trigram有:<br>“&lt;ap”,  “app”,  “ppl”,  “ple”, “le&gt;”<br>其中，&lt;表示前缀，&gt;表示后缀。于是，我们可以用这些trigram来表示“apple”这个单词，进一步</li>
+<li>我们可以用这5个trigram的向量叠加来表示“apple”的词向量</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>模型架构</p>
+<img src="/2019/08/13/nlp/FastText模型/resources/BB48BB14D0F15156AEAA48EAF5F99498.jpg">
+<ul>
+<li>不同点1：输入<ul>
+<li>CBOW的输入是目标单词的上下文，fastText的输入是多个单词及其n-gram或者n-char特征，这些特征用来表示单个文档</li>
+<li>CBOW的输入单词被onehot编码过，fastText的输入特征是被embedding过</li>
+</ul>
+</li>
+<li>不同点2：输出<ul>
+<li>CBOW的输出是目标词汇，fastText的输出是文档对应的类标</li>
+<li>fastText采用了分层Softmax，大大降低了模型训练时间</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>核心思想：<br>仔细观察模型的后半部分，即从隐含层输出到输出层输出，会发现它<font color="blue">就是一个softmax线性多类别分类器</font>，分类器的输入是一个用来表征当前文档的向量；模型的前半部分，即从输入层输入到隐含层输出部分，主要在做一件事情：<font color="blue">生成用来表征文档的向量</font>。那么它是如何做的呢？叠加构成这篇文档的所有词及n-gram的词向量，然后取平均。叠加词向量背后的思想就是传统的词袋法，即将文档看成一个由词构成的集合</p>
+<ul>
+<li><font color="red">将整篇文档的词及n-gram向量叠加平均得到文档向量，然后使用文档向量做softmax多分类<br>- 这中间涉及到两个技巧：字符级n-gram特征的引入以及分层Softmax分类</font>
+</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/NLP/" rel="tag"># NLP</a>
+          
+            <a href="/tags/NLP模型理解/" rel="tag"># NLP模型理解</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/22/ml/层次聚类Louvain/" rel="next" title="层次聚类Louvain">
+                <i class="fa fa-chevron-left"></i> 层次聚类Louvain
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/favicon.ico" alt="雷哥">
+          <p class="site-author-name" itemprop="name">雷哥</p>
+           
+              <p class="site-description motion-element" itemprop="description">不积跬步无以至千里</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">77</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/yuancl" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#softmax回归"><span class="nav-number">1.</span> <span class="nav-text">softmax回归</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#FastText特点-分层softmax"><span class="nav-number">2.</span> <span class="nav-text">FastText特点:分层softmax</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#FastText特点-n-gram特征"><span class="nav-number">3.</span> <span class="nav-text">FastText特点:n-gram特征</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#word2vec-cbow"><span class="nav-number">4.</span> <span class="nav-text">word2vec:cbow</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#FastText"><span class="nav-number">5.</span> <span class="nav-text">FastText</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-雷哥"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">雷哥</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Gemini
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
