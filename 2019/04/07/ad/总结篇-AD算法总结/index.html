@@ -94,13 +94,13 @@
 
 
 
-<meta name="description" content="实际是对推荐算法总结的补充推荐算法总结 主流CTR预估模型的演化及对比 MLR(混合逻辑回归)MLR算法是alibaba在2012年提出并使用的广告点击率预估模型，2017年发表出来。MLR模型是对线性LR模型的推广，它利用分片线性方式对数据进行拟合。基本思路是采用分而治之的策略：如果分类空间本身是非线性的，则按照合适的方式把空间分为多个区域，每个区域里面可以用线性的方式进行拟合，最后MLR的输出">
+<meta name="description" content="参考文章 自己总结：实际是对推荐算法总结的补充推荐算法总结CTR模型演进 网络文章：主流CTR预估模型的演化及对比  MLR(混合逻辑回归)MLR算法是alibaba在2012年提出并使用的广告点击率预估模型，2017年发表出来。MLR模型是对线性LR模型的推广，它利用分片线性方式对数据进行拟合。基本思路是采用分而治之的策略：如果分类空间本身是非线性的，则按照合适的方式把空间分为多个区域，每个区域">
 <meta name="keywords" content="广告系统,广告系统总结篇">
 <meta property="og:type" content="article">
 <meta property="og:title" content="总结篇-AD算法总结">
 <meta property="og:url" content="http://yoursite.com/2019/04/07/ad/总结篇-AD算法总结/index.html">
 <meta property="og:site_name" content="雷哥的博客">
-<meta property="og:description" content="实际是对推荐算法总结的补充推荐算法总结 主流CTR预估模型的演化及对比 MLR(混合逻辑回归)MLR算法是alibaba在2012年提出并使用的广告点击率预估模型，2017年发表出来。MLR模型是对线性LR模型的推广，它利用分片线性方式对数据进行拟合。基本思路是采用分而治之的策略：如果分类空间本身是非线性的，则按照合适的方式把空间分为多个区域，每个区域里面可以用线性的方式进行拟合，最后MLR的输出">
+<meta property="og:description" content="参考文章 自己总结：实际是对推荐算法总结的补充推荐算法总结CTR模型演进 网络文章：主流CTR预估模型的演化及对比  MLR(混合逻辑回归)MLR算法是alibaba在2012年提出并使用的广告点击率预估模型，2017年发表出来。MLR模型是对线性LR模型的推广，它利用分片线性方式对数据进行拟合。基本思路是采用分而治之的策略：如果分类空间本身是非线性的，则按照合适的方式把空间分为多个区域，每个区域">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2019/04/07/ad/总结篇-AD算法总结/resources/36E40ADDAE0EB9BAD6C708132D4D923D.jpg">
 <meta property="og:image" content="http://yoursite.com/2019/04/07/ad/总结篇-AD算法总结/resources/E0F2E5377BAB16C76EFBB091D1A2382A.jpg">
@@ -110,10 +110,10 @@
 <meta property="og:image" content="http://yoursite.com/2019/04/07/ad/总结篇-AD算法总结/resources/687578A02977199E59A71A4F99444654.jpg">
 <meta property="og:image" content="http://yoursite.com/2019/04/07/ad/总结篇-AD算法总结/resources/511CC0E7C440402456000FAD79AA8740.jpg">
 <meta property="og:image" content="http://yoursite.com/2019/04/07/ad/总结篇-AD算法总结/resources/8E076CF4EE82071302B94C0C64A49739.jpg">
-<meta property="og:updated_time" content="2019-04-17T10:52:11.909Z">
+<meta property="og:updated_time" content="2019-08-23T07:27:03.015Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="总结篇-AD算法总结">
-<meta name="twitter:description" content="实际是对推荐算法总结的补充推荐算法总结 主流CTR预估模型的演化及对比 MLR(混合逻辑回归)MLR算法是alibaba在2012年提出并使用的广告点击率预估模型，2017年发表出来。MLR模型是对线性LR模型的推广，它利用分片线性方式对数据进行拟合。基本思路是采用分而治之的策略：如果分类空间本身是非线性的，则按照合适的方式把空间分为多个区域，每个区域里面可以用线性的方式进行拟合，最后MLR的输出">
+<meta name="twitter:description" content="参考文章 自己总结：实际是对推荐算法总结的补充推荐算法总结CTR模型演进 网络文章：主流CTR预估模型的演化及对比  MLR(混合逻辑回归)MLR算法是alibaba在2012年提出并使用的广告点击率预估模型，2017年发表出来。MLR模型是对线性LR模型的推广，它利用分片线性方式对数据进行拟合。基本思路是采用分而治之的策略：如果分类空间本身是非线性的，则按照合适的方式把空间分为多个区域，每个区域">
 <meta name="twitter:image" content="http://yoursite.com/2019/04/07/ad/总结篇-AD算法总结/resources/36E40ADDAE0EB9BAD6C708132D4D923D.jpg">
 
 
@@ -382,8 +382,10 @@
       
 
       
-        <p>实际是对推荐算法总结的补充<br><a href="https://yuancl.github.io/2019/03/26/rs/总结篇-推荐算法总结/" target="_blank" rel="noopener">推荐算法总结</a></p>
-<p><a href="https://mp.weixin.qq.com/s/s79Dpq5v6ouvCE_vneTYBA" target="_blank" rel="noopener">主流CTR预估模型的演化及对比</a></p>
+        <h4 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h4><ul>
+<li>自己总结：<br>实际是对推荐算法总结的补充<br><a href="https://yuancl.github.io/2019/03/26/rs/总结篇-推荐算法总结/" target="_blank" rel="noopener">推荐算法总结</a><br><a href="https://yuancl.github.io/2019/08/23/ad/CTR模型演进/" target="_blank" rel="noopener">CTR模型演进</a></li>
+<li>网络文章：<br><a href="https://mp.weixin.qq.com/s/s79Dpq5v6ouvCE_vneTYBA" target="_blank" rel="noopener">主流CTR预估模型的演化及对比</a></li>
+</ul>
 <h4 id="MLR-混合逻辑回归"><a href="#MLR-混合逻辑回归" class="headerlink" title="MLR(混合逻辑回归)"></a>MLR(混合逻辑回归)</h4><p>MLR算法是alibaba在2012年提出并使用的广告点击率预估模型，2017年发表出来。MLR模型是对线性LR模型的推广，它利用分片线性方式对数据进行拟合。基本思路是采用分而治之的策略：如果分类空间本身是非线性的，则按照合适的方式把空间分为多个区域，每个区域里面可以用线性的方式进行拟合，最后MLR的输出就变为了多个子区域预测值的加权平均。如下图(C)所示，就是使用4个分片的MLR模型学到的结果</p>
 <ul>
 <li>MLR模型在大规模稀疏数据上探索和实现了非线性拟合能力，在分片数足够多时，有较强的非线性能力；</li>
@@ -623,7 +625,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#MLR-混合逻辑回归"><span class="nav-number">1.</span> <span class="nav-text">MLR(混合逻辑回归)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#FNN-Factorization-machine-supported-Neural-Network"><span class="nav-number">2.</span> <span class="nav-text">FNN (Factorization-machine supported Neural Network)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PNN（Product-based-Neural-Networks）"><span class="nav-number">3.</span> <span class="nav-text">PNN（Product-based Neural Networks）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#参考文章"><span class="nav-number">1.</span> <span class="nav-text">参考文章</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MLR-混合逻辑回归"><span class="nav-number">2.</span> <span class="nav-text">MLR(混合逻辑回归)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#FNN-Factorization-machine-supported-Neural-Network"><span class="nav-number">3.</span> <span class="nav-text">FNN (Factorization-machine supported Neural Network)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PNN（Product-based-Neural-Networks）"><span class="nav-number">4.</span> <span class="nav-text">PNN（Product-based Neural Networks）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
