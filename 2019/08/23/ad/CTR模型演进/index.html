@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="广告系统,算法模型,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="参考我之前的总结：CF,FM,WDL,DeePFM总结xDeepFM模型总结 这里只是对比每个模型的优缺点及演进路线，具体每个模型的学习需要参考上面两篇文章网络参考文章### CTR数据特点- 图像中会有大量的像素与周围的像素比较类似；文本数据中语言会受到语法规则的限制。CNN对于空间特征有很好的学习能力，正如RNN对于时序特征有强大的表示能力一样- 在Web-scale的搜索、推荐和广告系统中，">
+<meta name="keywords" content="广告系统,算法模型">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CTR模型演进">
+<meta property="og:url" content="http://yoursite.com/2019/08/23/ad/CTR模型演进/index.html">
+<meta property="og:site_name" content="雷哥的博客">
+<meta property="og:description" content="参考我之前的总结：CF,FM,WDL,DeePFM总结xDeepFM模型总结 这里只是对比每个模型的优缺点及演进路线，具体每个模型的学习需要参考上面两篇文章网络参考文章### CTR数据特点- 图像中会有大量的像素与周围的像素比较类似；文本数据中语言会受到语法规则的限制。CNN对于空间特征有很好的学习能力，正如RNN对于时序特征有强大的表示能力一样- 在Web-scale的搜索、推荐和广告系统中，">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2019/08/23/ad/CTR模型演进/resources/FB5B971905203B74CB2A712CB6B8A78A.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/23/ad/CTR模型演进/resources/5190FD3F51C9851F311265EFAFC7F9B2.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/08/23/ad/CTR模型演进/resources/002219ED19595F0BF86BD6104065EBAF.jpg">
+<meta property="og:updated_time" content="2019-08-23T07:08:24.748Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CTR模型演进">
+<meta name="twitter:description" content="参考我之前的总结：CF,FM,WDL,DeePFM总结xDeepFM模型总结 这里只是对比每个模型的优缺点及演进路线，具体每个模型的学习需要参考上面两篇文章网络参考文章### CTR数据特点- 图像中会有大量的像素与周围的像素比较类似；文本数据中语言会受到语法规则的限制。CNN对于空间特征有很好的学习能力，正如RNN对于时序特征有强大的表示能力一样- 在Web-scale的搜索、推荐和广告系统中，">
+<meta name="twitter:image" content="http://yoursite.com/2019/08/23/ad/CTR模型演进/resources/FB5B971905203B74CB2A712CB6B8A78A.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '雷哥'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/08/23/ad/CTR模型演进/">
+
+
+
+
+
+  <title>CTR模型演进 | 雷哥的博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">雷哥的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/23/ad/CTR模型演进/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">CTR模型演进</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-23T06:38:21+08:00">
+                2019-08-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/广告系统/" itemprop="url" rel="index">
+                    <span itemprop="name">广告系统</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/广告系统/算法模型/" itemprop="url" rel="index">
+                    <span itemprop="name">算法模型</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>参考我之前的总结：<br><a href="https://yuancl.github.io/2019/03/26/rs/总结篇-推荐算法总结/" target="_blank" rel="noopener">CF,FM,WDL,DeePFM总结</a><br><a href="https://yuancl.github.io/2019/08/22/rs/xDeepFM模型/" target="_blank" rel="noopener">xDeepFM模型总结</a></p>
+<font color="red">这里只是对比每个模型的优缺点及演进路线，具体每个模型的学习需要参考上面两篇文章</font><br><a href="https://mp.weixin.qq.com/s/cMr_fi9xs1BT5wFWL0ZLzw" target="_blank" rel="noopener">网络参考文章</a><br><br><br>### CTR数据特点<br>- 图像中会有大量的像素与周围的像素比较类似；文本数据中语言会受到语法规则的限制。CNN对于空间特征有很好的学习能力，正如RNN对于时序特征有强大的表示能力一样<br>- 在Web-scale的搜索、推荐和广告系统中，特征数据具有高维、稀疏、多类别的特点，一般情况下缺少类图像、语音、文本领域的时空关联性<br><br><br>### 深度CTR、CVR预估模型发展演化的三条主线<br>- 1.第一条主脉络是以FM家族为代表的深度模型，它们的共同特点是自动学习从原始特征交叉组合新的高阶特征。<br>- 2.第二条主脉络是一类使用attention机制处理时序特征的深度模型，以DIN、DIEN等模型为代表<br>  - attention机制是不是可以在某种程度上理解为一种特殊形式的组合特征，和第一条主线雷同<br>- 3.第三条主脉络是以迁移学习、多任务学习为基础的联合训练模型或pre-train机制，以ESMM<br>  - 属于流程或框架层面的创建<br><br><br>### FM家族的交叉特征组合<br>#### 背景<br>交叉组合原始特征构成新的特征是一种常用且有效的特征构建方法。哪些特征需要被交叉组合以便生成新的有效特征？需要多少阶的交叉组合？这些问题在深度学习流行之前需要算法工程师依靠经验来解决。人工构建组合特征特别耗时耗力，在样本数据生成的速度和数量巨大的互联网时代，依靠人的经验和技能识别出所有潜在有效的特征组合模式几乎是不可能的。一些有效的组合特征甚至没有在样本数据中出现过。<br><br><br><br>#### GBDT+LR<br>  - 特点：将特征工程和目标拟合分为两个模型，能够组合些高阶的特征，但是比较麻烦<br><br>#### FM<br>  - 特点：<br>    - 模型是第一个从原始特征出发，端到端学习的例子<br>    - FM提出了一种很好的<font color="blue">自动学习交叉组合特征的思路</font>，随后融入FM模型思路的深度学习模型便如雨后春笋般应运而生，典型的代表有FNN、PNN、DeepFM、DCN、xDeepFM等<br>    -<br>  - 问题：<br>    - FM毕竟还是一个<font color="blue">浅层模型，经典的FM模型只能做二阶的特征交叉，模型学习复杂组合特征的能力偏弱</font><br>    <img src="/2019/08/23/ad/CTR模型演进/resources/FB5B971905203B74CB2A712CB6B8A78A.jpg"><br><br>#### FNN<br>  - 背景：<br>    FNN模型最先提出了一种增强FM模型的思路，就是用FM模型学习到的隐向量初始化深度神经网络模型（MLP），再由MLP完成最终学习<br>  - 特点:<br>    - MLP（plain-DNN）因其特殊的结构天然就具有学习高阶特征组合的能力，它可以在一定的条件下以任意精度逼近任意函数<br>    - 可以看出plain-DNN的高阶特征交互建模是元素级的（bit-wise），也就是说同一个域对应的embedding向量中的元素也会相互影响<br>  - 不足：<br>    - plain-DNN以一种隐式的方式建模特征之间的交互关系，我们无法确定它学习到了多少阶的交叉关系<br>    - 虽然两种建模交叉特征的方式(bit-wise和vectiro-wise)有一些区别，但两者并不是相互排斥的，如果能把两者集合起来，便会相得益彰<br><br>#### PNN<br>  - 背景：<br>    PNN模型最先提出了一种融合bit-wise和vector-wise交叉特征的方法，其通过在网络的embedding层与全连接层之间加了一层Product Layer来完成特征组合<br>  - 不足：<br>    <font color="blue">舍弃了低阶特征</font>：PNN与FM相比，舍弃了低阶特征，也就是线性的部分，这在一定程度上使得模型不太容易记住一些数据中的规律<br><br>#### WDL<br>  - 特点：WDL（Wide &amp; Deep Learning）模型混合了宽度模型与深度模型，其宽度部分保留了低价特征，偏重记忆；深度部分引入了bit-wise的特征交叉能力<br>  - 不足：<br>    宽度部分的输入依旧依赖于大量的人工特征工程<br>    - 能不能在融合bit-wise和vector-wise交叉特征的基础上，同时还能保留低阶特征(linear part)呢？<br><br><br>#### DeepFm<br>  - 背景：<br>    能不能在融合bit-wise和vector-wise交叉特征的基础上，同时还能保留低阶特征(linear part)呢（优化WDL问题）<br>  - 特点：<br>    - DeepFM模型融合了FM和WDL模型，其FM部分实现了低阶特征和vector-wise的二阶交叉特征建模，其Deep部分使模型具有了bit-wise的高阶交叉特征建模的能力<br>  - 不足：<br>    FM、DeepFM和Inner-PNN都是通过原始特征隐向量的内积来构建vector-wise的二阶交叉特征，有下面问题：<br>    - 必须要穷举出所有的特征对，即任意两个field之间都会形成特征组合关系，而过多的组合关系可能会<font color="blue">引入无效的交叉特征，给模型引入过多的噪音</font>，从而导致性能下降<br>    - <font color="blue">二阶交叉特征有时候是不够</font>的，好的特征可能需要更高阶的组合。虽然DNN部分可以部分弥补这个不足，<font color="blue">但bit-wise的交叉关系是晦涩难懂、不确定并且不容易学习的</font><br>    - 所以：<font color="purple">有没有可能引入更高阶的vector-wise的交叉特征，同时又能控制模型的复杂度，避免产生过多的无效交叉特征呢</font>
+
+
+<h4 id="DCN"><a href="#DCN" class="headerlink" title="DCN"></a>DCN</h4><p>  DCN模型以一个嵌入和堆叠层(embedding and stacking layer)开始，接着并列连一个cross network和一个deep network，接着通过一个combination layer将两个network的输出进行组合。交叉网络（cross network）的核心思想是以<font color="blue">有效的方式应用显式特征交叉</font></p>
+<ul>
+<li>不足：<img src="/2019/08/23/ad/CTR模型演进/resources/5190FD3F51C9851F311265EFAFC7F9B2.jpg">
+因此Cross Network的输出就相当于不断乘以一个数，当然这个数是和$x_0$高度相关的<ul>
+<li>CrossNet的输出被限定在一种特殊的形式上</li>
+<li>特征交叉还是以bit-wise的方式构建的</li>
+</ul>
+</li>
+</ul>
+<h4 id="xDeepFM"><a href="#xDeepFM" class="headerlink" title="xDeepFM"></a>xDeepFM</h4><ul>
+<li>背景<ul>
+<li>由上面的DCN网络可以看出：时间cross网络的每一层是上一层的乘以一个标量得到，并没有做到vector-wise的特征多阶交叉</li>
+<li>特征交叉还是以deep部分的bit-wise的方式构建的</li>
+</ul>
+</li>
+<li>特点<br>既有线下模型的记忆能力，也集成了多维特征的显示交叉，同时也兼顾了DNN网络隐式特征交叉和泛华能力，在CIN网络也采用池化计算进行降维，有效的避免了维度爆炸的情况<ul>
+<li>CIN：集成显示的高阶特征交叉</li>
+<li>DNN：集成隐式的高阶特征交叉，并兼顾泛华能力</li>
+<li>线下模型：集成线下模型有助于记忆功能</li>
+</ul>
+</li>
+</ul>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>特征交叉组合作为一种常用的特征工程方法，可以有效地提升模型的效果。特征交叉组合从人工方式开始，经历了模型辅助的阶段，最后发展到各种端到端模型的阶段。端到端模型从建模二阶交叉关系向构建高阶交叉关系的方向发展，同时建模方式也从bit-wise向vector-wise发展。<br><img src="/2019/08/23/ad/CTR模型演进/resources/002219ED19595F0BF86BD6104065EBAF.jpg"></p>
+<ul>
+<li>本文总结了FM家族的一系列深度学习模型，这些模型有一个共同的强制要求：所有field的embedding向量的维数是相同的。这个要求是合理的吗？我们知道不同的field对应的值空间大小是不一样的，比如淘宝商品ID的量级在十亿级，类目的量级在万级，用户年龄段的量级在十级，在如此巨大的差异的情况下，embedding向量的维数只能取得尽可能的大，这大大增加了模型的参数量级和网络的收敛时间。所以作者认为本文提及的FM家族模型有两个主要缺点：<ul>
+<li>强制要求所有field的embedding向量的维数，增加了网络复杂度；</li>
+<li>对连续值特征不友好</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/广告系统/" rel="tag"># 广告系统</a>
+          
+            <a href="/tags/算法模型/" rel="tag"># 算法模型</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/08/22/ad/xDeepFM/" rel="next" title="xDeepFM模型">
+                <i class="fa fa-chevron-left"></i> xDeepFM模型
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/favicon.ico" alt="雷哥">
+          <p class="site-author-name" itemprop="name">雷哥</p>
+           
+              <p class="site-description motion-element" itemprop="description">不积跬步无以至千里</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">64</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/yuancl" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#DCN"><span class="nav-number">1.</span> <span class="nav-text">DCN</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#xDeepFM"><span class="nav-number">2.</span> <span class="nav-text">xDeepFM</span></a></li></ol><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number"></span> <span class="nav-text">总结</span></a></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-雷哥"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">雷哥</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Gemini
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

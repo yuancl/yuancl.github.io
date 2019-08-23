@@ -274,6 +274,595 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/23/ad/CTR模型演进/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/23/ad/CTR模型演进/" itemprop="url">CTR模型演进</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-23T06:38:21+08:00">
+                2019-08-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/广告系统/" itemprop="url" rel="index">
+                    <span itemprop="name">广告系统</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/广告系统/算法模型/" itemprop="url" rel="index">
+                    <span itemprop="name">算法模型</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>参考我之前的总结：<br><a href="https://yuancl.github.io/2019/03/26/rs/总结篇-推荐算法总结/" target="_blank" rel="noopener">CF,FM,WDL,DeePFM总结</a><br><a href="https://yuancl.github.io/2019/08/22/rs/xDeepFM模型/" target="_blank" rel="noopener">xDeepFM模型总结</a></p>
+<font color="red">这里只是对比每个模型的优缺点及演进路线，具体每个模型的学习需要参考上面两篇文章</font><br><a href="https://mp.weixin.qq.com/s/cMr_fi9xs1BT5wFWL0ZLzw" target="_blank" rel="noopener">网络参考文章</a><br><br><br>### CTR数据特点<br>- 图像中会有大量的像素与周围的像素比较类似；文本数据中语言会受到语法规则的限制。CNN对于空间特征有很好的学习能力，正如RNN对于时序特征有强大的表示能力一样<br>- 在Web-scale的搜索、推荐和广告系统中，特征数据具有高维、稀疏、多类别的特点，一般情况下缺少类图像、语音、文本领域的时空关联性<br><br><br>### 深度CTR、CVR预估模型发展演化的三条主线<br>- 1.第一条主脉络是以FM家族为代表的深度模型，它们的共同特点是自动学习从原始特征交叉组合新的高阶特征。<br>- 2.第二条主脉络是一类使用attention机制处理时序特征的深度模型，以DIN、DIEN等模型为代表<br>  - attention机制是不是可以在某种程度上理解为一种特殊形式的组合特征，和第一条主线雷同<br>- 3.第三条主脉络是以迁移学习、多任务学习为基础的联合训练模型或pre-train机制，以ESMM<br>  - 属于流程或框架层面的创建<br><br><br>### FM家族的交叉特征组合<br>#### 背景<br>交叉组合原始特征构成新的特征是一种常用且有效的特征构建方法。哪些特征需要被交叉组合以便生成新的有效特征？需要多少阶的交叉组合？这些问题在深度学习流行之前需要算法工程师依靠经验来解决。人工构建组合特征特别耗时耗力，在样本数据生成的速度和数量巨大的互联网时代，依靠人的经验和技能识别出所有潜在有效的特征组合模式几乎是不可能的。一些有效的组合特征甚至没有在样本数据中出现过。<br><br><br><br>#### GBDT+LR<br>  - 特点：将特征工程和目标拟合分为两个模型，能够组合些高阶的特征，但是比较麻烦<br><br>#### FM<br>  - 特点：<br>    - 模型是第一个从原始特征出发，端到端学习的例子<br>    - FM提出了一种很好的<font color="blue">自动学习交叉组合特征的思路</font>，随后融入FM模型思路的深度学习模型便如雨后春笋般应运而生，典型的代表有FNN、PNN、DeepFM、DCN、xDeepFM等<br>    -<br>  - 问题：<br>    - FM毕竟还是一个<font color="blue">浅层模型，经典的FM模型只能做二阶的特征交叉，模型学习复杂组合特征的能力偏弱</font><br>    <img src="/2019/08/23/ad/CTR模型演进/resources/FB5B971905203B74CB2A712CB6B8A78A.jpg"><br><br>#### FNN<br>  - 背景：<br>    FNN模型最先提出了一种增强FM模型的思路，就是用FM模型学习到的隐向量初始化深度神经网络模型（MLP），再由MLP完成最终学习<br>  - 特点:<br>    - MLP（plain-DNN）因其特殊的结构天然就具有学习高阶特征组合的能力，它可以在一定的条件下以任意精度逼近任意函数<br>    - 可以看出plain-DNN的高阶特征交互建模是元素级的（bit-wise），也就是说同一个域对应的embedding向量中的元素也会相互影响<br>  - 不足：<br>    - plain-DNN以一种隐式的方式建模特征之间的交互关系，我们无法确定它学习到了多少阶的交叉关系<br>    - 虽然两种建模交叉特征的方式(bit-wise和vectiro-wise)有一些区别，但两者并不是相互排斥的，如果能把两者集合起来，便会相得益彰<br><br>#### PNN<br>  - 背景：<br>    PNN模型最先提出了一种融合bit-wise和vector-wise交叉特征的方法，其通过在网络的embedding层与全连接层之间加了一层Product Layer来完成特征组合<br>  - 不足：<br>    <font color="blue">舍弃了低阶特征</font>：PNN与FM相比，舍弃了低阶特征，也就是线性的部分，这在一定程度上使得模型不太容易记住一些数据中的规律<br><br>#### WDL<br>  - 特点：WDL（Wide &amp; Deep Learning）模型混合了宽度模型与深度模型，其宽度部分保留了低价特征，偏重记忆；深度部分引入了bit-wise的特征交叉能力<br>  - 不足：<br>    宽度部分的输入依旧依赖于大量的人工特征工程<br>    - 能不能在融合bit-wise和vector-wise交叉特征的基础上，同时还能保留低阶特征(linear part)呢？<br><br><br>#### DeepFm<br>  - 背景：<br>    能不能在融合bit-wise和vector-wise交叉特征的基础上，同时还能保留低阶特征(linear part)呢（优化WDL问题）<br>  - 特点：<br>    - DeepFM模型融合了FM和WDL模型，其FM部分实现了低阶特征和vector-wise的二阶交叉特征建模，其Deep部分使模型具有了bit-wise的高阶交叉特征建模的能力<br>  - 不足：<br>    FM、DeepFM和Inner-PNN都是通过原始特征隐向量的内积来构建vector-wise的二阶交叉特征，有下面问题：<br>    - 必须要穷举出所有的特征对，即任意两个field之间都会形成特征组合关系，而过多的组合关系可能会<font color="blue">引入无效的交叉特征，给模型引入过多的噪音</font>，从而导致性能下降<br>    - <font color="blue">二阶交叉特征有时候是不够</font>的，好的特征可能需要更高阶的组合。虽然DNN部分可以部分弥补这个不足，<font color="blue">但bit-wise的交叉关系是晦涩难懂、不确定并且不容易学习的</font><br>    - 所以：<font color="purple">有没有可能引入更高阶的vector-wise的交叉特征，同时又能控制模型的复杂度，避免产生过多的无效交叉特征呢</font>
+
+
+<h4 id="DCN"><a href="#DCN" class="headerlink" title="DCN"></a>DCN</h4><p>  DCN模型以一个嵌入和堆叠层(embedding and stacking layer)开始，接着并列连一个cross network和一个deep network，接着通过一个combination layer将两个network的输出进行组合。交叉网络（cross network）的核心思想是以<font color="blue">有效的方式应用显式特征交叉</font></p>
+<ul>
+<li>不足：<img src="/2019/08/23/ad/CTR模型演进/resources/5190FD3F51C9851F311265EFAFC7F9B2.jpg">
+因此Cross Network的输出就相当于不断乘以一个数，当然这个数是和$x_0$高度相关的<ul>
+<li>CrossNet的输出被限定在一种特殊的形式上</li>
+<li>特征交叉还是以bit-wise的方式构建的</li>
+</ul>
+</li>
+</ul>
+<h4 id="xDeepFM"><a href="#xDeepFM" class="headerlink" title="xDeepFM"></a>xDeepFM</h4><ul>
+<li>背景<ul>
+<li>由上面的DCN网络可以看出：时间cross网络的每一层是上一层的乘以一个标量得到，并没有做到vector-wise的特征多阶交叉</li>
+<li>特征交叉还是以deep部分的bit-wise的方式构建的</li>
+</ul>
+</li>
+<li>特点<br>既有线下模型的记忆能力，也集成了多维特征的显示交叉，同时也兼顾了DNN网络隐式特征交叉和泛华能力，在CIN网络也采用池化计算进行降维，有效的避免了维度爆炸的情况<ul>
+<li>CIN：集成显示的高阶特征交叉</li>
+<li>DNN：集成隐式的高阶特征交叉，并兼顾泛华能力</li>
+<li>线下模型：集成线下模型有助于记忆功能</li>
+</ul>
+</li>
+</ul>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>特征交叉组合作为一种常用的特征工程方法，可以有效地提升模型的效果。特征交叉组合从人工方式开始，经历了模型辅助的阶段，最后发展到各种端到端模型的阶段。端到端模型从建模二阶交叉关系向构建高阶交叉关系的方向发展，同时建模方式也从bit-wise向vector-wise发展。<br><img src="/2019/08/23/ad/CTR模型演进/resources/002219ED19595F0BF86BD6104065EBAF.jpg"></p>
+<ul>
+<li>本文总结了FM家族的一系列深度学习模型，这些模型有一个共同的强制要求：所有field的embedding向量的维数是相同的。这个要求是合理的吗？我们知道不同的field对应的值空间大小是不一样的，比如淘宝商品ID的量级在十亿级，类目的量级在万级，用户年龄段的量级在十级，在如此巨大的差异的情况下，embedding向量的维数只能取得尽可能的大，这大大增加了模型的参数量级和网络的收敛时间。所以作者认为本文提及的FM家族模型有两个主要缺点：<ul>
+<li>强制要求所有field的embedding向量的维数，增加了网络复杂度；</li>
+<li>对连续值特征不友好</li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+	
+    
+	
+      	    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/22/ad/xDeepFM/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/22/ad/xDeepFM/" itemprop="url">xDeepFM模型</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-22T23:10:21+08:00">
+                2019-08-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/广告系统/" itemprop="url" rel="index">
+                    <span itemprop="name">广告系统</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/广告系统/算法模型/" itemprop="url" rel="index">
+                    <span itemprop="name">算法模型</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>参考：<br><a href="https://yuancl.github.io/2019/03/26/rs/总结篇-推荐算法总结/" target="_blank" rel="noopener">CF,FM,WDL,DeePFM算法对比总结</a><br><a href="https://yuancl.github.io/2019/08/23/ad/CTR模型演进/" target="_blank" rel="noopener">CTR模型演进</a></p>
+<h4 id="xDeepFM"><a href="#xDeepFM" class="headerlink" title="xDeepFM"></a>xDeepFM</h4><ul>
+<li>背景<ul>
+<li>由上面的DCN网络可以看出：时间cross网络的每一层是上一层的乘以一个标量得到，并没有做到vector-wise的特征多阶交叉</li>
+<li>特征交叉还是以deep部分的bit-wise的方式构建的</li>
+</ul>
+</li>
+</ul>
+<h4 id="CIN网络-Compressed-Interaction-Network"><a href="#CIN网络-Compressed-Interaction-Network" class="headerlink" title="CIN网络(Compressed Interaction Network)"></a>CIN网络(Compressed Interaction Network)</h4><p>能够做到vector-wise基本的多阶特征交叉(outer product &amp; 多阶：RNN网络思想)，同时还能够进行维度控制(CNN网络中的池化思想)</p>
+<ul>
+<li>概览<img src="/2019/08/22/ad/xDeepFM/resources/6CEA3DBACAC11D4A7D6B83F474959A89.jpg"></li>
+<li><p>步骤1：</p>
+<img src="/2019/08/22/ad/xDeepFM/resources/33856C4DEE6E75917DBFEABA36391D2F.jpg">
+<ul>
+<li>输入是所有field的embedding向量构成的矩阵$x^0 \in R^{m*D}$<ul>
+<li>该矩阵的第i行对应第个field的embedding向量，假设共有i个field，每个field的embedding向量的维度为D</li>
+</ul>
+</li>
+<li>输出：第k层的输出也是一个矩阵，记为$x^k \in R^{H_k*D}$<ul>
+<li>该矩阵的行数为$H_k$，表示第k层共有$H_k$个特征（embedding）向量，<font color="blue">其中$H_0=m$，其他层不一定和m相等</font></li>
+<li>第k层的输出$x^k$由第k-1层的输出$x^{k-1}$和$x_0$经过复杂（outer product）计算得到,具体的，矩阵$x^k$中的第h行的计算公式：<img src="/2019/08/22/ad/xDeepFM/resources/687A164BD12A5DFEADA1206F4370369D.jpg">
+<ul>
+<li>其中，0表示哈达玛积，即两个矩阵或向量对应元素相乘得到相同大小的矩阵或向量</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>步骤二：<br>将步骤一种的多维m<em>$H_k$</em>D采用池化方法压缩成$H_k$*m维度向量，避免维度灾难</p>
+<img src="/2019/08/22/ad/xDeepFM/resources/3F548E09403F4CF672E083068500D610.jpg">
+<ul>
+<li>$z^{k+1}$可以被看作是一个宽度为m、高度为$H_k$、通道数为 D 的图像，在这个虚拟的图像上施加一些卷积操作即得到$x^{k+1}$。$w^{k,h}$是其中一个卷积核，总共有$H_{k+1}$个不同的卷积核</li>
+</ul>
+</li>
+<li><p>步骤三：<br>$H_k$个feature再通过sum pooling，进行cat操作，连接得到不同交叉特征作为CIN的输出，这里也进行的降维</p>
+</li>
+<li><p>CIN宏观</p>
+<img src="/2019/08/22/ad/xDeepFM/resources/D8417E019B7C5D7703FA0FD89973E7C7.jpg">
+<p>CIN的宏观框架如下图所示，它的特点是，最终学习出的特征交互的阶数是由网络的层数决定的，每一层隐层都通过一个池化操作连接到输出层，从而保证了输出单元可以见到不同阶数的特征交互模式。同时不难看出，CIN的结构与循环神经网络RNN是很类似的，即每一层的状态是由前一层隐层的值与一个额外的输入数据计算所得</p>
+<ul>
+<li>不同的是，CIN中不同层的参数是不一样的，而在RNN中是相同的；RNN中每次额外的输入数据是不一样的，而CIN中额外的输入数据是固定的，始终是$x_0$</li>
+</ul>
+</li>
+</ul>
+<h4 id="xDeepFM模型整体"><a href="#xDeepFM模型整体" class="headerlink" title="xDeepFM模型整体"></a>xDeepFM模型整体</h4><p>借鉴Wide&amp;Deep和DeepFM等模型的设计，将CIN与线性回归单元、全连接神经网络单元组合在一起，得到最终的模型并命名为极深因子分解机xDeepFM</p>
+<ul>
+<li>特点:<br>既有线下模型的记忆能力，也集成了多维特征的显示交叉，同时也兼顾了DNN网络隐式特征交叉和泛华能力，在CIN网络也采用池化计算进行降维，有效的避免了维度爆炸的情况<ul>
+<li>CIN：集成显示的高阶特征交叉</li>
+<li>DNN：集成隐式的高阶特征交叉，并兼顾泛华能力</li>
+<li>线下模型：集成线下模型有助于记忆功能</li>
+</ul>
+</li>
+</ul>
+<img src="/2019/08/22/ad/xDeepFM/resources/0F71B1F2BD9170AFBF54BE33E122A02B.jpg">
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+	
+    
+	
+      	    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/18/ad/ESMM模型/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/18/ad/ESMM模型/" itemprop="url">ESMM模型</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-18T11:38:21+08:00">
+                2019-08-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/广告系统/" itemprop="url" rel="index">
+                    <span itemprop="name">广告系统</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/广告系统/算法模型/" itemprop="url" rel="index">
+                    <span itemprop="name">算法模型</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><a href="https://zhuanlan.zhihu.com/p/37562283" target="_blank" rel="noopener">CVR预估的新思路：完整空间多任务模型
+</a></p>
+<h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>传统CVR预估模型有样本选择偏差（sample selection bias）和训练数据过于稀疏（data sparsity ）的问题</p>
+<ul>
+<li>以电子商务平台为例，用户在观察到系统展现的推荐商品列表后，可能会点击自己感兴趣的商品，进而产生购买行为。换句话说，用户行为遵循一定的顺序决策模式：impression → click → conversion：即p(CVR) = p(conversion|click,impression)</li>
+</ul>
+<h4 id="样本选择偏差"><a href="#样本选择偏差" class="headerlink" title="样本选择偏差"></a>样本选择偏差</h4><img src="/2019/08/18/ad/ESMM模型/resources/975A244EDED1683B07F3A28B570E631F.jpg">
+<ul>
+<li>对应图中的阴影区域，传统的CVR模型就是用此集合中的样本来训练的，同时训练好的模型又需要在整个样本空间做预测推断。由于点击事件相对于展现事件来说要少很多，只是全局的一个很小的子集。<ul>
+<li>违背了机器学习算法之所以有效的前提：独立同分布</li>
+<li>样本选择偏差会伤害学到的模型的泛化性能</li>
+</ul>
+</li>
+</ul>
+<h4 id="数据过于稀疏"><a href="#数据过于稀疏" class="headerlink" title="数据过于稀疏"></a>数据过于稀疏</h4><ul>
+<li>对应图中的阴影区域，传统的CVR模型就是用此集合中的样本来训练的，数据量太少</li>
+</ul>
+<h3 id="ESMM模型"><a href="#ESMM模型" class="headerlink" title="ESMM模型"></a>ESMM模型</h3><h4 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h4><ul>
+<li>CTCVR<ul>
+<li>x是高维稀疏多域的特征向量，y和z的取值为0或1，分别表示是否点击和是否购买</li>
+<li>CVR模型的目标是预估条件概率pCVR ，与其相关的两个概率为点击率pCTR 和点击且转换率 pCTCVR ，它们之间的关系如下：<img src="/2019/08/18/ad/ESMM模型/resources/93C763C349C01F591823603AA8259041.jpg">
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="模型架构"><a href="#模型架构" class="headerlink" title="模型架构"></a>模型架构</h4><img src="/2019/08/18/ad/ESMM模型/resources/5DB68BB16AA7820DC98A28E602255086.jpg">
+<ul>
+<li>在整个样本空间建模，而不像传统CVR预估模型那样只在点击样本空间建模</li>
+<li>共享特征表示<br>由于CTR任务的训练样本量要大大超过CVR任务的训练样本量，ESMM模型中特征表示共享的机制能够使得CVR子任务也能够从只有展现没有点击的样本中学习，从而能够极大地有利于缓解训练数据稀疏性问题</li>
+<li>损失函数由两部分组成<img src="/2019/08/18/ad/ESMM模型/resources/5C5DDFF2F647CBF8F57359162242A1D3.jpg">
+<ul>
+<li>其中，$\theta _{ctr}$ 和$\theta _{cvr}$分别是CTR网络和CVR网络的参数，l(.)是交叉熵损失函数。在CTR任务中，有点击行为的展现事件构成的样本标记为正样本，没有点击行为发生的展现事件标记为负样本；在CTCVR任务中，同时有点击和购买行为的展现事件标记为正样本，否则标记为负样本</li>
+</ul>
+</li>
+</ul>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
+<li>ESMM模型是一个新颖的CVR预估方法，其首创了利用用户行为序列数据在完整样本空间建模，避免了传统CVR模型经常遭遇的样本选择偏差和训练数据稀疏的问题，取得了显著的效果</li>
+<li>ESMM模型的贡献在于其提出的利用学习CTR和CTCVR的辅助任务，迂回地学习CVR的思路。ESMM模型中的BASE子网络可以替换为任意的学习模型，因此ESMM的框架可以非常容易地和其他学习模型集成，从而吸收其他学习模型的优势，进一步提升学习效果，想象空间巨大</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+	
+    
+	
+      	    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/13/nlp/FastText模型/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1670,430 +2259,11 @@
 
 	
     
-	
-    
-	
-    
-	
-      	    
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/26/rs/总结篇-推荐算法总结/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="雷哥">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/favicon.ico">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="雷哥的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/26/rs/总结篇-推荐算法总结/" itemprop="url">总结篇-推荐算法总结</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-26T07:30:21+08:00">
-                2019-03-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/推荐系统/" itemprop="url" rel="index">
-                    <span itemprop="name">推荐系统</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/推荐系统/推荐系统总结篇/" itemprop="url" rel="index">
-                    <span itemprop="name">推荐系统总结篇</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h4 id="相关文章"><a href="#相关文章" class="headerlink" title="相关文章"></a>相关文章</h4><p><a href="https://mp.weixin.qq.com/s/i8ClwpTGMB5cu0evrrZQGw" target="_blank" rel="noopener">算法粗略介绍：搜索与推荐中的深度学习匹配：推荐篇</a><br><a href="https://www.ibm.com/developerworks/cn/web/1103_zhaoct_recommstudy1" target="_blank" rel="noopener">探索推荐引擎内部的秘密</a><br><a href="https://zhuanlan.zhihu.com/c_188941548" target="_blank" rel="noopener">张俊林-推荐系统召回模型</a><br><a href="https://www.hrwhisper.me/machine-learning-fm-ffm-deepfm-deepffm/" target="_blank" rel="noopener">FM、FFM与DeepFM</a><br><a href="http://www.shuang0420.com/2017/03/13/论文笔记%20-%20Wide%20and%20Deep%20Learning%20for%20Recommender%20Systems/" target="_blank" rel="noopener">WDL论文笔记</a></p>
-<h4 id="算法分类"><a href="#算法分类" class="headerlink" title="算法分类"></a>算法分类</h4><ul>
-<li><p>分类方法1</p>
-<ul>
-<li>传统<ul>
-<li>协调过滤</li>
-<li>矩阵分解(MF)</li>
-<li>因式分解机(FM)</li>
-</ul>
-</li>
-<li>基于embedding(深度学习兴起后)<ul>
-<li>word-embedding:skip-gram等</li>
-<li>graph-embedding:DeepWalk,TransE等</li>
-</ul>
-</li>
-<li>基于深度神经网络<ul>
-<li>Deep &amp; Wide</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>分类方法2</p>
-<ul>
-<li>线性<ul>
-<li>LR</li>
-<li>在排序模型方面很多基于LR模型，现在很多都是基于深度学习来做，不同模型都有不同的应用场景，并不是单一使用一种场景。<font color="blue">LR模型利用人工特征工程</font>，相对于深度学习的优点是可以感知的，是可以debug的</li>
-</ul>
-</li>
-<li>非线性<ul>
-<li>FM,FFM,GBDT+LR,XGboost+LR</li>
-<li>LR模型对于特征处理是线性的，利用Xgboost+LR或者GBDT+LR<font color="blue">由线性向非线性转化，能够做到多特征组合</font>，对推荐效果也有不同程度的提升</li>
-</ul>
-</li>
-<li>神经网络<ul>
-<li>DeepFM,Wide&amp;Deep</li>
-<li>目前还有利用Wide&amp;Deep，可以从特征工程中解放出来，在特征选取方面不需要做很多工作,但是在调参方面工作量比较大</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<img src="/2019/03/26/rs/总结篇-推荐算法总结/resources/E3D0F465A0C9A650AFE3BEB09F26AAFA.jpg">
-<h4 id="GBDT-LR"><a href="#GBDT-LR" class="headerlink" title="GBDT+LR"></a>GBDT+LR</h4><ul>
-<li>LR特征工程很难，那能否自动完成呢？模型级联提供了一种思路，典型的例子就是Facebook 2014年的论文中介绍的通过GBDT（Gradient Boost Decision Tree）模型<font color="blue">解决LR模型的特征组合问题</font>。思路很简单，特征工程分为两部分<ul>
-<li>一部分特征用于训练一个GBDT模型，把GBDT模型每颗树的叶子节点编号作为新的特征，加入到原始特征集中</li>
-<li>再用LR模型训练最终的模型</li>
-</ul>
-</li>
-<li>GBDT模型能够学习高阶非线性特征组合，对应树的一条路径（用叶子节点来表示）<ul>
-<li><font color="blue">通常把一些连续值特征、值空间不大的categorical特征</font>都丢给GBDT模型</li>
-<li>空间很大的ID特征（比如商品ID）留在LR模型中训练，<font color="red">既能做高阶特征组合又能利用线性模型易于处理大规模稀疏数据的优势</font><img src="/2019/03/26/rs/总结篇-推荐算法总结/resources/1D843A0BFB0672616943E4C315E62417.jpg"></li>
-</ul>
-</li>
-<li>树模型缺点<ul>
-<li>基于树的模型适合<font color="blue">连续中低度稀疏数据，容易学到高阶组合</font></li>
-<li>但是树模型却不适合学习高度稀疏数据的特征组合<ul>
-<li>一方面高度稀疏数据的特征维度一般很高，这时基于树的模型学习效率很低，甚至不可行；</li>
-<li>另一方面树模型也不能学习到训练数据中很少或没有出现的特征组合(比如训练数据完全没有特征x和特征y的训练数据出现)</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="协同过滤"><a href="#协同过滤" class="headerlink" title="协同过滤"></a>协同过滤</h4><p><a href="https://www.ibm.com/developerworks/cn/web/1103_zhaoct_recommstudy1" target="_blank" rel="noopener">探索推荐引擎内部的秘密</a></p>
-<ul>
-<li>基于协同过滤的推荐可以分为三个子类：基于用户的推荐（User-based Recommendation），基于项目的推荐（Item-based Recommendation）和基于模型的推荐（Model-based Recommendation）</li>
-<li>基于用户的协同过滤推荐<ul>
-<li>基于用户的协同过滤推荐的基本原理是，根据所有用户对物品或者信息的偏好，发现与当前用户口味和偏好相似的“邻居”用户群，在一般的应用中是采用计算“K- 邻居”的算法；然后，基于这 K 个邻居的历史偏好信息，为当前用户进行推荐<img src="/2019/03/26/rs/总结篇-推荐算法总结/resources/F711DB43A7FFBE6FE172AA4E89A3AA25.jpg"></li>
-</ul>
-</li>
-<li>基于项目的协同过滤推荐<ul>
-<li>基于项目的协同过滤推荐的基本原理也是类似的，只是说它使用所有用户对物品或者信息的偏好，发现物品和物品之间的相似度，然后根据用户的历史偏好信息，将类似的物品推荐给用户<img src="/2019/03/26/rs/总结篇-推荐算法总结/resources/F7D855B58A3BA17FE77017B75EEAC6F1.jpg"></li>
-</ul>
-</li>
-<li>基于协同过滤的推荐机制是现今应用最为广泛的推荐机制，它有以下几个显著的优点：<ul>
-<li>它不需要对物品或者用户进行严格的建模，而且不要求物品的描述是机器可理解的，所以这种方法也是领域无关的。</li>
-<li>这种方法计算出来的推荐是开放的，可以共用他人的经验，很好的支持用户发现潜在的兴趣偏好</li>
-</ul>
-</li>
-<li>存在以下几个问题：<ul>
-<li>方法的核心是基于历史数据，所以对新物品和新用户都有“冷启动”的问题。</li>
-<li>推荐的效果依赖于用户历史偏好数据的多少和准确性。</li>
-<li>在大部分的实现中，用户历史偏好是用稀疏矩阵进行存储的，而稀疏矩阵上的计算有些明显的问题，包括可能少部分人的错误偏好会对推荐的准确度有很大的影响等等。</li>
-<li>对于一些特殊品味的用户不能给予很好的推荐。</li>
-<li>由于以历史数据为基础，抓取和建模用户的偏好后，很难修改或者根据用户的使用演变，从而导致这个方法不够灵活。</li>
-</ul>
-</li>
-</ul>
-<h4 id="MF"><a href="#MF" class="headerlink" title="MF"></a>MF</h4><ul>
-<li>MF（Matrix Factorization，矩阵分解）模型是个在推荐系统领域里资格很深的老前辈协同过滤模型了。核心思想是通过两个低维小矩阵（一个代表用户embedding矩阵，一个代表物品embedding矩阵）的乘积计算，来模拟真实用户点击或评分产生的大的协同信息稀疏矩阵，本质上是编码了用户和物品协同信息的降维模型<img src="/2019/03/26/rs/总结篇-推荐算法总结/resources/D766787AD9BABE291715A7FA78CA0483.jpg"></li>
-<li>当训练完成，每个用户和物品得到对应的低维embedding表达后，如果要预测某个 $User_i 对 Item_j 的评分的时候，只要它们做个内积计算 〈User_i,Item_j 〉$ ，这个得分就是预测得分<img src="/2019/03/26/rs/总结篇-推荐算法总结/resources/7C24B08BD0F51553C0BC91BCA91A3AD3.jpg">
-</li>
-</ul>
-<h4 id="SVD-MF-FISM-SVD"><a href="#SVD-MF-FISM-SVD" class="headerlink" title="SVD,MF,FISM,SVD++"></a>SVD,MF,FISM,SVD++</h4><ul>
-<li>CF本质就是解决矩阵填充问题<img src="/2019/03/26/rs/总结篇-推荐算法总结/resources/2BD3B5476445D05EDCC0CEBD67A69CEF.jpg"></li>
-<li>矩阵填充一般是用SVD分解来解决<img src="/2019/03/26/rs/总结篇-推荐算法总结/resources/249CBC7DD767EC261F4F6E690BFF123F.jpg">
-<ul>
-<li>SVD就是在解决以下问题(Loss)<img src="/2019/03/26/rs/总结篇-推荐算法总结/resources/749D83FC437F6C72D57EBC9593D4C313.jpg"></li>
-<li>svd有以下缺点：<ul>
-<li>missing data(就是没打分的，占比99%)和observed data（观测到的、已打分的）有一样的权重</li>
-<li>没有加正则，容易过拟合</li>
-</ul>
-</li>
-<li><font color="purple">注意和MF的区别，这边没没有使用embedding，user，item词嵌入的概念。而是用数学的方法求解的</font></li>
-</ul>
-</li>
-<li>MF<ul>
-<li>user和item分别用一个embedding表示，然后用户对item的偏好程度用这两个embedding的内积表示<img src="/2019/03/26/rs/总结篇-推荐算法总结/resources/6244EB6F4E2E5E8FF59AEF1F74BFDE70.jpg"></li>
-<li>使用L2-loss（其它loss也可以）和正则：<img src="/2019/03/26/rs/总结篇-推荐算法总结/resources/46C9358BD6ADCED970682B6604BF028F.jpg"></li>
-</ul>
-</li>
-<li>FISM(Factored Item Similarity Model)<ul>
-<li><font color="blue">用user作用过的item的embedding的和来表示user</font>，item用另一套embedding下的一个embedding来表示，最后两者的内积表示user对该item的偏好<ul>
-<li>这个模型也叫item-based的CF，因为把括号里的东西展开后，<font color="blue">其实就是找用户作用过的item和item[j]的相似度</font><img src="/2019/03/26/rs/总结篇-推荐算法总结/resources/E213592DC17DC84F8E8B69B950B774CE.jpg"></li>
-</ul>
-</li>
-</ul>
-</li>
-<li>SVD++<ul>
-<li>很简单，另外用一个user的embedding，和上述的FISM的方法，融合来表示user。这曾经是netflix比赛中连续三年效果最好的单模型<img src="/2019/03/26/rs/总结篇-推荐算法总结/resources/8113DCE6ED7DFF4BF45247EB2E34189F.jpg">
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="FM"><a href="#FM" class="headerlink" title="FM"></a>FM</h4><p><a href="https://zhuanlan.zhihu.com/c_188941548" target="_blank" rel="noopener">张俊林-推荐系统召回模型</a></p>
-<ul>
-<li><p>从LR到SVM再到FM模型<br>LR模型简单易懂，但不能捕获更高维的特征，比如特征组合这类特征，所以不能很好拟合较复杂的场景(欠拟合)</p>
-<img src="/2019/03/26/rs/总结篇-推荐算法总结/resources/232BB3F732AD29ECA8A9CDB044A3B36F.jpg">
-</li>
-<li><p>加入特征组合(提升模型复杂度)</p>
-<ul>
-<li>虽然这个模型看上去貌似解决了二阶特征组合问题了，但是它有个潜在的问题：它对组合特征建模，泛化能力比较弱</li>
-<li>尤其是在大规模稀疏特征存在的场景下，这个毛病尤其突出，比如CTR预估和推荐排序</li>
-<li>这些场景的最大特点就是特征的大规模稀疏。所以上述模型并未在工业界广泛采用</li>
-<li><font color="blue">主要原因：由于数据稀疏，$x_i x_j$的权重参数$w_{i,j}$很多为0，导致不能学习</font><ul>
-<li>在训练数据里两个特征并未同时在训练实例里见到过，意味着 $x_i  and x_j$ 一起出现的次数为0，如果换做SVM的模式，是无法学会这个特征组合的权重的<img src="/2019/03/26/rs/总结篇-推荐算法总结/resources/0405C4C1759F61DB053CCDB696B99C7F.jpg">
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>FM模型<br>对于因子分解机FM来说，<font color="blue">利用特征的嵌入方式，最大的特点是对于稀疏的数据具有很好的学习能力。现实中稀疏的数据很多</font></p>
-<ul>
-<li>觉得可以看做是LR和MF的组合</li>
-<li><font color="blue">核心：这本质上是在对特征进行embedding化表征</font></li>
-<li><p>和SVM模型最大的不同，在于<font color="blue">特征组合权重</font>的计算方法。FM对于每个特征，学习一个大小为k的一维向量，于是，两个特征 $x_i 和 x_j 的特征组合的权重值，通过特征对应的向量 v_i 和 v_j 的内积 &lt;v_i,v_j&gt;$来表示。</p>
-<img src="/2019/03/26/rs/总结篇-推荐算法总结/resources/5D30E7FAEDECBCA1AD37754267567059.jpg">
-</li>
-<li><p>为什么模型泛华能力强，能够解决稀疏数据的问题</p>
-<ul>
-<li>在训练数据里两个特征并未同时在训练实例里见到过，意味着 $x_i  and x_j$ 一起出现的次数为0，如果换做SVM的模式，是无法学会这个特征组合的权重的。</li>
-<li>但是因为FM是学习单个特征的embedding，并不依赖某个特定的特征组合是否出现过，所以只要特征 x_i 和其它<font color="blue">任意特征组合</font>出现过，那么就可以学习自己对应的embedding向量<ul>
-<li>于是，尽管 $x_i  and x_j$ 这个特征组合没有看到过，但是在预测的时候，如果看到这个新的特征组合，因为 $x_i 和 x_j$ 都能学会自己对应的embedding，所以可以通过内积算出这个新特征组合的权重。</li>
-<li>这是为何说FM模型泛化能力强的根本原因 <img src="/2019/03/26/rs/总结篇-推荐算法总结/resources/7C5B35BBD0C7325E782FFC16AC89535C.jpg">
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>上式只是对数据的拟合函数，还要根据具体问题比如回归还是分类设以不同的Loss方法进行求解。以及数学求解的方法需要另参考其他资料</p>
-</li>
-<li><p>算法的效率</p>
-<ul>
-<li>粗略的看<br>从FM的原始数学公式看，因为在进行二阶（2-order）特征组合的时候，假设有n个不同的特征，那么二阶特征组合意味着任意两个特征都要进行交叉组合，所以可以直接推论得出：FM的时间复杂度是n的平方。但是如果故事仅仅讲到这里，FM模型是不太可能如此广泛地被工业界使用的。因为现实生活应用中的n往往是个非常巨大的特征数，如果FM是n平方的时间复杂度，那估计基本就没人带它玩了</li>
-<li>数学公式演示改进(细节也可以参考论文资料等)<br>FM如今被广泛采用并成功替代LR模型的一个关键所在是：它可以通过数学公式改写，把表面貌似是 $O(k<em>n^2 ) 的复杂度降低到 O(k</em>n)$</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="MF到FM的转换理解"><a href="#MF到FM的转换理解" class="headerlink" title="MF到FM的转换理解"></a>MF到FM的转换理解</h4><ul>
-<li>本质上，MF模型是FM模型的特例，<font color="blue">MF可以被认为是只有User ID 和Item ID这两个特征Fields的FM模型</font>，MF将这两类特征通过矩阵分解，来达到将这两类特征embedding化表达的目的</li>
-<li>而FM则可以看作是MF模型的进一步拓展，除了User ID和Item ID这两类特征外，很多其它类型的特征，都可以进一步融入FM模型里，它将所有这些特征转化为embedding低维向量表达，并计算任意两个特征embedding的内积，就是特征组合的权重<img src="/2019/03/26/rs/总结篇-推荐算法总结/resources/270EA9D3CF21C4F363002E84A5E9D766.jpg">
-</li>
-</ul>
-<h4 id="FFM-Field-aware-FM"><a href="#FFM-Field-aware-FM" class="headerlink" title="FFM(Field-aware FM)"></a>FFM(Field-aware FM)</h4><ul>
-<li><p>核心思想</p>
-<ul>
-<li>FM模型的某个特征，在和任意其它特征域的特征进行组合求权重的时候，共享了同一个embedding特征向量</li>
-<li>FFM模型是做得更细腻一些，在做特征组合的时候使用的embedding不同的特征向量。</li>
-<li>这意味着，如果有F个特征域，那么每个特征由FM模型的一个k维特征embedding，拓展成了（F-1）个k维特征embedding</li>
-<li>这个就是Field-aware的深层含义吧</li>
-</ul>
-</li>
-<li><p>算法效率问题</p>
-<ul>
-<li>FM模型可以通过公式改写，把本来看着是n的平方的计算复杂度，降低到 $O(k*n)$ </li>
-<li>而FFM无法做类似的改写，所以它的计算复杂度是 $O(k*n^2$ ) ，这明显在计算速度上也比FM模型慢得多</li>
-<li>所以，无论是急剧膨胀的参数量，还是变慢的计算速度，无论从哪个角度看，相对FM模型，FFM模型是略显笨重的。</li>
-<li>正因为FFM模型参数量太大，所以在训练FFM模型的时候，很容易过拟合，需要采取早停等防止过拟合的手段</li>
-</ul>
-</li>
-<li><p>数学公式</p>
-<ul>
-<li>其中$f_i和f_j$分别代表第i个特征和第j个特征所属的field<img src="/2019/03/26/rs/总结篇-推荐算法总结/resources/0A702A17B2566CC94E06A8D70A4EF0E5.jpg">
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="DeepFM"><a href="#DeepFM" class="headerlink" title="DeepFM"></a>DeepFM</h4><ul>
-<li><p>FM模型可以用神经网络进行表示</p>
-<img src="/2019/03/26/rs/总结篇-推荐算法总结/resources/2B105C5A04F5C58A4B7AB7B7113F3A85.jpg">
-<ul>
-<li>这里需要<font color="red">理解Sparse Feature层和Embeddings层的表示，如何和原始的FM模型等价</font><ul>
-<li>Sparse Feature层中维数数据可能不一样，有可能是多维的one-hot向量，比如分类的数据，如果是连续的数值型，那么就是本身<ul>
-<li>即使各个field的维度是不一样的，但是它们embedding后长度均为k</li>
-<li><font color="blue">也就是说one-hot只有一位为非0，其实就是通过矩阵相乘后就表示和原始的FM模型是等价了</font><img src="/2019/03/26/rs/总结篇-推荐算法总结/resources/E65E503C55862E88CCD45DBDB8D3B395.jpg"></li>
-</ul>
-</li>
-<li>最终表现就是这个模型<img src="/2019/03/26/rs/总结篇-推荐算法总结/resources/AE8DD79D27067ABD87C903A33567DD8B.jpg">
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>DeepFM的模型如下图<br><font color="red">共享整个embedding层，进行多层网络训练，提取高阶特征</font></p>
-<ul>
-<li>左边就是刚才将的FM模型的神经网络表示</li>
-<li>右边的则为deep部分，<font color="blue">为全连接的网络，用于挖掘高阶的交叉特征</font>。整个模型共享embedding层，最后的结果就是把FM部分和DNN的部分做sigmoid<br>$Y=sigmoid(Y_{FM}+Y_{DNN})$<img src="/2019/03/26/rs/总结篇-推荐算法总结/resources/3DE3419525ED615318B841FF4E302F5A.jpg">
-</li>
-</ul>
-</li>
-<li><p>DeepFM的结构中包含了因子分解机部分以及深度神经网络部分，分别负责低阶特征的提取和高阶特征的提取</p>
-</li>
-<li><p>与图像或者语音这类输入不同，图像语音的输入一般是连续而且密集的，然而用于CTR的输入一般是<font color="blue">及其稀疏的</font>。Embedding嵌入层就是这个作用</p>
-</li>
-<li><p>类比DeepFFM<br>类似于FFM对于FM模型来说，划分了field，对于不同的field内积时采用对应的隐向量。同样可以把DeepFM进行进化为DeepFFM，<font color="blue">即将每一个field embedding为m个维度为k的隐向量</font>（m为field的个数）</p>
-</li>
-</ul>
-<h4 id="WDL"><a href="#WDL" class="headerlink" title="WDL"></a>WDL</h4><ul>
-<li><p>Wide and Deep Learning<br>简单来说，<font color="blue">人脑就是一个不断记忆（memorization）并且归纳（generalization）的过程</font>，而这篇论文的思想，就是将<font color="red">宽线性模型（Wide Model，用于记忆，下图左侧）和深度神经网络模型（Deep Model，用于归纳，下图右侧）结合</font>，汲取各自优势形成了 Wide &amp; Deep 模型用于推荐排序</p>
-<img src="/2019/03/26/rs/总结篇-推荐算法总结/resources/EE2B4D289C05BA7DAE1AB4E0D88A0D10.jpg">
-</li>
-<li><p>Wide Model<br>要理解的概念是 Memorization，主要是学习特征的共性或者说相关性，产生的推荐是和已经<font color="blue">有用户行为的物品直接相关的物品</font></p>
-<ul>
-<li>通过线性模型 + 特征交叉。所带来的Memorization以及记忆能力非常有效和可解释。但是Generalization（泛化能力）需要更多的人工特征工程</li>
-<li>用的模型是 逻辑回归(logistic regression, LR)，LR 的优点就是简单(simple)、容易规模化(scalable)、可解释性强(interpretable)。LR 的特征往往是二值且稀疏的(binary and sparse)</li>
-<li>总结一下，宽度模型的输入是用户安装应用(installation)和为用户展示（impression）的应用间的向量积（叉乘），模型通常训练 one-hot 编码后的二值特征<ul>
-<li>缺点：这种操作不会归纳出训练集中未出现的特征对</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>Deep Model<br>要理解的概念是 Generalization，可以理解为<font color="blue">相关性的传递(transitivity)，会学习新的特征组合</font>，来提高推荐物品的多样性，或者说提供泛化能力(Generalization)</p>
-<font color="purple">我的理解就是要用DL能够学习各种未出现的特征组合能力，特征模型的泛化能力</font><br>- DNN几乎不需要特征工程。通过对低纬度的dense embedding进行组合可以学习到更深层次的隐藏特征<br>  - 泛化往往是通过学习 <font color="blue">low-dimensional dense embeddings</font> 来探索过去从未或很少出现的新的特征组合来实现的<br>  - 缺点是有点over-generalize（过度泛化）<br>    - 当query-item矩阵是稀疏并且是high-rank的时候（比如user有特殊的爱好，或item比较小众），很难非常效率的学习出低维度的表示。这种情况下，大部分的query-item都没有什么关系。但是dense embedding会导致几乎所有的query-item预测值都是非0的，<font color="blue">这就导致了推荐过度泛化，会推荐一些不那么相关的物品</font><br>  - 相反，linear model却可以通过<font color="red">cross-product transformation</font>来记住这些<font color="blue">exception rules</font>，而且仅仅使用了非常少的参数<br>- <font color="blue">所以WDL结合LR，这点和 LR 正好互补，因为 LR 只能记住很少的特征组合，能够帮助识别Deep Model中《所有 query-item pair 非零的预测》情况</font>
-</li>
-<li><p>两者区别与互补</p>
-<ul>
-<li>Memorization趋向于更加保守，推荐用户之前有过行为的items(只认识出现过的)</li>
-<li>generalization更加趋向于提高推荐系统的多样性（diversity）</li>
-<li>所以WDL结合LR，这点和 LR 正好互补，因为 LR 只能记住很少的特征组合，能够帮助识别Deep Model中《所有 query-item pair 非零的预测》情况</li>
-</ul>
-</li>
-<li><p>GP推荐系统的整体架构</p>
-<ul>
-<li>由两个部分组成,检索系统(或者说候选生成系统）和排序系统(排序网络)。</li>
-<li>首先，用 检索(retrieval) 的方法对大数据集进行初步筛选，返回最匹配 query 的一部分物品列表，这里的检索通常会结合采用 机器学习模型(machine-learned models) 和 人工定义规则(human-defined rules) 两种方法。从大规模样本中召回最佳候选集之后</li>
-<li>再使用 排序系统 对每个物品进行算分、排序，分数 P(y|x)。WDL 就是用在排序系统中<img src="/2019/03/26/rs/总结篇-推荐算法总结/resources/3122D99113950432B7C98420BD44982B.jpg"></li>
-</ul>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-	
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2137,7 +2307,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">77</span>
+                <span class="site-state-item-count">64</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -2148,7 +2318,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-count">18</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -2159,7 +2329,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-count">16</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

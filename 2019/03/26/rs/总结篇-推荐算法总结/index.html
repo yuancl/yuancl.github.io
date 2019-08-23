@@ -94,13 +94,13 @@
 
 
 
-<meta name="description" content="相关文章算法粗略介绍：搜索与推荐中的深度学习匹配：推荐篇探索推荐引擎内部的秘密张俊林-推荐系统召回模型FM、FFM与DeepFMWDL论文笔记 算法分类 分类方法1  传统 协调过滤 矩阵分解(MF) 因式分解机(FM)   基于embedding(深度学习兴起后) word-embedding:skip-gram等 graph-embedding:DeepWalk,TransE等   基于深度神">
+<meta name="description" content="相关文章算法粗略介绍：搜索与推荐中的深度学习匹配：推荐篇探索推荐引擎内部的秘密张俊林-推荐系统召回模型FM、FFM与DeepFMWDL论文笔记ESMMCTR模型演进 算法分类 分类方法1  传统 协同过滤 矩阵分解(MF) 因式分解机(FM)   基于embedding(深度学习兴起后) word-embedding:skip-gram等 graph-embedding:DeepWalk,Tran">
 <meta name="keywords" content="推荐系统,推荐系统总结篇">
 <meta property="og:type" content="article">
 <meta property="og:title" content="总结篇-推荐算法总结">
 <meta property="og:url" content="http://yoursite.com/2019/03/26/rs/总结篇-推荐算法总结/index.html">
 <meta property="og:site_name" content="雷哥的博客">
-<meta property="og:description" content="相关文章算法粗略介绍：搜索与推荐中的深度学习匹配：推荐篇探索推荐引擎内部的秘密张俊林-推荐系统召回模型FM、FFM与DeepFMWDL论文笔记 算法分类 分类方法1  传统 协调过滤 矩阵分解(MF) 因式分解机(FM)   基于embedding(深度学习兴起后) word-embedding:skip-gram等 graph-embedding:DeepWalk,TransE等   基于深度神">
+<meta property="og:description" content="相关文章算法粗略介绍：搜索与推荐中的深度学习匹配：推荐篇探索推荐引擎内部的秘密张俊林-推荐系统召回模型FM、FFM与DeepFMWDL论文笔记ESMMCTR模型演进 算法分类 分类方法1  传统 协同过滤 矩阵分解(MF) 因式分解机(FM)   基于embedding(深度学习兴起后) word-embedding:skip-gram等 graph-embedding:DeepWalk,Tran">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2019/03/26/rs/总结篇-推荐算法总结/resources/E3D0F465A0C9A650AFE3BEB09F26AAFA.jpg">
 <meta property="og:image" content="http://yoursite.com/2019/03/26/rs/总结篇-推荐算法总结/resources/1D843A0BFB0672616943E4C315E62417.jpg">
@@ -121,16 +121,20 @@
 <meta property="og:image" content="http://yoursite.com/2019/03/26/rs/总结篇-推荐算法总结/resources/7C5B35BBD0C7325E782FFC16AC89535C.jpg">
 <meta property="og:image" content="http://yoursite.com/2019/03/26/rs/总结篇-推荐算法总结/resources/270EA9D3CF21C4F363002E84A5E9D766.jpg">
 <meta property="og:image" content="http://yoursite.com/2019/03/26/rs/总结篇-推荐算法总结/resources/0A702A17B2566CC94E06A8D70A4EF0E5.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/03/26/rs/总结篇-推荐算法总结/resources/EE2B4D289C05BA7DAE1AB4E0D88A0D10.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/03/26/rs/总结篇-推荐算法总结/resources/3122D99113950432B7C98420BD44982B.jpg">
 <meta property="og:image" content="http://yoursite.com/2019/03/26/rs/总结篇-推荐算法总结/resources/2B105C5A04F5C58A4B7AB7B7113F3A85.jpg">
 <meta property="og:image" content="http://yoursite.com/2019/03/26/rs/总结篇-推荐算法总结/resources/E65E503C55862E88CCD45DBDB8D3B395.jpg">
 <meta property="og:image" content="http://yoursite.com/2019/03/26/rs/总结篇-推荐算法总结/resources/AE8DD79D27067ABD87C903A33567DD8B.jpg">
 <meta property="og:image" content="http://yoursite.com/2019/03/26/rs/总结篇-推荐算法总结/resources/3DE3419525ED615318B841FF4E302F5A.jpg">
-<meta property="og:image" content="http://yoursite.com/2019/03/26/rs/总结篇-推荐算法总结/resources/EE2B4D289C05BA7DAE1AB4E0D88A0D10.jpg">
-<meta property="og:image" content="http://yoursite.com/2019/03/26/rs/总结篇-推荐算法总结/resources/3122D99113950432B7C98420BD44982B.jpg">
-<meta property="og:updated_time" content="2019-04-17T10:50:42.814Z">
+<meta property="og:image" content="http://yoursite.com/2019/03/26/rs/总结篇-推荐算法总结/resources/4DA07739DB6622637DB826CFD12F5613.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/03/26/rs/总结篇-推荐算法总结/resources/E14BAF5ABBD04A90B9F78C1CB2864234.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/03/26/rs/总结篇-推荐算法总结/resources/26B5ADC8BBB12A67B4124B16ADF0013C.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/03/26/rs/总结篇-推荐算法总结/resources/B9124CC5B7C98905A4B63572B20C7DBF.jpg">
+<meta property="og:updated_time" content="2019-08-23T07:07:51.145Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="总结篇-推荐算法总结">
-<meta name="twitter:description" content="相关文章算法粗略介绍：搜索与推荐中的深度学习匹配：推荐篇探索推荐引擎内部的秘密张俊林-推荐系统召回模型FM、FFM与DeepFMWDL论文笔记 算法分类 分类方法1  传统 协调过滤 矩阵分解(MF) 因式分解机(FM)   基于embedding(深度学习兴起后) word-embedding:skip-gram等 graph-embedding:DeepWalk,TransE等   基于深度神">
+<meta name="twitter:description" content="相关文章算法粗略介绍：搜索与推荐中的深度学习匹配：推荐篇探索推荐引擎内部的秘密张俊林-推荐系统召回模型FM、FFM与DeepFMWDL论文笔记ESMMCTR模型演进 算法分类 分类方法1  传统 协同过滤 矩阵分解(MF) 因式分解机(FM)   基于embedding(深度学习兴起后) word-embedding:skip-gram等 graph-embedding:DeepWalk,Tran">
 <meta name="twitter:image" content="http://yoursite.com/2019/03/26/rs/总结篇-推荐算法总结/resources/E3D0F465A0C9A650AFE3BEB09F26AAFA.jpg">
 
 
@@ -399,12 +403,12 @@
       
 
       
-        <h4 id="相关文章"><a href="#相关文章" class="headerlink" title="相关文章"></a>相关文章</h4><p><a href="https://mp.weixin.qq.com/s/i8ClwpTGMB5cu0evrrZQGw" target="_blank" rel="noopener">算法粗略介绍：搜索与推荐中的深度学习匹配：推荐篇</a><br><a href="https://www.ibm.com/developerworks/cn/web/1103_zhaoct_recommstudy1" target="_blank" rel="noopener">探索推荐引擎内部的秘密</a><br><a href="https://zhuanlan.zhihu.com/c_188941548" target="_blank" rel="noopener">张俊林-推荐系统召回模型</a><br><a href="https://www.hrwhisper.me/machine-learning-fm-ffm-deepfm-deepffm/" target="_blank" rel="noopener">FM、FFM与DeepFM</a><br><a href="http://www.shuang0420.com/2017/03/13/论文笔记%20-%20Wide%20and%20Deep%20Learning%20for%20Recommender%20Systems/" target="_blank" rel="noopener">WDL论文笔记</a></p>
+        <h4 id="相关文章"><a href="#相关文章" class="headerlink" title="相关文章"></a>相关文章</h4><p><a href="https://mp.weixin.qq.com/s/i8ClwpTGMB5cu0evrrZQGw" target="_blank" rel="noopener">算法粗略介绍：搜索与推荐中的深度学习匹配：推荐篇</a><br><a href="https://www.ibm.com/developerworks/cn/web/1103_zhaoct_recommstudy1" target="_blank" rel="noopener">探索推荐引擎内部的秘密</a><br><a href="https://zhuanlan.zhihu.com/c_188941548" target="_blank" rel="noopener">张俊林-推荐系统召回模型</a><br><a href="https://www.hrwhisper.me/machine-learning-fm-ffm-deepfm-deepffm/" target="_blank" rel="noopener">FM、FFM与DeepFM</a><br><a href="http://www.shuang0420.com/2017/03/13/论文笔记%20-%20Wide%20and%20Deep%20Learning%20for%20Recommender%20Systems/" target="_blank" rel="noopener">WDL论文笔记</a><br><a href="https://zhuanlan.zhihu.com/p/37562283" target="_blank" rel="noopener">ESMM</a><br><a href="https://mp.weixin.qq.com/s/cMr_fi9xs1BT5wFWL0ZLzw" target="_blank" rel="noopener">CTR模型演进</a></p>
 <h4 id="算法分类"><a href="#算法分类" class="headerlink" title="算法分类"></a>算法分类</h4><ul>
 <li><p>分类方法1</p>
 <ul>
 <li>传统<ul>
-<li>协调过滤</li>
+<li>协同过滤</li>
 <li>矩阵分解(MF)</li>
 <li>因式分解机(FM)</li>
 </ul>
@@ -598,6 +602,39 @@
 </ul>
 </li>
 </ul>
+<h4 id="WDL"><a href="#WDL" class="headerlink" title="WDL"></a>WDL</h4><ul>
+<li><p>Wide and Deep Learning<br>简单来说，<font color="blue">人脑就是一个不断记忆（memorization）并且归纳（generalization）的过程</font>，而这篇论文的思想，就是将<font color="red">宽线性模型（Wide Model，用于记忆，下图左侧）和深度神经网络模型（Deep Model，用于归纳，下图右侧）结合</font>，汲取各自优势形成了 Wide &amp; Deep 模型用于推荐排序</p>
+<img src="/2019/03/26/rs/总结篇-推荐算法总结/resources/EE2B4D289C05BA7DAE1AB4E0D88A0D10.jpg">
+</li>
+<li><p>Wide Model<br>要理解的概念是 Memorization，主要是学习特征的共性或者说相关性，产生的推荐是和已经<font color="blue">有用户行为的物品直接相关的物品</font></p>
+<ul>
+<li>通过线性模型 + 特征交叉。所带来的Memorization以及记忆能力非常有效和可解释。但是Generalization（泛化能力）需要更多的人工特征工程</li>
+<li>用的模型是 逻辑回归(logistic regression, LR)，LR 的优点就是简单(simple)、容易规模化(scalable)、可解释性强(interpretable)。LR 的特征往往是二值且稀疏的(binary and sparse)</li>
+<li>总结一下，宽度模型的输入是用户安装应用(installation)和为用户展示（impression）的应用间的向量积（叉乘），模型通常训练 one-hot 编码后的二值特征<ul>
+<li>缺点：这种操作不会归纳出训练集中未出现的特征对</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Deep Model<br>要理解的概念是 Generalization，可以理解为<font color="blue">相关性的传递(transitivity)，会学习新的特征组合</font>，来提高推荐物品的多样性，或者说提供泛化能力(Generalization)</p>
+<font color="purple">我的理解就是要用DL能够学习各种未出现的特征组合能力，特征模型的泛化能力</font><br>- DNN几乎不需要特征工程。通过对低纬度的dense embedding进行组合可以学习到更深层次的隐藏特征<br>  - 泛化往往是通过学习 <font color="blue">low-dimensional dense embeddings</font> 来探索过去从未或很少出现的新的特征组合来实现的<br>  - 缺点是有点over-generalize（过度泛化）<br>    - 当query-item矩阵是稀疏并且是high-rank的时候（比如user有特殊的爱好，或item比较小众），很难非常效率的学习出低维度的表示。这种情况下，大部分的query-item都没有什么关系。但是dense embedding会导致几乎所有的query-item预测值都是非0的，<font color="blue">这就导致了推荐过度泛化，会推荐一些不那么相关的物品</font><br>  - 相反，linear model却可以通过<font color="red">cross-product transformation</font>来记住这些<font color="blue">exception rules</font>，而且仅仅使用了非常少的参数<br>- <font color="blue">所以WDL结合LR，这点和 LR 正好互补，因为 LR 只能记住很少的特征组合，能够帮助识别Deep Model中《所有 query-item pair 非零的预测》情况</font>
+</li>
+<li><p>两者区别与互补</p>
+<ul>
+<li>Memorization趋向于更加保守，推荐用户之前有过行为的items(只认识出现过的)</li>
+<li>generalization更加趋向于提高推荐系统的多样性（diversity）</li>
+<li>所以WDL结合LR，这点和 LR 正好互补，因为 LR 只能记住很少的特征组合，能够帮助识别Deep Model中《所有 query-item pair 非零的预测》情况</li>
+</ul>
+</li>
+<li><p>GP推荐系统的整体架构</p>
+<ul>
+<li>由两个部分组成,检索系统(或者说候选生成系统）和排序系统(排序网络)。</li>
+<li>首先，用 检索(retrieval) 的方法对大数据集进行初步筛选，返回最匹配 query 的一部分物品列表，这里的检索通常会结合采用 机器学习模型(machine-learned models) 和 人工定义规则(human-defined rules) 两种方法。从大规模样本中召回最佳候选集之后</li>
+<li>再使用 排序系统 对每个物品进行算分、排序，分数 P(y|x)。WDL 就是用在排序系统中<img src="/2019/03/26/rs/总结篇-推荐算法总结/resources/3122D99113950432B7C98420BD44982B.jpg">
+</li>
+</ul>
+</li>
+</ul>
 <h4 id="DeepFM"><a href="#DeepFM" class="headerlink" title="DeepFM"></a>DeepFM</h4><ul>
 <li><p>FM模型可以用神经网络进行表示</p>
 <img src="/2019/03/26/rs/总结篇-推荐算法总结/resources/2B105C5A04F5C58A4B7AB7B7113F3A85.jpg">
@@ -627,36 +664,35 @@
 </li>
 <li><p>类比DeepFFM<br>类似于FFM对于FM模型来说，划分了field，对于不同的field内积时采用对应的隐向量。同样可以把DeepFM进行进化为DeepFFM，<font color="blue">即将每一个field embedding为m个维度为k的隐向量</font>（m为field的个数）</p>
 </li>
-</ul>
-<h4 id="WDL"><a href="#WDL" class="headerlink" title="WDL"></a>WDL</h4><ul>
-<li><p>Wide and Deep Learning<br>简单来说，<font color="blue">人脑就是一个不断记忆（memorization）并且归纳（generalization）的过程</font>，而这篇论文的思想，就是将<font color="red">宽线性模型（Wide Model，用于记忆，下图左侧）和深度神经网络模型（Deep Model，用于归纳，下图右侧）结合</font>，汲取各自优势形成了 Wide &amp; Deep 模型用于推荐排序</p>
-<img src="/2019/03/26/rs/总结篇-推荐算法总结/resources/EE2B4D289C05BA7DAE1AB4E0D88A0D10.jpg">
-</li>
-<li><p>Wide Model<br>要理解的概念是 Memorization，主要是学习特征的共性或者说相关性，产生的推荐是和已经<font color="blue">有用户行为的物品直接相关的物品</font></p>
+<li><p>类比WDL</p>
 <ul>
-<li>通过线性模型 + 特征交叉。所带来的Memorization以及记忆能力非常有效和可解释。但是Generalization（泛化能力）需要更多的人工特征工程</li>
-<li>用的模型是 逻辑回归(logistic regression, LR)，LR 的优点就是简单(simple)、容易规模化(scalable)、可解释性强(interpretable)。LR 的特征往往是二值且稀疏的(binary and sparse)</li>
-<li>总结一下，宽度模型的输入是用户安装应用(installation)和为用户展示（impression）的应用间的向量积（叉乘），模型通常训练 one-hot 编码后的二值特征<ul>
-<li>缺点：这种操作不会归纳出训练集中未出现的特征对</li>
+<li>简单比较就是将WDL的LR部分替换为FM，FM比LR在特征组合上优势比较大，但也比LR复杂很多</li>
 </ul>
 </li>
 </ul>
-</li>
-<li><p>Deep Model<br>要理解的概念是 Generalization，可以理解为<font color="blue">相关性的传递(transitivity)，会学习新的特征组合</font>，来提高推荐物品的多样性，或者说提供泛化能力(Generalization)</p>
-<font color="purple">我的理解就是要用DL能够学习各种未出现的特征组合能力，特征模型的泛化能力</font><br>- DNN几乎不需要特征工程。通过对低纬度的dense embedding进行组合可以学习到更深层次的隐藏特征<br>  - 泛化往往是通过学习 <font color="blue">low-dimensional dense embeddings</font> 来探索过去从未或很少出现的新的特征组合来实现的<br>  - 缺点是有点over-generalize（过度泛化）<br>    - 当query-item矩阵是稀疏并且是high-rank的时候（比如user有特殊的爱好，或item比较小众），很难非常效率的学习出低维度的表示。这种情况下，大部分的query-item都没有什么关系。但是dense embedding会导致几乎所有的query-item预测值都是非0的，<font color="blue">这就导致了推荐过度泛化，会推荐一些不那么相关的物品</font><br>  - 相反，linear model却可以通过<font color="red">cross-product transformation</font>来记住这些<font color="blue">exception rules</font>，而且仅仅使用了非常少的参数<br>- <font color="blue">所以WDL结合LR，这点和 LR 正好互补，因为 LR 只能记住很少的特征组合，能够帮助识别Deep Model中《所有 query-item pair 非零的预测》情况</font>
-</li>
-<li><p>两者区别与互补</p>
+<h4 id="DCN"><a href="#DCN" class="headerlink" title="DCN"></a>DCN</h4><ul>
+<li><p>背景：<br>FM、DeepFM和Inner-PNN都是通过原始特征隐向量的内积来构建vector-wise的二阶交叉特征，这种方式有两个主要的缺点：</p>
 <ul>
-<li>Memorization趋向于更加保守，推荐用户之前有过行为的items(只认识出现过的)</li>
-<li>generalization更加趋向于提高推荐系统的多样性（diversity）</li>
-<li>所以WDL结合LR，这点和 LR 正好互补，因为 LR 只能记住很少的特征组合，能够帮助识别Deep Model中《所有 query-item pair 非零的预测》情况</li>
+<li>必须要穷举出所有的特征对，即任意两个field之间都会形成特征组合关系，而过多的组合关系可能会引入无效的交叉特征，给模型引入过多的噪音，从而导致性能下降。</li>
+<li>二阶交叉特征有时候是不够的，好的特征可能需要更高阶的组合。虽然DNN部分可以部分弥补这个不足，但bit-wise的交叉关系是晦涩难懂、不确定并且不容易学习的</li>
+<li>有没有可能引入更高阶的vector-wise的交叉特征，同时又能控制模型的复杂度，避免产生过多的无效交叉特征呢</li>
 </ul>
 </li>
-<li><p>GP推荐系统的整体架构</p>
+<li><p>概念</p>
 <ul>
-<li>由两个部分组成,检索系统(或者说候选生成系统）和排序系统(排序网络)。</li>
-<li>首先，用 检索(retrieval) 的方法对大数据集进行初步筛选，返回最匹配 query 的一部分物品列表，这里的检索通常会结合采用 机器学习模型(machine-learned models) 和 人工定义规则(human-defined rules) 两种方法。从大规模样本中召回最佳候选集之后</li>
-<li>再使用 排序系统 对每个物品进行算分、排序，分数 P(y|x)。WDL 就是用在排序系统中<img src="/2019/03/26/rs/总结篇-推荐算法总结/resources/3122D99113950432B7C98420BD44982B.jpg"></li>
+<li>bit-wise VS vector-wise<br>假设隐向量的维度为3维，如果两个特征(对应的向量分别为(a1,b1,c1)和(a2,b2,c2)的话）在进行交互时，交互的形式类似于f(w1 <em> a1 </em> a2,w2 <em> b1 </em> b2 ,w3 <em> c1 </em> c2)的话，此时我们认为特征交互是发生在元素级（bit-wise）上。如果特征交互形式类似于 f(w <em> (a1 </em> a2 ,b1 <em> b2,c1 </em> c2))的话，那么我们认为特征交互是发生在特征向量级（vector-wise）</li>
+<li>特征的显示隐式交叉（explicitly VS implicitly）<br>显式的特征交互和隐式的特征交互。以两个特征为例xi和xj，在经过一系列变换后，我们可以表示成 wij <em> (xi </em> xj)的形式，就可以认为是显式特征交互，否则的话，是隐式的特征交互</li>
+</ul>
+</li>
+<li><p>网络架构<br>DCN模型以一个嵌入和堆叠层(embedding and stacking layer)开始，接着并列连一个cross network和一个deep network，接着通过一个combination layer将两个network的输出进行组合<br>完整的网络模型如图：</p>
+<img src="/2019/03/26/rs/总结篇-推荐算法总结/resources/4DA07739DB6622637DB826CFD12F5613.jpg">
+</li>
+<li><p>嵌入和堆叠层<br>将sparse feature转换为Embedding vec，然后combin Dense feature，形成$x_0$</p>
+</li>
+<li>交叉网络<br>交叉网络（cross network）的核心思想是以有效的方式应用显式特征交叉。交叉网络由交叉层组成，每个层具有以下公式:<img src="/2019/03/26/rs/总结篇-推荐算法总结/resources/E14BAF5ABBD04A90B9F78C1CB2864234.jpg">
+<img src="/2019/03/26/rs/总结篇-推荐算法总结/resources/26B5ADC8BBB12A67B4124B16ADF0013C.jpg">
+<ul>
+<li>模型本质意义<img src="/2019/03/26/rs/总结篇-推荐算法总结/resources/B9124CC5B7C98905A4B63572B20C7DBF.jpg"></li>
 </ul>
 </li>
 </ul>
@@ -692,8 +728,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/03/24/finance/企业的发展与扩张/" rel="next" title="企业的发展与扩张系">
-                <i class="fa fa-chevron-left"></i> 企业的发展与扩张系
+              <a href="/2019/03/15/rl/强化学习基础算法对比总结/" rel="next" title="强化学习基础算法对比总结">
+                <i class="fa fa-chevron-left"></i> 强化学习基础算法对比总结
               </a>
             
           </div>
@@ -702,8 +738,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/03/26/finance/财务报表看企业竞争力/" rel="prev" title="财务报表看企业竞争力">
-                财务报表看企业竞争力 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/03/30/rs/总结篇-推荐系统架构/" rel="prev" title="总结篇-推荐系统架构">
+                总结篇-推荐系统架构 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -779,7 +815,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">77</span>
+                <span class="site-state-item-count">64</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -790,7 +826,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-count">18</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -801,7 +837,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-count">16</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -849,7 +885,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#相关文章"><span class="nav-number">1.</span> <span class="nav-text">相关文章</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#算法分类"><span class="nav-number">2.</span> <span class="nav-text">算法分类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#GBDT-LR"><span class="nav-number">3.</span> <span class="nav-text">GBDT+LR</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#协同过滤"><span class="nav-number">4.</span> <span class="nav-text">协同过滤</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MF"><span class="nav-number">5.</span> <span class="nav-text">MF</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SVD-MF-FISM-SVD"><span class="nav-number">6.</span> <span class="nav-text">SVD,MF,FISM,SVD++</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#FM"><span class="nav-number">7.</span> <span class="nav-text">FM</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MF到FM的转换理解"><span class="nav-number">8.</span> <span class="nav-text">MF到FM的转换理解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#FFM-Field-aware-FM"><span class="nav-number">9.</span> <span class="nav-text">FFM(Field-aware FM)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DeepFM"><span class="nav-number">10.</span> <span class="nav-text">DeepFM</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#WDL"><span class="nav-number">11.</span> <span class="nav-text">WDL</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#相关文章"><span class="nav-number">1.</span> <span class="nav-text">相关文章</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#算法分类"><span class="nav-number">2.</span> <span class="nav-text">算法分类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#GBDT-LR"><span class="nav-number">3.</span> <span class="nav-text">GBDT+LR</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#协同过滤"><span class="nav-number">4.</span> <span class="nav-text">协同过滤</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MF"><span class="nav-number">5.</span> <span class="nav-text">MF</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SVD-MF-FISM-SVD"><span class="nav-number">6.</span> <span class="nav-text">SVD,MF,FISM,SVD++</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#FM"><span class="nav-number">7.</span> <span class="nav-text">FM</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MF到FM的转换理解"><span class="nav-number">8.</span> <span class="nav-text">MF到FM的转换理解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#FFM-Field-aware-FM"><span class="nav-number">9.</span> <span class="nav-text">FFM(Field-aware FM)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#WDL"><span class="nav-number">10.</span> <span class="nav-text">WDL</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DeepFM"><span class="nav-number">11.</span> <span class="nav-text">DeepFM</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DCN"><span class="nav-number">12.</span> <span class="nav-text">DCN</span></a></li></ol></div>
             
 
           </div>

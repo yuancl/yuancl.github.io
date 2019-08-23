@@ -261,1179 +261,6 @@
   <section id="posts" class="posts-expand">
     
 	
-    
-	
-      	    
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/06/dl/第五门课-第三周/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="雷哥">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/favicon.ico">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="雷哥的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/06/dl/第五门课-第三周/" itemprop="url">第五门课-第三周</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-06T08:17:19+08:00">
-                2018-12-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/深度学习/" itemprop="url" rel="index">
-                    <span itemprop="name">深度学习</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/深度学习/吴恩达课程总结/" itemprop="url" rel="index">
-                    <span itemprop="name">吴恩达课程总结</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><a href="https://github.com/yuancl/dl-algorithm/tree/master/5-RecurrentNeuralNetworks/Week3/Machine-Translation" target="_blank" rel="noopener">习题代码:Machine-Translation</a><br><a href="https://github.com/yuancl/dl-algorithm/tree/master/5-RecurrentNeuralNetworks/Week3/Trigger-word-detection" target="_blank" rel="noopener">习题代码:Trigger-word-detection</a></p>
-<h4 id="序列结构的各种序列"><a href="#序列结构的各种序列" class="headerlink" title="序列结构的各种序列"></a>序列结构的各种序列</h4><ul>
-<li><p>seq2seq<br>分为编码网络的解码网络</p>
-<img src="/2018/12/06/dl/第五门课-第三周/resources/4A4F9C5B535DDB65265853ACD2EDC912.jpg">
-</li>
-<li><p>应用场景</p>
-<ul>
-<li>机器翻译，比如英文和法文的互相翻译</li>
-<li>Image-to-seq<br>例子中使用的AlexNet网络，将最后的softmax输出替换为RNN网络，输出为一个序列<img src="/2018/12/06/dl/第五门课-第三周/resources/49BD4A13FE8A1C4571A631492527A168.jpg">
-</li>
-</ul>
-</li>
-<li><p>选择最可能的句子</p>
-<ul>
-<li>语言模型和翻译模型比较<ul>
-<li>语言模型总是以零向量开始$(P(y^{&lt; 1 &gt;},y^{&lt; 2 &gt;},y^{&lt; 3 &gt;}…y^{&lt; n &gt;}))$</li>
-<li>而翻译模型输入是法语的encoder，可以理解为条件模型:$P(y^{&lt; 1 &gt;},y^{&lt; 2 &gt;},y^{&lt; 3 &gt;}…y^{&lt; n &gt;}|x^{&lt; 1 &gt;},x^{&lt; 2 &gt;},x^{&lt; 3 &gt;}…x^{&lt; n &gt;})$</li>
-<li>所以一个是随机输出seq，另一个是需要概率最大的seq<img src="/2018/12/06/dl/第五门课-第三周/resources/BB67CF9637B51A081225158E964A74BA.jpg"></li>
-<li>如何保证翻译模型中的条件概率最大<ul>
-<li>贪心算法：没一个输出都保证当前一个term($y^{&lt; i &gt;}$)概率最大，但是并不能保证<font color="red">整个序列概率最大</font>，所以一次挑选一个词并不是最佳的选择</li>
-<li>穷举法：将所有句子进行穷举测试，但由单词生成的句子量太大，无法穷举</li>
-<li>集束算法</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="集束算法-Beam-Search"><a href="#集束算法-Beam-Search" class="headerlink" title="集束算法(Beam Search)"></a>集束算法(Beam Search)</h4><ul>
-<li><p>集束算法</p>
-<ul>
-<li>贪婪算法只会挑出最可能的那一个单词，然后继续。而集束搜索则会考虑多个选择，选择数量就是集束宽(Beam width)</li>
-<li>第一步：<br>需要 输入法语句子到编码网络，然后会解码这个网络，这个 softmax 层(上图编号 3 所示)会输 出 10,000 个概率值，得到这 10,000 个输出的概率值，取前三个存起来</li>
-<li>第二步：<ul>
-<li>选择第一步中的一个词$P(y^{<2>}|x, y^{<1>})$如下图3，输入为第一步的输出和x</1></2></li>
-<li>不仅仅 是第二个单词有最大的概率，而是第一个、第二个单词对有最大的概率</li>
-<li>$P(y^{<1>},y^{<2>}|x)=P(y^{<1>}|x)P(y^{<2>}|x, y^{<1>})$</1></2></1></2></1></li>
-</ul>
-</li>
-<li>后面的步骤也是模仿第二步进行计算</li>
-<li>重复第二步，选择第一步中的其他词进行计算<img src="/2018/12/06/dl/第五门课-第三周/resources/09E08ACC8EC0182CF63C63DD96E9F0EC.jpg">
-<img src="/2018/12/06/dl/第五门课-第三周/resources/D81DFB526C95CD2E4362B500F8E26472.jpg"></li>
-<li>可以看见，如果集束宽为1，那么其实就是贪心算法</li>
-</ul>
-</li>
-<li><p>改进集束搜索</p>
-<ul>
-<li><p>问题1：$P(y^{<1>}|x)P(y^{<2>}|x, y^{<1>})$…..由于每一步概率值都小于0，所以比容易造成数值下溢，也就是导致电脑的浮点表示不能精确的存储</1></2></1></p>
-<ul>
-<li>解决方案：<br>我们总是记录概率的对数和，而不是概率的乘积，就用到了对数函数乘积的性质<img src="/2018/12/06/dl/第五门课-第三周/resources/A0E79789CBD92DE575602B479DAD35D3.jpg">
-</li>
-</ul>
-</li>
-<li><p>问题2：由于每一项乘积都小于1，并且目标函数是最大概率的输出，所以一般会偏向于比较短的句子，这样乘积项就比较少</p>
-<ul>
-<li>解决方案：<br>通过除以翻译结果的单词数量。这样就是取每个单词的概率对数值的平均了，这样很明显地 减少了对输出长的结果的惩罚</li>
-</ul>
-</li>
-<li><p>更柔和的方法：并不直接除以单词数，而是会乘上一个超参数a,比如a=0.7，如果a=1那么就相当于完全用长度来做归一化</p>
-</li>
-<li><p>集束宽选择<br>集束宽越大效果当然越好，但是计算也越复杂。在产品中，经常可以看到把束宽设到 10</p>
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="集束搜索误差分析"><a href="#集束搜索误差分析" class="headerlink" title="集束搜索误差分析"></a>集束搜索误差分析</h4><h4 id="Bleu得分"><a href="#Bleu得分" class="headerlink" title="Bleu得分"></a>Bleu得分</h4><ul>
-<li>背景：比如机器翻译会得到很多都不错的答案，那么如何选择呢？Bleu得分算法，就是解决这个问题，它做的是；给定一个机器生成的翻译，能够自动地计算一个分数来衡量好坏</li>
-</ul>
-<h4 id="注意力模型"><a href="#注意力模型" class="headerlink" title="注意力模型"></a>注意力模型</h4><ul>
-<li>背景：从Bleu评分可以看出，长句的效果比较差<img src="/2018/12/06/dl/第五门课-第三周/resources/37CDD1E8D8F3D180CB8C734953DD30E0.jpg"></li>
-<li><font color="blue">原理：模仿人工翻译，不会一次性把整个文章都读完再翻译，会读一部分内容，翻译一部分</font><ul>
-<li>下层的双向LSTM就是先跑所有的法语单词，然后形成context，看具体时间步的注意力需要多少前后关注做准备</li>
-</ul>
-</li>
-<li>理解：在计算当前时间步的时候，会花多少精力去关注多少当前词附近的词语<ul>
-<li>这些是注意力权重，即$a^{&lt;t,t’&gt;}$告诉你，当你尝试生成第𝑡个英文词，它应该花多少注意力在第𝑡个法语词上面。当生成一个 特定的英文词时，这允许它在每个时间步去看周围词距内的法语词要花多少注意力<img src="/2018/12/06/dl/第五门课-第三周/resources/EEBE423431B34A94171A26BDFA7882A4.jpg"></li>
-</ul>
-</li>
-<li><p>编程练习：</p>
-<ul>
-<li>将人工理解(Tuesday 09 Oct 1993)的日期翻译为机器理解的日期(1993-10-09)</li>
-<li>这里前一个时间步的输出不用喂给后一个输入，并不像前面练习的恐龙名字一样，前后两个单词是有关联的</li>
-<li>在训练过程中，每一个时间步的注意力长度是不一样的<img src="/2018/12/06/dl/第五门课-第三周/resources/691EABB718941C596A7B2C25AF3B853D.jpg"></li>
-<li><p>model：<br>总体分为2步，1：右边，one “Attention”如何计算,2:左边，整体的attention模型<br>In this part, you will implement the attention mechanism presented in the lecture videos. Here is a figure to remind you how the model works. The diagram on the left shows the attention model. The diagram on the right shows what one “Attention” step does to calculate the attention variables $\alpha^{\langle t, t’ \rangle}$, which are used to compute the context variable $context^{\langle t \rangle}$ for each timestep in the output ($t=1, \ldots, T_y$).</p>
-<img src="/2018/12/06/dl/第五门课-第三周/resources/2868A3ED41699CAA4210EAF9E26E0328.jpg">
-<p>Here are some properties of the model that you may notice: </p>
-<ul>
-<li><p>模型分两个LSTM层，下面一个双向LSTM根据前向后向计算的激活值a，然后匹配上各个时间步的注意力的长度，产出context，第二层LSTM是用context和前一个时间步的输出$S^{&lt; t-1 &gt;}$输出最终值<br>There are two separate LSTMs in this model (see diagram on the left). Because the one at the bottom of the picture is a Bi-directional LSTM and comes <em>before</em> the attention mechanism, we will call it <em>pre-attention</em> Bi-LSTM. The LSTM at the top of the diagram comes <em>after</em> the attention mechanism, so we will call it the <em>post-attention</em> LSTM. The pre-attention Bi-LSTM goes through $T_x$ time steps; the post-attention LSTM goes through $T_y$ time steps. </p>
-</li>
-<li><p>The post-attention LSTM passes $s^{\langle t \rangle}, c^{\langle t \rangle}$ from one time step to the next. In the lecture videos, we were using only a basic RNN for the post-activation sequence model, so the state captured by the RNN output activations $s^{\langle t\rangle}$. But since we are using an LSTM here, the LSTM has both the output activation $s^{\langle t\rangle}$ and the hidden cell state $c^{\langle t\rangle}$. However, unlike previous text generation examples (such as Dinosaurus in week 1), in this model the post-activation LSTM at time $t$ does will not take the specific generated $y^{\langle t-1 \rangle}$ as input; it only takes $s^{\langle t\rangle}$ and $c^{\langle t\rangle}$ as input. We have designed the model this way, because (unlike language generation where adjacent characters are highly correlated) there isn’t as strong a dependency between the previous character and the next character in a YYYY-MM-DD date. </p>
-</li>
-<li><p>We use $a^{\langle t \rangle} = [\overrightarrow{a}^{\langle t \rangle}; \overleftarrow{a}^{\langle t \rangle}]$ to represent the concatenation of the activations of both the forward-direction and backward-directions of the pre-attention Bi-LSTM. </p>
-</li>
-<li><p>The diagram on the right uses a <code>RepeatVector</code> node to copy $s^{\langle t-1 \rangle}$’s value $T_x$ times, and then <code>Concatenation</code> to concatenate $s^{\langle t-1 \rangle}$ and $a^{\langle t \rangle}$ to compute $e^{\langle t, t’}$, which is then passed through a softmax to compute $\alpha^{\langle t, t’ \rangle}$. We’ll explain how to use <code>RepeatVector</code> and <code>Concatenation</code> in Keras below. </p>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="语音模型"><a href="#语音模型" class="headerlink" title="语音模型"></a>语音模型</h4><ul>
-<li>CTC cost<ul>
-<li>背景：很多时候语音输入比输出会多很多，如何在RNN中相同输入输出的模型中使用呢？</li>
-<li>CTC 损失函数的一个基本规则是 将空白符之间的重复的字符折叠起来，再说清楚一些，我这里用下划线来表示这个特殊的空 白符(a special blank character)，这样就可以让输出和输入相同数量了</li>
-</ul>
-</li>
-</ul>
-<h4 id="触发字检测"><a href="#触发字检测" class="headerlink" title="触发字检测"></a>触发字检测</h4><ul>
-<li>生谱图特征得到特征向量$x^{<1>},x^{<2>,…}$</2></1></li>
-<li>训练集如何标注：检测到关键词的以后就标注为1，未检测到就标注为0<img src="/2018/12/06/dl/第五门课-第三周/resources/EBCF128EB7F18F6FFFC673EA682EAFE1.jpg"></li>
-<li>问题：这样导致0和1的数量很不平衡，简单的处理方式：比 起只在一个时间步上去输出 1，其实你可以在输出变回 0 之前，多次输出 1，或说在固定的 一段时间内输出多个 1</li>
-<li>练习题：<ul>
-<li>网络架构<img src="/2018/12/06/dl/第五门课-第三周/resources/3927A66C61616AB5B8F15E0F82790B80.jpg"></li>
-<li>首先通过生谱图将声音转换为特征向量</li>
-<li>然后开始使用了CNN，使5511时间步减小到1375，这个在RNN中大量减小了复杂大</li>
-<li>然后用两层RNN，进行0，1预测输出，注意并没有使用双向RNN，因为语音说完就要快速给出结果，并不是等10s说完后才给</li>
-<li>Here’s what you should remember:<ul>
-<li>Data synthesis is an effective way to create a large training set for speech problems, specifically trigger word detection. </li>
-<li>Using a spectrogram and optionally a 1D conv layer is a common pre-processing step prior to passing audio data to an RNN, GRU or LSTM.</li>
-<li>An end-to-end deep learning approach can be used to built a very effective trigger word detection system. </li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-	
-    
-	
-      	    
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/01/dl/第五门课-第二周/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="雷哥">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/favicon.ico">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="雷哥的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/01/dl/第五门课-第二周/" itemprop="url">第五门课-第二周</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-01T18:37:09+08:00">
-                2018-12-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/深度学习/" itemprop="url" rel="index">
-                    <span itemprop="name">深度学习</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/深度学习/吴恩达课程总结/" itemprop="url" rel="index">
-                    <span itemprop="name">吴恩达课程总结</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><a href="https://github.com/yuancl/dl-algorithm/tree/master/5-RecurrentNeuralNetworks/Week2" target="_blank" rel="noopener">习题代码:Operations-on-word- vectors</a></p>
-<h4 id="词嵌入"><a href="#词嵌入" class="headerlink" title="词嵌入"></a>词嵌入</h4><ul>
-<li>背景：one-hot的方式不能表示相近词之间的相似度，比如用语言模型得到 i want a glass of orange juice,如果换成 i want a glass of apple …，  如果是one-hot就不能得到好的结果</li>
-<li>原因：one-hot向量通常只有一位为非0，所以它们之间的内积为0，多维空间表示就是垂直的，没有相关性</li>
-<li>词嵌入：把之前的10000+维度的one-hot转换为300维的相关特征，把该词嵌入300维的空间中<img src="/2018/12/01/dl/第五门课-第二周/resources/C41732C6B42FCD3CC1C0DF349DDA0403.jpg">
-<img src="/2018/12/01/dl/第五门课-第二周/resources/A21F2659F855954FA841C05F9E5F0FB7.jpg"></li>
-<li>t-SNE算法，将多维空间映射到2为空间中，如上图左图</li>
-</ul>
-<h4 id="使用词嵌入-命名实体识别"><a href="#使用词嵌入-命名实体识别" class="headerlink" title="使用词嵌入(命名实体识别)"></a>使用词嵌入(命名实体识别)</h4><ul>
-<li>背景：Robert Lin is an apple farmer 与 Robert Lin is a durian cultivator(Robert Lin 是一个榴莲培育家)榴莲培育家训练样本很少包含该词，很可能不能做到命名实体的识别</li>
-<li>词嵌入做迁移学习优点及步骤<ul>
-<li>泛化性比较好</li>
-<li>先从大量的文本集中学习词嵌入。一个非常大的文本集，这个可以解决你的训练样本比较少，比如根本没有durian(榴莲)这个词汇的训练样本</li>
-<li>你可以用这些词嵌入模型把它迁移到你的新的只有少量标注训练集的任务中，比如说用这个300维的词嵌入来表示你的单词，比one-hot更低维</li>
-<li>是否进行微调？如果你有大量的训练数据集可以考虑微调已有的嵌入词</li>
-<li>通常迁移任务 A-&gt;B，通常是A中有大量数据集，B中只有少量数据集这种情况效果比较好<ul>
-<li>比如在机器翻译领域词嵌入用得比较少，原因就是我们有大量的翻译样本</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>词嵌入和人脸编码类比<ul>
-<li>相同点，都是通俗理解都是通过编码，得到标识一个物体的唯一向量</li>
-<li>不同点，词嵌入是固定的词汇，而人脸编码是给定任意的图片都可以进行编码<img src="/2018/12/01/dl/第五门课-第二周/resources/DA8D7754F10BE0DAA530258811F9AC1E.jpg">
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="词嵌入的特性"><a href="#词嵌入的特性" class="headerlink" title="词嵌入的特性"></a>词嵌入的特性</h4><ul>
-<li>类比推理<ul>
-<li>解决问题：man对应woman，那么king对应什么？</li>
-<li>目标函数：$e_{man}-e_{woman}\approx e_{king}-e_?$,也就是Find work w：argmax sim($e_w, e_{king}-e_{man}+e_{woman}$)</li>
-<li>实现算法：<ul>
-<li>该场景的四个词如果映射为二维空间，一般会是平行四边形，通常只有一维数据有一定差异<img src="/2018/12/01/dl/第五门课-第二周/resources/52B643F271BBA6B8880FF8C6499D3894.jpg"></li>
-<li>余弦相识度：<ul>
-<li>公式：sim(u,v)=$\frac{u^T*v}{||u||_2||v||_2}$=cos($\theta$)</li>
-<li>理解：两个向量之间的角度的余弦是衡量它们有多相似的指标，这里就是衡量两个词嵌入向量的相似度<img src="/2018/12/01/dl/第五门课-第二周/resources/CAD5599965AB00A4C6BFCD3BBFC387F5.jpg">
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="嵌入矩阵-Embedding-Matrix"><a href="#嵌入矩阵-Embedding-Matrix" class="headerlink" title="嵌入矩阵(Embedding Matrix)"></a>嵌入矩阵(Embedding Matrix)</h4><ul>
-<li>当你应用算法来学习词嵌入时，实际上是学习一个嵌入矩阵，我们的目标就是学习一个嵌入矩阵E</li>
-<li>有了嵌入矩阵，然后乘以one-hot向量，就能够得到$E*o_j=e_j$,$e_j$就是表示我们想要的词嵌入</li>
-<li>但实践中一般不会$E*o_j=e_j$,$e_j$这样计算，一般会有一个专门的函数来单独查找矩阵E的某列<img src="/2018/12/01/dl/第五门课-第二周/resources/C6433150B98AB53156F78848934AB4F2.jpg">
-</li>
-</ul>
-<h4 id="学习词嵌入"><a href="#学习词嵌入" class="headerlink" title="学习词嵌入"></a>学习词嵌入</h4><p>建立一个语言模型是学习词嵌入的好方法</p>
-<ul>
-<li>方法1：<br>$Eo_j=e_j$使用这种方法来学习词嵌入矩阵，训练集中有很多序列语句，然后放入神经网络中，来学习E，这种方法比较复杂，最后会有1800维300*6的向量进入隐藏层，然后进入10000维的softmax层<img src="/2018/12/01/dl/第五门课-第二周/resources/34DABF58D294A16191D22C8DED48AEBB.jpg"></li>
-<li>方法2(采用固定窗口)：<br>只取前4个词(作为一个窗口)来训练，用一个固定的历史窗口就意味着你可以处理任意长度的句子，因为输入的维度(1200)总是固定的<img src="/2018/12/01/dl/第五门课-第二周/resources/97D2B0D30C4C77C50ADF9A5BB86C1C70.jpg"></li>
-<li>方法3(前后数量不固定)<br>可以前后个4个词，<br>或者就附件一个词等(Skip-Gram思想)…<img src="/2018/12/01/dl/第五门课-第二周/resources/74CF627BF0907DB5F4DD4F0A47FC905E.jpg"></li>
-<li>总结：<br>如果你真想<font color="red">建立一个语言模型</font>，用目标词的前几个单词作为上下文是常见做法(上图编号9所示)。但如果你的<font color="red">目标是学习词嵌入</font>，那么你就可以用这些其他类型的上下文(上图编号10所示)，它们也能得到很好的词嵌入</li>
-</ul>
-<h4 id="Word2Vec"><a href="#Word2Vec" class="headerlink" title="Word2Vec"></a>Word2Vec</h4><p>上面都是讲的通过学习一个神经语言模型来得到更好的词嵌入，而<br>Word2Vec是更简单高效的方式来学习这种类型的嵌入</p>
-<ul>
-<li><p>Skip-Gram</p>
-<ul>
-<li>在 Skip-Gram模型中，我们要做的是抽取上下文和目标词配对，来构造一个<font color="red">监督学习问题</font><ul>
-<li>但是构造这个监督学习问题的目标并不是想要解决这个监督学习问题本身，而是想要使用这个学习问题来学到一个好的词嵌入模型<font color="red">(构建一个监督学习问题，实际想解决学习嵌入词模型)</font></li>
-</ul>
-</li>
-<li>步骤：我们随机选择一个词作为上下文c，然后在随机抽取一个词作为target y<font color="purple">(随机选择y，我理解只是重点强调这个算法本身，实际情况如果要训练得到一个好的词嵌入，必然是不能随机的，是需要选真实的y)</font>，然后就是建立x(c)–&gt;y的映射<ul>
-<li>c和E相乘，得到c的词嵌入向量，然后此向量通过softmax进行预测，最后和target建立Loss function来达到学习E的目的</li>
-</ul>
-</li>
-<li>softmax模型，预测不同目标词的概率:softmax:p(t|c)=$\frac{e^{\theta^{T}_{t}e_c}}{\sum^{10,000}_{j=1}e^{\theta{^T_je_c}}}$输出是10000(词典中单词数量)为的向量<ul>
-<li>$\theta_t$是一个与输出t有关的参数，即某个词t和标签相符的概率是多少</li>
-</ul>
-</li>
-<li>softmax损失函数：$L(\hat y,y)=-\sum^{10,000}_{i=1}y_ilog\hat y_i$ <font color="red">其中y是one-hot向量，$\hat y$是10.000维的各个词的预测输出概率</font><ul>
-<li><font color="red">这是softmax常有的损失模型</font>，$\hat y$是各个分类的概率，可以画一下log函数图形来理解该损失函数，如果$\hat y_i$为1，也就是第i个分类为概率为1，这个时候$L(\hat y,y)$就为0，损失值最小</li>
-<li><font color="red">直观理解损失函数</font>：<font color="blue">就是y和$\hat y$都是10000维的，Loss计算就是分别将这两个向量做”内积”，要使”内积”最小，假设第i维，$y_i=1$这个时候softmax的输出$\hat y_i=1$-&gt;$\log\hat y_i=0$(就是所第i维也正是softmax输出最大的分类的概率)-&gt;$y_i\log\hat y_i=0$-&gt;Loss最小</font></li>
-</ul>
-</li>
-<li>缺点(problem)：<br>在 softmax 模型中，每次你想要计算这个概率，你需要对你词汇表中的所有 10,000 个词做求和计算</li>
-<li>优化方案：<ul>
-<li>分级softmax分类器：不用一下子告诉属于10,000类中的哪一类，可以先告诉属于左边的5000中的一类还是右边5000中的，然后是2500….,这样来构造一颗分类树<img src="/2018/12/01/dl/第五门课-第二周/resources/95F9428AAE4FEA373515DBC5F8A622B8.jpg">
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>CBOW模型</p>
-<ul>
-<li>不同版本的 Word2Vec模型，Skip-Gram只是其中的一个，另一个叫做 CBOW，即连续词袋模型(Continuous Bag-Of-Words Model)，它获得中间词两边的的上下 文，然后用周围的词去预测中间的词</li>
-<li><font color="red">CBOW 是从原始语句推测目标字词;而Skip-Gram正好相反，是从目标字词推 测出原始语句</font></li>
-<li>CBOW对小型数据库比较合适，而Skip-Gram在大型语料中表现更好<img src="/2018/12/01/dl/第五门课-第二周/resources/FF2E1F1A0F94A8221B8B801595C6D5EC.jpg">
-</li>
-</ul>
-</li>
-<li><p>负采样(Negative Sampling)</p>
-<ul>
-<li>背景：之前的softmax分类器中，解决每次都要计算所有样本的问题</li>
-<li>Model：选择一个正样本和K个负样本，将softmax的分类转化为一系列二分类问题，只计算其中的正负样本的二分类问题<ul>
-<li>正负样本作为输入x，然后用$P(y=1|c,t)=sigmoid(\theta^T_te_c)$进行二分类计算<img src="/2018/12/01/dl/第五门课-第二周/resources/7D0E816C9C5C70572D286ADC59924886.jpg"></li>
-</ul>
-</li>
-<li>负样本k的选取<ul>
-<li>语库中的经验频率进行采样，这种会有很多like，the等高频词出现</li>
-<li>另一个极端就是1除以词汇表总词数，均匀的抽取样本，但这样对英语单词的分布是没有代表性的</li>
-<li>采用一种处于完全独立分布和训练集的观测分布两个极端之间<img src="/2018/12/01/dl/第五门课-第二周/resources/5A531D6FD207171B174D364AF500C77F.jpg">
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="Glove-Glove-word-vectors"><a href="#Glove-Glove-word-vectors" class="headerlink" title="Glove(Glove word vectors)"></a>Glove(Glove word vectors)</h4><ul>
-<li>定义：定义上下文和目标词为任意两个位置相近的单词，假设是左右各 10 词的距离，那么$X_{ij}$就是一个能够获取单词𝑖和单词𝑗出现位置相近时或是彼此接近的频率的计数器。</li>
-<li>Glove模型就是进行优化，将他们之间的差距最小化处理<ul>
-<li><font color="blue">就是通过一种优化方法，对目前方程进行优化，从而间接学习到词嵌入矩阵</font><img src="/2018/12/01/dl/第五门课-第二周/resources/E4BFB45184A8FE9F410D8920BDD53ED4.jpg"></li>
-</ul>
-</li>
-<li>函数f选择原则：对加权函数f的选择有着启发性的原则，就是既不给这些词(this，is，of，a)过分的权重，也不给这些不常用词(durion)太小的权值</li>
-<li>问题：<ul>
-<li>你不能保证嵌入向量的独立组成部分是能够理解的</li>
-<li>你不能保证这些用来表示特征的轴能够等同于人类可能简单理解的轴，具体而言，第一个特征 可能是个Gender、Roya、Age、Food Cost 和 Size的组合<font color="red">(并不是我们所理解的单纯的Gender维)</font>，它也许是名词或是一个行为动词 和其他所有特征的组合，所以很难看出独立组成部分<img src="/2018/12/01/dl/第五门课-第二周/resources/31256B83B3F1A2CF14D942BFECB3ADFB.jpg">
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="情感分类"><a href="#情感分类" class="headerlink" title="情感分类"></a>情感分类</h4><ul>
-<li>定义：情感分类任务就是看一段文本，然后分辨这个人是否喜欢他们在讨论的这个东西</li>
-<li>简单模型：采用的是平均值单元，适合任意长度的评论<ul>
-<li><font color="blue">重点理解词嵌入应用的思想：将单词通过词嵌入矩阵得到词嵌入，简单理解为将字符或者是单词映射为数值的一种方法，然后使用End-to-End思想，通过softmax就直接预测输出</font><img src="/2018/12/01/dl/第五门课-第二周/resources/3769B484BF94E06ABF4038346AA63078.jpg"></li>
-<li>问题：没有考虑词序，<font color="red">因为均值模型就是把各个单词各个维数值相加然后再平均</font><ul>
-<li>比如not good,或者 good…not ,就不能区分了</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>RNN模型解决词序问题 <ul>
-<li>此模型是一个one-many的模型<ul>
-<li><font color="blue">直观理解就是，RNN本身就是有一个词一个词有顺序的输入，上一个词对下一个词有影响，所以就能够反映词序问题</font><img src="/2018/12/01/dl/第五门课-第二周/resources/62FD68B5D4C30C44B61209A772F5BD86.jpg">
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="词嵌入除偏"><a href="#词嵌入除偏" class="headerlink" title="词嵌入除偏"></a>词嵌入除偏</h4><ul>
-<li>定义：比如通过词嵌入，Man:Computer Programmer， 同时输出 Woman:Homemaker</li>
-<li><font color="blue">解决方法：主要是在词向量中寻找出哪些维度的偏见相关的维度(bias axis)，然后在这些维度上进行调整</font></li>
-<li><font color="blue">重点理解：单词到词向量的映射，实际上就是映射到n维空间(n为词向量矩阵)中的一个点,然后看点与点之间的距离来判断词与词之间的相似度</font></li>
-<li><p><font color="red">达到目的：让无性别的词到有性别的词的点的距离是相等的,比如Computer Programmer,doctor分别到man,woman的距离是相等的</font></p>
-<ul>
-<li>找出偏见趋势<ul>
-<li>确定哪些轴(哪些维度)，对于性别歧视这种情况来说，我们能做的是$e_{he} − e_{she}$，因为它们的性别不同，然后 将$e_{male}−e_{female}$，然后将这些值取平均(上图编号2所示)，将这些差简单地求平均。这个趋势(上图编号3所示)看起来就是性别趋势或说是偏见趋势<ul>
-<li>non bias就是垂直于偏见轴的方向<img src="/2018/12/01/dl/第五门课-第二周/resources/FE259E9589DE8B2F3259660CB076E522.jpg"></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>中和步骤：某些无性别歧视的词语，让他们在non bias轴上进行靠拢，尽量减少映射在bias轴上的距离来减少性别歧视问题</p>
-<ul>
-<li>比如Computer Programmer,doctor应该是无性别关系的，所以应该尽量靠近non bias轴，<font color="blue">这样的理想效果就是到达空间中man和woman的点距离是相等的</font><img src="/2018/12/01/dl/第五门课-第二周/resources/761E18C6CBBE247CE32CCD5CE15F5E54.jpg">
-</li>
-</ul>
-</li>
-<li><p>均衡步：<br>让有偏见的词进行，移动与中轴线等距的一些点上，这样让它们在bias轴上都有一致的相似度，图中由1移到图2的两点</p>
-<ul>
-<li><font color="blue">直观理解：也是为了让无偏见词，比如上面说的Computer Programmer,doctor达到分性别关系的词man,woman距离相等</font><img src="/2018/12/01/dl/第五门课-第二周/resources/18EA7A252EAD3B3F90796A808AAAC7F5.jpg">
-<ul>
-<li>经过统计这种偏见词实际上是很少的，需要均衡的词是很少的</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-	
-    
-	
-    
-	
-      	    
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/27/dl/第五门课-第一周/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="雷哥">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/favicon.ico">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="雷哥的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/27/dl/第五门课-第一周/" itemprop="url">第五门课-第一周</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-27T08:37:09+08:00">
-                2018-11-27
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/深度学习/" itemprop="url" rel="index">
-                    <span itemprop="name">深度学习</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/深度学习/吴恩达课程总结/" itemprop="url" rel="index">
-                    <span itemprop="name">吴恩达课程总结</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>[习题练习]<br><a href="https://github.com/yuancl/dl-algorithm/commit/76c81b18acdc941663d3c59cced76bf837384958" target="_blank" rel="noopener">Building+a+Recurrent+Neural+Network+-+Step+by+Step,主要讲是一步一步构建RNN基础网络和LSTM网络，理解运作原</a><br><a href="https://github.com/yuancl/dl-algorithm/tree/master/5-RecurrentNeuralNetworks/Week1/dinosaurus-island" target="_blank" rel="noopener">dinosaurus-island(character-level language model,练习使用基础RNN模型或者LSTM模型，学习一些文本，然后生成新的文)</a><br><a href="https://github.com/yuancl/dl-algorithm/tree/master/5-RecurrentNeuralNetworks/Week1/Jazz-improvisation-with-LSTM" target="_blank" rel="noopener">Improvise-music with an LSTM network,主要使用LSTM网络生成音</a></p>
-<h3 id="循环神经网络基础"><a href="#循环神经网络基础" class="headerlink" title="循环神经网络基础"></a>循环神经网络基础</h3><h4 id="RNN背景"><a href="#RNN背景" class="headerlink" title="RNN背景"></a>RNN背景</h4><ul>
-<li>什么是序列问题？<br>比如语音识别，输入是一段音频，要求输出是一段文字Y。或者情感分析，输入评论，要求输出几颗星等。本质输入都是一段序列内容，其实就是X-&gt;Y的映射问题</li>
-<li>序列问题特点？<br>可以看见，有些序列问题X,Y长度一致，有些不一致…</li>
-<li>为什么不用标准神经网络处理序列问题：<ul>
-<li>输入输出不定长</li>
-<li>序列上一些位置已经学到的文本信息内容不能在其他位置共享<ul>
-<li>比如如果神经网络已经学习到了在位置 1 出现的 Harry 可能是人名的一部分，那么如果 Harry 出现在其他位置，比如$x^{&lt; t &gt;}$时，它也能够<font color="blue">自动识别其为人名的一部分的话</font>，这就很棒了。这可能类似于你在卷积神经网络中看到的,<font color="red">你希望将部分图片里学到的内容快速推广到图片的其他部分</font>，而我们希望对序列数据也有相似的效果。和你在卷积网络中学到的类似，用一个更好的表达方式也能够让你减少模型中参数的数量</li>
-<li>RNN传递一个激活值到下一个时间步中进行计算，所以能够解决这个问题，适用于序列问题<img src="/2018/11/27/dl/第五门课-第一周/resources/5E6CE23C6A2573459E4A0E31A919B9B9.jpg"></li>
-</ul>
-</li>
-</ul>
-</li>
-<li>注意项：<ul>
-<li>$a^{<0>}$通常使用零向量作为零时刻的伪激活值</0></li>
-<li>注意多种不同的参数$W_{ax},W_{aa},W_{ya}$<img src="/2018/11/27/dl/第五门课-第一周/resources/EE130B0446706C75A520D2DA216849A0.jpg">
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="前向后向计算"><a href="#前向后向计算" class="headerlink" title="前向后向计算"></a>前向后向计算</h4><ul>
-<li>RNN cell<img src="/2018/11/27/dl/第五门课-第一周/resources/E522B44F0437902AC27802C6327A1E05.jpg"></li>
-<li><p>前向传播</p>
-<ul>
-<li>t时刻：<br>$a^{&lt; t &gt;}=g_1(W_{aa}a^{t-1} + W_{ax}x^{t} + b_a)$<br>$\hat y^{t} = g_2(W_{ya}a^{&lt; t &gt;} + b_y)$</li>
-<li>激活函数通常使用tanh，y输出激活函数视情况而定<img src="/2018/11/27/dl/第五门课-第一周/resources/65006F27B61C583E368EE798ADB80414.jpg">
-</li>
-</ul>
-</li>
-<li><p>后向传播</p>
-<ul>
-<li>对于一个元素的损失函数：<br>$L^{&lt; t &gt;}(\hat y^{&lt; t &gt;},y^{t}) = -y^{&lt; t &gt;}log\hat y^{&lt; t &gt;} - (1-y^{&lt; t &gt;})log(1-\hat y^{&lt; t &gt;})$</li>
-<li>整体序列的损失函数，就是将各时间步的损失值函数相加<br>$L(\hat y,y) = \sum_{t-1}^{T_x}L^{&lt; t &gt;}(\hat y^{&lt; t &gt;},y^{t})$<img src="/2018/11/27/dl/第五门课-第一周/resources/4D96ADA1B3420E7CC0849AA6FC92D737.jpg"></li>
-<li>同样也是使用bp算法求偏导，进行后向计算，不用的是RNN会有多个输出$\hat y$<img src="/2018/11/27/dl/第五门课-第一周/resources/B12CDA828E7D580472ABDA550A3FA40A.jpg">
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="不同类型的RNN"><a href="#不同类型的RNN" class="headerlink" title="不同类型的RNN"></a>不同类型的RNN</h4><ul>
-<li>输入输出长度分类：<ul>
-<li>many-to-many：机器翻译</li>
-<li>many-to-one：情感分类</li>
-<li>one-to-one：小型标准神经网络<img src="/2018/11/27/dl/第五门课-第一周/resources/9865F55A9CD63F0A3BAFBC9F28380036.jpg"></li>
-<li>one-to-many：音乐作曲<img src="/2018/11/27/dl/第五门课-第一周/resources/23C80D48C0008D0B3730BC7EE8A8A6E8.jpg">
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="语言模型和序列生成"><a href="#语言模型和序列生成" class="headerlink" title="语言模型和序列生成"></a>语言模型和序列生成</h4><ul>
-<li><p>语言模型:语言模型就是它会告诉你某个特定的句子它出现的概率是多少</p>
-<ul>
-<li>语言模型做的最基本工作就是输入一个句子，准确地说是一个文本序列,然后语言模型会估计某个句子序列中各个单词出现的可能性。</li>
-</ul>
-</li>
-<li><p>RNN模型基础结构</p>
-<ul>
-<li>将每个单词都转换成对应的one-hot向量，也就是词典中的索引，其中也要注意EOS(结尾符),UNK(未知单词),标点符号</li>
-<li>每一层$\hat y$的输出，都是预测该层输入词在字典中出现的概率</li>
-<li>最后的输出是每层条件概率的乘积<img src="/2018/11/27/dl/第五门课-第一周/resources/0499490A2E7A743A094E4A97B5DB3E28.jpg">
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="对新序列采样"><a href="#对新序列采样" class="headerlink" title="对新序列采样"></a>对新序列采样</h4><ul>
-<li>作用：一个序列模型之后，要想了解到这个模型学到了什么，一种非正式的方法就是对新序列采样</li>
-<li>方法：序列模型模拟了任意特定单词序列的概率，我们要做的就是对这些<font color="red">概率分布</font>进行采样来生成一个新的单词序列</li>
-<li>如何结束：1.字典中有EOS，2.时间步的多少</li>
-<li>基于词汇和字符的模型，各有优缺点</li>
-</ul>
-<h4 id="RNN中的梯度问题"><a href="#RNN中的梯度问题" class="headerlink" title="RNN中的梯度问题"></a>RNN中的梯度问题</h4><ul>
-<li>梯度消失：<ul>
-<li>网络的输出$\hat y$得到的梯度很难传播回去，很难影响靠前层的权重，很难影响前面层(编号 5 所示的层)的计算<img src="/2018/11/27/dl/第五门课-第一周/resources/81FC8B8F333615A20A24E065D6ED2A80.jpg"></li>
-<li>基础RNN也同样存在这个问题：前一层名词的单复数和难影响到厚层的动词单复数，很难传递(也是因为输出很难传到前层)</li>
-<li>如何解决：<font color="blue">看后面的GRU和LSTM</font></li>
-</ul>
-</li>
-<li>梯度爆炸：<ul>
-<li>比较容易发现，比如看见很多NaN，或者不是数字的情况，意味着数值溢出</li>
-<li>解决方法：梯度修剪，就是观察你的梯度向量，如果它大于某个阈 值，缩放梯度向量，保证它不会太大，这就是通过一些最大值来修剪的方法，并且具有好的鲁棒性</li>
-</ul>
-</li>
-</ul>
-<h3 id="GRU-门控制单元"><a href="#GRU-门控制单元" class="headerlink" title="GRU(门控制单元)"></a>GRU(门控制单元)</h3><h4 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h4><ul>
-<li>新增变量：记忆细胞cell<ul>
-<li>计算逻辑：如下图3标记中，$\hat C^{&lt; t &gt;} = tanh(W_c[C^{&lt; t-1 &gt;}, x^{&lt; t &gt;}] + b_c)$</li>
-<li>作用：提供了记忆的能力，比如说一只猫是单数还是复数，所以当它看到之后的句子的时候，它仍能够判断句子的主语是单数还是复数</li>
-</ul>
-</li>
-<li>新增变量：门控制变量<ul>
-<li>计算逻辑：如下图3标记中，$\Gamma _u^{&lt; t &gt;} = tanh(W_u[C^{&lt; t-1 &gt;}, x^{&lt; t &gt;}] + b_u)$</li>
-<li>作用：决定什么更新记忆细胞，是由sigmoid激活，如果为1，才更新C值，所以前面层次的值就可以一直保持到后面<img src="/2018/11/27/dl/第五门课-第一周/resources/50749AC4B17773F4D8BC728B49BD2529.jpg"></li>
-</ul>
-</li>
-<li><p>记忆细胞更新逻辑：<br>如下图5标记中,逻辑门为1才更新C值(或者接近1值，新值C的权重更大)<br>$C^{&lt; t &gt;} = \Gamma _u<em>\hat C^{&lt; t &gt;} + (1-\Gamma _u)</em> C^{&lt; t-1 &gt;}$</p>
-</li>
-<li><p>如何有效控制梯度消失问题<br>因为 sigmoid的值，现在因为门很容易取到 0 值，只要这个值是一个很大的负数, $\Gamma_u$值很容易为0，这种情况，就会变成$C^{&lt; t &gt;}=C^{&lt; t-1 &gt;}$，所以记忆细胞的值很好的被维持了。<font color="red">这就是缓解梯度消失的关键</font></p>
-</li>
-</ul>
-<h4 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h4><ul>
-<li>同时记忆细胞c可以是多维向量，这样可以记忆很多的内容</li>
-<li>通过完成的GRU还会有一个相关门:这个相关门告诉你计算出的候选值$\hat C$和$C^{&lt; t-1 &gt;}$有多大的相关性</li>
-<li>$\Gamma _r^{&lt; t &gt;} = tanh(W_r[C^{&lt; t-1 &gt;}, x^{&lt; t &gt;}] + b_r)$<img src="/2018/11/27/dl/第五门课-第一周/resources/FC1F67CE7DCFC22BF11941ED49367937.jpg">
-</li>
-</ul>
-<h3 id="LSTM-Long-short-term-memory"><a href="#LSTM-Long-short-term-memory" class="headerlink" title="LSTM(Long short term memory)"></a>LSTM(Long short term memory)</h3><h4 id="基础-1"><a href="#基础-1" class="headerlink" title="基础"></a>基础</h4><ul>
-<li>LSTM-cell<img src="/2018/11/27/dl/第五门课-第一周/resources/77E989F6FDDCB09EB5933E4BDEBA51EF.jpg"></li>
-<li>遗忘门($\Gamma_f$)，让记忆细胞去选择更新新的候选值还是遗忘旧的值<br>$C^{&lt; t &gt;} = \Gamma_u<em>\hat C^{&lt; t &gt;} + (1-\Gamma_f)</em> C^{&lt; t-1 &gt;}$</li>
-<li>输出门($\Gamma_o$), $a^{&lt; t &gt;} = \Gamma_o*tanh(c^{&lt; t &gt;})$</li>
-<li><p>LSTM重要公式及前向传播：</p>
-<img src="/2018/11/27/dl/第五门课-第一周/resources/30F5B97C5D3CB3434341F30985EE7EFB.jpg">  
-</li>
-<li><p>反向传播：就是BP算法，由后向前，对每一个参数求偏导数，对门$\Gamma$,参数W,偏置b，以及最后的隐藏状态，记忆细胞，输入x</p>
-</li>
-<li>GRU与LSTM<br>都能够捕获更加深层的神经网络，GRU的优点是比LSTM简单一点的模型，只有两个门，在计算上也运行得更快。但LSTM在历史上是更优的选择</li>
-</ul>
-<h3 id="双向RNN"><a href="#双向RNN" class="headerlink" title="双向RNN"></a>双向RNN</h3><ul>
-<li>背景：有些场景不仅需要参考过去，还应该参考未来<img src="/2018/11/27/dl/第五门课-第一周/resources/7AFE741D0C96EA2412793884699E29E2.jpg">
-<img src="/2018/11/27/dl/第五门课-第一周/resources/549D1FAC5CCCD530211F4855989CC5E3.jpg"></li>
-<li>缺点：总数需要一段完整的内容<ul>
-<li>NLP一般就比较适合，应该经常能够获得完整的文章</li>
-<li>语音翻译等就不是很适合了，因为要获得已经完整的一段话语通常不是很现实</li>
-</ul>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-	
-    
-	
-      	    
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/26/dl/第四门课-第四周/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="雷哥">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/favicon.ico">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="雷哥的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/26/dl/第四门课-第四周/" itemprop="url">第四门课-第四周</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-26T08:37:09+08:00">
-                2018-11-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/深度学习/" itemprop="url" rel="index">
-                    <span itemprop="name">深度学习</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/深度学习/吴恩达课程总结/" itemprop="url" rel="index">
-                    <span itemprop="name">吴恩达课程总结</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><a href="https://github.com/yuancl/dl-algorithm/tree/master/4-ConvolutionNeuralNetworks/Week4" target="_blank" rel="noopener">习题代码:Face-Recognition and Neural-Style-Transfer</a></p>
-<h4 id="人脸识别-Siamese网络"><a href="#人脸识别-Siamese网络" class="headerlink" title="人脸识别(Siamese网络)"></a>人脸识别(Siamese网络)</h4><ul>
-<li><p>一般分为验证和识别两步</p>
-<img src="/2018/11/26/dl/第四门课-第四周/resources/59203AFA4B9EBA77787F62DF55CCD80C.jpg">
-</li>
-<li><p>One-shot learning</p>
-<ul>
-<li>背景：人脸识别的train是很少的图片，并且一般只给你一张图片你就得识别出来，并不是想普通的图片识别一样，有很多的样本。比如新加入的新同事，之前并没有样本</li>
-<li>方法：和图片库已有的少量图片做相似度比较<img src="/2018/11/26/dl/第四门课-第四周/resources/D07A181DC5C9F521AD454FF2F5DB4806.jpg"></li>
-<li><font color="blue">如何实现：可以使用Siamese network</font>
-</li>
-</ul>
-</li>
-<li><p>Siamese network</p>
-<ul>
-<li>将图片映射为n维向量，将$f(x^{(1)})$看做是$x^{(a)}$的编码，然后通过比较不同图片的编码的差别来区分是否是同一个人<img src="/2018/11/26/dl/第四门课-第四周/resources/2DAAF788ADC4B402DF7D4E839D3C9EB2.jpg"></li>
-<li><font color="red">那么怎么判断输出的图片编码好与差呢？</font>可以使用下面的三元组(Triplet)损失函数达到目的</li>
-</ul>
-</li>
-<li><p>Triplet损失 </p>
-<ul>
-<li>定义：需要Anchor图片，Postive图片，Negative图片，简写为A,P,N</li>
-<li>避免网络输出无用,有一个$\alpha$超参数，控制A,P和A,N之间的差距<br>$||f(A)-f(P)||^2 - ||f(A)-f(N)||^2 + \alpha &lt;= 0$</li>
-<li>Loss function<br>如果目标已经ok，那么值为0，<font color="blue">可以看见各种场景只需要找到合适的损失函数，然后下面的步骤都类似(用梯度下降等方法求出极值)</font><br>L(A,P,N)=max($||f(A)-f(P)||^2 - ||f(A)-f(N)||^2 + \alpha$, 0)</li>
-<li>训练数据需要注意的地方   <ul>
-<li>需要注意训练集的对一个人需要多张照片，至少要满足Anchor,Posistion</li>
-<li>尽量选择d(A,P)$\approx$d(A,N),这样能够学习到更多内容，如果差别太大，很容易判断，不能学习到有效数据</li>
-</ul>
-</li>
-<li>算法步骤：<ul>
-<li><font color="red">目的，学习到一种好的编码映射f(x)</font></li>
-<li>1.定义好A,P,N数据集</li>
-<li>2.用梯度下降最小化我们之前定义的代价函数J<ul>
-<li>这样做的效果就是用反向传播来学习到一种编码方式，如果是同一个人，那么d就很小，如果是不同的人，那么d就会很大</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="面部识别与二分类-Siamese变种"><a href="#面部识别与二分类-Siamese变种" class="headerlink" title="面部识别与二分类(Siamese变种)"></a>面部识别与二分类(Siamese变种)</h4><ul>
-<li>原始Siamese网络是直接计算编码的L2距离，这里可以将编码经过激活函数，比如sigmoid的处理，来实现分类的目的</li>
-<li>$\hat y = sigmoid(\sum_{(k=1)}^{128}w_i|f(x^{(i)})_k - f(x^{(j)})_k|+b)$,当然$|f(x^{(i)})_k - f(x^{(j)})_k|$这一部分还可以替换为其他的相似度计算方法，比如$\chi$平方相似度</li>
-<li>还注意下它的输入为成对图片的输入，比如两张同一个人的照片，输出为1。两种不同人的照片，输出就为0<img src="/2018/11/26/dl/第四门课-第四周/resources/DC9EB83890ACAA8FCA96AF8A07C166A4.jpg">
-</li>
-</ul>
-<h4 id="神经风格转换"><a href="#神经风格转换" class="headerlink" title="神经风格转换"></a>神经风格转换</h4><ul>
-<li>什么是神经风格转换<img src="/2018/11/26/dl/第四门课-第四周/resources/A479680115E29544AEF55839D4671529.jpg"></li>
-<li>什么是深度卷积网络<font color="red">(需要直观感受到不同层次的网络提取的特征,深层和前层是如何计算的)</font><ul>
-<li>相关概念<ul>
-<li><font color="red">一个神经元就表示一个filter的及输出，在输出中就表示一个通道，也代表一个特征</font>，经常会有多个通道，就是多种filter，代表不同的特征</li>
-<li>神经单元激活最大化，比如激活函数是sigmoid，我理解只有在边界两端的值，才能有更明确的分类结果，相应的特征表现也最好</li>
-</ul>
-</li>
-<li>各层的特征<ul>
-<li>第一层：主要表现对一些线条，边缘或者特点的颜色等低维特征比较感兴趣<img src="/2018/11/26/dl/第四门课-第四周/resources/4EB5702B957B35A026CF83308BB2ADD1.jpg"></li>
-<li>第二层：通常能够看到图片更大的区域，能够检测到更复杂的模型<img src="/2018/11/26/dl/第四门课-第四周/resources/B0FF90770CA0E83194E5F21A951F11DE.jpg"></li>
-<li>后面的第三层，第四层….等就能够检测到更具体的事物了<img src="/2018/11/26/dl/第四门课-第四周/resources/B887BCA060D13B6570ADED0664D12697.jpg">
-<img src="/2018/11/26/dl/第四门课-第四周/resources/9C880AA1D1D811C893B543198F80C5FA.jpg">
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="神经风格迁移系统的-Cost-function"><a href="#神经风格迁移系统的-Cost-function" class="headerlink" title="神经风格迁移系统的(Cost function)"></a>神经风格迁移系统的(Cost function)</h4><p>要构造一个神经风格迁移系统，我们需要给生成的图像定义一个代价函数</p>
-<ul>
-<li>J(G)=$\alpha J_{content}(C,G) + \beta J_{stype}(S,G)$</li>
-<li>内容代价函数:<font color="red">就是计算原始图片和生成图片的某一层的激活值的相似度</font><ul>
-<li>选取一个预训练模型，比如是VGG卷积模型</li>
-<li>选取中间层l，一般不会太深，也不好太浅</li>
-<li>计算一对一对的训练数据(一张原始图片，一张生成图片)，分别计算在l层的激活值，然后对比他们的相似度(可以用L2范数)</li>
-<li>$J_{content}(C,G)=\frac{1}{2}||a^{[l][C]}-a^{[l][G]}||^2$</li>
-</ul>
-</li>
-<li>下面是风格代价函数的介绍</li>
-<li><strong>What you should remember</strong>:<ul>
-<li>Neural Style Transfer is an algorithm that given a content image C and a style image S can generate an artistic image</li>
-<li>It uses representations (hidden layer activations) based on a pretrained ConvNet. </li>
-<li>The content cost function is computed using one hidden layer’s activations.</li>
-<li>The style cost function for one layer is computed using the Gram matrix of that layer’s activations. The overall style cost function is obtained using several hidden layers.</li>
-<li>Optimizing the total cost function results in synthesizing new images. </li>
-</ul>
-</li>
-</ul>
-<h4 id="风格代价函数-style-cost-function"><a href="#风格代价函数-style-cost-function" class="headerlink" title="风格代价函数(style cost function)"></a>风格代价函数(style cost function)</h4><ul>
-<li>定义：现在你选择了某一层𝑙，比如这一层去为图片的风格定义一个 深度测量，现在我们要做的就是将图片的风格定义为𝑙层中各个通道之间<font color="blue">激活项</font>的相关系数</li>
-<li>理解CNN中的神经元<ul>
-<li><font color="red">一个神经元就表示一个filter的及输出，在输出中就表示一个通道，也代表一个特征</font><ul>
-<li>这个红色的通道(编号1)对应(编号 3),它能找出图片中的特定位置是否含有这些垂直的纹理</li>
-<li>而第二 个通道也就是黄色的通道(编号 2)，对应这个神经元(编号 4)<img src="/2018/11/26/dl/第四门课-第四周/resources/D422B96088E7C2335C19E0465394B878.jpg"></li>
-</ul>
-</li>
-</ul>
-</li>
-<li>理解相关系数<ul>
-<li>定义：相关系数这个概念为你提供了一种去测量这些不同的特征的方法，比如这些垂直纹理，这些橙色或是其他的特征去<font color="blue">测量它们在图片中的各个位置同时出现或不同时出现的频率</font></li>
-<li>意义：通过测量，你能得知在生成的<br>图像中垂直纹理和橙色同时出现或者不同时出现的频率，这样你将能够<font color="blue">测量生成的图像的风格与输入的风格图像的相似程度</font></li>
-</ul>
-</li>
-<li>风格矩阵(Gram matrix)(Correlation between filters)：<img src="/2018/11/26/dl/第四门课-第四周/resources/AAB98D324EC1AC62752A4C3A792DE9D5.jpg">
-<ul>
-<li>通过对k和k’通道中中所有的数值<font color="blue">(注意是激活值，不是各个filter的值)</font>进行计算就得到了𝐺矩阵，也就是风格矩阵</li>
-<li>如果不相关，那么$G^{[l]}_{KK’}$会比较小，否则就会很大<img src="/2018/11/26/dl/第四门课-第四周/resources/F2F75B0A0E6AA66A42FB991DAA65DE27.jpg">
-<img src="/2018/11/26/dl/第四门课-第四周/resources/E55DCEDA125DF80889F4EC8D3AB77521.jpg">
-code:<img src="/2018/11/26/dl/第四门课-第四周/resources/BD74761FA9DA43CE218D8AD9865DA49E.jpg"></li>
-<li>分别计算出G和S图片的矩阵，然后带入下面的cost function<font color="blue">这将得到这两个矩阵之间的误差</font></li>
-</ul>
-</li>
-<li>Cost function<ul>
-<li><font color="red">直观感受：就是对两张图片分别计算不同通道的输出的相关性G1,G2(上面的风格矩阵)(Gram matrix就展示的不同激活值(filter输出)之间相似度，有点像协方差),然后再优化<strong>使</strong>这两张图片的不同通道的值差距减小，即类似于$\sum(G1-G2)$，cost越小，表示两越相近</font></li>
-<li>一般只计算其中<font color="blue">一层</font>的cost，当然可以对每层都这样计算cost，然后相加，但要复杂一些<img src="/2018/11/26/dl/第四门课-第四周/resources/2079BF705ED2A829D0E1EFE3891B921F.jpg"></li>
-<li>这是两个矩阵间一个基 本的 Frobenius 范数<img src="/2018/11/26/dl/第四门课-第四周/resources/2155AA530BE9533AA5D00319DAAA164E.jpg">
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="CNN同样适合于一维到三维"><a href="#CNN同样适合于一维到三维" class="headerlink" title="CNN同样适合于一维到三维"></a>CNN同样适合于一维到三维</h4><p>CNN同样适合于一维和三维数据，但对一维数据(和时间序列相关的)的处理，更常见的使用RNN</p>
-<ul>
-<li>一维<br>比如心电图信息处理等，它的卷积核更像是一维的滑动窗口一样<img src="/2018/11/26/dl/第四门课-第四周/resources/29B3999CE968EA9B047F4E4360D052E6.jpg"></li>
-<li>三维<br>比如在CT图像上，一张图片就是人体的一个切面，当然这种情况它的卷积核也是三维的，并且也可以有通道数<img src="/2018/11/26/dl/第四门课-第四周/resources/31924BC92BF9513EA102C74DE4440FFD.jpg"></li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-	
-    
-	
-    
-	
-    
-	
       	    
 
   
@@ -1686,12 +513,1993 @@ code:<img src="/2018/11/26/dl/第四门课-第四周/resources/BD74761FA9DA43CE2
 	
     
 	
+      	    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/14/dl/第四门课-第二周/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/14/dl/第四门课-第二周/" itemprop="url">第四门课-第二周</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-14T21:10:09+08:00">
+                2018-11-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/深度学习/" itemprop="url" rel="index">
+                    <span itemprop="name">深度学习</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/深度学习/吴恩达课程总结/" itemprop="url" rel="index">
+                    <span itemprop="name">吴恩达课程总结</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><a href="https://github.com/yuancl/dl-algorithm/tree/master/4-ConvolutionNeuralNetworks/Week2/ResNets" target="_blank" rel="noopener">习题代码</a></p>
+<h5 id="LeNet5"><a href="#LeNet5" class="headerlink" title="LeNet5"></a>LeNet5</h5><ul>
+<li>它是针对灰色图片训练的</li>
+<li>架构：CONV-POOL-CONV-POOL-FC-FC-SOFTMAX</li>
+<li>CONV使用5x5 filter，POOL使用2x2，padding都为0，图片宽高在逐渐减小，信道数在逐渐增大</li>
+<li>还有一种模型多卷积，一个池化，多卷积，一个池化…现在也经常使用</li>
+<li>经典LeNet5使用了非常复杂的计算方式，每个过滤器都采用和输入模块一样的通道数量，现在一般不会这么做了</li>
+<li>使用的是sigmod，不是ReLU<img src="/2018/11/14/dl/第四门课-第二周/resources/FFB32954180F01A43DAE62D2E79B442D">
+</li>
+</ul>
+<h5 id="AlexNet"><a href="#AlexNet" class="headerlink" title="AlexNet"></a>AlexNet</h5><ul>
+<li>之前在语音方面已经得到了很大的进展，这是这篇论文，让人们觉得深度学习能够对CV有很大帮助</li>
+<li>AlexNet是更大的网络，大约6000万个参数，而LeNet5大约6万个参数</li>
+<li><strong>AlexNet能够处理非常相似的基本构造模块(没有理解)？</strong></li>
+<li>比LeNet表现另一个原因是使用了ReLu激活函数</li>
+<li>Multiple GPUs:Alex用了非常复杂的方法使这些层拆分到两个不同的GPU上</li>
+<li>LRN(Local Response Normalization)：选取一个位置，贯穿整个通道，得到256个数字，并进行归一化。局部归一化的动机是，对于13x13的图像中的每个位置来说，我们可能并不需要太多的高激活神经元。也没有理解</li>
+<li>网络特点：卷积核除了第一个，全部采用same卷积<img src="/2018/11/14/dl/第四门课-第二周/resources/95ED2FBAA8AEC165904C8B9DE4A6670A">
+</li>
+</ul>
+<h5 id="VGG-16"><a href="#VGG-16" class="headerlink" title="VGG-16"></a>VGG-16</h5><ul>
+<li>和LeNet比，它<strong>非常规整</strong></li>
+<li>简化了神经网络的结构，卷积层采用same卷积，信道数翻倍。池化层宽带高度都减半(每次池化后宽高缩小一倍，每次卷积后通道数也增加一倍)</li>
+<li>16代表包含有16个卷积层和全连接层，确实是很大的网络。但是非常规整，都是几个卷积后跟着一个压缩图像大小的池化层，这一点很吸引人。信道数64-128-256-512…可能认为已经足够大了，就没有再翻倍了</li>
+<li>缺点是需要训练的特征数量非常巨大</li>
+<li>还有VGG-19，是更庞大的网络，但效果其实和VGG-16差不多<img src="/2018/11/14/dl/第四门课-第二周/resources/2C14B193C833B6DFE0463405C9D003D5">
+</li>
+</ul>
+<h5 id="ResNets"><a href="#ResNets" class="headerlink" title="ResNets"></a>ResNets</h5><p><a href="https://github.com/yuancl/dl-algorithm/tree/master/4-ConvolutionNeuralNetworks/Week2/ResNets" target="_blank" rel="noopener">可参看习题</a></p>
+<ul>
+<li><strong>解决问题</strong>(注意和梯度优化算法指数加权平均的区别)<br>网络越深，越容易出现梯度消失问题，因为在反向传播算法就是梯度的时候，和各个层级的系数相关，相乘，所以很容易出现接近于0去情况，所以一开始就很快出现梯度消失问题，导致学习(learning speed)非常慢，性能很差(图上可以看见，越是前面的层级问题越严重)<img src="/2018/11/14/dl/第四门课-第二周/resources/61F21AE03F6475441BFAE38139170DFE.jpg" title="=561x267">
+</li>
+</ul>
+<ul>
+<li><p><strong>网络结构：</strong></p>
+<ul>
+<li>a[l+2]=g(z[l+2]+a[l]),其中a[l]就是残差块,是插在非线性变换前</li>
+<li>对于一个普通网络来说深度越深优化算法越难训练，训练误差越来越多。但ResNet表现比较好</li>
+<li>因为这种方式有助于解决梯度消失和梯度爆炸的问题，让我们训练更深的网络的同时，又能保证性能<img src="/2018/11/14/dl/第四门课-第二周/resources/2BDA2C468464C84C78603227B52C78E3"></li>
+</ul>
+</li>
+<li><p><strong>为什么能work？</strong></p>
+<ul>
+<li>a[l+2]=g(z[l+2]+a[l])=g(w[l+2]∗a[l+1]+b[l+2]+a[l])可见，当使用L2正则化或者其他方法，导致权重w会不断衰减(<strong>个人理解就容易出现梯度消失问题</strong>)，我们直接让w[l+2]=0并且b[l+2]=0，有了残差块，所以a[l+2]=g(a[l])=a<a href="因为Rele(x">l</a>中x>0)，这样来解决更容易出现的提交消失问题</li>
+<li>残差网络学习这种恒等函数非常容易</li>
+<li>z[l+2]+a[l]由于这里有向量的加减法，所以这两个层的维度必须想办法相对，比较简单的方式是使用same卷积</li>
+<li>网络结构：经常多个卷积接一个池化，CONV-CONV-CONV-POOL-CONV-CONV-CONV-POOL……FC-FC-SOFTMAX，无论网络如何，都会进行矩阵维度调整</li>
+<li>ResNet还提到了使用1*1的卷积，会在后面讲解<img src="/2018/11/14/dl/第四门课-第二周/resources/7F98489A2561372FB25FC4939CA2F778">
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="Inception-GoogleNet"><a href="#Inception-GoogleNet" class="headerlink" title="Inception(GoogleNet)"></a>Inception(GoogleNet)</h5><ul>
+<li><p>网络中的网络已经1x1卷积</p>
+<ul>
+<li>改变通道数<img src="/2018/11/14/dl/第四门课-第二周/resources/59405B33A45ED9994661CC21A765DDC6"></li>
+</ul>
+</li>
+<li><p>Incption模块</p>
+<ul>
+<li>作用：避免人工确定卷积层中的过滤器类型，或者确定是否需要创建卷积层或池化层</li>
+<li>各种大小filter，pool相组合。缺点是计算复杂<img src="/2018/11/14/dl/第四门课-第二周/resources/A1892AE97B02F31DB72FC0BC2C6B5AA5"></li>
+<li>1x1卷积(瓶颈层)，降低通道数，降低计算复杂性(使用瓶颈层来缩小网络)<img src="/2018/11/14/dl/第四门课-第二周/resources/943071A79A4B72BD6C85D71BFD5B213B">
+使用瓶颈层来缩小网络<img src="/2018/11/14/dl/第四门课-第二周/resources/2895B32491E5564FDB45A8903147F4F2"></li>
+</ul>
+</li>
+<li><p>Inception网络</p>
+<ul>
+<li>Inception module<img src="/2018/11/14/dl/第四门课-第二周/resources/CF1D396466A7E5FD698DDE8160C77CF0"></li>
+<li>Inception网络就是将这些模块都组合到一起<img src="/2018/11/14/dl/第四门课-第二周/resources/B4825BB37EAF8E3586791DEDE6D02E25"></li>
+<li>隐藏层和中间层也能进行预测，确保了他们也参加特征计算，并且能够防止网络过拟合 <ul>
+<li>看途中的分支(编号2，就是通过隐藏层，编号3做的sotmax预测)</li>
+</ul>
+</li>
+<li>当然也有一些比较新的Inception论文，比如Inception V2,V3等，但都是基于这个搭积木的思想</li>
+</ul>
+</li>
+<li><p>如果构建自己的CV网络</p>
+<ul>
+<li>使用开源的实现方案：使用别人已经训练好的网络结构及权重，通常能够进展得相当快，用这个作为预训练，然后转换到你感兴趣的任务上</li>
+<li>如何迁移？主要根据你自己的数据量大小 <ul>
+<li>Train数据很少，你只需要训练替换后的你自己的softmax层相关参数，而冻结其他层的所有参数 <ul>
+<li>其他有个技巧，就是把softmax的输入直接存入硬盘</li>
+</ul>
+</li>
+<li>有一定的数据量，冻结的层数就少一点</li>
+<li>大量数据，不进行冻结，只是使用这些参数作为<strong>初始化参数</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>数据扩充</p>
+<ul>
+<li>镜像对称</li>
+<li>随机裁剪(Rotation，Shearing，Local warping)</li>
+<li>旋转</li>
+<li>彩色转换，就是给R,G,B通道上加上不同的失真值(注意PCA对其影响)</li>
+<li>可以用CPU多线程进行数据扩充，然后用GPU训练<img src="/2018/11/14/dl/第四门课-第二周/resources/0885F9F3C1D49D58CB4CA297DC68E67B"></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+	
+    
+	
+      	    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/14/dl/第四门课-第一周/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/10/14/dl/第四门课-第一周/" itemprop="url">第四门课-第一周</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-14T19:30:09+08:00">
+                2018-10-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/深度学习/" itemprop="url" rel="index">
+                    <span itemprop="name">深度学习</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/深度学习/吴恩达课程总结/" itemprop="url" rel="index">
+                    <span itemprop="name">吴恩达课程总结</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="第一周-卷积神经网络"><a href="#第一周-卷积神经网络" class="headerlink" title="第一周 卷积神经网络"></a>第一周 卷积神经网络</h3><h5 id="边缘检测"><a href="#边缘检测" class="headerlink" title="边缘检测"></a>边缘检测</h5><ul>
+<li>浅层特征可能是是垂直检测，水平检测等初级特征，后面层可能是人眼等高级特征，最后是整个人形等</li>
+<li>理解垂直边缘过滤核：<br>$<br>\begin{cases}<br>1-0–1\<br>1-0–1\<br>1-0–1\<br>\end{cases}<br>$ <ul>
+<li><strong>(1)(3)列正负相互抵消</strong>，只能在差异相差很大的不同区域可能保留比较大的特征值，比如在黑白过渡区域等</li>
+</ul>
+</li>
+</ul>
+<h5 id="更多边缘检测过滤核"><a href="#更多边缘检测过滤核" class="headerlink" title="更多边缘检测过滤核"></a>更多边缘检测过滤核</h5><ul>
+<li>Sobel过滤器 <ul>
+<li>增加了中间的一行元素的权重，这样使得结果的鲁棒性更会高一些</li>
+</ul>
+<ul>
+<li>$\begin{cases}<br>1-0–1\<br>2-0–2\<br>1-0–1\<br>\end{cases}<br>$ </li>
+</ul>
+</li>
+<li>Scharr过滤器(CV中经常使用) <ul>
+<li>$\begin{cases}<br>3-0–3\<br>10-0–10\<br>3-0–3\<br>\end{cases}<br>$ </li>
+</ul>
+</li>
+</ul>
+<h5 id="Padding"><a href="#Padding" class="headerlink" title="Padding"></a>Padding</h5><ul>
+<li>解决问题： <ul>
+<li>每次做卷积的时候，他的图像都会缩小，多做几次卷积就输出的图像会很小</li>
+<li>图像边缘的像素，只有一个卷积核会计算到，这样一来角落或者图像边缘的信息发挥的作用就会很小</li>
+</ul>
+</li>
+<li>通常Padding设置： <ul>
+<li>Valid(无padding),normal,same(使输出和输入尺寸一致)</li>
+<li>一般考虑到对称性和中心点位置，padding值一般使用奇数值</li>
+</ul>
+</li>
+</ul>
+<h5 id="卷积步长-Strided"><a href="#卷积步长-Strided" class="headerlink" title="卷积步长(Strided)"></a>卷积步长(Strided)</h5><h5 id="三维卷积"><a href="#三维卷积" class="headerlink" title="三维卷积"></a>三维卷积</h5><ul>
+<li><img src="/2018/10/14/dl/第四门课-第一周/resources/A34E4968C781FBBF7EE500ECE577EE92"></li>
+<li>多filter=通道数=特征数=深度(多种叫法)</li>
+</ul>
+<h5 id="单层卷积网络"><a href="#单层卷积网络" class="headerlink" title="单层卷积网络"></a>单层卷积网络</h5><ul>
+<li>类似神经网络(x->z->(ReLU+b)->a…),可以看出，图像无论多大，卷积核参数都是不变的(这样一定程度能避免过拟合)</li>
+<li><img src="/2018/10/14/dl/第四门课-第一周/resources/A2DE0F8C6458579436F140074B5FE193">
+</li>
+</ul>
+<h5 id="池化层"><a href="#池化层" class="headerlink" title="池化层"></a>池化层</h5><ul>
+<li>可以理解为卷积核，但是没有参数，比如max pooling,min pooling</li>
+<li>max pooling理解： <ul>
+<li>提取最大的数字，可以理解为最突出的特征提取出来，同时如果该局部图像不存在此特征，提取出的值依然很小</li>
+<li>4x4就可以看做是特征的集合，最后提取出的9可能就表示然人眼…<img src="/2018/10/14/dl/第四门课-第一周/resources/4DDA682D49EE988BEF6230C1A1EFB3D2"></li>
+<li>超参数(f,s)，一般设置(f=2,s=3)或(f=3,s=2),一般很少会用到Padding，只有超参数并没有其他的参数，没有什么需要学习的，可以理解为只是一个<strong>静态属性</strong></li>
+</ul>
+</li>
+</ul>
+<h5 id="卷积网络示例"><a href="#卷积网络示例" class="headerlink" title="卷积网络示例"></a>卷积网络示例</h5><ul>
+<li>一般分类： <ul>
+<li>卷积层+池化层 为一层</li>
+<li>或者不考虑无参数，无权重的池化层，一层卷积层就为一层</li>
+</ul>
+</li>
+<li>常见模式：<br>CONV-POOL-CONV-POOL-FC-FC-FC-SOFTMAX</li>
+<li>特点： <ul>
+<li>nh​,nw​会逐渐减小，但是信道会增加</li>
+<li>激活值也是逐渐减小，但是不能让减小太快，否则会影响网络性能</li>
+<li>parameters数量不随输入图片的大小而改变，只能卷积核和全连接层有关系(其中parametr数(208=5x5x8+8)(416=5x5x16+16)不和具体输入图像相关)</li>
+<li>CV研究的工作就是研究如何整合卷积层，池化层，全连接层</li>
+<li>网络架构(类似LetNet5)<img src="/2018/10/14/dl/第四门课-第一周/resources/EA6A4DE2FF731A127BE54D7B0109DEFA">
+过程参数变化情况：<br>其中parametr数(208=5x5x8+8)(416=5x5x16+16)不和具体输入图像相关<img src="/2018/10/14/dl/第四门课-第一周/resources/B5D93F420A7D874EB6AF156E7E1127F6">
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="卷积优点"><a href="#卷积优点" class="headerlink" title="卷积优点"></a>卷积优点</h5><ul>
+<li>减小参数</li>
+<li>稀疏连接</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+	
+    
+	
+      	    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/10/dl/第三门课-第二周/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/10/10/dl/第三门课-第二周/" itemprop="url">第三门课-第二周</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-10T10:00:09+08:00">
+                2018-10-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/深度学习/" itemprop="url" rel="index">
+                    <span itemprop="name">深度学习</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/深度学习/吴恩达课程总结/" itemprop="url" rel="index">
+                    <span itemprop="name">吴恩达课程总结</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="进行误差分析："><a href="#进行误差分析：" class="headerlink" title="进行误差分析："></a>进行误差分析：</h4><ul>
+<li>通过人工check，找出标记错误的样本和总数的百分比，选出比较较大的错误类型进行分析，通常能够帮你找到优化的灵感</li>
+<li>深度学习算法对训练集中的随机错误是相对<strong>健壮</strong>的，如果数据够随机，那么不用花太多时间去修正它们</li>
+<li>但是如果这些错误比较理解大，<strong>严重影响</strong>到你再开发集上的评估能力，那才真有必要去修正下标注</li>
+<li>Dev/Test集的分布一定要一致，如果需要更改标注，也是一样。训练集倒可以不一致</li>
+<li>最后，深度学习工作者一般很少去人工干预，但是建议也看下误差的影响面</li>
+</ul>
+<h4 id="快速搭建你的第一个系统："><a href="#快速搭建你的第一个系统：" class="headerlink" title="快速搭建你的第一个系统："></a>快速搭建你的第一个系统：</h4><ul>
+<li>如果面对的是新应用，这个时候你的<strong>目标</strong>是得到一个可用的系统，所以可以快速搭建你的系统，然后进行误差分析，找到后面的方向</li>
+<li>如果你是老司机，那么可以参考已有的学术论文，已有的架构等构建你的网络</li>
+</ul>
+<h4 id="训练集和测试集不同分布："><a href="#训练集和测试集不同分布：" class="headerlink" title="训练集和测试集不同分布："></a>训练集和测试集不同分布：</h4><ul>
+<li>如果关系App中的图片,即使App的数据很少,也不建议train：webapp，dev/test：app。而建议把一部分收集到的真实数据放入训练集使用train：<strong>webapp+app</strong>, dev/test:app</li>
+<li>例如音频数据训练集有500,000条数据，收集到的真实数据是20,000条，那么组合方式有：<br>$\begin{cases}<br>train:500,000+10,000\<br>dev:5000\<br>test:5000\<br>\end{cases}<br>$ 或者是：<br>$\begin{cases}<br>train:500,000\<br>dev:10,000\<br>test:10,000\<br>\end{cases}<br>$</li>
+</ul>
+<h4 id="Train-dev数据不同分布带来的偏差和方差问题"><a href="#Train-dev数据不同分布带来的偏差和方差问题" class="headerlink" title="Train/dev数据不同分布带来的偏差和方差问题"></a>Train/dev数据不同分布带来的偏差和方差问题</h4><ul>
+<li>问题现象：如果Train/dev数据不同分布，那么如果发现实际dev loss比train大，那么到底是<strong>数据不同分布</strong>导致？还是<strong>方差问题</strong>导致呢？</li>
+<li>解决方案：建设一个Train-dev数据集，此数据集合Train数据同分布，来排除是否是<strong>方差的问题</strong>的问题：<br>$\begin{cases}<br>Bias:Human level,Train\<br>Variance:Train,Train-dev\<br>Datamatch:Train-dev,dev\<br>\end{cases}<br>$</li>
+<li>这个时候就有三类问题:<strong>1.bias 2.variance 3.数据不同分布</strong>,对分布不同问题，没有很好的办法，但有一些建议如下: <ul>
+<li>人工合成，让你的训练集数据分布接近你的Dev集(比如图像合成) <ul>
+<li>问题：可能出现数据集局部过拟合</li>
+</ul>
+</li>
+<li>所以如果是数据分布问题导致，一般分析步骤： <ul>
+<li>仔细观察下Train/dev/test数据特点</li>
+<li>想办法收集更多想dev/test的数据</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="迁移学习"><a href="#迁移学习" class="headerlink" title="迁移学习"></a>迁移学习</h4><ul>
+<li>预训练(pre-training)：如果你数据比较多，进行全部参数的重新训练，这时你在用图像识别数据去预先初始化，就叫做预训练，或者预训练神经网络权重</li>
+<li>微调(fine tuning)：如果以后更新所有权重，然后在其他地方训练，有时这个过程也叫微调</li>
+<li>如果没有这么多的数据，也可以选择只替换输出层，或者最后两层等</li>
+<li>为什么可以这样迁移？ <ul>
+<li>有很多低层次的特征，比如说边缘检测，曲线检测，阳性对象检测等，图像都可以共用的</li>
+<li>学到了这些低层次的特征，就能够进一步学习到线条，点，曲面这些知识</li>
+</ul>
+</li>
+<li>适用场景：迁移后的场景，你没有这么多的数据</li>
+<li>A->B条件: <ul>
+<li>A和B都要有同样的输入，比如都是图像，都是语音等</li>
+<li>B的数据远小于A</li>
+<li>如果觉得A的低层次的特征能够帮助到B</li>
+</ul>
+</li>
+</ul>
+<h4 id="多任务学习-Multi-task-learning"><a href="#多任务学习-Multi-task-learning" class="headerlink" title="多任务学习(Multi-task learning)"></a>多任务学习(Multi-task learning)</h4><ul>
+<li>什么叫多任务学习？ <ul>
+<li>一个输入会有多个输出flag：比如CV中，自驾驾驶领域，对一个图片的识别既要判断图片是否有交通灯，又要判断行人，车辆等</li>
+</ul>
+</li>
+<li>多任务学习的条件及意义 <ul>
+<li>类比迁移学习，如果多任务中有共用的低层次的特征，就能够大大提升你的性能，并且比单独每个任务都训练独立的网络效果好很多</li>
+<li>类比迁移学习，你多个任务叠加的数据量要比单个任务数据量大很多</li>
+<li>要求神经网络足够大，如果过小，那么不见得会比但任务学习有好的性能</li>
+</ul>
+</li>
+<li>应用情况 <ul>
+<li>实际应用中，迁移学习的使用频率比多任务会大很多，可能多任务在CV领域应用得比较多</li>
+</ul>
+</li>
+</ul>
+<h4 id="端到端学习"><a href="#端到端学习" class="headerlink" title="端到端学习:"></a>端到端学习:</h4><ul>
+<li>什么是端到端学习？ <ul>
+<li>比如说语音识别，从音频输入->特征提取->…->找到音位->…->构成听写文本，中间有多个阶段。端到端学习就是直接x->y的映射，这里就是音频输入->构成听写文本</li>
+</ul>
+</li>
+<li>使用条件: <ul>
+<li>数据量(x->y)直接映射的数据量足够大</li>
+</ul>
+</li>
+<li>优点: <ul>
+<li>组件少，中间过程省时省力</li>
+</ul>
+</li>
+<li>缺点: <ul>
+<li>很多场景x->y直接映射的数据量很少，不好收集</li>
+<li>可能会排除了中间很多人为设计的有用的组件，觉得学习算法的指数来源主要有数据和人工设计的东西</li>
+</ul>
+</li>
+<li>例子: <ul>
+<li>人脸识别的系统，并没有直接使用x->y(门禁照片->身份确认)的识别，因为端到端的直接数据并没有这么多数据集。所以拆分为两步：1.识别人脸照片，2.照片和身份的对应。这种方式是因为拆分后的两步都有大量的数据集</li>
+<li>X射线评估孩子年龄，直接的数据x->(x摄像图像->孩子年龄)也没有这么多数据，也需要拆分</li>
+<li>机器翻译：端到端方法就使用很广泛，因为存在<strong>大量的数据</strong>，比如英文->法文….</li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+	
+    
+	
+      	    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/27/dl/吴恩达课程习题/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/09/27/dl/吴恩达课程习题/" itemprop="url">吴恩达课程习题</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-27T10:55:49+08:00">
+                2018-09-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/深度学习/" itemprop="url" rel="index">
+                    <span itemprop="name">深度学习</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/深度学习/吴恩达课程习题/" itemprop="url" rel="index">
+                    <span itemprop="name">吴恩达课程习题</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>习题托管于github，包括学习心得总结</p>
+<p><a href="https://github.com/yuancl/dl-algorithm/tree/master/2-ImprovingDeepNeuralNetworks" target="_blank" rel="noopener">2-ImprovingDeepNeuralNetworks</a><br>第二门课 简单神经网络实现</p>
+<p><a href="https://github.com/yuancl/dl-algorithm/tree/master/4-ConvolutionNeuralNetworks/Week1" target="_blank" rel="noopener">4.1-ConvolutionNeuralNetworks</a><br>第四门课-第一周 主要是CNN简单实现</p>
+<p><a href="https://github.com/yuancl/dl-algorithm/tree/master/4-ConvolutionNeuralNetworks/Week2/ResNets" target="_blank" rel="noopener">4.2-ConvolutionNeuralNetworks</a><br>第四门课-第二周 主要是Keras的介绍和简单ResNet的实现</p>
+<p><a href="https://github.com/yuancl/dl-algorithm/tree/master/4-ConvolutionNeuralNetworks/Week3" target="_blank" rel="noopener">4.3-YOLO</a><br>第四门课-第三周 主要是YOLO算法的的实现</p>
+<p><a href="https://github.com/yuancl/dl-algorithm/tree/master/4-ConvolutionNeuralNetworks/Week4" target="_blank" rel="noopener">4.4-YOLO</a><br>第四门课-第四周 主要是人脸识别和NST算法的的简单实现</p>
+<p><a href="https://github.com/yuancl/dl-algorithm/tree/master/5-RecurrentNeuralNetworks/Week1/Building%2Ba%2BRecurrent%2BNeural%2BNetwork%2B-%2BStep%2Bby%2BStep" target="_blank" rel="noopener">5.1.1-Building+a+Recurrent+Neural+Network+-+Step+by+Step</a><br><a href="https://github.com/yuancl/dl-algorithm/tree/master/5-RecurrentNeuralNetworks/Week1/dinosaurus-island" target="_blank" rel="noopener">5.1.2-RNN-dinosaurus-island</a><br><a href="https://github.com/yuancl/dl-algorithm/tree/master/5-RecurrentNeuralNetworks/Week1/Jazz-improvisation-with-LSTM" target="_blank" rel="noopener">5.1.3-LSTN-Improvise-music</a><br>第五门课-第一周</p>
+<ul>
+<li>Building+a+Recurrent+Neural+Network+-+Step+by+Step<ul>
+<li>主要讲是一步一步构建RNN基础网络和LSTM网络，理解运作原理</li>
+</ul>
+</li>
+<li>dinosaurus-island(character-level language model)<ul>
+<li>此练习使用基础RNN模型或者LSTM模型，学习一些文本，然后生成新的文本。比如恐龙名字，然后生成新的名字。比如莎士比亚诗词，然后可以生成新的类莎士比亚风格的诗词，都是利用了RNN模型对长文本序列模型的记忆能力。同时想到是否可以创造新个歌曲，机器人写文章等….I</li>
+</ul>
+</li>
+<li>Improvise-music with an LSTM network<ul>
+<li>此练习主要使用LSTM网络生成音乐，原理和上一练习中生成恐龙名字类似，输入不同的序列数据，学习到参数后，然后生成序列段(将一段音乐分割为snippets，每一个snippet继续切分为30个时间步，然后进行训练)</li>
+</ul>
+</li>
+</ul>
+<p><a href="https://github.com/yuancl/dl-algorithm/tree/master/5-RecurrentNeuralNetworks/Week2" target="_blank" rel="noopener">5.2-Operations-on-word- vectors</a><br><a href="https://github.com/yuancl/dl-algorithm/tree/master/5-RecurrentNeuralNetworks/Week3/Machine-Translation" target="_blank" rel="noopener">5.3.1:Machine-Translation</a><br><a href="https://github.com/yuancl/dl-algorithm/tree/master/5-RecurrentNeuralNetworks/Week3/Trigger-word-detection" target="_blank" rel="noopener">5.3.2:Trigger-word-detection</a><br>第五门课-第三周</p>
+<ul>
+<li>Machine-Translation <ul>
+<li>主要练习的注意力模型，将人工理解(Tuesday 09 Oct 1993)的日期翻译为机器理解的日期(1993-10-09)</li>
+</ul>
+</li>
+<li>Trigger-word-detection<ul>
+<li>触发字检测,首先通过生谱图将声音转换为特征向量,然后通过CNN,RNN进行预测判断Trigger word </li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+	
+    
+	
+      	    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/22/dl/第三门课-第一周/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/09/22/dl/第三门课-第一周/" itemprop="url">第三门课-第一周</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-22T20:00:09+08:00">
+                2018-09-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/深度学习/" itemprop="url" rel="index">
+                    <span itemprop="name">深度学习</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/深度学习/吴恩达课程总结/" itemprop="url" rel="index">
+                    <span itemprop="name">吴恩达课程总结</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>第一周</p>
+<ul>
+<li><p>正交化思想</p>
+<ul>
+<li>各个变量不相互依赖</li>
+<li>chain of assumptions in ML：<br>training -> dev -> test -> real world<br>逐渐向能够拟合real world靠近</li>
+<li>early stoping不建议使用了，会停止测试集继续拟合，还对开发机有优化，同时影响两个按钮</li>
+</ul>
+</li>
+<li>单一数字评估指标<br>准确率，召回率两个指标，往往不好判断。所以F1 Score=$\frac{2}{\frac{1}{P} + \frac{1}{R}}$来看整体的情况</li>
+<li><p>满足和优化指标</p>
+<ul>
+<li>优化指标：是需要不断优化的</li>
+<li>满足指标：只需要达到一定的门槛值就行了</li>
+</ul>
+</li>
+<li><p>训练/开发/测试集划分</p>
+<ul>
+<li>训练集：用训练集训练不同的模型</li>
+<li>开发集：用开发集来评估不同的思路，然后选择一个，不断迭代去改善开发集的性能</li>
+<li>用测试集去评估，目的是评估你最终的成本偏差</li>
+<li>设立开发集及评估指标，真的就定义了你要瞄准的目标。当然需要在同一分布中设立开发集和测试集</li>
+<li>开发集和测试集的数据量大小： <ul>
+<li>之前数据量都很小的时候，经常是6/2/2,8/2</li>
+<li>现在大数据时代，需要看总体数据量大小，比如10000的开发集，测试集就已经够了</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>什么时候改变开发，测试集指标</p>
+<ul>
+<li>第一步为设立目标，第二步为瞄准和射击目标，建议尽快设立一个明确的目标，可以让你的团队高效迭代，改善性能</li>
+<li>如果当前指标和数据，和你<strong>真正关心必须做好的事情</strong>关心不大，那就应该更改你的指标或者你的开发测试集，让它们能更好地反映你的算法需要处理好的数据</li>
+</ul>
+</li>
+<li><p>Bayes optimal error</p>
+<ul>
+<li>贝叶斯错最优错误率一般认为是理论上可能达到的最优错误率，也就是说没有任何一个办法能够超越一定的准确度，通常比人类的表现还要好</li>
+<li>现象：ML在你超越人类表现之前，进展都会很快，而超越后就会慢下来了</li>
+<li>人类对图像，听写音频，或阅读语言等比较擅长，那么就让其做自己擅长的事情，比如人工标注</li>
+</ul>
+</li>
+<li>可避免偏差/方差<br>Humans(≈bayes) 1% 7.5%<br>Training error 8% 8%<br>Dev error 10% 10%<br>1%的时候，考虑避免偏差去优化。而7.5%的时候考虑避免方差去优化</li>
+<li><p>理解人的表现&amp;超越人的表现</p>
+<ul>
+<li>(human->bayes)通过人类水平的估计做出对贝叶斯错误的估计</li>
+<li>(train-bayes|human:bias)然后通过比较和贝叶斯错误估计的差别来评估偏差</li>
+<li>(dev-train:variance)通过dev和train的差距来判断可优化方差的距离</li>
+<li>如果已经超过了人类的表现，那么后面的优化会比较缓慢</li>
+</ul>
+</li>
+<li><p>Bias/Variance改进方法：</p>
+<ul>
+<li>Bias： <ul>
+<li>规模更大的模型</li>
+<li>更优惠的算法，比如momentum,RMSProp,adam</li>
+<li>新的神经网络的架构，或者更好的超参数等</li>
+<li>改变激活函数，或者隐层数量，单位数据等</li>
+<li>尝试其他模型，其他架构，如CNN,RNN等</li>
+</ul>
+</li>
+<li>Variance: <ul>
+<li>收集更多的数据</li>
+<li>正则化，L2,Dropout等</li>
+<li>不同神经网络，超参数等</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+	
+    
+	
+      	    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/17/dl/第二门课-第三周/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/09/17/dl/第二门课-第三周/" itemprop="url">第二门课-第三周</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-17T21:10:23+08:00">
+                2018-09-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/深度学习/" itemprop="url" rel="index">
+                    <span itemprop="name">深度学习</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/深度学习/吴恩达课程总结/" itemprop="url" rel="index">
+                    <span itemprop="name">吴恩达课程总结</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="3-1调试处理"><a href="#3-1调试处理" class="headerlink" title="3.1调试处理"></a>3.1调试处理</h3><ul>
+<li>建议重要性 <ul>
+<li>学习步长α</li>
+<li>β(Momentum),hide units,mini-batch size</li>
+<li>layouts,α的衰减率</li>
+<li>β1​,β2​,ϵ(Adam)</li>
+</ul>
+</li>
+<li>传统ml一般使用grid精确化的选参方法。dl进行随机选择(因为不确定哪些参数重要),采用<strong>由粗精确到细</strong>的方法，范围逐渐变小</li>
+</ul>
+<h3 id="3-2为超参数选择合适的范围"><a href="#3-2为超参数选择合适的范围" class="headerlink" title="3.2为超参数选择合适的范围"></a>3.2为超参数选择合适的范围</h3><ul>
+<li>比如说隐藏层层数，可以在坐标轴上2，3，4…选择</li>
+<li>对数标尺：$[10^a,10^b]$-&gt;(a,b)的均值的选择，例如$\beta$(0.9, 0.999)-&gt;$1-\beta$(0.1,0.001)即($10^{-1},10^{-3}$)</li>
+<li>需要根据不同表达式来判断各个超参数的敏感度，比如表达式$\frac{1}{1-\beta}$在$\beta$快接近0的时候，就很敏感</li>
+</ul>
+<h3 id="3-3超参数训练的实践"><a href="#3-3超参数训练的实践" class="headerlink" title="3.3超参数训练的实践"></a>3.3超参数训练的实践</h3><ul>
+<li>资源条件允许，进行多参数共同调整训练</li>
+<li>资源不充足，只能一次训练过程中不断进行参数的调整</li>
+</ul>
+<h3 id="3-4-amp-3-5-amp-3-6-amp-3-7BN算法思想及应用"><a href="#3-4-amp-3-5-amp-3-6-amp-3-7BN算法思想及应用" class="headerlink" title="3.4&amp;3.5&amp;3.6&amp;3.7BN算法思想及应用"></a>3.4&amp;3.5&amp;3.6&amp;3.7BN算法思想及应用</h3><ul>
+<li><a href="https://app.yinxiang.com/shard/s48/nl/12303615/490e3d22-37db-437d-8faf-d97757a35e19/" target="_blank" rel="noopener">BatchNorm</a></li>
+<li>整体思想就是将每一层的输入都作为新的输入，标准化，使本层能更好更快的迭代</li>
+<li>加入γ,βscale,shift参数是为了再标准化后一定程度上能保持之前学习到的属性，同时可以去掉每一层的b参数(因为0均值的数，对后面添加的任意值都无意义)</li>
+<li>它削弱了前层参数的作用与后层参数的作用之间的联系，它使得网络每层都可以自己学习，稍稍独立于其它层，这有助于加速整个网络的学习</li>
+</ul>
+<h3 id="3-8-amp-3-9Softmax回归"><a href="#3-8-amp-3-9Softmax回归" class="headerlink" title="3.8&amp;3.9Softmax回归"></a>3.8&amp;3.9Softmax回归</h3><ul>
+<li>softmax与之前的Sigmoid,Relu不同是因为输入为一个n维向量，输出也为n维向量，并且输出是各个C类的概率</li>
+<li>计算方法：<img src="/2018/09/17/dl/第二门课-第三周/resources/806ED3F32E6AABFF0C0B24C0EE04E7C2"></li>
+<li>直观理解：多个线性边界函数进行划分<img src="/2018/09/17/dl/第二门课-第三周/resources/33FD90F372D0E3BCD373101FDB1F4A4E"></li>
+<li>和hardmax做比较，hardmax是输入一向量，输出为(0,1)的向量组，1为最大概率</li>
+<li>Loss Fun：L(y^​,y)=-∑j=1c​yj​logyj​^​ —> L(y^​,y)=-logy^​c​ : 就是你的训练集中的真实类别，然后试图使该类别相应的概率尽可能地高</li>
+<li>应用到神经网络中:其实就是用你的Softmax激活函数来得到a[l]或者说y</li>
+</ul>
+<h3 id="3-10深度学习框架"><a href="#3-10深度学习框架" class="headerlink" title="3.10深度学习框架"></a>3.10深度学习框架</h3><h3 id="3-11Tensorflow"><a href="#3-11Tensorflow" class="headerlink" title="3.11Tensorflow"></a>3.11Tensorflow</h3><ul>
+<li>Tensorflow is a programming framework used in deep learning</li>
+<li>The two main object classes in tensorflow are <strong>Tensors and Operators</strong>.</li>
+<li><p>When you code in tensorflow you have to take the following steps:</p>
+<ul>
+<li>Create a graph containing <strong>Tensors</strong> (Variables, Placeholders …) and <strong>Operations</strong> (tf.matmul, tf.add, …)</li>
+<li>Create a session</li>
+<li>Initialize the session</li>
+<li>Run the session to execute the graph</li>
+</ul>
+</li>
+<li>You can execute the graph multiple times as you’ve seen in model()</li>
+<li>The backpropagation and optimization is automatically done when running the session on the “optimizer” object</li>
+</ul>
+<p><strong>Writing and running programs in TensorFlow has the following steps:</strong></p>
+<ul>
+<li>Create Tensors (variables) that are not yet executed/evaluated.</li>
+<li>Write operations between those Tensors.</li>
+<li>Initialize your Tensors.</li>
+<li>Create a Session.</li>
+<li>Run the Session. This will run the operations you’d written above.</li>
+</ul>
+<p><strong>computation graph</strong></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+	
+    
+	
+      	    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/10/dl/第二门课-第二周/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/09/10/dl/第二门课-第二周/" itemprop="url">第二门课-第二周</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-10T22:40:03+08:00">
+                2018-09-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/深度学习/" itemprop="url" rel="index">
+                    <span itemprop="name">深度学习</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/深度学习/吴恩达课程总结/" itemprop="url" rel="index">
+                    <span itemprop="name">吴恩达课程总结</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="第二周"><a href="#第二周" class="headerlink" title="第二周"></a>第二周</h3><p>第二周主要学习如何优化算法，优化算法能够让你快速训练模型，主要分三类：</p>
+<ul>
+<li>Mini-batch</li>
+<li>指数加权平均(Momentum，RMSprop，Adam)</li>
+<li>学习率衰减</li>
+</ul>
+<h4 id="2-1-Mini-batch梯度下降-amp-理解"><a href="#2-1-Mini-batch梯度下降-amp-理解" class="headerlink" title="2.1 Mini-batch梯度下降&amp;理解"></a>2.1 Mini-batch梯度下降&amp;理解</h4><ul>
+<li>迭代中的cost一定是逐渐减小</li>
+<li>三种梯度下降方法(Batch，随机梯度，Mini-Batch)，cost图如下： <ul>
+<li>蓝色为常用Batch方式，梯度不会抖动，缺点是每次迭代是全部样本比较慢，一次迭代只改变一次梯度</li>
+<li>紫色为随机梯度，每次一个样本，这种方式cost的计算抖动比较大，在最优点附近也是抖动，并不会停留在此</li>
+<li>绿色为Mini-batch方式： <ul>
+<li>也会出现抖动，因为Cost的计算是随意加入的样本，而每次epom样本都在变化。</li>
+<li>它也不一定会在很小范围内收敛或者波动，这种情况就可以考虑减小学习率了</li>
+<li>Mini-batch size选择，一般选择2n，64–512比较常见</li>
+</ul>
+</li>
+<li>三种方式如何选择，主要还是看样本量，一般随机梯度不会选，如果样本量\&lt;2000，选择Batch，否则选择Mini-batch<img src="/2018/09/10/dl/第二门课-第二周/resources/3BC2DF36EFE921C9C0EEB02EBBEB579D">
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-3-指数加权平均数-amp-理解"><a href="#2-3-指数加权平均数-amp-理解" class="headerlink" title="2.3 指数加权平均数 &amp; 理解"></a>2.3 指数加权平均数 &amp; 理解</h4><ul>
+<li>也叫做移动平均值，就是计算局部范围的平均值：$v_t=\beta v_{t-1}+(1-\beta)\theta_{t-1}$(公式1),其中$\frac 1{(1-\beta)}$代表的所要计算的平均范围(这结论数学推导可查阅资料)，比如计算温度的指数加权平均&gt;值 $\theta=0.9$,那么$\frac 1{(1-\beta)}=10$,表示计算的10的平均温度</li>
+</ul>
+<h4 id="2-5-指数加权平均的偏差修正"><a href="#2-5-指数加权平均的偏差修正" class="headerlink" title="2.5 指数加权平均的偏差修正"></a>2.5 指数加权平均的偏差修正</h4><ul>
+<li><p><strong>蓝色</strong>是没有添加指数加权平均的各个离散点，<strong>红色</strong>为$\beta=0.9$的加权平均值曲线，<strong>绿色</strong>为$\beta=0.98$加权平均值曲线，<strong>紫色</strong>为$\beta=0.98$并且进行修正后的加权平均值曲线</p>
+<img src="/2018/09/10/dl/第二门课-第二周/resources/BE291D0E3476361A7A64454978286DA9">
+</li>
+<li><p>上图可以看见绿色和紫色的区别是在初始阶段，通过公式(1)计算得到的$v_0,v_1$和实际值差别是比较大的，造成了前面几个数不太准确,方法：使用$\frac{v_t}{1-\beta_t}$而不是直接用$v_t$进行评估,可以看见初期比较准确，然后后期$\beta_t$很小,所以$\frac{v_t}{1-\beta_t}\approx{v_t}$</p>
+</li>
+</ul>
+<h4 id="2-6-动态梯度下降"><a href="#2-6-动态梯度下降" class="headerlink" title="2.6 动态梯度下降"></a>2.6 动态梯度下降</h4><ul>
+<li><strong>目的</strong>：想让在x方向上梯度变化大一点，但是在纵轴方向，来回抖动，想要修正y方向上的抖动。<strong>方案</strong>：在x，y轴分别使用2.5中的指数加权平均法，对y轴的<strong>正负抖动进行抵扣平均</strong>，达到y轴抖动较小目的:<br>$v_{dw}=\beta v_{dw-1}+(1-\beta)d_{dw-1}$<br>W=W-$\alpha v_{dw}$<br>$v_{db}=\beta v_{db-1}+(1-\beta)d_{db-1}$<br>b=b-$\alpha v_{db}$<img src="/2018/09/10/dl/第二门课-第二周/resources/B75553739F2911D13CCF981D2AC5D707"></li>
+<li>假设W，b分别表示x，y轴。看下面计算公式，其中学习率$\alpha$也是有影响的，会在下面介绍<img src="/2018/09/10/dl/第二门课-第二周/resources/DBAC055D9744073F23A30ECC596CA307">
+</li>
+</ul>
+<h4 id="2-7-RMSprop"><a href="#2-7-RMSprop" class="headerlink" title="2.7 RMSprop"></a>2.7 RMSprop</h4><ul>
+<li>RMSprop是微分平方加权平均:<br>$S_{dw}=\beta S_{dw-1}+(1-\beta)d_{dw-1}^2$  <strong>1式</strong><br>W=W-$\alpha \frac{dw}{\sqrt S_{dw} + \epsilon}$ <strong>2式</strong>($\epsilon$避免非0,一般$10^{-8}$)<br>$v_{db}=\beta v_{db-1}+(1-\beta)d_{db-1}^2$<br>和动态梯度下降区别：<ul>
+<li>并不是正负抵消，这些计算的是微分平方加权平均，然后计算梯度变化的时候除以平方根</li>
+<li>原理<strong>(我理解就是将大值调小，小值调大)</strong>：<ul>
+<li>如果dw大，那么1式结果$S_{dw}$也会比较大，但2式结果W就会小</li>
+<li>如果dw小，那么1式结果$S_{dw}$也会比较小，但2式结果W就会大</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>RMSprop我理解就是将大值调小，小值调大,个人觉得Momentum(平均后正负抵消)更有效<img src="/2018/09/10/dl/第二门课-第二周/resources/F8B3F5FAEE78DF176AD2D9D1EA759F73">
+</li>
+</ul>
+<h4 id="2-8-Adam优化算法"><a href="#2-8-Adam优化算法" class="headerlink" title="2.8 Adam优化算法"></a>2.8 Adam优化算法</h4><ul>
+<li>Momentum与RMSprop的结合</li>
+<li>其中有多个超参数及默认值α,β1​(0.9),β2​(0.98),ϵ(10−8)<img src="/2018/09/10/dl/第二门课-第二周/resources/01107664832D4483D8213338204FC312">
+</li>
+</ul>
+<h4 id="2-9-学习率衰减"><a href="#2-9-学习率衰减" class="headerlink" title="2.9 学习率衰减"></a>2.9 学习率衰减</h4><ul>
+<li>如果学习率α一直是一个值，在使用Mini-batch方法的时候，就会在收敛值附件波动，根本原因就是在收敛期α过大，变化过多的原因</li>
+<li>动态变化α值，开始α希望较大，收敛时α逐渐变小，类似于绿色曲线，在收敛值较小范围波动</li>
+</ul>
+<img src="/2018/09/10/dl/第二门课-第二周/resources/9E1821378657CB076651F5DC38160B3C">
+<h4 id="2-10-局部最优问题"><a href="#2-10-局部最优问题" class="headerlink" title="2.10 局部最优问题"></a>2.10 局部最优问题</h4><ul>
+<li>担忧深度学习优化算法总是困在极差的局部最优</li>
+<li>通常梯度为0的点并不是局部最优点，实际上成本函数的零梯度点，即鞍点<img src="/2018/09/10/dl/第二门课-第二周/resources/68F0C0CA5B07EF344E68284131BA8147"></li>
+<li>普通优化算法一般都是沿着蓝色点坡度向下，比较难走出平稳期。为什么Momentum，RMSprop和Adam能尽早往下坡出平稳期？<img src="/2018/09/10/dl/第二门课-第二周/resources/FA0191259C4FB3E25C573FEA9CF7DEDF">
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+	
+    
+	
+      	    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/01/dl/第二门课-第一周/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/09/01/dl/第二门课-第一周/" itemprop="url">第二门课-第一周</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-01T22:49:03+08:00">
+                2018-09-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/深度学习/" itemprop="url" rel="index">
+                    <span itemprop="name">深度学习</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/深度学习/吴恩达课程总结/" itemprop="url" rel="index">
+                    <span itemprop="name">吴恩达课程总结</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="第一周"><a href="#第一周" class="headerlink" title="第一周"></a>第一周</h3><h4 id="1-1-训练-验证-测试集"><a href="#1-1-训练-验证-测试集" class="headerlink" title="1.1 训练,验证,测试集"></a>1.1 训练,验证,测试集</h4><p>1.训练,验证,测试集 数据一定需要同分布<br> 2.训练,验证,测试集 能够更好的衡量偏差和方差</p>
+<h4 id="1-2-amp-1-3-偏差-方差-Bias-Variance"><a href="#1-2-amp-1-3-偏差-方差-Bias-Variance" class="headerlink" title="1.2&amp;1.3 偏差,方差(Bias/Variance)"></a>1.2&amp;1.3 偏差,方差(Bias/Variance)</h4><p>1.偏差,方差最终的值都是基于人眼的,如果人眼误差也比较高的话,那么训练测试误差比较高也比较正常<br> 2.训练集,测试集数据来自同分布<br> 3.高方差可以解释为：拟合了数据集中的错误样本和中间的一些活跃数据<br> 4.首先看偏差，偏差可以接受后，然后评估下验证集的性能来评估方差<br> 5.一般可以根据训练，测试cost曲线来判断高偏差或者高方差,具体可以参考我<a href="https://github.com/yuancl/ml-algorithm/tree/master/exe5-Regularized-LinearR-and-Bias-Variance" target="_blank" rel="noopener">github:正则化以及偏差方差检测</a></p>
+<h4 id="1-4-amp-1-5-正则化"><a href="#1-4-amp-1-5-正则化" class="headerlink" title="1.4&amp;1.5 正则化"></a>1.4&amp;1.5 正则化</h4><p>1.解决高方差一般有两种方法：一个是正则化，另外是准备更多的数据<br> 2.L2正则化有时候也称为”权重衰减”，因为在用梯度下降计算参数的时候会在前面乘以小于1的数值<br> 3.疑问：为什么很少使用L2做正则化<br> 3.为什么能防止过拟合？(过拟合的本质就是参数过多，参数过大，维数过高)</p>
+<ul>
+<li>a.直观上理解当lambda足够大的时候，权重矩阵w接近于0，就把很多隐藏单元给消除了一样</li>
+<li>b.sigmoid,tanh激活函数的曲线可以发现，当x值在0附件的时候，曲线接近于直线，呈现直线的性质，并不是非直线</li>
+</ul>
+<h4 id="1-6-amp-1-7-正则化-Dropout"><a href="#1-6-amp-1-7-正则化-Dropout" class="headerlink" title="1.6&amp;1.7 正则化(Dropout)"></a>1.6&amp;1.7 正则化(Dropout)</h4><p>1.为了不影响Z[4]的期望值，我们需要用Z[4]a[3]/0.8来修正或弥补我们所需要的那20%<br> 2.在测试阶段不能用dropout，因为我们不需要在测试阶段结果是随机的<br> 3.直观理解Dropout和L2正则比较像<br> 4.不能只依赖任何一个特征，因为都有可能被删除<br> 5.根据过拟合的程度设置keep-prob的值，比如W[1]：7x3，W[2]：7x7,W[3]：7x3,所以W[2]层参数最多，可以设置keep-prob稍小一些，比如0.7，第一层可以设置为1，第一层不应该dropout。<br> 6.过拟合才用Dropout方法，CV上通常没有足够多的数据，所以经常会用到<br> 7.Dropout<strong>缺点</strong>：使代价函数J不再被明确定义，个人理解因为中间的神经元不确定是否被dropout，所以每次都神经元个数什么的都不一样</p>
+<h4 id="1-8-其他正则化方法"><a href="#1-8-其他正则化方法" class="headerlink" title="1.8 其他正则化方法"></a>1.8 其他正则化方法</h4><p>1.数据扩展(通过旋转，缩放，裁剪等)<br> 2.early stoping</p>
+<ul>
+<li><strong>为什么能工作：</strong> 因为随机初始的w值都是比较小的，在刚开始训练的时候也不会很大，在后面迭代次数多的时候，w值就会比较大了，这就会使Loss比较大，这个时候stoping是比较好的</li>
+<li><strong>缺点:</strong> 如果提早停止了梯度下降，也就停止了J的继续优化，不能得到更小的代价函数J</li>
+<li><strong>与正则化lambda比较:</strong> lambda会尝试多轮的值，进行选择</li>
+</ul>
+<h4 id="1-9-归一化输入"><a href="#1-9-归一化输入" class="headerlink" title="1.9 归一化输入"></a>1.9 归一化输入</h4><p>1.标准化:零均值，归一化方差<br> 2.为什么能归一化效果更好</p>
+<ul>
+<li><strong>a.从Loss效果图分析：</strong> 归一化后数据更均匀，可以从任何一点入手进行GD迭代，否则曲线就比较凌乱<br><img src="resources/C9C7B619F7FAA0D0649EA455EA4710A8" alt=""></li>
+<li><strong>b.从sigmoid或者tanh的曲线图分析：</strong> 归一化后区间在0附件的时候，梯度变化最大的<br><img src="resources/9273406DEF474A8262863E9EDDD8598F" alt=""></li>
+</ul>
+<p>3.<strong>不用Normalize：</strong> 如果数据本身就处于相似范围，比如已经是1–2，或者0–1，区别不大：1–100</p>
+<h4 id="1-10-梯度消失或爆炸"><a href="#1-10-梯度消失或爆炸" class="headerlink" title="1.10 梯度消失或爆炸"></a>1.10 梯度消失或爆炸</h4><p>1.这里只讨论了激活函数的指数级数增长或下降，但它也适用于L相关的导数或者梯度问题，比如另一篇文章<a href="https://app.yinxiang.com/shard/s48/nl/12303615/fbbe860b-d780-4ea0-86e2-b3281095f018/" target="_blank" rel="noopener">梯度问题</a>就是讨论的梯度指数问题<br> <img src="resources/A6E21F3566635A3FFFFD3E6CFF2F3A9E" alt=""></p>
+<p>2.见另一篇<a href="https://app.yinxiang.com/shard/s48/nl/12303615/fbbe860b-d780-4ea0-86e2-b3281095f018/" target="_blank" rel="noopener">梯度问题</a></p>
+<h4 id="1-11-神经网络权重初始化"><a href="#1-11-神经网络权重初始化" class="headerlink" title="1.11 神经网络权重初始化"></a>1.11 神经网络权重初始化</h4><p>见权重初始化练习：<a href="https://github.com/yuancl/dl-algorithm/blob/master/2-ImprovingDeepNeuralNetworks/Week1/1.Initialization.ipynb" target="_blank" rel="noopener">Initialization</a><br> <img src="resources/3FA08AC1BC944F534A96C4DD711D4E86" alt=""></p>
+<p>In general, initializing all the weights to zero results in the network failing to break symmetry. This means that every neuron in each layer will learn the same thing<br> 初始化参数全部为0的时候，每一层的梯度变化的一样的，有就是每一层学习到的是一样的，就不会有比较好的结果</p>
+<p>The cost starts very high. This is because with large random-valued weights, the last activation (sigmoid) outputs results that are very close to 0 or 1 for some examples, and when it gets that example wrong it incurs a very high loss for that example. Indeed, when log(a[3])=log(0)log⁡(a[3])=log⁡(0) , the loss goes to infinity.<br> Poor initialization can lead to vanishing/exploding gradients, which also slows down the optimization algorithm.<br> If you train this network longer you will see better results, but initializing with overly large random numbers slows down the optimization.<br> 当随机初始值比较大的时候，最后的输出sigmoid就是0或者1，这个时候如果碰见是0，那么计算lost的时候log(0)就是无限大，所以第一次迭代 Cost after iteration 0: inf<br> 初始化参数过大会使开始训练的时候梯度下降得比较慢，Loss比较大，迭代会比较慢，当然最后也会收敛</p>
+<p>Different initializations lead to different results<br> Random initialization is used to break symmetry and make sure different hidden units can learn different things<br> Don’t intialize to values that are too large<br> He initialization works well for networks with ReLU activations.</p>
+<h4 id="1-12-amp-1-13-梯度的数值逼近及注意项"><a href="#1-12-amp-1-13-梯度的数值逼近及注意项" class="headerlink" title="1.12&amp;1.13 梯度的数值逼近及注意项"></a>1.12&amp;1.13 梯度的数值逼近及注意项</h4><p>1.双边误差比单边误差小<br> 2.误差值如果小于10−7是比较安全的，如果大于10−5就需要多注意下，如果大于10−3那么应该是有bug<br> 3.如果J包含了正则项，那么求梯度D的时候也一定要包含正则项，感觉这个不用担心，因为有正则项的J，用数学公式求梯度函数一定会有正则项<br> 4.Dropout和梯度逼近不能同时使用，个人理解是因为梯度逼近是对最终的<strong>真实</strong>的J做的梯度逼近，而Dropout国产中个的J′去掉了多个神经元并不是真实的J<br> 5.参考<a href="https://github.com/yuancl/ml-algorithm/blob/master/exe4-NeuralNetwork/nn_cost_fun.py" target="_blank" rel="noopener">NeuralNetwork</a>中的梯度的数值逼近计算</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+	
+    
+	
+      	    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/20/ml/聚类/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/20/ml/聚类/" itemprop="url">聚类</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-20T07:15:20+08:00">
+                2018-08-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/机器学习基础/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习基础</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="聚类任务"><a href="#聚类任务" class="headerlink" title="聚类任务"></a>聚类任务</h4><ul>
+<li>在无监督学习中（unsupervised learning）中，训练样本的标记信息是未知的，目标是通过对无标记的训练样本的学习来揭示数据的内在性质及规律，为进一步的数据分析提供基础。此类学习任务中研究最多、<font color="blue">应用最广的是“聚类”（clustering）</font></li>
+<li>聚类试图将数据集中的样本划分为若干通常是不相交的子集，每个子集称为一个“簇”（cluster）。</li>
+<li>聚类既能作为一个单独的过程，用于找寻数据内的分布结构，也可作为分类等其他学习任务的前驱过程。</li>
+</ul>
+<h4 id="性能度量"><a href="#性能度量" class="headerlink" title="性能度量"></a>性能度量</h4><ul>
+<li>聚类性能度量亦称聚类“有效性指标”（validity index）<ul>
+<li>与监督学习中的性能度量作用相似。对聚类结果，我们需通过<font color="blue">某种性能度量来评估其好坏</font>；</li>
+<li>另一方面，若明确了最终将要使用的性能度量，则可直接将其作为聚类过程的优化目标，从而更好地得到符合要求的聚类结果。<br>聚类是将样本集D划分为若干不相交的子集，即样本簇。直观上看，我们希望“物以类聚”，<font color="blue">即同一簇的样本尽可能彼此相似，不同簇的样本尽可能不同</font>。换言之，聚类结果的“簇内相似度”（intra-cluster similarity）高且“簇间相似度”（inter-cluster similarity）低。</li>
+</ul>
+</li>
+<li>聚类性能度量大致有两类：<ul>
+<li>“外部指标”（external index）<br>将聚类结果与某个“参考模型”（reference model）进行比较；<ul>
+<li>常用的聚类性能度量外部指标有：<ul>
+<li>Jaccard系数（Jaccard Coefficient，简称 JC）</li>
+<li>FM指数（Fowlkes and Mallows Index，简称FMI）</li>
+<li>Rand指数（Rand Index，简称RI）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>“内部指标”（internal index）<br>直接考察聚类结果而不利用任何参考模型<ul>
+<li>常用的聚类性能度量内部指标有<ul>
+<li>DB指数（Davies-Bouldin Index，简称DBI）</li>
+<li>Dunn指数（Dunn Index，简称DI）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="距离计算"><a href="#距离计算" class="headerlink" title="距离计算"></a>距离计算</h4><ul>
+<li>给定样本$x_i=（x_{i1}，x_{i2}；…；x_{in}），与x_j=（x_{j1}；x_{j2}；…；x_{jn}）$</li>
+<li>最常用的是”闵可夫斯基距离“（Minkowski distance）<img src="/2018/08/20/ml/聚类/resources/37A273ABD2B1EC581982F7BBECCBE35A.jpg"></li>
+<li>p=2时，闵可夫斯基距离即欧氏距离（Euclidean distance）<img src="/2018/08/20/ml/聚类/resources/E635A778006828C007A4DFF678BB32F7.jpg"></li>
+<li>p=1时，闵可夫斯基距离即曼哈顿距离（Manhattan distance）<img src="/2018/08/20/ml/聚类/resources/78391F39AD86022E73BD024B2FF230C8.jpg">
+</li>
+</ul>
+<h4 id="原型聚类"><a href="#原型聚类" class="headerlink" title="原型聚类"></a>原型聚类</h4><p>原型聚类亦称”<font color="blue">基于原型的聚类</font>“（prototype-based clustering），此类算法<font color="blue">假设聚类结构能通过一组原型刻画</font>，在现实聚类任务中极为常用。</p>
+<ul>
+<li>通常情形下，算法先对原型进行初始化，然后对原型进行迭代更新求解。<font color="blue">采用不同的原型表示、不同的求解方式，将产生不同的算法</font><ul>
+<li><font color="purple">我的理解就是直接通过先假设几个样本就为几类簇，然后再迭代更新</font>
+
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>k均值算法<br>给定样本集$D={x_1，x_2，…，x_m}$，”k均值“（k-means）算法针对聚类所得簇划分$C={C_1，C_2，…，C_k}$最小化平方误差<ul>
+<li>直观来看，上面式子在一定程度上刻画了簇内样本围绕簇均值向量的紧密程度，E值越小则簇内样本相似度越高<img src="/2018/08/20/ml/聚类/resources/E1734D53B25C4D0019F957BEAB0042B7.jpg">
+<ul>
+<li>其中$\mu_i$，是簇$C_i$的均值向量<img src="/2018/08/20/ml/聚类/resources/AE0804FF1B1322B4E95E28E786386EA3.jpg"></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>学习向量量化<br>与k均值算法类似，“学习向量量化”（Learning Vector Quantization，简称LVQ）也是试图找到一组原型向量来刻画聚类结构，但与一般的聚类算法不同的是，LVQ假设数据样本带有类别标记，学习过程用样本的这些监督信息来辅助聚类</p>
+<ul>
+<li>和KMeans的区别：<ul>
+<li>LVQ数据样本带有标签 </li>
+<li>初始化方式不同，LVQ是初始化一组向量，KMeans初始化几个簇点</li>
+<li>迭代方式不同，LVQ是循环找到每个样本点和向量簇最近的向量，然后根据该样本点的类别是否和该向量表示的类别是否相同，另该向量靠近或更远离该点<img src="/2018/08/20/ml/聚类/resources/729572530662A9FC2EFCF920DF512324.jpg">
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>高斯混合聚类<br>与k均值、LVQ用原型向量来刻画聚类结构不同，高斯混合（Mixture-of-Gaussian）聚类采用概率模型来表达聚类原型</p>
+<ul>
+<li>选择了高斯混合模型作为原型表示</li>
+<li><a href="https://blog.csdn.net/lin_limin/article/details/81048411" target="_blank" rel="noopener">结合高斯混合模型理解</a></li>
+</ul>
+</li>
+</ul>
+<h4 id="密度聚类"><a href="#密度聚类" class="headerlink" title="密度聚类"></a>密度聚类</h4><p>密度聚类亦称“基于密度的聚类”（density-based clustering），此类算法<font color="blue">假设聚类结构能通过样本分布的紧密程度确定</font>。通常情况下，密度聚类算法从样本密度的角度来考察样本之间的可连接性，并基于可连接样本不断扩展聚类簇以获得最终的聚类结果。</p>
+<ul>
+<li>DBSCAN是一种著名的密度聚类算法</li>
+</ul>
+<h4 id="层次聚类"><a href="#层次聚类" class="headerlink" title="层次聚类"></a>层次聚类</h4><p>层次聚类（hierarchical clustering）<font color="blue">试图在不同层次对数据集进行划分，从而形成树形的聚类结构</font>。数据集的划分可采用“自底向上”的聚合策略，也可采用“自顶向下”的分拆策略。</p>
+<ul>
+<li>AGNES 是一种采用自底 向上聚合策略的层次聚类算法.它先将数据集中 的每个样本看作一个初始聚类簇，然后在算法运行的每一步中找 出距离最近的两个粟类簇进行合并，该过程不断重复，直至达到预设的聚类簇个数</li>
+<li><a href="https://yuancl.github.io/2019/05/22/ml/层次聚类Louvain/" target="_blank" rel="noopener">Louvain算法</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+	
     
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1735,7 +2543,7 @@ code:<img src="/2018/11/26/dl/第四门课-第四周/resources/BD74761FA9DA43CE2
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">77</span>
+                <span class="site-state-item-count">64</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1746,7 +2554,7 @@ code:<img src="/2018/11/26/dl/第四门课-第四周/resources/BD74761FA9DA43CE2
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-count">18</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -1757,7 +2565,7 @@ code:<img src="/2018/11/26/dl/第四门课-第四周/resources/BD74761FA9DA43CE2
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-count">16</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
