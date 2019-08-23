@@ -94,13 +94,13 @@
 
 
 
-<meta name="description" content="相关文章算法粗略介绍：搜索与推荐中的深度学习匹配：推荐篇探索推荐引擎内部的秘密张俊林-推荐系统召回模型FM、FFM与DeepFMWDL论文笔记ESMMCTR模型演进 算法分类 分类方法1  传统 协同过滤 矩阵分解(MF) 因式分解机(FM)   基于embedding(深度学习兴起后) word-embedding:skip-gram等 graph-embedding:DeepWalk,Tran">
+<meta name="description" content="相关文章 自己总结CTR模型演进xDeepFM模型 网络文章算法粗略介绍：搜索与推荐中的深度学习匹配：推荐篇探索推荐引擎内部的秘密张俊林-推荐系统召回模型FM、FFM与DeepFMWDL论文笔记ESMMCTR模型演进  算法分类 分类方法1  传统 协同过滤 矩阵分解(MF) 因式分解机(FM)   基于embedding(深度学习兴起后) word-embedding:skip-gram等 gr">
 <meta name="keywords" content="推荐系统,推荐系统总结篇">
 <meta property="og:type" content="article">
 <meta property="og:title" content="总结篇-推荐算法总结">
 <meta property="og:url" content="http://yoursite.com/2019/03/26/rs/总结篇-推荐算法总结/index.html">
 <meta property="og:site_name" content="雷哥的博客">
-<meta property="og:description" content="相关文章算法粗略介绍：搜索与推荐中的深度学习匹配：推荐篇探索推荐引擎内部的秘密张俊林-推荐系统召回模型FM、FFM与DeepFMWDL论文笔记ESMMCTR模型演进 算法分类 分类方法1  传统 协同过滤 矩阵分解(MF) 因式分解机(FM)   基于embedding(深度学习兴起后) word-embedding:skip-gram等 graph-embedding:DeepWalk,Tran">
+<meta property="og:description" content="相关文章 自己总结CTR模型演进xDeepFM模型 网络文章算法粗略介绍：搜索与推荐中的深度学习匹配：推荐篇探索推荐引擎内部的秘密张俊林-推荐系统召回模型FM、FFM与DeepFMWDL论文笔记ESMMCTR模型演进  算法分类 分类方法1  传统 协同过滤 矩阵分解(MF) 因式分解机(FM)   基于embedding(深度学习兴起后) word-embedding:skip-gram等 gr">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2019/03/26/rs/总结篇-推荐算法总结/resources/E3D0F465A0C9A650AFE3BEB09F26AAFA.jpg">
 <meta property="og:image" content="http://yoursite.com/2019/03/26/rs/总结篇-推荐算法总结/resources/1D843A0BFB0672616943E4C315E62417.jpg">
@@ -131,10 +131,10 @@
 <meta property="og:image" content="http://yoursite.com/2019/03/26/rs/总结篇-推荐算法总结/resources/E14BAF5ABBD04A90B9F78C1CB2864234.jpg">
 <meta property="og:image" content="http://yoursite.com/2019/03/26/rs/总结篇-推荐算法总结/resources/26B5ADC8BBB12A67B4124B16ADF0013C.jpg">
 <meta property="og:image" content="http://yoursite.com/2019/03/26/rs/总结篇-推荐算法总结/resources/B9124CC5B7C98905A4B63572B20C7DBF.jpg">
-<meta property="og:updated_time" content="2019-08-23T07:07:51.145Z">
+<meta property="og:updated_time" content="2019-08-23T07:20:19.110Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="总结篇-推荐算法总结">
-<meta name="twitter:description" content="相关文章算法粗略介绍：搜索与推荐中的深度学习匹配：推荐篇探索推荐引擎内部的秘密张俊林-推荐系统召回模型FM、FFM与DeepFMWDL论文笔记ESMMCTR模型演进 算法分类 分类方法1  传统 协同过滤 矩阵分解(MF) 因式分解机(FM)   基于embedding(深度学习兴起后) word-embedding:skip-gram等 graph-embedding:DeepWalk,Tran">
+<meta name="twitter:description" content="相关文章 自己总结CTR模型演进xDeepFM模型 网络文章算法粗略介绍：搜索与推荐中的深度学习匹配：推荐篇探索推荐引擎内部的秘密张俊林-推荐系统召回模型FM、FFM与DeepFMWDL论文笔记ESMMCTR模型演进  算法分类 分类方法1  传统 协同过滤 矩阵分解(MF) 因式分解机(FM)   基于embedding(深度学习兴起后) word-embedding:skip-gram等 gr">
 <meta name="twitter:image" content="http://yoursite.com/2019/03/26/rs/总结篇-推荐算法总结/resources/E3D0F465A0C9A650AFE3BEB09F26AAFA.jpg">
 
 
@@ -403,7 +403,10 @@
       
 
       
-        <h4 id="相关文章"><a href="#相关文章" class="headerlink" title="相关文章"></a>相关文章</h4><p><a href="https://mp.weixin.qq.com/s/i8ClwpTGMB5cu0evrrZQGw" target="_blank" rel="noopener">算法粗略介绍：搜索与推荐中的深度学习匹配：推荐篇</a><br><a href="https://www.ibm.com/developerworks/cn/web/1103_zhaoct_recommstudy1" target="_blank" rel="noopener">探索推荐引擎内部的秘密</a><br><a href="https://zhuanlan.zhihu.com/c_188941548" target="_blank" rel="noopener">张俊林-推荐系统召回模型</a><br><a href="https://www.hrwhisper.me/machine-learning-fm-ffm-deepfm-deepffm/" target="_blank" rel="noopener">FM、FFM与DeepFM</a><br><a href="http://www.shuang0420.com/2017/03/13/论文笔记%20-%20Wide%20and%20Deep%20Learning%20for%20Recommender%20Systems/" target="_blank" rel="noopener">WDL论文笔记</a><br><a href="https://zhuanlan.zhihu.com/p/37562283" target="_blank" rel="noopener">ESMM</a><br><a href="https://mp.weixin.qq.com/s/cMr_fi9xs1BT5wFWL0ZLzw" target="_blank" rel="noopener">CTR模型演进</a></p>
+        <h4 id="相关文章"><a href="#相关文章" class="headerlink" title="相关文章"></a>相关文章</h4><ul>
+<li>自己总结<br><a href="https://yuancl.github.io/2019/08/23/ad/CTR模型演进/" target="_blank" rel="noopener">CTR模型演进</a><br><a href="https://yuancl.github.io/2019/08/22/ad/xDeepFM模型/" target="_blank" rel="noopener">xDeepFM模型</a></li>
+<li>网络文章<br><a href="https://mp.weixin.qq.com/s/i8ClwpTGMB5cu0evrrZQGw" target="_blank" rel="noopener">算法粗略介绍：搜索与推荐中的深度学习匹配：推荐篇</a><br><a href="https://www.ibm.com/developerworks/cn/web/1103_zhaoct_recommstudy1" target="_blank" rel="noopener">探索推荐引擎内部的秘密</a><br><a href="https://zhuanlan.zhihu.com/c_188941548" target="_blank" rel="noopener">张俊林-推荐系统召回模型</a><br><a href="https://www.hrwhisper.me/machine-learning-fm-ffm-deepfm-deepffm/" target="_blank" rel="noopener">FM、FFM与DeepFM</a><br><a href="http://www.shuang0420.com/2017/03/13/论文笔记%20-%20Wide%20and%20Deep%20Learning%20for%20Recommender%20Systems/" target="_blank" rel="noopener">WDL论文笔记</a><br><a href="https://zhuanlan.zhihu.com/p/37562283" target="_blank" rel="noopener">ESMM</a><br><a href="https://mp.weixin.qq.com/s/cMr_fi9xs1BT5wFWL0ZLzw" target="_blank" rel="noopener">CTR模型演进</a></li>
+</ul>
 <h4 id="算法分类"><a href="#算法分类" class="headerlink" title="算法分类"></a>算法分类</h4><ul>
 <li><p>分类方法1</p>
 <ul>
@@ -692,10 +695,12 @@
 <li>交叉网络<br>交叉网络（cross network）的核心思想是以有效的方式应用显式特征交叉。交叉网络由交叉层组成，每个层具有以下公式:<img src="/2019/03/26/rs/总结篇-推荐算法总结/resources/E14BAF5ABBD04A90B9F78C1CB2864234.jpg">
 <img src="/2019/03/26/rs/总结篇-推荐算法总结/resources/26B5ADC8BBB12A67B4124B16ADF0013C.jpg">
 <ul>
-<li>模型本质意义<img src="/2019/03/26/rs/总结篇-推荐算法总结/resources/B9124CC5B7C98905A4B63572B20C7DBF.jpg"></li>
+<li>模型本质意义<img src="/2019/03/26/rs/总结篇-推荐算法总结/resources/B9124CC5B7C98905A4B63572B20C7DBF.jpg">
+</li>
 </ul>
 </li>
 </ul>
+<h4 id="xDeepFM模型"><a href="#xDeepFM模型" class="headerlink" title="xDeepFM模型"></a>xDeepFM模型</h4><p><a href="[xDeepFM模型](https://yuancl.github.io/2019/08/22/ad/xDeepFM模型/">xDeepFM模型</a>)</p>
 
       
     </div>
@@ -885,7 +890,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#相关文章"><span class="nav-number">1.</span> <span class="nav-text">相关文章</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#算法分类"><span class="nav-number">2.</span> <span class="nav-text">算法分类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#GBDT-LR"><span class="nav-number">3.</span> <span class="nav-text">GBDT+LR</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#协同过滤"><span class="nav-number">4.</span> <span class="nav-text">协同过滤</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MF"><span class="nav-number">5.</span> <span class="nav-text">MF</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SVD-MF-FISM-SVD"><span class="nav-number">6.</span> <span class="nav-text">SVD,MF,FISM,SVD++</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#FM"><span class="nav-number">7.</span> <span class="nav-text">FM</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MF到FM的转换理解"><span class="nav-number">8.</span> <span class="nav-text">MF到FM的转换理解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#FFM-Field-aware-FM"><span class="nav-number">9.</span> <span class="nav-text">FFM(Field-aware FM)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#WDL"><span class="nav-number">10.</span> <span class="nav-text">WDL</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DeepFM"><span class="nav-number">11.</span> <span class="nav-text">DeepFM</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DCN"><span class="nav-number">12.</span> <span class="nav-text">DCN</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#相关文章"><span class="nav-number">1.</span> <span class="nav-text">相关文章</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#算法分类"><span class="nav-number">2.</span> <span class="nav-text">算法分类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#GBDT-LR"><span class="nav-number">3.</span> <span class="nav-text">GBDT+LR</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#协同过滤"><span class="nav-number">4.</span> <span class="nav-text">协同过滤</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MF"><span class="nav-number">5.</span> <span class="nav-text">MF</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SVD-MF-FISM-SVD"><span class="nav-number">6.</span> <span class="nav-text">SVD,MF,FISM,SVD++</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#FM"><span class="nav-number">7.</span> <span class="nav-text">FM</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MF到FM的转换理解"><span class="nav-number">8.</span> <span class="nav-text">MF到FM的转换理解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#FFM-Field-aware-FM"><span class="nav-number">9.</span> <span class="nav-text">FFM(Field-aware FM)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#WDL"><span class="nav-number">10.</span> <span class="nav-text">WDL</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DeepFM"><span class="nav-number">11.</span> <span class="nav-text">DeepFM</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DCN"><span class="nav-number">12.</span> <span class="nav-text">DCN</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#xDeepFM模型"><span class="nav-number">13.</span> <span class="nav-text">xDeepFM模型</span></a></li></ol></div>
             
 
           </div>
