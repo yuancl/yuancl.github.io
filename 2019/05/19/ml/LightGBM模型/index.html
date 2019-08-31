@@ -104,7 +104,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2019/05/19/ml/LightGBM模型/resources/9A84741C62CECD29301748C37573B157.jpg">
 <meta property="og:image" content="http://yoursite.com/2019/05/19/ml/LightGBM模型/resources/7E07549EF03D83F8CAAEDAC5DF13EFB3.jpg">
-<meta property="og:updated_time" content="2019-07-02T11:00:48.597Z">
+<meta property="og:updated_time" content="2019-08-31T13:58:22.774Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LightGBM模型">
 <meta name="twitter:description" content="LightGBM优缺点比较 直方图直方图优化算法深入理解  和xgboost的pre-order比较xgboost 采用了预排序的方法来处理节点分裂，这样计算的分裂点比较精确。但是，时间空间上都造成了很大的时间开销(但这个也是当时相比GBDT的重要提升点)。为了解决这个问题，Lightgbm 选择了基于 histogram 的决策树算法。相比于 pre-sorted算法，histogram 在内存">
@@ -398,6 +398,23 @@
 <img src="/2019/05/19/ml/LightGBM模型/resources/7E07549EF03D83F8CAAEDAC5DF13EFB3.jpg">
 </li>
 </ul>
+<h4 id="Gradient-based-One-Side-Sampling-GOSS"><a href="#Gradient-based-One-Side-Sampling-GOSS" class="headerlink" title="Gradient-based One-Side Sampling(GOSS)"></a>Gradient-based One-Side Sampling(GOSS)</h4><p>在机器学习当中，我们面对大数据量时候都会使用采样的方式（根据样本权值）来提高训练速度。又或者在训练的时候赋予样本权值来关于于某一类样本（如Adaboost）。LightGBM利用了GOSS来做采样算法。</p>
+<ul>
+<li><ol>
+<li>选取前a%个较大梯度的值作为大梯度值的训练样本</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>从剩余的1 - a%个较小梯度的值中，我们随机选取其中的b%个作为小梯度值的训练样本</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>对于较小梯度的样本，也就是b% * #samples，我们在计算信息增益时将其放大(1 - a) / b倍</li>
+</ol>
+</li>
+</ul>
+<p>总的来说就是a% <em> #samples + b% </em> #samples个样本作为训练样本。 而这样的构造是为了尽可能保持与总的数据分布一致，并且保证小梯度值的样本得到训练。</p>
+<h4 id="Exclusive-Feature-Bundling-EFB"><a href="#Exclusive-Feature-Bundling-EFB" class="headerlink" title="Exclusive Feature Bundling(EFB)"></a>Exclusive Feature Bundling(EFB)</h4><p>EFB中文名叫独立特征合并，顾名思义它就是将若干个特征合并在一起。使用这个算法的原因是因为我们要解决数据稀疏的问题。在很多时候，数据通常都是几千万维的稀疏数据。因此我们对不同维度的数据合并一齐使得一个稀疏矩阵变成一个稠密矩阵</p>
 
       
     </div>
@@ -587,7 +604,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#直方图"><span class="nav-number">1.</span> <span class="nav-text">直方图</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#leaf-wise替代level-wise"><span class="nav-number">2.</span> <span class="nav-text">leaf-wise替代level-wise</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#直方图"><span class="nav-number">1.</span> <span class="nav-text">直方图</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#leaf-wise替代level-wise"><span class="nav-number">2.</span> <span class="nav-text">leaf-wise替代level-wise</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Gradient-based-One-Side-Sampling-GOSS"><span class="nav-number">3.</span> <span class="nav-text">Gradient-based One-Side Sampling(GOSS)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Exclusive-Feature-Bundling-EFB"><span class="nav-number">4.</span> <span class="nav-text">Exclusive Feature Bundling(EFB)</span></a></li></ol></div>
             
 
           </div>
