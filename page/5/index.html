@@ -1,23 +1,2806 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
 
-{% block title %}{{ config.title }}{% if theme.index_with_subtitle and config.subtitle %} - {{config.subtitle }}{% endif %}{% endblock %}
 
-{% block page_class %}
-  {% if is_home() %} page-home {% endif %}
-{% endblock %}
 
-{% block content %}
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="不积跬步无以至千里">
+<meta property="og:type" content="website">
+<meta property="og:title" content="雷哥的博客">
+<meta property="og:url" content="http://yoursite.com/page/5/index.html">
+<meta property="og:site_name" content="雷哥的博客">
+<meta property="og:description" content="不积跬步无以至千里">
+<meta property="og:locale" content="zh-Hans">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="雷哥的博客">
+<meta name="twitter:description" content="不积跬步无以至千里">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '雷哥'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/page/5/">
+
+
+
+
+
+  <title>雷哥的博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left 
+   page-home 
+ ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">雷哥的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
   <section id="posts" class="posts-expand">
-    {% for post in page.posts %}
-      	{{ post_template.render(post, true) }}
-    {% endfor %}
+    
+	
+      	    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/22/dl/第四门课-第三周/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/22/dl/第四门课-第三周/" itemprop="url">第四门课-第三周</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-22T18:17:09+08:00">
+                2018-11-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/深度学习/" itemprop="url" rel="index">
+                    <span itemprop="name">深度学习</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/深度学习/吴恩达课程总结/" itemprop="url" rel="index">
+                    <span itemprop="name">吴恩达课程总结</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><a href="https://github.com/yuancl/dl-algorithm/tree/master/4-ConvolutionNeuralNetworks/Week3" target="_blank" rel="noopener">习题代码地址(主要是YOLO实现)</a></p>
+<h4 id="目标定位"><a href="#目标定位" class="headerlink" title="目标定位"></a>目标定位</h4><ul>
+<li>定义：<br>在分类问题输出y的基础上增加物体位置的输出：$b_x,b_y,b_w,b_h$及中心坐标及宽高<img src="/2018/11/22/dl/第四门课-第三周/resources/82632EA2C641B2BE9175E3D5AF8DC4DD.jpg"></li>
+<li>Loss函数的定义：<br>输出为以y向量，采用平方误差的策略，$L(\hat y,y)=(\hat {y_1}-y_1)^2 + (\hat {y_2}-y_2)^2 + (\hat {y_3}-y_3)^2 + … +(\hat {y_8}-y_8)^2$<img src="/2018/11/22/dl/第四门课-第三周/resources/D79C453613C69F31B4A433AEC8DD5233.jpg">
+</li>
+</ul>
+<h4 id="特征点检测-Landmark-detection"><a href="#特征点检测-Landmark-detection" class="headerlink" title="特征点检测(Landmark detection)"></a>特征点检测(Landmark detection)</h4><ul>
+<li>神经网络可以通过输出图片上的特征点的(x,y)坐标来实现对目标特征的识别，例如人脸检测或者snapchar上的头带皇冠的功能：<ul>
+<li>人脸检测：对人脸进行64个特征点的检测，总共输出129维的向量,$y_1$表示又没有人脸,然后是64个坐标($x_i,y_i$)</li>
+<li>Snapchat：也是通过检测头的上部特征点</li>
+<li>或者是人的姿势，也是一些特征点<img src="/2018/11/22/dl/第四门课-第三周/resources/53794E6970AEADBB960981204AE87AED.jpg">
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="目标检测-Object-detection"><a href="#目标检测-Object-detection" class="headerlink" title="目标检测(Object detection)"></a>目标检测(Object detection)</h4><ul>
+<li>Sliding window detection<br>一般会获取三次不同大小的窗口，然后循环图片进行检测<img src="/2018/11/22/dl/第四门课-第三周/resources/F75EFA50CA3AD4A7F3B5F37AD1D312A0.jpg"></li>
+<li>计算成本<br>计算成本比较大，步幅大一点能够缩小成本，但是效果不好。步幅小一点检测效果当然会很好，但是计算成本会很大</li>
+</ul>
+<h4 id="卷积的滑动窗口实现"><a href="#卷积的滑动窗口实现" class="headerlink" title="卷积的滑动窗口实现"></a>卷积的滑动窗口实现</h4><ul>
+<li>需要将全连接进行卷积改造<img src="/2018/11/22/dl/第四门课-第三周/resources/A7D2177146E9D5AC92F3894785A9E311.jpg"></li>
+<li>实现要点：<ul>
+<li>如果按照原始方法，进行四次切割，然后将14x14的图片给CNN，那边就是跑四次CNN，并且中间会有很多重复计算</li>
+<li>所以用卷积进行替换，将16x16整张图进行卷积操作<ul>
+<li>最后输出的2x2x4网络，需要理解：每一个1x1x4的网络就是类比的原始方法切分后的图片的输出，所以这里会有2x2就是4种切分方式的输出<font color="red">(可以一步一步卷积过程来理解2x2为什么代表之前的四次切分)</font><img src="/2018/11/22/dl/第四门课-第三周/resources/43FC4A32BA0AE542CA77250673434887.jpg"></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>其他28x28举例：<br>最终是8x8x4 的输出，原始的表示切割了64次，每一次切割后输出都是4种分类<img src="/2018/11/22/dl/第四门课-第三周/resources/95753022667FF235751C309B4A5D7C90.jpg">  
+</li>
+</ul>
+<h4 id="YOLO算法"><a href="#YOLO算法" class="headerlink" title="YOLO算法"></a>YOLO算法</h4><ul>
+<li>背景：卷积滑动窗口也不能输出最精准的边界框</li>
+<li>算法：<ul>
+<li>使用卷积滑动，所以效率比较高</li>
+<li>将图片分为3x3，或者19x19，找到对象的中心点所属于的小窗口。然后计算出相对于小窗口的宽带和高度，其中宽带和高度可能会大于1<img src="/2018/11/22/dl/第四门课-第三周/resources/C39D37492B779A3EFD04C6F8AD2C58BA.jpg">
+<img src="/2018/11/22/dl/第四门课-第三周/resources/2064B40E26923324CBE1ED8CB3D8C96C.jpg">
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="交并比"><a href="#交并比" class="headerlink" title="交并比"></a>交并比</h4><ul>
+<li>背景：如何判断对象检测算法运作良好呢</li>
+<li>一般如果Iou大于0.5就算比较理想<img src="/2018/11/22/dl/第四门课-第三周/resources/E190541366C37B452010A650309F0843.jpg">
+</li>
+</ul>
+<h4 id="非极大值抑制"><a href="#非极大值抑制" class="headerlink" title="非极大值抑制"></a>非极大值抑制</h4><ul>
+<li><p>背景：你的算法可能对同一个对象做出多次 检测，所以算法不是对某个对象检测出一次，而是检测出多次<br>比如下面这个图，多个小方框都会说自己内部可能有对象</p>
+<img src="/2018/11/22/dl/第四门课-第三周/resources/14897CDC1065F896306DAE0BBB63D19F.jpg">
+</li>
+<li><p>定义：非最大值意味着你只输出概率最大的分类结果，但抑制很接 近，但不是最大的其他预测结果，所以这方法叫做非极大值抑制</p>
+</li>
+<li><p>找到一个最大的$P_c$,非极大值抑制就会逐一审视 剩下的矩形，所有和这个最大的边框有很高交并比(IoU)，高度重叠的其他边界框，那么这些输出 就会被抑制</p>
+</li>
+<li><p>算法步骤：</p>
+<ul>
+<li>1.得到标记所有边框界，去掉这些边框界中$P_c$很小的，比如0.6，表示出现对象的概率很低</li>
+<li>2.找到剩下的边框界中最大的$P_c$，然后去掉和$P_c$重合度最高，也就是IoU比较大的一些边框界</li>
+<li>3.在剩下的边框界中重复2步骤，直到每一个边框界都被处理过</li>
+</ul>
+</li>
+</ul>
+<h4 id="Anchor-Boxes"><a href="#Anchor-Boxes" class="headerlink" title="Anchor Boxes"></a>Anchor Boxes</h4><ul>
+<li>背景：对象检测中存在的一个问题是每个格子只能检测出一个对象,如果你想让一个格子检测出多个对象，可以使用Anchor Boxes</li>
+<li>思路：而 anchor box的思路是，这样子，预先定义两个不同形状的 anchor box，或者 anchor box 形状，你要做的是把预测结果和这两个 anchor box <strong>关联起来</strong></li>
+<li>算法：输出为16维的向量，分别对应2个archor，然后找到和哪个archor的IoU最高，就和谁关联(每个archor会表示对应到哪个对象)<img src="/2018/11/22/dl/第四门课-第三周/resources/839F34619E1A18553C7228719CF4E324.jpg">
+<img src="/2018/11/22/dl/第四门课-第三周/resources/E20DD21008E63DD76E94BE4695C6F6C8.jpg">
+</li>
+</ul>
+<h4 id="YOLO算法-集成"><a href="#YOLO算法-集成" class="headerlink" title="YOLO算法(集成)"></a>YOLO算法(集成)</h4><ul>
+<li>Train<img src="/2018/11/22/dl/第四门课-第三周/resources/8B11A706D91156D5BC28FF762DEFF029.jpg"></li>
+<li>Prediction<br>方框1得到右边3的输出，方框2得到右边4的输出，最后得到了每个grid(3x3)都得到了一个16维的向量<img src="/2018/11/22/dl/第四门课-第三周/resources/A1B5933F37A0758678E7EA49630F5643.jpg"></li>
+<li>Non-max supressed output<ul>
+<li>现在得到了每个grid(3x3)都得到了一个16维的向量，先去掉$P_c$比较低的网格，因为这基本代表无对象(下图1-&gt;下图2过程)</li>
+<li>对剩下的网格，对每一种类别都使用Non-max supressed方法来确定每个网格对类别的预测<ul>
+<li>例如：如果你有三个对象检测类别，你希望检测行人，汽车和摩托车，那么你要做的是， 对于每个类别单独运行非极大值抑制，处理预测结果所属类别的边界框，用非极大值抑制来 处理行人类别，用非极大值抑制处理车子类别，然后对摩托车类别进行非极大值抑制，运行 三次来得到最终的预测结果。所以算法的输出最好能够检测出图像里所有的车子，还有所有 的行人(编号 3 所示)<img src="/2018/11/22/dl/第四门课-第三周/resources/87465058CE19103C0E52E5BBC076A0E5.jpg"></li>
+<li>对于每个类别单独运行非极大值抑制<img src="/2018/11/22/dl/第四门课-第三周/resources/98FF932F93FB8DFFAC240D4CEA9A2B95.jpg">
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="候选区域"><a href="#候选区域" class="headerlink" title="候选区域"></a>候选区域</h4><ul>
+<li>背景：CNN会对每个区域都进行计算，是它其中一个缺点，它在显然没有任何对象的区域浪费时间</li>
+<li>R-CNN：带区域的卷积网络，或者说带区域的 CNN。 这个算法尝试选出一些区域，在这些区域上运行卷积网络分类器是有意义的，不对每个区域进行计算</li>
+<li>基本的 R-CNN 算法是使用某种算法求出候选区域， 然后对每个候选区域运行一下分类器，每个区域会输出一个标签，有没有车子?有没有行人?有没有摩托车?并输出一个边界框，这样你就能在确实存在对象的区域得到一个精确的边界框。R-CNN 算法不会直接信任输入的边界框<img src="/2018/11/22/dl/第四门课-第三周/resources/54DB30472F0B94F4C2580982A05ACF38.jpg">
+</li>
+</ul>
+<h4 id="改进算法"><a href="#改进算法" class="headerlink" title="改进算法"></a>改进算法</h4><ul>
+<li>Fast R-CNN<br>最初的算法是逐一对区域分类的，所以 Fast R-CNN用的是滑动窗法的一个卷积实现，和之前学习的”卷积的滑动窗口实现”类似</li>
+<li>Faster R-CNN<ul>
+<li>使用的是卷积神经网络，而不是更传统的分割算法来获得候选区域色块，<strong>来解决得到候选区域的聚类步骤仍然非常缓慢</strong></li>
+<li>吴恩达老师认为：我觉得候选区域是一个有趣的想法，但这个方法需要<strong>两步</strong>，首先得到候选区域，然后再分类，相比之下，能够一步做完，类似于YOLO或者你只看一次(You only look once)这个算法，在我看来，是长远而言更有希望的方向，我认为大多数 Faster R-CNN 的算法实现还是比 YOLO 算法慢很多<img src="/2018/11/22/dl/第四门课-第三周/resources/046AA6B1D31278AA8BC847A21DDD56A2.jpg"></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+	
+    
+	
+      	    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/14/dl/第四门课-第二周/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/14/dl/第四门课-第二周/" itemprop="url">第四门课-第二周</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-14T21:10:09+08:00">
+                2018-11-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/深度学习/" itemprop="url" rel="index">
+                    <span itemprop="name">深度学习</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/深度学习/吴恩达课程总结/" itemprop="url" rel="index">
+                    <span itemprop="name">吴恩达课程总结</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><a href="https://github.com/yuancl/dl-algorithm/tree/master/4-ConvolutionNeuralNetworks/Week2/ResNets" target="_blank" rel="noopener">习题代码</a></p>
+<h5 id="LeNet5"><a href="#LeNet5" class="headerlink" title="LeNet5"></a>LeNet5</h5><ul>
+<li>它是针对灰色图片训练的</li>
+<li>架构：CONV-POOL-CONV-POOL-FC-FC-SOFTMAX</li>
+<li>CONV使用5x5 filter，POOL使用2x2，padding都为0，图片宽高在逐渐减小，信道数在逐渐增大</li>
+<li>还有一种模型多卷积，一个池化，多卷积，一个池化…现在也经常使用</li>
+<li>经典LeNet5使用了非常复杂的计算方式，每个过滤器都采用和输入模块一样的通道数量，现在一般不会这么做了</li>
+<li>使用的是sigmod，不是ReLU<img src="/2018/11/14/dl/第四门课-第二周/resources/FFB32954180F01A43DAE62D2E79B442D">
+</li>
+</ul>
+<h5 id="AlexNet"><a href="#AlexNet" class="headerlink" title="AlexNet"></a>AlexNet</h5><ul>
+<li>之前在语音方面已经得到了很大的进展，这是这篇论文，让人们觉得深度学习能够对CV有很大帮助</li>
+<li>AlexNet是更大的网络，大约6000万个参数，而LeNet5大约6万个参数</li>
+<li><strong>AlexNet能够处理非常相似的基本构造模块(没有理解)？</strong></li>
+<li>比LeNet表现另一个原因是使用了ReLu激活函数</li>
+<li>Multiple GPUs:Alex用了非常复杂的方法使这些层拆分到两个不同的GPU上</li>
+<li>LRN(Local Response Normalization)：选取一个位置，贯穿整个通道，得到256个数字，并进行归一化。局部归一化的动机是，对于13x13的图像中的每个位置来说，我们可能并不需要太多的高激活神经元。也没有理解</li>
+<li>网络特点：卷积核除了第一个，全部采用same卷积<img src="/2018/11/14/dl/第四门课-第二周/resources/95ED2FBAA8AEC165904C8B9DE4A6670A">
+</li>
+</ul>
+<h5 id="VGG-16"><a href="#VGG-16" class="headerlink" title="VGG-16"></a>VGG-16</h5><ul>
+<li>和LeNet比，它<strong>非常规整</strong></li>
+<li>简化了神经网络的结构，卷积层采用same卷积，信道数翻倍。池化层宽带高度都减半(每次池化后宽高缩小一倍，每次卷积后通道数也增加一倍)</li>
+<li>16代表包含有16个卷积层和全连接层，确实是很大的网络。但是非常规整，都是几个卷积后跟着一个压缩图像大小的池化层，这一点很吸引人。信道数64-128-256-512…可能认为已经足够大了，就没有再翻倍了</li>
+<li>缺点是需要训练的特征数量非常巨大</li>
+<li>还有VGG-19，是更庞大的网络，但效果其实和VGG-16差不多<img src="/2018/11/14/dl/第四门课-第二周/resources/2C14B193C833B6DFE0463405C9D003D5">
+</li>
+</ul>
+<h5 id="ResNets"><a href="#ResNets" class="headerlink" title="ResNets"></a>ResNets</h5><p><a href="https://github.com/yuancl/dl-algorithm/tree/master/4-ConvolutionNeuralNetworks/Week2/ResNets" target="_blank" rel="noopener">可参看习题</a></p>
+<ul>
+<li><strong>解决问题</strong>(注意和梯度优化算法指数加权平均的区别)<br>网络越深，越容易出现梯度消失问题，因为在反向传播算法就是梯度的时候，和各个层级的系数相关，相乘，所以很容易出现接近于0去情况，所以一开始就很快出现梯度消失问题，导致学习(learning speed)非常慢，性能很差(图上可以看见，越是前面的层级问题越严重)<img src="/2018/11/14/dl/第四门课-第二周/resources/61F21AE03F6475441BFAE38139170DFE.jpg" title="=561x267">
+</li>
+</ul>
+<ul>
+<li><p><strong>网络结构：</strong></p>
+<ul>
+<li>a[l+2]=g(z[l+2]+a[l]),其中a[l]就是残差块,是插在非线性变换前</li>
+<li>对于一个普通网络来说深度越深优化算法越难训练，训练误差越来越多。但ResNet表现比较好</li>
+<li>因为这种方式有助于解决梯度消失和梯度爆炸的问题，让我们训练更深的网络的同时，又能保证性能<img src="/2018/11/14/dl/第四门课-第二周/resources/2BDA2C468464C84C78603227B52C78E3"></li>
+</ul>
+</li>
+<li><p><strong>为什么能work？</strong></p>
+<ul>
+<li>a[l+2]=g(z[l+2]+a[l])=g(w[l+2]∗a[l+1]+b[l+2]+a[l])可见，当使用L2正则化或者其他方法，导致权重w会不断衰减(<strong>个人理解就容易出现梯度消失问题</strong>)，我们直接让w[l+2]=0并且b[l+2]=0，有了残差块，所以a[l+2]=g(a[l])=a<a href="因为Rele(x">l</a>中x>0)，这样来解决更容易出现的提交消失问题</li>
+<li>残差网络学习这种恒等函数非常容易</li>
+<li>z[l+2]+a[l]由于这里有向量的加减法，所以这两个层的维度必须想办法相对，比较简单的方式是使用same卷积</li>
+<li>网络结构：经常多个卷积接一个池化，CONV-CONV-CONV-POOL-CONV-CONV-CONV-POOL……FC-FC-SOFTMAX，无论网络如何，都会进行矩阵维度调整</li>
+<li>ResNet还提到了使用1*1的卷积，会在后面讲解<img src="/2018/11/14/dl/第四门课-第二周/resources/7F98489A2561372FB25FC4939CA2F778">
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="Inception-GoogleNet"><a href="#Inception-GoogleNet" class="headerlink" title="Inception(GoogleNet)"></a>Inception(GoogleNet)</h5><ul>
+<li><p>网络中的网络已经1x1卷积</p>
+<ul>
+<li>改变通道数<img src="/2018/11/14/dl/第四门课-第二周/resources/59405B33A45ED9994661CC21A765DDC6"></li>
+</ul>
+</li>
+<li><p>Incption模块</p>
+<ul>
+<li>作用：避免人工确定卷积层中的过滤器类型，或者确定是否需要创建卷积层或池化层</li>
+<li>各种大小filter，pool相组合。缺点是计算复杂<img src="/2018/11/14/dl/第四门课-第二周/resources/A1892AE97B02F31DB72FC0BC2C6B5AA5"></li>
+<li>1x1卷积(瓶颈层)，降低通道数，降低计算复杂性(使用瓶颈层来缩小网络)<img src="/2018/11/14/dl/第四门课-第二周/resources/943071A79A4B72BD6C85D71BFD5B213B">
+使用瓶颈层来缩小网络<img src="/2018/11/14/dl/第四门课-第二周/resources/2895B32491E5564FDB45A8903147F4F2"></li>
+</ul>
+</li>
+<li><p>Inception网络</p>
+<ul>
+<li>Inception module<img src="/2018/11/14/dl/第四门课-第二周/resources/CF1D396466A7E5FD698DDE8160C77CF0"></li>
+<li>Inception网络就是将这些模块都组合到一起<img src="/2018/11/14/dl/第四门课-第二周/resources/B4825BB37EAF8E3586791DEDE6D02E25"></li>
+<li>隐藏层和中间层也能进行预测，确保了他们也参加特征计算，并且能够防止网络过拟合 <ul>
+<li>看途中的分支(编号2，就是通过隐藏层，编号3做的sotmax预测)</li>
+</ul>
+</li>
+<li>当然也有一些比较新的Inception论文，比如Inception V2,V3等，但都是基于这个搭积木的思想</li>
+</ul>
+</li>
+<li><p>如果构建自己的CV网络</p>
+<ul>
+<li>使用开源的实现方案：使用别人已经训练好的网络结构及权重，通常能够进展得相当快，用这个作为预训练，然后转换到你感兴趣的任务上</li>
+<li>如何迁移？主要根据你自己的数据量大小 <ul>
+<li>Train数据很少，你只需要训练替换后的你自己的softmax层相关参数，而冻结其他层的所有参数 <ul>
+<li>其他有个技巧，就是把softmax的输入直接存入硬盘</li>
+</ul>
+</li>
+<li>有一定的数据量，冻结的层数就少一点</li>
+<li>大量数据，不进行冻结，只是使用这些参数作为<strong>初始化参数</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>数据扩充</p>
+<ul>
+<li>镜像对称</li>
+<li>随机裁剪(Rotation，Shearing，Local warping)</li>
+<li>旋转</li>
+<li>彩色转换，就是给R,G,B通道上加上不同的失真值(注意PCA对其影响)</li>
+<li>可以用CPU多线程进行数据扩充，然后用GPU训练<img src="/2018/11/14/dl/第四门课-第二周/resources/0885F9F3C1D49D58CB4CA297DC68E67B"></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+	
+    
+	
+      	    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/14/dl/第四门课-第一周/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/10/14/dl/第四门课-第一周/" itemprop="url">第四门课-第一周</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-14T19:30:09+08:00">
+                2018-10-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/深度学习/" itemprop="url" rel="index">
+                    <span itemprop="name">深度学习</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/深度学习/吴恩达课程总结/" itemprop="url" rel="index">
+                    <span itemprop="name">吴恩达课程总结</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="第一周-卷积神经网络"><a href="#第一周-卷积神经网络" class="headerlink" title="第一周 卷积神经网络"></a>第一周 卷积神经网络</h3><h5 id="边缘检测"><a href="#边缘检测" class="headerlink" title="边缘检测"></a>边缘检测</h5><ul>
+<li>浅层特征可能是是垂直检测，水平检测等初级特征，后面层可能是人眼等高级特征，最后是整个人形等</li>
+<li>理解垂直边缘过滤核：<br>$<br>\begin{cases}<br>1-0–1\<br>1-0–1\<br>1-0–1\<br>\end{cases}<br>$ <ul>
+<li><strong>(1)(3)列正负相互抵消</strong>，只能在差异相差很大的不同区域可能保留比较大的特征值，比如在黑白过渡区域等</li>
+</ul>
+</li>
+</ul>
+<h5 id="更多边缘检测过滤核"><a href="#更多边缘检测过滤核" class="headerlink" title="更多边缘检测过滤核"></a>更多边缘检测过滤核</h5><ul>
+<li>Sobel过滤器 <ul>
+<li>增加了中间的一行元素的权重，这样使得结果的鲁棒性更会高一些</li>
+</ul>
+<ul>
+<li>$\begin{cases}<br>1-0–1\<br>2-0–2\<br>1-0–1\<br>\end{cases}<br>$ </li>
+</ul>
+</li>
+<li>Scharr过滤器(CV中经常使用) <ul>
+<li>$\begin{cases}<br>3-0–3\<br>10-0–10\<br>3-0–3\<br>\end{cases}<br>$ </li>
+</ul>
+</li>
+</ul>
+<h5 id="Padding"><a href="#Padding" class="headerlink" title="Padding"></a>Padding</h5><ul>
+<li>解决问题： <ul>
+<li>每次做卷积的时候，他的图像都会缩小，多做几次卷积就输出的图像会很小</li>
+<li>图像边缘的像素，只有一个卷积核会计算到，这样一来角落或者图像边缘的信息发挥的作用就会很小</li>
+</ul>
+</li>
+<li>通常Padding设置： <ul>
+<li>Valid(无padding),normal,same(使输出和输入尺寸一致)</li>
+<li>一般考虑到对称性和中心点位置，padding值一般使用奇数值</li>
+</ul>
+</li>
+</ul>
+<h5 id="卷积步长-Strided"><a href="#卷积步长-Strided" class="headerlink" title="卷积步长(Strided)"></a>卷积步长(Strided)</h5><h5 id="三维卷积"><a href="#三维卷积" class="headerlink" title="三维卷积"></a>三维卷积</h5><ul>
+<li><img src="/2018/10/14/dl/第四门课-第一周/resources/A34E4968C781FBBF7EE500ECE577EE92"></li>
+<li>多filter=通道数=特征数=深度(多种叫法)</li>
+</ul>
+<h5 id="单层卷积网络"><a href="#单层卷积网络" class="headerlink" title="单层卷积网络"></a>单层卷积网络</h5><ul>
+<li>类似神经网络(x->z->(ReLU+b)->a…),可以看出，图像无论多大，卷积核参数都是不变的(这样一定程度能避免过拟合)</li>
+<li><img src="/2018/10/14/dl/第四门课-第一周/resources/A2DE0F8C6458579436F140074B5FE193">
+</li>
+</ul>
+<h5 id="池化层"><a href="#池化层" class="headerlink" title="池化层"></a>池化层</h5><ul>
+<li>可以理解为卷积核，但是没有参数，比如max pooling,min pooling</li>
+<li>max pooling理解： <ul>
+<li>提取最大的数字，可以理解为最突出的特征提取出来，同时如果该局部图像不存在此特征，提取出的值依然很小</li>
+<li>4x4就可以看做是特征的集合，最后提取出的9可能就表示然人眼…<img src="/2018/10/14/dl/第四门课-第一周/resources/4DDA682D49EE988BEF6230C1A1EFB3D2"></li>
+<li>超参数(f,s)，一般设置(f=2,s=3)或(f=3,s=2),一般很少会用到Padding，只有超参数并没有其他的参数，没有什么需要学习的，可以理解为只是一个<strong>静态属性</strong></li>
+</ul>
+</li>
+</ul>
+<h5 id="卷积网络示例"><a href="#卷积网络示例" class="headerlink" title="卷积网络示例"></a>卷积网络示例</h5><ul>
+<li>一般分类： <ul>
+<li>卷积层+池化层 为一层</li>
+<li>或者不考虑无参数，无权重的池化层，一层卷积层就为一层</li>
+</ul>
+</li>
+<li>常见模式：<br>CONV-POOL-CONV-POOL-FC-FC-FC-SOFTMAX</li>
+<li>特点： <ul>
+<li>nh​,nw​会逐渐减小，但是信道会增加</li>
+<li>激活值也是逐渐减小，但是不能让减小太快，否则会影响网络性能</li>
+<li>parameters数量不随输入图片的大小而改变，只能卷积核和全连接层有关系(其中parametr数(208=5x5x8+8)(416=5x5x16+16)不和具体输入图像相关)</li>
+<li>CV研究的工作就是研究如何整合卷积层，池化层，全连接层</li>
+<li>网络架构(类似LetNet5)<img src="/2018/10/14/dl/第四门课-第一周/resources/EA6A4DE2FF731A127BE54D7B0109DEFA">
+过程参数变化情况：<br>其中parametr数(208=5x5x8+8)(416=5x5x16+16)不和具体输入图像相关<img src="/2018/10/14/dl/第四门课-第一周/resources/B5D93F420A7D874EB6AF156E7E1127F6">
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="卷积优点"><a href="#卷积优点" class="headerlink" title="卷积优点"></a>卷积优点</h5><ul>
+<li>减小参数</li>
+<li>稀疏连接</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+	
+    
+	
+      	    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/10/dl/第三门课-第二周/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/10/10/dl/第三门课-第二周/" itemprop="url">第三门课-第二周</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-10T10:00:09+08:00">
+                2018-10-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/深度学习/" itemprop="url" rel="index">
+                    <span itemprop="name">深度学习</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/深度学习/吴恩达课程总结/" itemprop="url" rel="index">
+                    <span itemprop="name">吴恩达课程总结</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="进行误差分析："><a href="#进行误差分析：" class="headerlink" title="进行误差分析："></a>进行误差分析：</h4><ul>
+<li>通过人工check，找出标记错误的样本和总数的百分比，选出比较较大的错误类型进行分析，通常能够帮你找到优化的灵感</li>
+<li>深度学习算法对训练集中的随机错误是相对<strong>健壮</strong>的，如果数据够随机，那么不用花太多时间去修正它们</li>
+<li>但是如果这些错误比较理解大，<strong>严重影响</strong>到你再开发集上的评估能力，那才真有必要去修正下标注</li>
+<li>Dev/Test集的分布一定要一致，如果需要更改标注，也是一样。训练集倒可以不一致</li>
+<li>最后，深度学习工作者一般很少去人工干预，但是建议也看下误差的影响面</li>
+</ul>
+<h4 id="快速搭建你的第一个系统："><a href="#快速搭建你的第一个系统：" class="headerlink" title="快速搭建你的第一个系统："></a>快速搭建你的第一个系统：</h4><ul>
+<li>如果面对的是新应用，这个时候你的<strong>目标</strong>是得到一个可用的系统，所以可以快速搭建你的系统，然后进行误差分析，找到后面的方向</li>
+<li>如果你是老司机，那么可以参考已有的学术论文，已有的架构等构建你的网络</li>
+</ul>
+<h4 id="训练集和测试集不同分布："><a href="#训练集和测试集不同分布：" class="headerlink" title="训练集和测试集不同分布："></a>训练集和测试集不同分布：</h4><ul>
+<li>如果关系App中的图片,即使App的数据很少,也不建议train：webapp，dev/test：app。而建议把一部分收集到的真实数据放入训练集使用train：<strong>webapp+app</strong>, dev/test:app</li>
+<li>例如音频数据训练集有500,000条数据，收集到的真实数据是20,000条，那么组合方式有：<br>$\begin{cases}<br>train:500,000+10,000\<br>dev:5000\<br>test:5000\<br>\end{cases}<br>$ 或者是：<br>$\begin{cases}<br>train:500,000\<br>dev:10,000\<br>test:10,000\<br>\end{cases}<br>$</li>
+</ul>
+<h4 id="Train-dev数据不同分布带来的偏差和方差问题"><a href="#Train-dev数据不同分布带来的偏差和方差问题" class="headerlink" title="Train/dev数据不同分布带来的偏差和方差问题"></a>Train/dev数据不同分布带来的偏差和方差问题</h4><ul>
+<li>问题现象：如果Train/dev数据不同分布，那么如果发现实际dev loss比train大，那么到底是<strong>数据不同分布</strong>导致？还是<strong>方差问题</strong>导致呢？</li>
+<li>解决方案：建设一个Train-dev数据集，此数据集合Train数据同分布，来排除是否是<strong>方差的问题</strong>的问题：<br>$\begin{cases}<br>Bias:Human level,Train\<br>Variance:Train,Train-dev\<br>Datamatch:Train-dev,dev\<br>\end{cases}<br>$</li>
+<li>这个时候就有三类问题:<strong>1.bias 2.variance 3.数据不同分布</strong>,对分布不同问题，没有很好的办法，但有一些建议如下: <ul>
+<li>人工合成，让你的训练集数据分布接近你的Dev集(比如图像合成) <ul>
+<li>问题：可能出现数据集局部过拟合</li>
+</ul>
+</li>
+<li>所以如果是数据分布问题导致，一般分析步骤： <ul>
+<li>仔细观察下Train/dev/test数据特点</li>
+<li>想办法收集更多想dev/test的数据</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="迁移学习"><a href="#迁移学习" class="headerlink" title="迁移学习"></a>迁移学习</h4><ul>
+<li>预训练(pre-training)：如果你数据比较多，进行全部参数的重新训练，这时你在用图像识别数据去预先初始化，就叫做预训练，或者预训练神经网络权重</li>
+<li>微调(fine tuning)：如果以后更新所有权重，然后在其他地方训练，有时这个过程也叫微调</li>
+<li>如果没有这么多的数据，也可以选择只替换输出层，或者最后两层等</li>
+<li>为什么可以这样迁移？ <ul>
+<li>有很多低层次的特征，比如说边缘检测，曲线检测，阳性对象检测等，图像都可以共用的</li>
+<li>学到了这些低层次的特征，就能够进一步学习到线条，点，曲面这些知识</li>
+</ul>
+</li>
+<li>适用场景：迁移后的场景，你没有这么多的数据</li>
+<li>A->B条件: <ul>
+<li>A和B都要有同样的输入，比如都是图像，都是语音等</li>
+<li>B的数据远小于A</li>
+<li>如果觉得A的低层次的特征能够帮助到B</li>
+</ul>
+</li>
+</ul>
+<h4 id="多任务学习-Multi-task-learning"><a href="#多任务学习-Multi-task-learning" class="headerlink" title="多任务学习(Multi-task learning)"></a>多任务学习(Multi-task learning)</h4><ul>
+<li>什么叫多任务学习？ <ul>
+<li>一个输入会有多个输出flag：比如CV中，自驾驾驶领域，对一个图片的识别既要判断图片是否有交通灯，又要判断行人，车辆等</li>
+</ul>
+</li>
+<li>多任务学习的条件及意义 <ul>
+<li>类比迁移学习，如果多任务中有共用的低层次的特征，就能够大大提升你的性能，并且比单独每个任务都训练独立的网络效果好很多</li>
+<li>类比迁移学习，你多个任务叠加的数据量要比单个任务数据量大很多</li>
+<li>要求神经网络足够大，如果过小，那么不见得会比但任务学习有好的性能</li>
+</ul>
+</li>
+<li>应用情况 <ul>
+<li>实际应用中，迁移学习的使用频率比多任务会大很多，可能多任务在CV领域应用得比较多</li>
+</ul>
+</li>
+</ul>
+<h4 id="端到端学习"><a href="#端到端学习" class="headerlink" title="端到端学习:"></a>端到端学习:</h4><ul>
+<li>什么是端到端学习？ <ul>
+<li>比如说语音识别，从音频输入->特征提取->…->找到音位->…->构成听写文本，中间有多个阶段。端到端学习就是直接x->y的映射，这里就是音频输入->构成听写文本</li>
+</ul>
+</li>
+<li>使用条件: <ul>
+<li>数据量(x->y)直接映射的数据量足够大</li>
+</ul>
+</li>
+<li>优点: <ul>
+<li>组件少，中间过程省时省力</li>
+</ul>
+</li>
+<li>缺点: <ul>
+<li>很多场景x->y直接映射的数据量很少，不好收集</li>
+<li>可能会排除了中间很多人为设计的有用的组件，觉得学习算法的指数来源主要有数据和人工设计的东西</li>
+</ul>
+</li>
+<li>例子: <ul>
+<li>人脸识别的系统，并没有直接使用x->y(门禁照片->身份确认)的识别，因为端到端的直接数据并没有这么多数据集。所以拆分为两步：1.识别人脸照片，2.照片和身份的对应。这种方式是因为拆分后的两步都有大量的数据集</li>
+<li>X射线评估孩子年龄，直接的数据x->(x摄像图像->孩子年龄)也没有这么多数据，也需要拆分</li>
+<li>机器翻译：端到端方法就使用很广泛，因为存在<strong>大量的数据</strong>，比如英文->法文….</li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+	
+    
+	
+      	    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/27/dl/吴恩达课程习题/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/09/27/dl/吴恩达课程习题/" itemprop="url">吴恩达课程习题</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-27T10:55:49+08:00">
+                2018-09-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/深度学习/" itemprop="url" rel="index">
+                    <span itemprop="name">深度学习</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/深度学习/吴恩达课程习题/" itemprop="url" rel="index">
+                    <span itemprop="name">吴恩达课程习题</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>习题托管于github，包括学习心得总结</p>
+<p><a href="https://github.com/yuancl/dl-algorithm/tree/master/2-ImprovingDeepNeuralNetworks" target="_blank" rel="noopener">2-ImprovingDeepNeuralNetworks</a><br>第二门课 简单神经网络实现</p>
+<p><a href="https://github.com/yuancl/dl-algorithm/tree/master/4-ConvolutionNeuralNetworks/Week1" target="_blank" rel="noopener">4.1-ConvolutionNeuralNetworks</a><br>第四门课-第一周 主要是CNN简单实现</p>
+<p><a href="https://github.com/yuancl/dl-algorithm/tree/master/4-ConvolutionNeuralNetworks/Week2/ResNets" target="_blank" rel="noopener">4.2-ConvolutionNeuralNetworks</a><br>第四门课-第二周 主要是Keras的介绍和简单ResNet的实现</p>
+<p><a href="https://github.com/yuancl/dl-algorithm/tree/master/4-ConvolutionNeuralNetworks/Week3" target="_blank" rel="noopener">4.3-YOLO</a><br>第四门课-第三周 主要是YOLO算法的的实现</p>
+<p><a href="https://github.com/yuancl/dl-algorithm/tree/master/4-ConvolutionNeuralNetworks/Week4" target="_blank" rel="noopener">4.4-YOLO</a><br>第四门课-第四周 主要是人脸识别和NST算法的的简单实现</p>
+<p><a href="https://github.com/yuancl/dl-algorithm/tree/master/5-RecurrentNeuralNetworks/Week1/Building%2Ba%2BRecurrent%2BNeural%2BNetwork%2B-%2BStep%2Bby%2BStep" target="_blank" rel="noopener">5.1.1-Building+a+Recurrent+Neural+Network+-+Step+by+Step</a><br><a href="https://github.com/yuancl/dl-algorithm/tree/master/5-RecurrentNeuralNetworks/Week1/dinosaurus-island" target="_blank" rel="noopener">5.1.2-RNN-dinosaurus-island</a><br><a href="https://github.com/yuancl/dl-algorithm/tree/master/5-RecurrentNeuralNetworks/Week1/Jazz-improvisation-with-LSTM" target="_blank" rel="noopener">5.1.3-LSTN-Improvise-music</a><br>第五门课-第一周</p>
+<ul>
+<li>Building+a+Recurrent+Neural+Network+-+Step+by+Step<ul>
+<li>主要讲是一步一步构建RNN基础网络和LSTM网络，理解运作原理</li>
+</ul>
+</li>
+<li>dinosaurus-island(character-level language model)<ul>
+<li>此练习使用基础RNN模型或者LSTM模型，学习一些文本，然后生成新的文本。比如恐龙名字，然后生成新的名字。比如莎士比亚诗词，然后可以生成新的类莎士比亚风格的诗词，都是利用了RNN模型对长文本序列模型的记忆能力。同时想到是否可以创造新个歌曲，机器人写文章等….I</li>
+</ul>
+</li>
+<li>Improvise-music with an LSTM network<ul>
+<li>此练习主要使用LSTM网络生成音乐，原理和上一练习中生成恐龙名字类似，输入不同的序列数据，学习到参数后，然后生成序列段(将一段音乐分割为snippets，每一个snippet继续切分为30个时间步，然后进行训练)</li>
+</ul>
+</li>
+</ul>
+<p><a href="https://github.com/yuancl/dl-algorithm/tree/master/5-RecurrentNeuralNetworks/Week2" target="_blank" rel="noopener">5.2-Operations-on-word- vectors</a><br><a href="https://github.com/yuancl/dl-algorithm/tree/master/5-RecurrentNeuralNetworks/Week3/Machine-Translation" target="_blank" rel="noopener">5.3.1:Machine-Translation</a><br><a href="https://github.com/yuancl/dl-algorithm/tree/master/5-RecurrentNeuralNetworks/Week3/Trigger-word-detection" target="_blank" rel="noopener">5.3.2:Trigger-word-detection</a><br>第五门课-第三周</p>
+<ul>
+<li>Machine-Translation <ul>
+<li>主要练习的注意力模型，将人工理解(Tuesday 09 Oct 1993)的日期翻译为机器理解的日期(1993-10-09)</li>
+</ul>
+</li>
+<li>Trigger-word-detection<ul>
+<li>触发字检测,首先通过生谱图将声音转换为特征向量,然后通过CNN,RNN进行预测判断Trigger word </li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+	
+    
+	
+      	    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/22/dl/第三门课-第一周/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/09/22/dl/第三门课-第一周/" itemprop="url">第三门课-第一周</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-22T20:00:09+08:00">
+                2018-09-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/深度学习/" itemprop="url" rel="index">
+                    <span itemprop="name">深度学习</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/深度学习/吴恩达课程总结/" itemprop="url" rel="index">
+                    <span itemprop="name">吴恩达课程总结</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>第一周</p>
+<ul>
+<li><p>正交化思想</p>
+<ul>
+<li>各个变量不相互依赖</li>
+<li>chain of assumptions in ML：<br>training -> dev -> test -> real world<br>逐渐向能够拟合real world靠近</li>
+<li>early stoping不建议使用了，会停止测试集继续拟合，还对开发机有优化，同时影响两个按钮</li>
+</ul>
+</li>
+<li>单一数字评估指标<br>准确率，召回率两个指标，往往不好判断。所以F1 Score=$\frac{2}{\frac{1}{P} + \frac{1}{R}}$来看整体的情况</li>
+<li><p>满足和优化指标</p>
+<ul>
+<li>优化指标：是需要不断优化的</li>
+<li>满足指标：只需要达到一定的门槛值就行了</li>
+</ul>
+</li>
+<li><p>训练/开发/测试集划分</p>
+<ul>
+<li>训练集：用训练集训练不同的模型</li>
+<li>开发集：用开发集来评估不同的思路，然后选择一个，不断迭代去改善开发集的性能</li>
+<li>用测试集去评估，目的是评估你最终的成本偏差</li>
+<li>设立开发集及评估指标，真的就定义了你要瞄准的目标。当然需要在同一分布中设立开发集和测试集</li>
+<li>开发集和测试集的数据量大小： <ul>
+<li>之前数据量都很小的时候，经常是6/2/2,8/2</li>
+<li>现在大数据时代，需要看总体数据量大小，比如10000的开发集，测试集就已经够了</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>什么时候改变开发，测试集指标</p>
+<ul>
+<li>第一步为设立目标，第二步为瞄准和射击目标，建议尽快设立一个明确的目标，可以让你的团队高效迭代，改善性能</li>
+<li>如果当前指标和数据，和你<strong>真正关心必须做好的事情</strong>关心不大，那就应该更改你的指标或者你的开发测试集，让它们能更好地反映你的算法需要处理好的数据</li>
+</ul>
+</li>
+<li><p>Bayes optimal error</p>
+<ul>
+<li>贝叶斯错最优错误率一般认为是理论上可能达到的最优错误率，也就是说没有任何一个办法能够超越一定的准确度，通常比人类的表现还要好</li>
+<li>现象：ML在你超越人类表现之前，进展都会很快，而超越后就会慢下来了</li>
+<li>人类对图像，听写音频，或阅读语言等比较擅长，那么就让其做自己擅长的事情，比如人工标注</li>
+</ul>
+</li>
+<li>可避免偏差/方差<br>Humans(≈bayes) 1% 7.5%<br>Training error 8% 8%<br>Dev error 10% 10%<br>1%的时候，考虑避免偏差去优化。而7.5%的时候考虑避免方差去优化</li>
+<li><p>理解人的表现&amp;超越人的表现</p>
+<ul>
+<li>(human->bayes)通过人类水平的估计做出对贝叶斯错误的估计</li>
+<li>(train-bayes|human:bias)然后通过比较和贝叶斯错误估计的差别来评估偏差</li>
+<li>(dev-train:variance)通过dev和train的差距来判断可优化方差的距离</li>
+<li>如果已经超过了人类的表现，那么后面的优化会比较缓慢</li>
+</ul>
+</li>
+<li><p>Bias/Variance改进方法：</p>
+<ul>
+<li>Bias： <ul>
+<li>规模更大的模型</li>
+<li>更优惠的算法，比如momentum,RMSProp,adam</li>
+<li>新的神经网络的架构，或者更好的超参数等</li>
+<li>改变激活函数，或者隐层数量，单位数据等</li>
+<li>尝试其他模型，其他架构，如CNN,RNN等</li>
+</ul>
+</li>
+<li>Variance: <ul>
+<li>收集更多的数据</li>
+<li>正则化，L2,Dropout等</li>
+<li>不同神经网络，超参数等</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+	
+    
+	
+      	    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/17/dl/第二门课-第三周/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/09/17/dl/第二门课-第三周/" itemprop="url">第二门课-第三周</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-17T21:10:23+08:00">
+                2018-09-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/深度学习/" itemprop="url" rel="index">
+                    <span itemprop="name">深度学习</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/深度学习/吴恩达课程总结/" itemprop="url" rel="index">
+                    <span itemprop="name">吴恩达课程总结</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="3-1调试处理"><a href="#3-1调试处理" class="headerlink" title="3.1调试处理"></a>3.1调试处理</h3><ul>
+<li>建议重要性 <ul>
+<li>学习步长α</li>
+<li>β(Momentum),hide units,mini-batch size</li>
+<li>layouts,α的衰减率</li>
+<li>β1​,β2​,ϵ(Adam)</li>
+</ul>
+</li>
+<li>传统ml一般使用grid精确化的选参方法。dl进行随机选择(因为不确定哪些参数重要),采用<strong>由粗精确到细</strong>的方法，范围逐渐变小</li>
+</ul>
+<h3 id="3-2为超参数选择合适的范围"><a href="#3-2为超参数选择合适的范围" class="headerlink" title="3.2为超参数选择合适的范围"></a>3.2为超参数选择合适的范围</h3><ul>
+<li>比如说隐藏层层数，可以在坐标轴上2，3，4…选择</li>
+<li>对数标尺：$[10^a,10^b]$-&gt;(a,b)的均值的选择，例如$\beta$(0.9, 0.999)-&gt;$1-\beta$(0.1,0.001)即($10^{-1},10^{-3}$)</li>
+<li>需要根据不同表达式来判断各个超参数的敏感度，比如表达式$\frac{1}{1-\beta}$在$\beta$快接近0的时候，就很敏感</li>
+</ul>
+<h3 id="3-3超参数训练的实践"><a href="#3-3超参数训练的实践" class="headerlink" title="3.3超参数训练的实践"></a>3.3超参数训练的实践</h3><ul>
+<li>资源条件允许，进行多参数共同调整训练</li>
+<li>资源不充足，只能一次训练过程中不断进行参数的调整</li>
+</ul>
+<h3 id="3-4-amp-3-5-amp-3-6-amp-3-7BN算法思想及应用"><a href="#3-4-amp-3-5-amp-3-6-amp-3-7BN算法思想及应用" class="headerlink" title="3.4&amp;3.5&amp;3.6&amp;3.7BN算法思想及应用"></a>3.4&amp;3.5&amp;3.6&amp;3.7BN算法思想及应用</h3><ul>
+<li><a href="https://app.yinxiang.com/shard/s48/nl/12303615/490e3d22-37db-437d-8faf-d97757a35e19/" target="_blank" rel="noopener">BatchNorm</a></li>
+<li>整体思想就是将每一层的输入都作为新的输入，标准化，使本层能更好更快的迭代</li>
+<li>加入γ,βscale,shift参数是为了再标准化后一定程度上能保持之前学习到的属性，同时可以去掉每一层的b参数(因为0均值的数，对后面添加的任意值都无意义)</li>
+<li>它削弱了前层参数的作用与后层参数的作用之间的联系，它使得网络每层都可以自己学习，稍稍独立于其它层，这有助于加速整个网络的学习</li>
+</ul>
+<h3 id="3-8-amp-3-9Softmax回归"><a href="#3-8-amp-3-9Softmax回归" class="headerlink" title="3.8&amp;3.9Softmax回归"></a>3.8&amp;3.9Softmax回归</h3><ul>
+<li>softmax与之前的Sigmoid,Relu不同是因为输入为一个n维向量，输出也为n维向量，并且输出是各个C类的概率</li>
+<li>计算方法：<img src="/2018/09/17/dl/第二门课-第三周/resources/806ED3F32E6AABFF0C0B24C0EE04E7C2"></li>
+<li>直观理解：多个线性边界函数进行划分<img src="/2018/09/17/dl/第二门课-第三周/resources/33FD90F372D0E3BCD373101FDB1F4A4E"></li>
+<li>和hardmax做比较，hardmax是输入一向量，输出为(0,1)的向量组，1为最大概率</li>
+<li>Loss Fun：L(y^​,y)=-∑j=1c​yj​logyj​^​ —> L(y^​,y)=-logy^​c​ : 就是你的训练集中的真实类别，然后试图使该类别相应的概率尽可能地高</li>
+<li>应用到神经网络中:其实就是用你的Softmax激活函数来得到a[l]或者说y</li>
+</ul>
+<h3 id="3-10深度学习框架"><a href="#3-10深度学习框架" class="headerlink" title="3.10深度学习框架"></a>3.10深度学习框架</h3><h3 id="3-11Tensorflow"><a href="#3-11Tensorflow" class="headerlink" title="3.11Tensorflow"></a>3.11Tensorflow</h3><ul>
+<li>Tensorflow is a programming framework used in deep learning</li>
+<li>The two main object classes in tensorflow are <strong>Tensors and Operators</strong>.</li>
+<li><p>When you code in tensorflow you have to take the following steps:</p>
+<ul>
+<li>Create a graph containing <strong>Tensors</strong> (Variables, Placeholders …) and <strong>Operations</strong> (tf.matmul, tf.add, …)</li>
+<li>Create a session</li>
+<li>Initialize the session</li>
+<li>Run the session to execute the graph</li>
+</ul>
+</li>
+<li>You can execute the graph multiple times as you’ve seen in model()</li>
+<li>The backpropagation and optimization is automatically done when running the session on the “optimizer” object</li>
+</ul>
+<p><strong>Writing and running programs in TensorFlow has the following steps:</strong></p>
+<ul>
+<li>Create Tensors (variables) that are not yet executed/evaluated.</li>
+<li>Write operations between those Tensors.</li>
+<li>Initialize your Tensors.</li>
+<li>Create a Session.</li>
+<li>Run the Session. This will run the operations you’d written above.</li>
+</ul>
+<p><strong>computation graph</strong></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+	
+    
+	
+      	    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/10/dl/第二门课-第二周/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/09/10/dl/第二门课-第二周/" itemprop="url">第二门课-第二周</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-10T22:40:03+08:00">
+                2018-09-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/深度学习/" itemprop="url" rel="index">
+                    <span itemprop="name">深度学习</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/深度学习/吴恩达课程总结/" itemprop="url" rel="index">
+                    <span itemprop="name">吴恩达课程总结</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="第二周"><a href="#第二周" class="headerlink" title="第二周"></a>第二周</h3><p>第二周主要学习如何优化算法，优化算法能够让你快速训练模型，主要分三类：</p>
+<ul>
+<li>Mini-batch</li>
+<li>指数加权平均(Momentum，RMSprop，Adam)</li>
+<li>学习率衰减</li>
+</ul>
+<h4 id="2-1-Mini-batch梯度下降-amp-理解"><a href="#2-1-Mini-batch梯度下降-amp-理解" class="headerlink" title="2.1 Mini-batch梯度下降&amp;理解"></a>2.1 Mini-batch梯度下降&amp;理解</h4><ul>
+<li>迭代中的cost一定是逐渐减小</li>
+<li>三种梯度下降方法(Batch，随机梯度，Mini-Batch)，cost图如下： <ul>
+<li>蓝色为常用Batch方式，梯度不会抖动，缺点是每次迭代是全部样本比较慢，一次迭代只改变一次梯度</li>
+<li>紫色为随机梯度，每次一个样本，这种方式cost的计算抖动比较大，在最优点附近也是抖动，并不会停留在此</li>
+<li>绿色为Mini-batch方式： <ul>
+<li>也会出现抖动，因为Cost的计算是随意加入的样本，而每次epom样本都在变化。</li>
+<li>它也不一定会在很小范围内收敛或者波动，这种情况就可以考虑减小学习率了</li>
+<li>Mini-batch size选择，一般选择2n，64–512比较常见</li>
+</ul>
+</li>
+<li>三种方式如何选择，主要还是看样本量，一般随机梯度不会选，如果样本量\&lt;2000，选择Batch，否则选择Mini-batch<img src="/2018/09/10/dl/第二门课-第二周/resources/3BC2DF36EFE921C9C0EEB02EBBEB579D">
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-3-指数加权平均数-amp-理解"><a href="#2-3-指数加权平均数-amp-理解" class="headerlink" title="2.3 指数加权平均数 &amp; 理解"></a>2.3 指数加权平均数 &amp; 理解</h4><ul>
+<li>也叫做移动平均值，就是计算局部范围的平均值：$v_t=\beta v_{t-1}+(1-\beta)\theta_{t-1}$(公式1),其中$\frac 1{(1-\beta)}$代表的所要计算的平均范围(这结论数学推导可查阅资料)，比如计算温度的指数加权平均&gt;值 $\theta=0.9$,那么$\frac 1{(1-\beta)}=10$,表示计算的10的平均温度</li>
+</ul>
+<h4 id="2-5-指数加权平均的偏差修正"><a href="#2-5-指数加权平均的偏差修正" class="headerlink" title="2.5 指数加权平均的偏差修正"></a>2.5 指数加权平均的偏差修正</h4><ul>
+<li><p><strong>蓝色</strong>是没有添加指数加权平均的各个离散点，<strong>红色</strong>为$\beta=0.9$的加权平均值曲线，<strong>绿色</strong>为$\beta=0.98$加权平均值曲线，<strong>紫色</strong>为$\beta=0.98$并且进行修正后的加权平均值曲线</p>
+<img src="/2018/09/10/dl/第二门课-第二周/resources/BE291D0E3476361A7A64454978286DA9">
+</li>
+<li><p>上图可以看见绿色和紫色的区别是在初始阶段，通过公式(1)计算得到的$v_0,v_1$和实际值差别是比较大的，造成了前面几个数不太准确,方法：使用$\frac{v_t}{1-\beta_t}$而不是直接用$v_t$进行评估,可以看见初期比较准确，然后后期$\beta_t$很小,所以$\frac{v_t}{1-\beta_t}\approx{v_t}$</p>
+</li>
+</ul>
+<h4 id="2-6-动态梯度下降"><a href="#2-6-动态梯度下降" class="headerlink" title="2.6 动态梯度下降"></a>2.6 动态梯度下降</h4><ul>
+<li><strong>目的</strong>：想让在x方向上梯度变化大一点，但是在纵轴方向，来回抖动，想要修正y方向上的抖动。<strong>方案</strong>：在x，y轴分别使用2.5中的指数加权平均法，对y轴的<strong>正负抖动进行抵扣平均</strong>，达到y轴抖动较小目的:<br>$v_{dw}=\beta v_{dw-1}+(1-\beta)d_{dw-1}$<br>W=W-$\alpha v_{dw}$<br>$v_{db}=\beta v_{db-1}+(1-\beta)d_{db-1}$<br>b=b-$\alpha v_{db}$<img src="/2018/09/10/dl/第二门课-第二周/resources/B75553739F2911D13CCF981D2AC5D707"></li>
+<li>假设W，b分别表示x，y轴。看下面计算公式，其中学习率$\alpha$也是有影响的，会在下面介绍<img src="/2018/09/10/dl/第二门课-第二周/resources/DBAC055D9744073F23A30ECC596CA307">
+</li>
+</ul>
+<h4 id="2-7-RMSprop"><a href="#2-7-RMSprop" class="headerlink" title="2.7 RMSprop"></a>2.7 RMSprop</h4><ul>
+<li>RMSprop是微分平方加权平均:<br>$S_{dw}=\beta S_{dw-1}+(1-\beta)d_{dw-1}^2$  <strong>1式</strong><br>W=W-$\alpha \frac{dw}{\sqrt S_{dw} + \epsilon}$ <strong>2式</strong>($\epsilon$避免非0,一般$10^{-8}$)<br>$v_{db}=\beta v_{db-1}+(1-\beta)d_{db-1}^2$<br>和动态梯度下降区别：<ul>
+<li>并不是正负抵消，这些计算的是微分平方加权平均，然后计算梯度变化的时候除以平方根</li>
+<li>原理<strong>(我理解就是将大值调小，小值调大)</strong>：<ul>
+<li>如果dw大，那么1式结果$S_{dw}$也会比较大，但2式结果W就会小</li>
+<li>如果dw小，那么1式结果$S_{dw}$也会比较小，但2式结果W就会大</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>RMSprop我理解就是将大值调小，小值调大,个人觉得Momentum(平均后正负抵消)更有效<img src="/2018/09/10/dl/第二门课-第二周/resources/F8B3F5FAEE78DF176AD2D9D1EA759F73">
+</li>
+</ul>
+<h4 id="2-8-Adam优化算法"><a href="#2-8-Adam优化算法" class="headerlink" title="2.8 Adam优化算法"></a>2.8 Adam优化算法</h4><ul>
+<li>Momentum与RMSprop的结合</li>
+<li>其中有多个超参数及默认值α,β1​(0.9),β2​(0.98),ϵ(10−8)<img src="/2018/09/10/dl/第二门课-第二周/resources/01107664832D4483D8213338204FC312">
+</li>
+</ul>
+<h4 id="2-9-学习率衰减"><a href="#2-9-学习率衰减" class="headerlink" title="2.9 学习率衰减"></a>2.9 学习率衰减</h4><ul>
+<li>如果学习率α一直是一个值，在使用Mini-batch方法的时候，就会在收敛值附件波动，根本原因就是在收敛期α过大，变化过多的原因</li>
+<li>动态变化α值，开始α希望较大，收敛时α逐渐变小，类似于绿色曲线，在收敛值较小范围波动</li>
+</ul>
+<img src="/2018/09/10/dl/第二门课-第二周/resources/9E1821378657CB076651F5DC38160B3C">
+<h4 id="2-10-局部最优问题"><a href="#2-10-局部最优问题" class="headerlink" title="2.10 局部最优问题"></a>2.10 局部最优问题</h4><ul>
+<li>担忧深度学习优化算法总是困在极差的局部最优</li>
+<li>通常梯度为0的点并不是局部最优点，实际上成本函数的零梯度点，即鞍点<img src="/2018/09/10/dl/第二门课-第二周/resources/68F0C0CA5B07EF344E68284131BA8147"></li>
+<li>普通优化算法一般都是沿着蓝色点坡度向下，比较难走出平稳期。为什么Momentum，RMSprop和Adam能尽早往下坡出平稳期？<img src="/2018/09/10/dl/第二门课-第二周/resources/FA0191259C4FB3E25C573FEA9CF7DEDF">
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+	
+    
+	
+      	    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/01/dl/第二门课-第一周/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/09/01/dl/第二门课-第一周/" itemprop="url">第二门课-第一周</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-01T22:49:03+08:00">
+                2018-09-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/深度学习/" itemprop="url" rel="index">
+                    <span itemprop="name">深度学习</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/深度学习/吴恩达课程总结/" itemprop="url" rel="index">
+                    <span itemprop="name">吴恩达课程总结</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="第一周"><a href="#第一周" class="headerlink" title="第一周"></a>第一周</h3><h4 id="1-1-训练-验证-测试集"><a href="#1-1-训练-验证-测试集" class="headerlink" title="1.1 训练,验证,测试集"></a>1.1 训练,验证,测试集</h4><p>1.训练,验证,测试集 数据一定需要同分布<br> 2.训练,验证,测试集 能够更好的衡量偏差和方差</p>
+<h4 id="1-2-amp-1-3-偏差-方差-Bias-Variance"><a href="#1-2-amp-1-3-偏差-方差-Bias-Variance" class="headerlink" title="1.2&amp;1.3 偏差,方差(Bias/Variance)"></a>1.2&amp;1.3 偏差,方差(Bias/Variance)</h4><p>1.偏差,方差最终的值都是基于人眼的,如果人眼误差也比较高的话,那么训练测试误差比较高也比较正常<br> 2.训练集,测试集数据来自同分布<br> 3.高方差可以解释为：拟合了数据集中的错误样本和中间的一些活跃数据<br> 4.首先看偏差，偏差可以接受后，然后评估下验证集的性能来评估方差<br> 5.一般可以根据训练，测试cost曲线来判断高偏差或者高方差,具体可以参考我<a href="https://github.com/yuancl/ml-algorithm/tree/master/exe5-Regularized-LinearR-and-Bias-Variance" target="_blank" rel="noopener">github:正则化以及偏差方差检测</a></p>
+<h4 id="1-4-amp-1-5-正则化"><a href="#1-4-amp-1-5-正则化" class="headerlink" title="1.4&amp;1.5 正则化"></a>1.4&amp;1.5 正则化</h4><p>1.解决高方差一般有两种方法：一个是正则化，另外是准备更多的数据<br> 2.L2正则化有时候也称为”权重衰减”，因为在用梯度下降计算参数的时候会在前面乘以小于1的数值<br> 3.疑问：为什么很少使用L2做正则化<br> 3.为什么能防止过拟合？(过拟合的本质就是参数过多，参数过大，维数过高)</p>
+<ul>
+<li>a.直观上理解当lambda足够大的时候，权重矩阵w接近于0，就把很多隐藏单元给消除了一样</li>
+<li>b.sigmoid,tanh激活函数的曲线可以发现，当x值在0附件的时候，曲线接近于直线，呈现直线的性质，并不是非直线</li>
+</ul>
+<h4 id="1-6-amp-1-7-正则化-Dropout"><a href="#1-6-amp-1-7-正则化-Dropout" class="headerlink" title="1.6&amp;1.7 正则化(Dropout)"></a>1.6&amp;1.7 正则化(Dropout)</h4><p>1.为了不影响Z[4]的期望值，我们需要用Z[4]a[3]/0.8来修正或弥补我们所需要的那20%<br> 2.在测试阶段不能用dropout，因为我们不需要在测试阶段结果是随机的<br> 3.直观理解Dropout和L2正则比较像<br> 4.不能只依赖任何一个特征，因为都有可能被删除<br> 5.根据过拟合的程度设置keep-prob的值，比如W[1]：7x3，W[2]：7x7,W[3]：7x3,所以W[2]层参数最多，可以设置keep-prob稍小一些，比如0.7，第一层可以设置为1，第一层不应该dropout。<br> 6.过拟合才用Dropout方法，CV上通常没有足够多的数据，所以经常会用到<br> 7.Dropout<strong>缺点</strong>：使代价函数J不再被明确定义，个人理解因为中间的神经元不确定是否被dropout，所以每次都神经元个数什么的都不一样</p>
+<h4 id="1-8-其他正则化方法"><a href="#1-8-其他正则化方法" class="headerlink" title="1.8 其他正则化方法"></a>1.8 其他正则化方法</h4><p>1.数据扩展(通过旋转，缩放，裁剪等)<br> 2.early stoping</p>
+<ul>
+<li><strong>为什么能工作：</strong> 因为随机初始的w值都是比较小的，在刚开始训练的时候也不会很大，在后面迭代次数多的时候，w值就会比较大了，这就会使Loss比较大，这个时候stoping是比较好的</li>
+<li><strong>缺点:</strong> 如果提早停止了梯度下降，也就停止了J的继续优化，不能得到更小的代价函数J</li>
+<li><strong>与正则化lambda比较:</strong> lambda会尝试多轮的值，进行选择</li>
+</ul>
+<h4 id="1-9-归一化输入"><a href="#1-9-归一化输入" class="headerlink" title="1.9 归一化输入"></a>1.9 归一化输入</h4><p>1.标准化:零均值，归一化方差<br> 2.为什么能归一化效果更好</p>
+<ul>
+<li><strong>a.从Loss效果图分析：</strong> 归一化后数据更均匀，可以从任何一点入手进行GD迭代，否则曲线就比较凌乱<br><img src="resources/C9C7B619F7FAA0D0649EA455EA4710A8" alt=""></li>
+<li><strong>b.从sigmoid或者tanh的曲线图分析：</strong> 归一化后区间在0附件的时候，梯度变化最大的<br><img src="resources/9273406DEF474A8262863E9EDDD8598F" alt=""></li>
+</ul>
+<p>3.<strong>不用Normalize：</strong> 如果数据本身就处于相似范围，比如已经是1–2，或者0–1，区别不大：1–100</p>
+<h4 id="1-10-梯度消失或爆炸"><a href="#1-10-梯度消失或爆炸" class="headerlink" title="1.10 梯度消失或爆炸"></a>1.10 梯度消失或爆炸</h4><p>1.这里只讨论了激活函数的指数级数增长或下降，但它也适用于L相关的导数或者梯度问题，比如另一篇文章<a href="https://app.yinxiang.com/shard/s48/nl/12303615/fbbe860b-d780-4ea0-86e2-b3281095f018/" target="_blank" rel="noopener">梯度问题</a>就是讨论的梯度指数问题<br> <img src="resources/A6E21F3566635A3FFFFD3E6CFF2F3A9E" alt=""></p>
+<p>2.见另一篇<a href="https://app.yinxiang.com/shard/s48/nl/12303615/fbbe860b-d780-4ea0-86e2-b3281095f018/" target="_blank" rel="noopener">梯度问题</a></p>
+<h4 id="1-11-神经网络权重初始化"><a href="#1-11-神经网络权重初始化" class="headerlink" title="1.11 神经网络权重初始化"></a>1.11 神经网络权重初始化</h4><p>见权重初始化练习：<a href="https://github.com/yuancl/dl-algorithm/blob/master/2-ImprovingDeepNeuralNetworks/Week1/1.Initialization.ipynb" target="_blank" rel="noopener">Initialization</a><br> <img src="resources/3FA08AC1BC944F534A96C4DD711D4E86" alt=""></p>
+<p>In general, initializing all the weights to zero results in the network failing to break symmetry. This means that every neuron in each layer will learn the same thing<br> 初始化参数全部为0的时候，每一层的梯度变化的一样的，有就是每一层学习到的是一样的，就不会有比较好的结果</p>
+<p>The cost starts very high. This is because with large random-valued weights, the last activation (sigmoid) outputs results that are very close to 0 or 1 for some examples, and when it gets that example wrong it incurs a very high loss for that example. Indeed, when log(a[3])=log(0)log⁡(a[3])=log⁡(0) , the loss goes to infinity.<br> Poor initialization can lead to vanishing/exploding gradients, which also slows down the optimization algorithm.<br> If you train this network longer you will see better results, but initializing with overly large random numbers slows down the optimization.<br> 当随机初始值比较大的时候，最后的输出sigmoid就是0或者1，这个时候如果碰见是0，那么计算lost的时候log(0)就是无限大，所以第一次迭代 Cost after iteration 0: inf<br> 初始化参数过大会使开始训练的时候梯度下降得比较慢，Loss比较大，迭代会比较慢，当然最后也会收敛</p>
+<p>Different initializations lead to different results<br> Random initialization is used to break symmetry and make sure different hidden units can learn different things<br> Don’t intialize to values that are too large<br> He initialization works well for networks with ReLU activations.</p>
+<h4 id="1-12-amp-1-13-梯度的数值逼近及注意项"><a href="#1-12-amp-1-13-梯度的数值逼近及注意项" class="headerlink" title="1.12&amp;1.13 梯度的数值逼近及注意项"></a>1.12&amp;1.13 梯度的数值逼近及注意项</h4><p>1.双边误差比单边误差小<br> 2.误差值如果小于10−7是比较安全的，如果大于10−5就需要多注意下，如果大于10−3那么应该是有bug<br> 3.如果J包含了正则项，那么求梯度D的时候也一定要包含正则项，感觉这个不用担心，因为有正则项的J，用数学公式求梯度函数一定会有正则项<br> 4.Dropout和梯度逼近不能同时使用，个人理解是因为梯度逼近是对最终的<strong>真实</strong>的J做的梯度逼近，而Dropout国产中个的J′去掉了多个神经元并不是真实的J<br> 5.参考<a href="https://github.com/yuancl/ml-algorithm/blob/master/exe4-NeuralNetwork/nn_cost_fun.py" target="_blank" rel="noopener">NeuralNetwork</a>中的梯度的数值逼近计算</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+	
+    
+	
+      	    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/20/ml/聚类/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/20/ml/聚类/" itemprop="url">聚类</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-20T07:15:20+08:00">
+                2018-08-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/机器学习基础/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习基础</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="聚类任务"><a href="#聚类任务" class="headerlink" title="聚类任务"></a>聚类任务</h4><ul>
+<li>在无监督学习中（unsupervised learning）中，训练样本的标记信息是未知的，目标是通过对无标记的训练样本的学习来揭示数据的内在性质及规律，为进一步的数据分析提供基础。此类学习任务中研究最多、<font color="blue">应用最广的是“聚类”（clustering）</font></li>
+<li>聚类试图将数据集中的样本划分为若干通常是不相交的子集，每个子集称为一个“簇”（cluster）。</li>
+<li>聚类既能作为一个单独的过程，用于找寻数据内的分布结构，也可作为分类等其他学习任务的前驱过程。</li>
+</ul>
+<h4 id="性能度量"><a href="#性能度量" class="headerlink" title="性能度量"></a>性能度量</h4><ul>
+<li>聚类性能度量亦称聚类“有效性指标”（validity index）<ul>
+<li>与监督学习中的性能度量作用相似。对聚类结果，我们需通过<font color="blue">某种性能度量来评估其好坏</font>；</li>
+<li>另一方面，若明确了最终将要使用的性能度量，则可直接将其作为聚类过程的优化目标，从而更好地得到符合要求的聚类结果。<br>聚类是将样本集D划分为若干不相交的子集，即样本簇。直观上看，我们希望“物以类聚”，<font color="blue">即同一簇的样本尽可能彼此相似，不同簇的样本尽可能不同</font>。换言之，聚类结果的“簇内相似度”（intra-cluster similarity）高且“簇间相似度”（inter-cluster similarity）低。</li>
+</ul>
+</li>
+<li>聚类性能度量大致有两类：<ul>
+<li>“外部指标”（external index）<br>将聚类结果与某个“参考模型”（reference model）进行比较；<ul>
+<li>常用的聚类性能度量外部指标有：<ul>
+<li>Jaccard系数（Jaccard Coefficient，简称 JC）</li>
+<li>FM指数（Fowlkes and Mallows Index，简称FMI）</li>
+<li>Rand指数（Rand Index，简称RI）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>“内部指标”（internal index）<br>直接考察聚类结果而不利用任何参考模型<ul>
+<li>常用的聚类性能度量内部指标有<ul>
+<li>DB指数（Davies-Bouldin Index，简称DBI）</li>
+<li>Dunn指数（Dunn Index，简称DI）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="距离计算"><a href="#距离计算" class="headerlink" title="距离计算"></a>距离计算</h4><ul>
+<li>给定样本$x_i=（x_{i1}，x_{i2}；…；x_{in}），与x_j=（x_{j1}；x_{j2}；…；x_{jn}）$</li>
+<li>最常用的是”闵可夫斯基距离“（Minkowski distance）<img src="/2018/08/20/ml/聚类/resources/37A273ABD2B1EC581982F7BBECCBE35A.jpg"></li>
+<li>p=2时，闵可夫斯基距离即欧氏距离（Euclidean distance）<img src="/2018/08/20/ml/聚类/resources/E635A778006828C007A4DFF678BB32F7.jpg"></li>
+<li>p=1时，闵可夫斯基距离即曼哈顿距离（Manhattan distance）<img src="/2018/08/20/ml/聚类/resources/78391F39AD86022E73BD024B2FF230C8.jpg">
+</li>
+</ul>
+<h4 id="原型聚类"><a href="#原型聚类" class="headerlink" title="原型聚类"></a>原型聚类</h4><p>原型聚类亦称”<font color="blue">基于原型的聚类</font>“（prototype-based clustering），此类算法<font color="blue">假设聚类结构能通过一组原型刻画</font>，在现实聚类任务中极为常用。</p>
+<ul>
+<li>通常情形下，算法先对原型进行初始化，然后对原型进行迭代更新求解。<font color="blue">采用不同的原型表示、不同的求解方式，将产生不同的算法</font><ul>
+<li><font color="purple">我的理解就是直接通过先假设几个样本就为几类簇，然后再迭代更新</font>
+
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>k均值算法<br>给定样本集$D={x_1，x_2，…，x_m}$，”k均值“（k-means）算法针对聚类所得簇划分$C={C_1，C_2，…，C_k}$最小化平方误差<ul>
+<li>直观来看，上面式子在一定程度上刻画了簇内样本围绕簇均值向量的紧密程度，E值越小则簇内样本相似度越高<img src="/2018/08/20/ml/聚类/resources/E1734D53B25C4D0019F957BEAB0042B7.jpg">
+<ul>
+<li>其中$\mu_i$，是簇$C_i$的均值向量<img src="/2018/08/20/ml/聚类/resources/AE0804FF1B1322B4E95E28E786386EA3.jpg"></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>学习向量量化<br>与k均值算法类似，“学习向量量化”（Learning Vector Quantization，简称LVQ）也是试图找到一组原型向量来刻画聚类结构，但与一般的聚类算法不同的是，LVQ假设数据样本带有类别标记，学习过程用样本的这些监督信息来辅助聚类</p>
+<ul>
+<li>和KMeans的区别：<ul>
+<li>LVQ数据样本带有标签 </li>
+<li>初始化方式不同，LVQ是初始化一组向量，KMeans初始化几个簇点</li>
+<li>迭代方式不同，LVQ是循环找到每个样本点和向量簇最近的向量，然后根据该样本点的类别是否和该向量表示的类别是否相同，另该向量靠近或更远离该点<img src="/2018/08/20/ml/聚类/resources/729572530662A9FC2EFCF920DF512324.jpg">
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>高斯混合聚类<br>与k均值、LVQ用原型向量来刻画聚类结构不同，高斯混合（Mixture-of-Gaussian）聚类采用概率模型来表达聚类原型</p>
+<ul>
+<li>选择了高斯混合模型作为原型表示</li>
+<li><a href="https://blog.csdn.net/lin_limin/article/details/81048411" target="_blank" rel="noopener">结合高斯混合模型理解</a></li>
+</ul>
+</li>
+</ul>
+<h4 id="密度聚类"><a href="#密度聚类" class="headerlink" title="密度聚类"></a>密度聚类</h4><p>密度聚类亦称“基于密度的聚类”（density-based clustering），此类算法<font color="blue">假设聚类结构能通过样本分布的紧密程度确定</font>。通常情况下，密度聚类算法从样本密度的角度来考察样本之间的可连接性，并基于可连接样本不断扩展聚类簇以获得最终的聚类结果。</p>
+<ul>
+<li>DBSCAN是一种著名的密度聚类算法</li>
+</ul>
+<h4 id="层次聚类"><a href="#层次聚类" class="headerlink" title="层次聚类"></a>层次聚类</h4><p>层次聚类（hierarchical clustering）<font color="blue">试图在不同层次对数据集进行划分，从而形成树形的聚类结构</font>。数据集的划分可采用“自底向上”的聚合策略，也可采用“自顶向下”的分拆策略。</p>
+<ul>
+<li>AGNES 是一种采用自底 向上聚合策略的层次聚类算法.它先将数据集中 的每个样本看作一个初始聚类簇，然后在算法运行的每一步中找 出距离最近的两个粟类簇进行合并，该过程不断重复，直至达到预设的聚类簇个数</li>
+<li><a href="https://yuancl.github.io/2019/05/22/ml/层次聚类Louvain/" target="_blank" rel="noopener">Louvain算法</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+	
+    
   </section>
 
-  {% include '_partials/pagination.swig' %}
-{% endblock %}
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right"></i></a>
+  </nav>
 
-{% block sidebar %}
-  {{ sidebar_template.render(false) }}
-{% endblock %}
+
+
+          </div>
+          
+
+
+          
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/favicon.ico" alt="雷哥">
+          <p class="site-author-name" itemprop="name">雷哥</p>
+           
+              <p class="site-description motion-element" itemprop="description">不积跬步无以至千里</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">64</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/yuancl" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-雷哥"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">雷哥</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Gemini
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  
+    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
