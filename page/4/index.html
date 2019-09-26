@@ -274,6 +274,530 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/18/rl/强化学习基础/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/18/rl/强化学习基础/" itemprop="url">强化学习基础</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-18T06:30:12+08:00">
+                2019-01-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/强化学习/" itemprop="url" rel="index">
+                    <span itemprop="name">强化学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="强化学习基础"><a href="#强化学习基础" class="headerlink" title="强化学习基础"></a>强化学习基础</h3><h4 id="强化学习特点"><a href="#强化学习特点" class="headerlink" title="强化学习特点"></a>强化学习特点</h4><ul>
+<li><p>强化学习是机器学习的一个分支：监督学习、无监督学习、强化学习</p>
+</li>
+<li><p>强化学习的特点：</p>
+<ul>
+<li>没有监督数据、只有奖励信号</li>
+<li>奖励信号不一定是实时的，而很可能是延后的，有时甚至延后很多。</li>
+<li>时间（序列）是一个重要因素</li>
+<li>当前的行为影响后续接收到的数据</li>
+</ul>
+</li>
+<li><p>强化学习有广泛的应用：像直升机特技飞行、经典游戏、投资管理、发电站控制、让机器人模仿人类行走等</p>
+</li>
+</ul>
+<h3 id="强化学习问题的提出"><a href="#强化学习问题的提出" class="headerlink" title="强化学习问题的提出"></a>强化学习问题的提出</h3><h4 id="奖励Reward"><a href="#奖励Reward" class="headerlink" title="奖励Reward"></a>奖励Reward</h4><ul>
+<li><p>是信号的反馈，是一个标量，<font color="blue">它反映个体在t时刻做得怎么样</font>。个体的工作就是最大化累计奖励。</p>
+</li>
+<li><p>$R_t$强化学习主要基于这样的”奖励假设”：<font color="blue">所有问题解决的目标都可以被描述成最大化累积奖励</font></p>
+<img src="/2019/01/18/rl/强化学习基础/resources/FDAE7D078C3300B1B63AAB349135D5EA.jpg">
+</li>
+</ul>
+<h4 id="序列决策-Sequential-Decision-Making"><a href="#序列决策-Sequential-Decision-Making" class="headerlink" title="序列决策 Sequential Decision Making"></a>序列决策 Sequential Decision Making</h4><ul>
+<li>目标：<font color="blue">选择一定的行为序列以最大化未来的总体奖励</font></li>
+<li>这些行为可能是一个长期的序列</li>
+<li>奖励可能而且通常是延迟的</li>
+<li>有时候宁愿牺牲即时（短期）的奖励以获取更多的长期奖励</li>
+</ul>
+<h4 id="个体和环境-Agent-amp-Environment"><a href="#个体和环境-Agent-amp-Environment" class="headerlink" title="个体和环境 Agent &amp; Environment"></a>个体和环境 Agent &amp; Environment</h4><p>  可以从个体和环境两方面来描述强化学习问题。</p>
+<ul>
+<li><p>在 t 时刻，个体可以：</p>
+<ul>
+<li>有一个对于环境的观察评估 $O_{t}$ </li>
+<li>做出一个行为 $A_{t}$ </li>
+<li>从环境得到一个奖励信号 $R_{t+1}$ </li>
+</ul>
+</li>
+<li><p>环境可以：</p>
+<ul>
+<li>接收个体的动作 $A_{t}$ </li>
+<li>更新环境信息，同时使得个体可以得到下一个观测 $O_{t+1}$</li>
+<li>给个体一个奖励信号 $R_{t+1} $</li>
+</ul>
+<img src="/2019/01/18/rl/强化学习基础/resources/A868FA7787B835C43898A76A32B1B469.jpg">
+</li>
+</ul>
+<h4 id="历史和状态-History-amp-State"><a href="#历史和状态-History-amp-State" class="headerlink" title="历史和状态 History &amp; State"></a>历史和状态 History &amp; State</h4><ul>
+<li><p>历史</p>
+<ul>
+<li><font color="blue">历史是观测、行为、奖励的序列</font>：$ H_{t} = O_{1}, R_{1}, A_{1},…, O_{t-1}, R_{t-1}, A_{t-1}, O_{t}, R_{t}, A_{t}$</li>
+</ul>
+</li>
+<li><p>状态</p>
+<ul>
+<li><font color="blue">状态是所有决定将来的已有的信息</font>，是关于历史的一个函数：$S_{t} = f(H_{t})$</li>
+</ul>
+</li>
+<li><p>环境状态</p>
+<ul>
+<li>是环境的私有呈现，<font color="blue">包括环境用来决定下一个观测/奖励的所有数据</font>，通常对个体并不完全可见，也就是个体有时候并不知道环境状态的所有细节。即使有时候环境状态对个体可以是完全可见的，这些信息也可能包含着一些无关信息。</li>
+</ul>
+</li>
+<li><p>个体状态</p>
+<ul>
+<li>是个体的内部呈现，<font color="blue">包括个体可以使用的、决定未来动作的所有信息</font>。个体状态是强化学习算法可以利用的信息，它可以是历史的一个函数： $S^{a}<em>{t} = f(H</em>{t})$</li>
+</ul>
+</li>
+<li><p>信息状态</p>
+<ul>
+<li>包括历史上所有有用的信息，又称Markov状态</li>
+<li>马儿可夫属性 Markov Property<ul>
+<li>一个状态St是马尔可夫的，当且仅当：$P[S_{t+1} | S_{t}] = P[S_{t+1} | S_{1}, S_{2},…, S_{t}]$</li>
+<li>也就是说，如果信息状态是可知的，那么所有历史信息都可以丢掉，仅需要 t 时刻的信息状态就可以了<ul>
+<li>例如：环境状态是Markov的，因为环境状态是环境包含了环境<font color="blue">决定下一个观测/奖励的所有信息</font><img src="/2019/01/18/rl/强化学习基础/resources/3F5DEFC1F69A7F73D61DE50B3B291807.jpg">
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="完全可观测的环境-Fully-Observable-Environments"><a href="#完全可观测的环境-Fully-Observable-Environments" class="headerlink" title="完全可观测的环境 Fully Observable Environments"></a>完全可观测的环境 Fully Observable Environments</h4><ul>
+<li>个体能够直接观测到环境状态。在这种条件下:</li>
+<li>个体对环境的观测 = 个体状态 = 环境状态</li>
+<li>正式地说，这种问题是一个马儿可夫决定过程（Markov Decision Process， MDP）</li>
+</ul>
+<h4 id="部分可观测的环境-Partially-Observable-Environments"><a href="#部分可观测的环境-Partially-Observable-Environments" class="headerlink" title="部分可观测的环境 Partially Observable Environments"></a>部分可观测的环境 Partially Observable Environments</h4><ul>
+<li>个体间接观测环境。举了几个例子：<ul>
+<li>一个可拍照的机器人个体对于其周围环境的观测并不能说明其绝度位置，它必须自己去估计自己的绝对位置，而绝对位置则是非常重要的环境状态特征之一；</li>
+<li>一个交易员只能看到当前的交易价格；</li>
+<li>一个扑克牌玩家只能看到自己的牌和其他已经出过的牌，而不知道整个环境（包括对手的牌）状态。</li>
+<li>在这种条件下：<ul>
+<li>个体状态 ≠ 环境状态</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="强化学习个体的主要组成部分"><a href="#强化学习个体的主要组成部分" class="headerlink" title="强化学习个体的主要组成部分"></a>强化学习个体的主要组成部分</h3><p>强化学习中的个体可以由以下三个组成部分中的一个或多个组成</p>
+<h4 id="策略-Policy"><a href="#策略-Policy" class="headerlink" title="策略 Policy"></a>策略 Policy</h4><ul>
+<li>策略是决定个体行为的机制。是<font color="red">从状态到行为的一个映射</font>，可以是确定性的，也可以是不确定性的。</li>
+</ul>
+<h4 id="价值函数-Value-Function"><a href="#价值函数-Value-Function" class="headerlink" title="价值函数 Value Function"></a>价值函数 Value Function</h4><ul>
+<li><font color="red">是一个未来奖励的预测，用来评价当前状态的好坏程度</font><ul>
+<li>当面对两个不同的状态时，个体可以用一个Value值来评估这两个状态可能获得的最终奖励区别，继而指导选择不同的行为，即制定不同的策略。</li>
+<li><font color="blue">一个价值函数是基于某一个特定策略的</font>，不同的策略下同一状态的价值并不相同。某一策略下的价值函数用下式表示：<img src="/2019/01/18/rl/强化学习基础/resources/1ADEF5845F6145E93F53F33DD65C761D.jpg">
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="模型-Model"><a href="#模型-Model" class="headerlink" title="模型 Model"></a>模型 Model</h4><p>个体对环境的一个建模，它体现了个体是如何思考环境运行机制的（how the agent think what the environment was.），个体希望模型能模拟环境与个体的交互机制。</p>
+<ul>
+<li><p>模型至少要解决两个问题：</p>
+<ul>
+<li><p>一是状态转化概率，即预测下一个可能状态发生的概率：</p>
+<img src="/2019/01/18/rl/强化学习基础/resources/A190087077BAA813EE6BBEDDC8685CA2.jpg">
+</li>
+<li><p>另一项工作是预测可能获得的即时奖励：</p>
+<img src="/2019/01/18/rl/强化学习基础/resources/568C86BA012338B66C90B2D68FD23307.jpg">
+</li>
+</ul>
+</li>
+<li><p>模型并不是构建一个个体所必需的，很多强化学习算法中个体并不试图（依赖）构建一个模型。</p>
+</li>
+</ul>
+<p>注：模型仅针对个体而言，环境实际运行机制不称为模型，而称为环境动力学(dynamics of environment)，它能够明确确定个体下一个状态和所得的即时奖励</p>
+<h3 id="强化学习个体的分类"><a href="#强化学习个体的分类" class="headerlink" title="强化学习个体的分类"></a>强化学习个体的分类</h3><p>解决强化学习问题，个体可以有多种工具组合，<font color="blue">比如通过建立对状态的价值的估计来解决问题，或者通过直接建立对策略的估计来解决问题</font>。这些都是个体可以使用的工具箱里的工具。因此，根据个体内包含的“工具”进行分类，可以把个体分为如下三类：</p>
+<ul>
+<li><p>仅基于价值函数的 Value Based：在这样的个体中，有对状态的价值估计函数，但是没有直接的策略函数，策略函数由价值函数间接得到。</p>
+</li>
+<li><p>仅直接基于策略的 Policy Based：这样的个体中行为直接由策略函数产生，个体并不维护一个对各状态价值的估计函数。</p>
+</li>
+<li><p>演员-评判家形式 Actor-Critic：个体既有价值函数、也有策略函数。两者相互结合解决问题。<br>此外，根据个体在解决强化学习问题时是否建立一个对环境动力学的模型，将其分为两大类：</p>
+</li>
+</ul>
+<p>不基于模型的个体: 这类个体并不视图了解环境如何工作，而仅聚焦于价值和/或策略函数。<br>基于模型的个体：个体尝试建立一个描述环境运作过程的模型，以此来指导价值或策略函数的更新。</p>
+<h3 id="学习和规划"><a href="#学习和规划" class="headerlink" title="学习和规划"></a>学习和规划</h3><ul>
+<li>学习：环境初始时是未知的，个体不知道环境如何工作，个体通过与环境进行交互，逐渐改善其行为策略。</li>
+<li>规划: 环境如何工作对于个体是已知或近似已知的，个体并不与环境发生实际的交互，而是利用其构建的模型进行计算，在此基础上改善其行为策略。</li>
+<li>一个常用的强化学习问题解决思路是，<font color="blue">先学习环境如何工作，也就是了解环境工作的方式，即学习得到一个模型，然后利用这个模型进行规划</font></li>
+</ul>
+<h3 id="预测和控制-Prediction-amp-Control"><a href="#预测和控制-Prediction-amp-Control" class="headerlink" title="预测和控制 Prediction &amp; Control"></a>预测和控制 Prediction &amp; Control</h3><ul>
+<li>在强化学习里，我们经常需要先解决关于预测（prediction）的问题，而后在此基础上解决关于控制（Control）的问题。</li>
+<li>预测：给定一个策略，评价未来。可以看成是求解在给定策略下的价值函数（value function）的过程。How well will I(an agent) do if I(the agent) follow a specific policy?</li>
+<li>控制：找到一个好的策略来最大化未来的奖励。<br>举了一个例子来说明预测和控制的区别</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+	
+    
+	
+      	    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/16/gan/Conditional GAN/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/16/gan/Conditional GAN/" itemprop="url">Conditional GAN</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-16T07:10:10+08:00">
+                2019-01-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/GAN/" itemprop="url" rel="index">
+                    <span itemprop="name">GAN</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="Conditional-GAN介绍"><a href="#Conditional-GAN介绍" class="headerlink" title="Conditional GAN介绍"></a>Conditional GAN介绍</h3><h4 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h4><ul>
+<li><p>Traditional supervised approach</p>
+<ul>
+<li>正面火车和侧面火车都是好的结果，这会导致最后图片很模糊，因为是多张图片的平均<img src="/2019/01/16/gan/Conditional%20GAN/resources/B506E2E85727105810C3FD98DE358329.jpg">
+</li>
+</ul>
+</li>
+<li><p>GAN</p>
+<ul>
+<li>G其实可以很容易忽略D,从而可以无视G的输入(这里是c:train)<ul>
+<li>比如如果G发现每次输出猫都能得到高分，那么不管G的输入，只要我我每次都输出是清晰的猫就好了</li>
+<li>输出低分基本上有下面三种场景<img src="/2019/01/16/gan/Conditional%20GAN/resources/06288B8EFB718B40410ACFE58F20E136.jpg"></li>
+</ul>
+</li>
+<li>后面的Conditional GAN可以解决这个问题</li>
+</ul>
+</li>
+</ul>
+<h4 id="Conditional-GAN"><a href="#Conditional-GAN" class="headerlink" title="Conditional GAN"></a>Conditional GAN</h4><ul>
+<li>输入<ul>
+<li>G的输出x：图片</li>
+<li>G的输入c：train</li>
+</ul>
+</li>
+<li>目标<ul>
+<li>x is realistic or not</li>
+<li>c ans x are matched or not<img src="/2019/01/16/gan/Conditional%20GAN/resources/71EAA38F9930A85049893063F5F499DD.jpg"></li>
+</ul>
+</li>
+<li>演算法<ul>
+<li>核心思想：找到Loss(上面三种情况集合)，然后用梯度提升方法去优化<img src="/2019/01/16/gan/Conditional%20GAN/resources/0FC60DD9F76548EDD7675B99F770ED9E.jpg">
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="Contitional-GAN-D网络架构"><a href="#Contitional-GAN-D网络架构" class="headerlink" title="Contitional GAN(D网络架构)"></a>Contitional GAN(D网络架构)</h4><ul>
+<li>分别将x是否是真实图片和c and x是否match分别输出会比较好一点<img src="/2019/01/16/gan/Conditional%20GAN/resources/3EC8A1DCCF4EDAA9523E2F085EF824F0.jpg">
+</li>
+</ul>
+<h3 id="Stack-GAN"><a href="#Stack-GAN" class="headerlink" title="Stack GAN"></a>Stack GAN</h3><ul>
+<li>思想就是先产生小图，然后产生大图<img src="/2019/01/16/gan/Conditional%20GAN/resources/C1400E303DB9A50B6CC45300D159FEB4.jpg">
+</li>
+</ul>
+<h3 id="Image-to-Image"><a href="#Image-to-Image" class="headerlink" title="Image to Image"></a>Image to Image</h3><h4 id="传统方法-Supervised-Learning"><a href="#传统方法-Supervised-Learning" class="headerlink" title="传统方法(Supervised Learning)"></a>传统方法(Supervised Learning)</h4><ul>
+<li>也是一样，最后输出会很模糊<ul>
+<li>因为一个input对应了多个好图（多张图片），就会把这些图片做平均来输出<img src="/2019/01/16/gan/Conditional%20GAN/resources/9A949394AE46F6D8145151F92CE0611D.jpg">
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="GAN方法"><a href="#GAN方法" class="headerlink" title="GAN方法"></a>GAN方法</h4><ul>
+<li>testing中的close图片，就是supervised learning的结果，比较模糊</li>
+<li>GAN比较清晰了，但是会产生一些其他的内容</li>
+<li>GAN+close，再加入一些限制条件，就是让G产生的图片更接近真实图片<img src="/2019/01/16/gan/Conditional%20GAN/resources/9EAD3C30D5E435ED7070F5B291B3639A.jpg">
+</li>
+</ul>
+<h4 id="Patch-GAN"><a href="#Patch-GAN" class="headerlink" title="Patch GAN"></a>Patch GAN</h4><ul>
+<li>图像太大，容易出现各种问题<img src="/2019/01/16/gan/Conditional%20GAN/resources/3AE30BDB0CD1A217FCFFB482DB274D10.jpg">
+</li>
+</ul>
+<h3 id="GAN用到其他场景"><a href="#GAN用到其他场景" class="headerlink" title="GAN用到其他场景"></a>GAN用到其他场景</h3><h4 id="Speech去杂音"><a href="#Speech去杂音" class="headerlink" title="Speech去杂音"></a>Speech去杂音</h4><ul>
+<li>speech生谱图就当做图片，也使用Conditional GAN思想<img src="/2019/01/16/gan/Conditional%20GAN/resources/C11F3C210E44F4A4E9CE5C96C89C7CFF.jpg">
+</li>
+</ul>
+<h4 id="Video"><a href="#Video" class="headerlink" title="Video"></a>Video</h4><ul>
+<li>判断是否是正确的连续的影片<ul>
+<li>将影片一张张剪辑，形成图片，然后进行训练<img src="/2019/01/16/gan/Conditional%20GAN/resources/E9F52BFDB4677AE62051EA82760CADC3.jpg"></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+	
+    
+	
+      	    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/10/gan/GAN基础/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1194,7 +1718,7 @@
       
         
           
-            <p>参考文章：<br><a href="https://shimo.im/docs/gmRW4WV2mjoXzKA1" target="_blank" rel="noopener">神经机器翻译 之 谷歌 transformer 模型</a><br><a href="https://www.cnblogs.com/robert-dlut/p/8638283.html" target="_blank" rel="noopener">Self-attention and Transformer</a><br><a href="https://mp.weixin.qq.com/s?__biz=MjM5MTQzNzU2NA==&amp;mid=2651666707&amp;idx=1&amp;sn=2e9149ccdba746eaec687038ce560349&amp;chksm=bd4c1e808a3b97968a15cb3d21032b5394461a1be275476e4fd26563aa28d99be0b798ccee17&amp;mpshare=1&amp;scene=1&amp;srcid=0111kbdci7utfkYpw9bNBcpF&amp;key=f8b9d5856fa70f7d2eabd677b381f98687650f8caf1af873c78466b32517ee5af4eecc661ae63d35bf90beca422d1abea7b7c897e43f33ab3ef7de4c816797d4bad752a5e6f5acc1908b28ffd604355f&amp;ascene=0&amp;uin=MTE0NTY4MjMyMQ%3D%3D&amp;devicetype=iMac+MacBookPro14%2C1+OSX+OSX+10.13.6+build(17G65" target="_blank" rel="noopener">大数据文摘-BERT大火却不懂Transformer</a>&amp;version=11020201&amp;lang=zh_CN&amp;pass_ticket=sLCET0Y%2BZTkYDsKSej3nfbOS885niL2%2Bt2ffNlFmQw3FszFuawe4q3nwl02gUnCe)</p>
+            <p>参考文章：<br><a href="https://shimo.im/docs/gmRW4WV2mjoXzKA1" target="_blank" rel="noopener">神经机器翻译 之 谷歌 transformer 模型</a><br><a href="https://www.cnblogs.com/robert-dlut/p/8638283.html" target="_blank" rel="noopener">Self-attention and Transformer</a><br><a href="https://mp.weixin.qq.com/s?__biz=MjM5MTQzNzU2NA==&amp;mid=2651666707&amp;idx=1&amp;sn=2e9149ccdba746eaec687038ce560349&amp;chksm=bd4c1e808a3b97968a15cb3d21032b5394461a1be275476e4fd26563aa28d99be0b798ccee17&amp;mpshare=1&amp;scene=1&amp;srcid=0111kbdci7utfkYpw9bNBcpF&amp;key=f8b9d5856fa70f7d2eabd677b381f98687650f8caf1af873c78466b32517ee5af4eecc661ae63d35bf90beca422d1abea7b7c897e43f33ab3ef7de4c816797d4bad752a5e6f5acc1908b28ffd604355f&amp;ascene=0&amp;uin=MTE0NTY4MjMyMQ%3D%3D&amp;devicetype=iMac+MacBookPro14%2C1+OSX+OSX+10.13.6+build(17G65" target="_blank" rel="noopener">大数据文摘-BERT大火却不懂Transformer</a>&amp;version=11020201&amp;lang=zh_CN&amp;pass_ticket=sLCET0Y%2BZTkYDsKSej3nfbOS885niL2%2Bt2ffNlFmQw3FszFuawe4q3nwl02gUnCe)<br><a href="https://mp.weixin.qq.com/s/zSsvW0CLrylQyS4ovayfjg" target="_blank" rel="noopener">从头开始了解Transformer</a></p>
 <h4 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h4><ul>
 <li>首先理解<a href="https://yuancl.github.io/2019/01/05/nlp/Attention模型/" target="_blank" rel="noopener">Attention模型</a>，个人理解Transformer本质其实就是对selt-attention的包装</li>
 <li>论文《Attention is all you need》特点：<br>重点关注了复杂度，并行度，长距离依赖学习三个问题<ul>
@@ -1235,6 +1759,7 @@
 </li>
 </ul>
 <h4 id="scaled-dot-Product-attention"><a href="#scaled-dot-Product-attention" class="headerlink" title="scaled dot-Product attention"></a>scaled dot-Product attention</h4><ul>
+<li><font color="red">核心理解</font><br>点积表示输入序列中两个向量的由学习任务定义的“相关”程度，并且输出向量是整个输入序列的加权和，其权重由这些点积确定<img src="/2019/01/06/nlp/Transformer模型/resources/FBB4F0354F68B8D488D16978946E49CA.jpg"></li>
 <li>本质：其实scaled dot-Product attention就是我们常用的使用<font color="blue">点积进行相似度计算</font>的attention，只是多除了一个（为K的维度）起到调节作用，使得内积不至于太大</li>
 <li>操作步骤<ul>
 <li>每个query-key 会做出一个点乘的运算过程</li>
@@ -1244,6 +1769,9 @@
 </li>
 <li>详细理解<img src="/2019/01/06/nlp/Transformer模型/resources/F21545F043FA58B804CAEC5D3C7EF995.jpg">
 </li>
+</ul>
+<h4 id="Multi-head-attention"><a href="#Multi-head-attention" class="headerlink" title="Multi-head attention"></a><font color="purple">Multi-head attention</font></h4><ul>
+<li>核心：<br>我们必须考虑到一个词对不同的邻居有不同的意思，按照上面所描述，一个词对对应的输出也只是一个vector，只对应一种情况，但有些场景相同的语言，句子表达的含义完全不同，所以有了Multi head</li>
 </ul>
 <h4 id="Multi-head-attention-1"><a href="#Multi-head-attention-1" class="headerlink" title="Multi-head attention(1)"></a>Multi-head attention(1)</h4><ul>
 <li>它扩展了模型专注于不同位置的能力<ul>
@@ -1287,6 +1815,23 @@
 </ul>
 </li>
 </ul>
+<h4 id="构建Transformer"><a href="#构建Transformer" class="headerlink" title="构建Transformer"></a><font color="purple">构建Transformer</font></h4><ul>
+<li>Transformer不只是一个self-attention层，它是一个架构。目前Transformer的定义还不清楚，但在这里我们将使用以下定义：<ul>
+<li>任何用于处理连接单元集 (connected units) 的体系结构——例如序列中的标记或图像中的像素——单元之间的唯一交互是通过self-attention</li>
+</ul>
+</li>
+<li>如何构建：大致的结构如下<ul>
+<li>各种组件的顺序不是一成不变的；重要的是将self-attention与本地前馈相结合，并添加归一化和残差连接</li>
+<li>归一化和残差连接是用于帮助深度神经网络训练更快，更准确的标准技巧。归一化层仅作用于嵌入维度。<img src="/2019/01/06/nlp/Transformer模型/resources/515DF99DFA4B89F56EC634C2A5572D89.jpg"></li>
+</ul>
+</li>
+<li>为什么这么设计？<br>结合了RNN和CNN的优势，改善他们的缺点：Transformer试图吸收两者的优点。它们可以对输入序列的整个范围建立依赖关系，就像它们彼此相邻的单词一样容易(事实上，没有位置向量，它们甚至无法区分) 。然而，这里没有循环连接<ul>
+<li>RNN问题<br>这里最大的弱点是循环连接，串行，并且时间步相隔较远的单元相互影响较小了<img src="/2019/01/06/nlp/Transformer模型/resources/4B93EA788189CBABE10A3224326D74C1.jpg"></li>
+<li>CNN问题<br>在该模型中，每个输出向量可以与其他每个输出向量并行计算。这使得卷积更快。然而，卷积的缺点在于它们在模拟远程依赖方面受到严重限制。在一个卷积层中，只有相距比卷积核大小更小的单词才能相互交互。为了更长的依赖性，我们需要堆叠许多卷积<img src="/2019/01/06/nlp/Transformer模型/resources/C6E6558200284FBBC6E7AF0A20002760.jpg">
+</li>
+</ul>
+</li>
+</ul>
 <h4 id="Transformer解决问题"><a href="#Transformer解决问题" class="headerlink" title="Transformer解决问题"></a>Transformer解决问题</h4><ul>
 <li>并行问题<ul>
 <li>首先each head， 是可以并行计算的， 然后每个head 都有自己对应的weight, 实现不同的线性转换， 这样每个head 也就有了自己特别的表达信息</li>
@@ -1306,6 +1851,9 @@
 <ul>
 <li>既然我们已经过了一遍完整的transformer的前向传播过程，那我们就可以直观感受一下它的训练过程。</li>
 <li>在训练过程中，一个未经训练的模型会通过一个完全一样的前向传播。但因为我们用有标记的训练集来训练它，所以我们可以用它的输出去与真实的输出做比较</li>
+</ul>
+<h4 id="Transformer应用"><a href="#Transformer应用" class="headerlink" title="Transformer应用"></a>Transformer应用</h4><ul>
+<li>transformer本身并不能识别单词直接次序，句子前后次序等，bert是对transformer很成功的应用，在输入上增加了其他的信息：比如位置嵌入，句子次序，mask等的<a href="https://yuancl.github.io/2019/01/06/nlp/BERT模型/" target="_blank" rel="noopener">预训练模型</a></li>
 </ul>
 
           
@@ -2492,561 +3040,6 @@
 
 	
     
-	
-      	    
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/27/dl/第五门课-第一周/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="雷哥">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/favicon.ico">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="雷哥的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/27/dl/第五门课-第一周/" itemprop="url">第五门课-第一周</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-27T08:37:09+08:00">
-                2018-11-27
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/深度学习/" itemprop="url" rel="index">
-                    <span itemprop="name">深度学习</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/深度学习/吴恩达课程总结/" itemprop="url" rel="index">
-                    <span itemprop="name">吴恩达课程总结</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>[习题练习]<br><a href="https://github.com/yuancl/dl-algorithm/commit/76c81b18acdc941663d3c59cced76bf837384958" target="_blank" rel="noopener">Building+a+Recurrent+Neural+Network+-+Step+by+Step,主要讲是一步一步构建RNN基础网络和LSTM网络，理解运作原</a><br><a href="https://github.com/yuancl/dl-algorithm/tree/master/5-RecurrentNeuralNetworks/Week1/dinosaurus-island" target="_blank" rel="noopener">dinosaurus-island(character-level language model,练习使用基础RNN模型或者LSTM模型，学习一些文本，然后生成新的文)</a><br><a href="https://github.com/yuancl/dl-algorithm/tree/master/5-RecurrentNeuralNetworks/Week1/Jazz-improvisation-with-LSTM" target="_blank" rel="noopener">Improvise-music with an LSTM network,主要使用LSTM网络生成音</a></p>
-<h3 id="循环神经网络基础"><a href="#循环神经网络基础" class="headerlink" title="循环神经网络基础"></a>循环神经网络基础</h3><h4 id="RNN背景"><a href="#RNN背景" class="headerlink" title="RNN背景"></a>RNN背景</h4><ul>
-<li>什么是序列问题？<br>比如语音识别，输入是一段音频，要求输出是一段文字Y。或者情感分析，输入评论，要求输出几颗星等。本质输入都是一段序列内容，其实就是X-&gt;Y的映射问题</li>
-<li>序列问题特点？<br>可以看见，有些序列问题X,Y长度一致，有些不一致…</li>
-<li>为什么不用标准神经网络处理序列问题：<ul>
-<li>输入输出不定长</li>
-<li>序列上一些位置已经学到的文本信息内容不能在其他位置共享<ul>
-<li>比如如果神经网络已经学习到了在位置 1 出现的 Harry 可能是人名的一部分，那么如果 Harry 出现在其他位置，比如$x^{&lt; t &gt;}$时，它也能够<font color="blue">自动识别其为人名的一部分的话</font>，这就很棒了。这可能类似于你在卷积神经网络中看到的,<font color="red">你希望将部分图片里学到的内容快速推广到图片的其他部分</font>，而我们希望对序列数据也有相似的效果。和你在卷积网络中学到的类似，用一个更好的表达方式也能够让你减少模型中参数的数量</li>
-<li>RNN传递一个激活值到下一个时间步中进行计算，所以能够解决这个问题，适用于序列问题<img src="/2018/11/27/dl/第五门课-第一周/resources/5E6CE23C6A2573459E4A0E31A919B9B9.jpg"></li>
-</ul>
-</li>
-</ul>
-</li>
-<li>注意项：<ul>
-<li>$a^{<0>}$通常使用零向量作为零时刻的伪激活值</0></li>
-<li>注意多种不同的参数$W_{ax},W_{aa},W_{ya}$<img src="/2018/11/27/dl/第五门课-第一周/resources/EE130B0446706C75A520D2DA216849A0.jpg">
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="前向后向计算"><a href="#前向后向计算" class="headerlink" title="前向后向计算"></a>前向后向计算</h4><ul>
-<li>RNN cell<img src="/2018/11/27/dl/第五门课-第一周/resources/E522B44F0437902AC27802C6327A1E05.jpg"></li>
-<li><p>前向传播</p>
-<ul>
-<li>t时刻：<br>$a^{&lt; t &gt;}=g_1(W_{aa}a^{t-1} + W_{ax}x^{t} + b_a)$<br>$\hat y^{t} = g_2(W_{ya}a^{&lt; t &gt;} + b_y)$</li>
-<li>激活函数通常使用tanh，y输出激活函数视情况而定<img src="/2018/11/27/dl/第五门课-第一周/resources/65006F27B61C583E368EE798ADB80414.jpg">
-</li>
-</ul>
-</li>
-<li><p>后向传播</p>
-<ul>
-<li>对于一个元素的损失函数：<br>$L^{&lt; t &gt;}(\hat y^{&lt; t &gt;},y^{t}) = -y^{&lt; t &gt;}log\hat y^{&lt; t &gt;} - (1-y^{&lt; t &gt;})log(1-\hat y^{&lt; t &gt;})$</li>
-<li>整体序列的损失函数，就是将各时间步的损失值函数相加<br>$L(\hat y,y) = \sum_{t-1}^{T_x}L^{&lt; t &gt;}(\hat y^{&lt; t &gt;},y^{t})$<img src="/2018/11/27/dl/第五门课-第一周/resources/4D96ADA1B3420E7CC0849AA6FC92D737.jpg"></li>
-<li>同样也是使用bp算法求偏导，进行后向计算，不用的是RNN会有多个输出$\hat y$<img src="/2018/11/27/dl/第五门课-第一周/resources/B12CDA828E7D580472ABDA550A3FA40A.jpg">
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="不同类型的RNN"><a href="#不同类型的RNN" class="headerlink" title="不同类型的RNN"></a>不同类型的RNN</h4><ul>
-<li>输入输出长度分类：<ul>
-<li>many-to-many：机器翻译</li>
-<li>many-to-one：情感分类</li>
-<li>one-to-one：小型标准神经网络<img src="/2018/11/27/dl/第五门课-第一周/resources/9865F55A9CD63F0A3BAFBC9F28380036.jpg"></li>
-<li>one-to-many：音乐作曲<img src="/2018/11/27/dl/第五门课-第一周/resources/23C80D48C0008D0B3730BC7EE8A8A6E8.jpg">
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="语言模型和序列生成"><a href="#语言模型和序列生成" class="headerlink" title="语言模型和序列生成"></a>语言模型和序列生成</h4><ul>
-<li><p>语言模型:语言模型就是它会告诉你某个特定的句子它出现的概率是多少</p>
-<ul>
-<li>语言模型做的最基本工作就是输入一个句子，准确地说是一个文本序列,然后语言模型会估计某个句子序列中各个单词出现的可能性。</li>
-</ul>
-</li>
-<li><p>RNN模型基础结构</p>
-<ul>
-<li>将每个单词都转换成对应的one-hot向量，也就是词典中的索引，其中也要注意EOS(结尾符),UNK(未知单词),标点符号</li>
-<li>每一层$\hat y$的输出，都是预测该层输入词在字典中出现的概率</li>
-<li>最后的输出是每层条件概率的乘积<img src="/2018/11/27/dl/第五门课-第一周/resources/0499490A2E7A743A094E4A97B5DB3E28.jpg">
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="对新序列采样"><a href="#对新序列采样" class="headerlink" title="对新序列采样"></a>对新序列采样</h4><ul>
-<li>作用：一个序列模型之后，要想了解到这个模型学到了什么，一种非正式的方法就是对新序列采样</li>
-<li>方法：序列模型模拟了任意特定单词序列的概率，我们要做的就是对这些<font color="red">概率分布</font>进行采样来生成一个新的单词序列</li>
-<li>如何结束：1.字典中有EOS，2.时间步的多少</li>
-<li>基于词汇和字符的模型，各有优缺点</li>
-</ul>
-<h4 id="RNN中的梯度问题"><a href="#RNN中的梯度问题" class="headerlink" title="RNN中的梯度问题"></a>RNN中的梯度问题</h4><ul>
-<li>梯度消失：<ul>
-<li>网络的输出$\hat y$得到的梯度很难传播回去，很难影响靠前层的权重，很难影响前面层(编号 5 所示的层)的计算<img src="/2018/11/27/dl/第五门课-第一周/resources/81FC8B8F333615A20A24E065D6ED2A80.jpg"></li>
-<li>基础RNN也同样存在这个问题：前一层名词的单复数和难影响到厚层的动词单复数，很难传递(也是因为输出很难传到前层)</li>
-<li>如何解决：<font color="blue">看后面的GRU和LSTM</font></li>
-</ul>
-</li>
-<li>梯度爆炸：<ul>
-<li>比较容易发现，比如看见很多NaN，或者不是数字的情况，意味着数值溢出</li>
-<li>解决方法：梯度修剪，就是观察你的梯度向量，如果它大于某个阈 值，缩放梯度向量，保证它不会太大，这就是通过一些最大值来修剪的方法，并且具有好的鲁棒性</li>
-</ul>
-</li>
-</ul>
-<h3 id="GRU-门控制单元"><a href="#GRU-门控制单元" class="headerlink" title="GRU(门控制单元)"></a>GRU(门控制单元)</h3><h4 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h4><ul>
-<li>新增变量：记忆细胞cell<ul>
-<li>计算逻辑：如下图3标记中，$\hat C^{&lt; t &gt;} = tanh(W_c[C^{&lt; t-1 &gt;}, x^{&lt; t &gt;}] + b_c)$</li>
-<li>作用：提供了记忆的能力，比如说一只猫是单数还是复数，所以当它看到之后的句子的时候，它仍能够判断句子的主语是单数还是复数</li>
-</ul>
-</li>
-<li>新增变量：门控制变量<ul>
-<li>计算逻辑：如下图3标记中，$\Gamma _u^{&lt; t &gt;} = tanh(W_u[C^{&lt; t-1 &gt;}, x^{&lt; t &gt;}] + b_u)$</li>
-<li>作用：决定什么更新记忆细胞，是由sigmoid激活，如果为1，才更新C值，所以前面层次的值就可以一直保持到后面<img src="/2018/11/27/dl/第五门课-第一周/resources/50749AC4B17773F4D8BC728B49BD2529.jpg"></li>
-</ul>
-</li>
-<li><p>记忆细胞更新逻辑：<br>如下图5标记中,逻辑门为1才更新C值(或者接近1值，新值C的权重更大)<br>$C^{&lt; t &gt;} = \Gamma _u<em>\hat C^{&lt; t &gt;} + (1-\Gamma _u)</em> C^{&lt; t-1 &gt;}$</p>
-</li>
-<li><p>如何有效控制梯度消失问题<br>因为 sigmoid的值，现在因为门很容易取到 0 值，只要这个值是一个很大的负数, $\Gamma_u$值很容易为0，这种情况，就会变成$C^{&lt; t &gt;}=C^{&lt; t-1 &gt;}$，所以记忆细胞的值很好的被维持了。<font color="red">这就是缓解梯度消失的关键</font></p>
-</li>
-</ul>
-<h4 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h4><ul>
-<li>同时记忆细胞c可以是多维向量，这样可以记忆很多的内容</li>
-<li>通过完成的GRU还会有一个相关门:这个相关门告诉你计算出的候选值$\hat C$和$C^{&lt; t-1 &gt;}$有多大的相关性</li>
-<li>$\Gamma _r^{&lt; t &gt;} = tanh(W_r[C^{&lt; t-1 &gt;}, x^{&lt; t &gt;}] + b_r)$<img src="/2018/11/27/dl/第五门课-第一周/resources/FC1F67CE7DCFC22BF11941ED49367937.jpg">
-</li>
-</ul>
-<h3 id="LSTM-Long-short-term-memory"><a href="#LSTM-Long-short-term-memory" class="headerlink" title="LSTM(Long short term memory)"></a>LSTM(Long short term memory)</h3><h4 id="基础-1"><a href="#基础-1" class="headerlink" title="基础"></a>基础</h4><ul>
-<li>LSTM-cell<img src="/2018/11/27/dl/第五门课-第一周/resources/77E989F6FDDCB09EB5933E4BDEBA51EF.jpg"></li>
-<li>遗忘门($\Gamma_f$)，让记忆细胞去选择更新新的候选值还是遗忘旧的值<br>$C^{&lt; t &gt;} = \Gamma_u<em>\hat C^{&lt; t &gt;} + (1-\Gamma_f)</em> C^{&lt; t-1 &gt;}$</li>
-<li>输出门($\Gamma_o$), $a^{&lt; t &gt;} = \Gamma_o*tanh(c^{&lt; t &gt;})$</li>
-<li><p>LSTM重要公式及前向传播：</p>
-<img src="/2018/11/27/dl/第五门课-第一周/resources/30F5B97C5D3CB3434341F30985EE7EFB.jpg">  
-</li>
-<li><p>反向传播：就是BP算法，由后向前，对每一个参数求偏导数，对门$\Gamma$,参数W,偏置b，以及最后的隐藏状态，记忆细胞，输入x</p>
-</li>
-<li>GRU与LSTM<br>都能够捕获更加深层的神经网络，GRU的优点是比LSTM简单一点的模型，只有两个门，在计算上也运行得更快。但LSTM在历史上是更优的选择</li>
-</ul>
-<h3 id="双向RNN"><a href="#双向RNN" class="headerlink" title="双向RNN"></a>双向RNN</h3><ul>
-<li>背景：有些场景不仅需要参考过去，还应该参考未来<img src="/2018/11/27/dl/第五门课-第一周/resources/7AFE741D0C96EA2412793884699E29E2.jpg">
-<img src="/2018/11/27/dl/第五门课-第一周/resources/549D1FAC5CCCD530211F4855989CC5E3.jpg"></li>
-<li>缺点：总数需要一段完整的内容<ul>
-<li>NLP一般就比较适合，应该经常能够获得完整的文章</li>
-<li>语音翻译等就不是很适合了，因为要获得已经完整的一段话语通常不是很现实</li>
-</ul>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-	
-    
-	
-      	    
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/26/dl/第四门课-第四周/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="雷哥">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/favicon.ico">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="雷哥的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/26/dl/第四门课-第四周/" itemprop="url">第四门课-第四周</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-26T08:37:09+08:00">
-                2018-11-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/深度学习/" itemprop="url" rel="index">
-                    <span itemprop="name">深度学习</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/深度学习/吴恩达课程总结/" itemprop="url" rel="index">
-                    <span itemprop="name">吴恩达课程总结</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><a href="https://github.com/yuancl/dl-algorithm/tree/master/4-ConvolutionNeuralNetworks/Week4" target="_blank" rel="noopener">习题代码:Face-Recognition and Neural-Style-Transfer</a></p>
-<h4 id="人脸识别-Siamese网络"><a href="#人脸识别-Siamese网络" class="headerlink" title="人脸识别(Siamese网络)"></a>人脸识别(Siamese网络)</h4><ul>
-<li><p>一般分为验证和识别两步</p>
-<img src="/2018/11/26/dl/第四门课-第四周/resources/59203AFA4B9EBA77787F62DF55CCD80C.jpg">
-</li>
-<li><p>One-shot learning</p>
-<ul>
-<li>背景：人脸识别的train是很少的图片，并且一般只给你一张图片你就得识别出来，并不是想普通的图片识别一样，有很多的样本。比如新加入的新同事，之前并没有样本</li>
-<li>方法：和图片库已有的少量图片做相似度比较<img src="/2018/11/26/dl/第四门课-第四周/resources/D07A181DC5C9F521AD454FF2F5DB4806.jpg"></li>
-<li><font color="blue">如何实现：可以使用Siamese network</font>
-</li>
-</ul>
-</li>
-<li><p>Siamese network</p>
-<ul>
-<li>将图片映射为n维向量，将$f(x^{(1)})$看做是$x^{(a)}$的编码，然后通过比较不同图片的编码的差别来区分是否是同一个人<img src="/2018/11/26/dl/第四门课-第四周/resources/2DAAF788ADC4B402DF7D4E839D3C9EB2.jpg"></li>
-<li><font color="red">那么怎么判断输出的图片编码好与差呢？</font>可以使用下面的三元组(Triplet)损失函数达到目的</li>
-</ul>
-</li>
-<li><p>Triplet损失 </p>
-<ul>
-<li>定义：需要Anchor图片，Postive图片，Negative图片，简写为A,P,N</li>
-<li>避免网络输出无用,有一个$\alpha$超参数，控制A,P和A,N之间的差距<br>$||f(A)-f(P)||^2 - ||f(A)-f(N)||^2 + \alpha &lt;= 0$</li>
-<li>Loss function<br>如果目标已经ok，那么值为0，<font color="blue">可以看见各种场景只需要找到合适的损失函数，然后下面的步骤都类似(用梯度下降等方法求出极值)</font><br>L(A,P,N)=max($||f(A)-f(P)||^2 - ||f(A)-f(N)||^2 + \alpha$, 0)</li>
-<li>训练数据需要注意的地方   <ul>
-<li>需要注意训练集的对一个人需要多张照片，至少要满足Anchor,Posistion</li>
-<li>尽量选择d(A,P)$\approx$d(A,N),这样能够学习到更多内容，如果差别太大，很容易判断，不能学习到有效数据</li>
-</ul>
-</li>
-<li>算法步骤：<ul>
-<li><font color="red">目的，学习到一种好的编码映射f(x)</font></li>
-<li>1.定义好A,P,N数据集</li>
-<li>2.用梯度下降最小化我们之前定义的代价函数J<ul>
-<li>这样做的效果就是用反向传播来学习到一种编码方式，如果是同一个人，那么d就很小，如果是不同的人，那么d就会很大</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="面部识别与二分类-Siamese变种"><a href="#面部识别与二分类-Siamese变种" class="headerlink" title="面部识别与二分类(Siamese变种)"></a>面部识别与二分类(Siamese变种)</h4><ul>
-<li>原始Siamese网络是直接计算编码的L2距离，这里可以将编码经过激活函数，比如sigmoid的处理，来实现分类的目的</li>
-<li>$\hat y = sigmoid(\sum_{(k=1)}^{128}w_i|f(x^{(i)})_k - f(x^{(j)})_k|+b)$,当然$|f(x^{(i)})_k - f(x^{(j)})_k|$这一部分还可以替换为其他的相似度计算方法，比如$\chi$平方相似度</li>
-<li>还注意下它的输入为成对图片的输入，比如两张同一个人的照片，输出为1。两种不同人的照片，输出就为0<img src="/2018/11/26/dl/第四门课-第四周/resources/DC9EB83890ACAA8FCA96AF8A07C166A4.jpg">
-</li>
-</ul>
-<h4 id="神经风格转换"><a href="#神经风格转换" class="headerlink" title="神经风格转换"></a>神经风格转换</h4><ul>
-<li>什么是神经风格转换<img src="/2018/11/26/dl/第四门课-第四周/resources/A479680115E29544AEF55839D4671529.jpg"></li>
-<li>什么是深度卷积网络<font color="red">(需要直观感受到不同层次的网络提取的特征,深层和前层是如何计算的)</font><ul>
-<li>相关概念<ul>
-<li><font color="red">一个神经元就表示一个filter的及输出，在输出中就表示一个通道，也代表一个特征</font>，经常会有多个通道，就是多种filter，代表不同的特征</li>
-<li>神经单元激活最大化，比如激活函数是sigmoid，我理解只有在边界两端的值，才能有更明确的分类结果，相应的特征表现也最好</li>
-</ul>
-</li>
-<li>各层的特征<ul>
-<li>第一层：主要表现对一些线条，边缘或者特点的颜色等低维特征比较感兴趣<img src="/2018/11/26/dl/第四门课-第四周/resources/4EB5702B957B35A026CF83308BB2ADD1.jpg"></li>
-<li>第二层：通常能够看到图片更大的区域，能够检测到更复杂的模型<img src="/2018/11/26/dl/第四门课-第四周/resources/B0FF90770CA0E83194E5F21A951F11DE.jpg"></li>
-<li>后面的第三层，第四层….等就能够检测到更具体的事物了<img src="/2018/11/26/dl/第四门课-第四周/resources/B887BCA060D13B6570ADED0664D12697.jpg">
-<img src="/2018/11/26/dl/第四门课-第四周/resources/9C880AA1D1D811C893B543198F80C5FA.jpg">
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="神经风格迁移系统的-Cost-function"><a href="#神经风格迁移系统的-Cost-function" class="headerlink" title="神经风格迁移系统的(Cost function)"></a>神经风格迁移系统的(Cost function)</h4><p>要构造一个神经风格迁移系统，我们需要给生成的图像定义一个代价函数</p>
-<ul>
-<li>J(G)=$\alpha J_{content}(C,G) + \beta J_{stype}(S,G)$</li>
-<li>内容代价函数:<font color="red">就是计算原始图片和生成图片的某一层的激活值的相似度</font><ul>
-<li>选取一个预训练模型，比如是VGG卷积模型</li>
-<li>选取中间层l，一般不会太深，也不好太浅</li>
-<li>计算一对一对的训练数据(一张原始图片，一张生成图片)，分别计算在l层的激活值，然后对比他们的相似度(可以用L2范数)</li>
-<li>$J_{content}(C,G)=\frac{1}{2}||a^{[l][C]}-a^{[l][G]}||^2$</li>
-</ul>
-</li>
-<li>下面是风格代价函数的介绍</li>
-<li><strong>What you should remember</strong>:<ul>
-<li>Neural Style Transfer is an algorithm that given a content image C and a style image S can generate an artistic image</li>
-<li>It uses representations (hidden layer activations) based on a pretrained ConvNet. </li>
-<li>The content cost function is computed using one hidden layer’s activations.</li>
-<li>The style cost function for one layer is computed using the Gram matrix of that layer’s activations. The overall style cost function is obtained using several hidden layers.</li>
-<li>Optimizing the total cost function results in synthesizing new images. </li>
-</ul>
-</li>
-</ul>
-<h4 id="风格代价函数-style-cost-function"><a href="#风格代价函数-style-cost-function" class="headerlink" title="风格代价函数(style cost function)"></a>风格代价函数(style cost function)</h4><ul>
-<li>定义：现在你选择了某一层𝑙，比如这一层去为图片的风格定义一个 深度测量，现在我们要做的就是将图片的风格定义为𝑙层中各个通道之间<font color="blue">激活项</font>的相关系数</li>
-<li>理解CNN中的神经元<ul>
-<li><font color="red">一个神经元就表示一个filter的及输出，在输出中就表示一个通道，也代表一个特征</font><ul>
-<li>这个红色的通道(编号1)对应(编号 3),它能找出图片中的特定位置是否含有这些垂直的纹理</li>
-<li>而第二 个通道也就是黄色的通道(编号 2)，对应这个神经元(编号 4)<img src="/2018/11/26/dl/第四门课-第四周/resources/D422B96088E7C2335C19E0465394B878.jpg"></li>
-</ul>
-</li>
-</ul>
-</li>
-<li>理解相关系数<ul>
-<li>定义：相关系数这个概念为你提供了一种去测量这些不同的特征的方法，比如这些垂直纹理，这些橙色或是其他的特征去<font color="blue">测量它们在图片中的各个位置同时出现或不同时出现的频率</font></li>
-<li>意义：通过测量，你能得知在生成的<br>图像中垂直纹理和橙色同时出现或者不同时出现的频率，这样你将能够<font color="blue">测量生成的图像的风格与输入的风格图像的相似程度</font></li>
-</ul>
-</li>
-<li>风格矩阵(Gram matrix)(Correlation between filters)：<img src="/2018/11/26/dl/第四门课-第四周/resources/AAB98D324EC1AC62752A4C3A792DE9D5.jpg">
-<ul>
-<li>通过对k和k’通道中中所有的数值<font color="blue">(注意是激活值，不是各个filter的值)</font>进行计算就得到了𝐺矩阵，也就是风格矩阵</li>
-<li>如果不相关，那么$G^{[l]}_{KK’}$会比较小，否则就会很大<img src="/2018/11/26/dl/第四门课-第四周/resources/F2F75B0A0E6AA66A42FB991DAA65DE27.jpg">
-<img src="/2018/11/26/dl/第四门课-第四周/resources/E55DCEDA125DF80889F4EC8D3AB77521.jpg">
-code:<img src="/2018/11/26/dl/第四门课-第四周/resources/BD74761FA9DA43CE218D8AD9865DA49E.jpg"></li>
-<li>分别计算出G和S图片的矩阵，然后带入下面的cost function<font color="blue">这将得到这两个矩阵之间的误差</font></li>
-</ul>
-</li>
-<li>Cost function<ul>
-<li><font color="red">直观感受：就是对两张图片分别计算不同通道的输出的相关性G1,G2(上面的风格矩阵)(Gram matrix就展示的不同激活值(filter输出)之间相似度，有点像协方差),然后再优化<strong>使</strong>这两张图片的不同通道的值差距减小，即类似于$\sum(G1-G2)$，cost越小，表示两越相近</font></li>
-<li>一般只计算其中<font color="blue">一层</font>的cost，当然可以对每层都这样计算cost，然后相加，但要复杂一些<img src="/2018/11/26/dl/第四门课-第四周/resources/2079BF705ED2A829D0E1EFE3891B921F.jpg"></li>
-<li>这是两个矩阵间一个基 本的 Frobenius 范数<img src="/2018/11/26/dl/第四门课-第四周/resources/2155AA530BE9533AA5D00319DAAA164E.jpg">
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="CNN同样适合于一维到三维"><a href="#CNN同样适合于一维到三维" class="headerlink" title="CNN同样适合于一维到三维"></a>CNN同样适合于一维到三维</h4><p>CNN同样适合于一维和三维数据，但对一维数据(和时间序列相关的)的处理，更常见的使用RNN</p>
-<ul>
-<li>一维<br>比如心电图信息处理等，它的卷积核更像是一维的滑动窗口一样<img src="/2018/11/26/dl/第四门课-第四周/resources/29B3999CE968EA9B047F4E4360D052E6.jpg"></li>
-<li>三维<br>比如在CT图像上，一张图片就是人体的一个切面，当然这种情况它的卷积核也是三维的，并且也可以有通道数<img src="/2018/11/26/dl/第四门课-第四周/resources/31924BC92BF9513EA102C74DE4440FFD.jpg"></li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-	
-    
   </section>
 
   
@@ -3095,7 +3088,7 @@ code:<img src="/2018/11/26/dl/第四门课-第四周/resources/BD74761FA9DA43CE2
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">64</span>
+                <span class="site-state-item-count">66</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

@@ -274,6 +274,383 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/22/ml/PCA/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/06/22/ml/PCA/" itemprop="url">PCA</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-22T22:01:10+08:00">
+                2018-06-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><a href="http://blog.codinglabs.org/articles/pca-tutorial.html" target="_blank" rel="noopener">参考文章</a></p>
+<h4 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h4><ul>
+<li><p>线性代数相关概念</p>
+<ul>
+<li>对称矩阵:除对角线，其余值一三象限相等</li>
+<li>对角矩阵(diagonal matrix):是一个主对角线之外的元素皆为0的矩阵</li>
+<li>矩阵对角化：如果存在一个矩阵<strong>A</strong>，使$A^{-1}MA$  的结果为对角矩阵，则称矩阵<strong>A</strong>将矩阵<strong>M</strong>  对角化。对于一个矩阵来说，不一定存在将其对角化的矩阵，但是任意一个n×n矩阵如果存在n个线性不相关的特征向量，则该矩阵可被对角化<ul>
+<li>定理（理解特征值和特征向量的作用）：<img src="/2018/06/22/ml/PCA/resources/6A2D68A769C48FF884859CA389ECED5C.jpg"></li>
+</ul>
+</li>
+<li>实对称矩阵<ul>
+<li>实对称矩阵A的不同特征值对应的特征向量是正交的。<font color="red">(PCA算法最终就是将初始值的协方差矩阵变化为实对称矩阵)</font></li>
+<li>实对称矩阵A的特征值都是实数，特征向量都是实向量。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>协方差</p>
+<ul>
+<li>均值描述的是样本集合的中间点，而标准差给我们描述的则是样本集合的各个样本点到均值的距离之平均，都是一维数据<br>$var(X)=\frac{\sum^{n}_{i=1}(X_i-\overline X)(X_i-\overline X)}{n}$</li>
+<li>协方差：协方差就是这样一种用来度量两个随机变量关系的统计量<ul>
+<li>$cov(X,Y)=\frac{\sum^{n}_{i=1}(X_i-\overline X)(Y_i-\overline Y)}{n}$。如果各维度均值都标准化为0，那么就简化为:$cov(X,Y)=\frac{\sum^{n}_{i=1}(X_i)(Y_i)}{n}$</li>
+<li>如果结果为正值，则说明两者是正相关的,否则为负相关。如果为0，表示不相关，也就是正交</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>协方差矩阵</p>
+<ul>
+<li>如果有多维的情况，就可以使用矩阵的思想来看更直观,比如三维的例子:<br>$C = \begin{bmatrix}<br>cov(x,x),cov(x,y),cov(x,z)<br>\<br>cov(y,x),cov(y,y),cov(y,z)<br>\<br>cov(z,x),cov(z,y),cov(z,z)<br>\end{bmatrix}$</li>
+<li>协方差矩阵计算：<ul>
+<li>假设我们只有a和b两个字段(两维度特征)，那么我们将它们按行组成矩阵X<br>$X=\begin{bmatrix}<br>a_1,a_2,a_3….a_n<br>\<br>b_1,b_2,b_3….b_n<br>\end{bmatrix}<br>$</li>
+<li>然后我们用X乘以X的转置，并乘上系数1/m<br>$\frac1mXX^T=\begin{bmatrix}<br>\frac1m\sum^m_{i=1}a_ia_i  \frac1m\sum^m_{i=1}a_ib_i<br>\<br>\frac1m\sum^m_{i=1}a_ib_i  \frac1m\sum^m_{i=1}b_ib_i<br>\end{bmatrix}<br>$</li>
+<li>设我们有m个n维数据记录，将其按列排成n乘m的矩阵X，设$C=1mXX𝖳，则C是一个对称矩阵，其对角线分别个各个字段的方差，而第i行j列和j行i列元素相同，表示i和j两个字段的协方差</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+	
+    
+	
+      	    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/20/ml/Backpropagation/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/06/20/ml/Backpropagation/" itemprop="url">Backpropagation</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-20T08:01:20+08:00">
+                2018-06-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><a href="https://www.cnblogs.com/andywenzhi/p/7295262.html?utm_source=itdadao&amp;utm_medium=referral" target="_blank" rel="noopener">参考链接</a></p>
+<h4 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h4><ul>
+<li>BP 算法的目的在于为优化函数（比如梯度下降、其它的高级优化方法）提供梯度值，即使用 BP 算法计算代价函数（cost function）对每个参数的偏导值，其数学形式为：$\frac{\partial}{\partial\theta^l_{ij}}J(\theta)$，并最终得到的值存放在矩阵$\Delta^{(l)}$中。</li>
+</ul>
+<h4 id="网络结构"><a href="#网络结构" class="headerlink" title="网络结构"></a>网络结构</h4><ul>
+<li>简单神经网络结构：<img src="/2018/06/20/ml/Backpropagation/resources/65C926A1DF9A4F2D9EBB22BEC38F663F.jpg"></li>
+<li>单个数据的代价函数：<img src="/2018/06/20/ml/Backpropagation/resources/2A341859393F3EFDA0E5F215414C2CD5.jpg">
+</li>
+</ul>
+<h4 id="神经网络学习算法图概览"><a href="#神经网络学习算法图概览" class="headerlink" title="神经网络学习算法图概览"></a>神经网络学习算法图概览</h4><ul>
+<li><p>清楚一个函数的求导对象：输入值<br>给定一个函数 f(x)，它的首要求导对象是什么？就是它的输入值，是自变量 x。那 f(g(x)) 呢？即把g(x) 当作一个整体作为它的输入值，它的自变量。那么 g(x) 这个整体就是它的首要求导对象。因此，一个函数的求导对象是它的输入值，是它的自变量。弄清楚这一点，才能在求多元函数偏导的链式法则中游刃有余。</p>
+</li>
+<li><p>神经网络中各数据之间的关系——谁是谁的输入值<br>图 3.1 自下而上，每一个框是上面一个框的输入值，也即上面一个框中函数的自变量。这张图明确了神经网络中各数据之间的关系——谁是谁的输入值，图中表现得非常清楚。上段提到一个函数的求导对象是它的输入值，那么通过图 3.1 就能非常方便地使用链式法则，也能清楚地观察到 BP 算法的流程（后面一个小节会给出一个更具体的 BP 流程图）。</p>
+</li>
+<li><p>神经网络的学习(训练)流程(前馈传播和BP算法)<br>对照文首给出的图 1.1 神经网络的模型图，应该很容易理解图 3.1 的含义，它大致地展现了神经网络的学习（训练）流程。前馈传播算法自下而上地向上计算，最终可以得到 a(3)，进一步可以计算得到 J(Θ)。而 BP 算法自顶向下，层层求偏导，最终得到了每个参数的梯度值。下面一个小节将仔细介绍本文的主题，即 BP 算法的流程图解。</p>
+</li>
+</ul>
+<img src="/2018/06/20/ml/Backpropagation/resources/0A913A35D7E650A4E2C65A6A7AF52C4F.jpg">
+<h4 id="BP-算法的直观图解"><a href="#BP-算法的直观图解" class="headerlink" title="BP 算法的直观图解"></a>BP 算法的直观图解</h4><ul>
+<li>BP 算法的流程在这张图中清晰可见：自顶向下（对应神经网络模型为自输出层向输入层）层层求偏导(核心：找准谁是谁的输入，对求偏导尤其重要)</li>
+<li>所以 BP 算法即反向传播算法，<font color="red">就是自顶向下求代价函数$J(\theta)$ 对各个参数$\theta^l_{ij}$ 偏导($\frac{\partial}{\partial\theta^l_{ij}}J(\theta)$)的过程</font>，对应到神经网络模型中即自输出层向输入层层层求偏导<img src="/2018/06/20/ml/Backpropagation/resources/9005E13A2814A7CE44469B4204073DE9.jpg"></li>
+<li><p>从这里可以看出：，为什么要使用BP算法：<font color="red"></font></p>
+<ul>
+<li>自输出层向输入层（即反向传播），逐层求偏导，在这个过程中逐渐得到各个层的参数梯度。</li>
+<li>在反向传播过程中，使用$\delta(l)$ 保存了部分结果，从而避免了大量的重复运算。</li>
+</ul>
+</li>
+<li><p>详细推导计算过程可以参考原文</p>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+	
+    
+	
+      	    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/18/ml/NeuralNetwork/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1034,7 +1411,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">64</span>
+                <span class="site-state-item-count">66</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

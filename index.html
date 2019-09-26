@@ -274,6 +274,426 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/21/nlp/word2vec/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/09/21/nlp/word2vec/" itemprop="url">word2vec</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-21T22:34:14+08:00">
+                2019-09-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/NLP/" itemprop="url" rel="index">
+                    <span itemprop="name">NLP</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/NLP/模型理解/" itemprop="url" rel="index">
+                    <span itemprop="name">模型理解</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><a href="https://mp.weixin.qq.com/s?__biz=MzAxMjMwODMyMQ==&amp;mid=2456336047&amp;idx=1&amp;sn=c6d2bd01d5b73b3d71813d5158c8e368&amp;scene=19#wechat_redirect" target="_blank" rel="noopener">词向量之DNN模型</a><br><a href="https://mp.weixin.qq.com/s?__biz=MzAxMjMwODMyMQ==&amp;mid=2456336233&amp;idx=1&amp;sn=01afd6b020693a7808b0a9cec0bcc39b&amp;scene=19#wechat_redirect" target="_blank" rel="noopener">word2vec-Hierarchical Softmax</a><br><a href="https://mp.weixin.qq.com/s?__biz=MzAxMjMwODMyMQ==&amp;mid=2456336355&amp;idx=1&amp;sn=89fe3518051752ce84a3d8f1daf696f8&amp;scene=19#wechat_redirect" target="_blank" rel="noopener">word2vec-Negative Sampling</a></p>
+<h4 id="词向量之DNN模型"><a href="#词向量之DNN模型" class="headerlink" title="词向量之DNN模型"></a>词向量之DNN模型</h4><ul>
+<li>模型<img src="/2019/09/21/nlp/word2vec/resources/22FB6C2C9C68C37E6D199CB84F7C82FB.jpg">
+<ul>
+<li>训练方式：CBOW或者Skip-gram</li>
+<li>输入：one-hot向量，n*V矩阵（V表示词汇数量，n表示输入词数）</li>
+<li>Hidden layer：我们想得到的N维词向量</li>
+<li>Output layer：softmax分类</li>
+</ul>
+</li>
+<li>核心就是采用语言模型，学习Input layer和Hidden layer直接的参数矩阵（词嵌入矩阵）</li>
+<li>训练方式：softmax进行多分类，采用交叉熵作为loss，梯度下来求解方法进行训练</li>
+<li>缺点：<ul>
+<li>从input layer到hidden layer<br>每次我们只是使用了几个单词进行训练，但是在计算梯度的过程却要对整个参数矩阵进行运算，这样计算效率低下</li>
+<li>从hidden layer到output layer<br>采用全连接层并用softmax方式，需要对输出层中每个位置求其概率。为了得到输出层的每个位置的概率，我们需要求得所有单词的得分，如果一个词汇表很庞大的话，这是很耗资源的</li>
+</ul>
+</li>
+</ul>
+<h4 id="word2vec-Hierarchical-Softmax"><a href="#word2vec-Hierarchical-Softmax" class="headerlink" title="word2vec-Hierarchical Softmax"></a>word2vec-Hierarchical Softmax</h4><p><a href="https://yuancl.github.io/2019/08/13/nlp/FastText模型/" target="_blank" rel="noopener">参考FastText</a></p>
+<ul>
+<li>霍夫曼树<br>参考FastText中的霍夫曼链接，总的来说就是让出现频率大的词在树较浅的层次，频率小的出现在较深层次（最少编码也是这个道理）</li>
+<li>网络结构<img src="/2019/09/21/nlp/word2vec/resources/6E951A455D9ACAC687BA4F6047258DE8.jpg">
+<ul>
+<li>模型学习方式同样可以是CBOW或者Skip-gram模式</li>
+<li>Input layer：需要学习的词向量，多个词向量加和平均到映射层</li>
+<li>Output layer：通过加和平均得到的向量，作为输入，通过<br>Hierarchical Softmax进行分类训练</li>
+</ul>
+</li>
+<li>训练过程:<ul>
+<li>需要通过已经词表构造一颗霍夫曼树（通过频率的计算）</li>
+<li>通过$X_w$的输入，就能够通过霍夫曼树确定该输入对应到的叶子节点，同时也就知道了整个路径(类似101001…)</li>
+<li>每一个节点的选择都是通过sigmoid进行二分类</li>
+<li><font color="blue">最后是通过最大似然模型，梯度提升求解方法进行该路径概率的最大值求解</font>（p(step1)*p(step2)…都是二分类模型）<ul>
+<li>通过反向传播求梯度后，通过梯度提升，更改权重向量（节点与节点连线）；同时改变input layer词向量（因为$X_w$只是加权求平均）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>优点：<ul>
+<li>舍去了隐藏层，在CBOW模型从输入层到隐藏层的计算改为直接从输入层将几个词的词向量求和平均作为输出<ul>
+<li>词向量的线性相关性<ul>
+<li>第一个改进在于去除了隐藏层，Word2vec训练词向量的网络结构严格上来说不算是神经网络的结构，也就去掉了非线性的激活函数，所以就能够表示词向量直接是线性相关的</li>
+<li><img src="/2019/09/21/nlp/word2vec/resources/361E25E2BEBDF37B8637B6E3A2301923.jpg"></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>舍去了隐藏层到输出层的全连接结构，换成了霍夫曼树来代替隐藏层到输出层的映射<ul>
+<li>不需要计算所有的非叶子结点，只需要计算找寻某个叶子结点时经过的路径上存在的节点，极大的减少了计算量</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>缺点：<br>比如霍夫曼树的结构是基于贪心的思想，这样训练频率很大的词很有效，但是对词频很低的词很不友好，路径很深（二分类比较多，训练的权重也就比较多）</li>
+</ul>
+<h4 id="word2vec-Negative-Sampling"><a href="#word2vec-Negative-Sampling" class="headerlink" title="word2vec-Negative Sampling"></a>word2vec-Negative Sampling</h4><ul>
+<li>网络结构<img src="/2019/09/21/nlp/word2vec/resources/FE3A607318B250747461F274D5B9962C.jpg"></li>
+<li>训练网络图<img src="/2019/09/21/nlp/word2vec/resources/DF6CA2B538357E71E6E6D3CD761746E2.jpg"></li>
+<li>训练过程：<ul>
+<li>输入：(V,w0)(V,w1)(V,w2)…<ul>
+<li>w0是想预测出来的那个正样本，w1，w2…是跟随随机选取的负样本</li>
+<li>V是上下文，比如cbow方式就是前后单词的向量求和sum</li>
+</ul>
+</li>
+<li>输出也是用的二分类的方法对正负样本进行概率判断</li>
+<li>也是采用的最大似然的方法，对各个正负样本进行概率相乘，使其概率值达最大<ul>
+<li>通过梯度提升的方法，更新每个样本对应的$\theta$向量，以及输入的词向量</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Negative Sampling选取负例词原理<br>基本就是对词出现的频率进行划分，目的是概率性取到不同频率的负样本</li>
+<li>优点：<br>Negative Sampling训练生僻词的词向量会更稳定更快些</li>
+</ul>
+<h4 id="word2vec整体优缺点"><a href="#word2vec整体优缺点" class="headerlink" title="word2vec整体优缺点"></a>word2vec整体优缺点</h4><ul>
+<li>Word2vec训练出来的词向量效果挺好，其训练出来的词向量可以衡量不同词之间的相近程度</li>
+<li>word2vec也存在缺点，因为在使用context（w）中并没有考虑w上下文的词序问题，这就造成了训练时输入层所有的词都是等价的，这样训练出来的词向量归根结底只包含大量语义，语法信息<ul>
+<li>所以一般想拥有比较好的词向量，还是应该在一个有目标导向的神经网络中训练，比如目标是情感分析，在这样的神经网络中去取得第一层embedding层作为词向量，其表达的的效果应该会比word2vec训练出来的效果好得多，当然一般我们可能不需要精准表达的词向量，所以用word2vec来训练出词向量，也是一种可选择的快速效率的方法</li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+	
+    
+	
+      	    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/19/nlp/XLNet模型/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/09/19/nlp/XLNet模型/" itemprop="url">XLNet模型</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-19T21:34:13+08:00">
+                2019-09-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/NLP/" itemprop="url" rel="index">
+                    <span itemprop="name">NLP</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/NLP/模型理解/" itemprop="url" rel="index">
+                    <span itemprop="name">模型理解</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>参考文章：<br><a href="https://mp.weixin.qq.com/s/WVrbHWTAKoern3XMMhVA9Q" target="_blank" rel="noopener">王者对决：XLNet对比Bert</a><br><a href="https://mp.weixin.qq.com/s?__biz=MzAxMjMwODMyMQ==&amp;mid=2456340647&amp;idx=1&amp;sn=24c0f09853356af3d934dc753be7a562&amp;chksm=8c2fb2a9bb583bbfbd8118274b4c3e171977a04ada349aaea6eb2b1695d8f034cb5afe6eea4c&amp;scene=21#wechat_redirect" target="_blank" rel="noopener">3分钟了解GPT Bert与XLNet的差异</a><br><a href="https://mp.weixin.qq.com/s/VCCZOKJOhCEjxfnoLSuRKA" target="_blank" rel="noopener">张俊林-运行机制及和 Bert 的异同比较</a></p>
+<h4 id="自回归语言模型"><a href="#自回归语言模型" class="headerlink" title="自回归语言模型"></a>自回归语言模型</h4><ul>
+<li>概念<br>在 ELMO / BERT 出来之前，大家通常讲的语言模型其实是根据上文内容预测下一个可能跟随的单词，就是常说的自左向右的语言模型任务，或者反过来也行，就是根据下文预测前面的单词，这种类型的 LM 被称为自回归语言模型<ul>
+<li>ELMO本质上也是自回归LM<ul>
+<li>ELMO 尽管看上去利用了上文，也利用了下文，但是本质上仍然是自回归 LM ，这个跟模型具体怎么实现有关系。</li>
+<li>ELMO 是<font color="blue">做了两个方向</font> ( 从左到右以及从右到左两个方向的语言模型 ) ，但是是分别有两个方向的自回归 LM ，然后把 LSTM 的两个方向的隐节点状态拼接到一起，来体现双向语言模型这个事情的。所以其实是两个自回归语言模型的拼接，本质上仍然是自回归语言模型</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>缺点<br>自回归语言模型的问题在于它只能使用前向上下文或后向上下文，这意味着它不能同时使用前向和后向上下文，从而限制其对上下文和预测的理解。<ul>
+<li>当然，貌似 ELMO 这种双向都做，然后拼接看上去能够解决这个问题，因为融合模式过于简单，所以效果其实并不是太好</li>
+</ul>
+</li>
+</ul>
+<h4 id="自编码语言模型"><a href="#自编码语言模型" class="headerlink" title="自编码语言模型"></a>自编码语言模型</h4><p>与AR语言模型不同，BERT使用自动编码器(AE)语言模型。AE语言模型旨在从损坏的输入重建原始数据。<br>在BERT中，通过添加[MASK]来破坏预训练输入数据。例如，’Goa has the most beautiful beaches in India’将成为‘Goa has the most beautiful [MASK] in India’，该模型的目标是根据上下文词预测[MASK]词。<font color="blue">自动编码器语言模型的优点是，它可以看到前向和后向的上下文</font>。但是，由于在输入数据中添加[MASK]引入了微调模型的差异</p>
+<h4 id="bert的问题"><a href="#bert的问题" class="headerlink" title="bert的问题"></a>bert的问题</h4><ul>
+<li>[MASK]标记导致实际和预训练不一致<br>训练BERT以预测用特殊[MASK]标记替换的标记。问题是在下游任务中微调BERT时，[MASK]标记永远不会出现。在大多数情况下，BERT只是将非掩码标记复制到输出中。</li>
+<li>预测的标记彼此独立<br>Bert 在第一个预训练阶段，假设句子中多个单词被 Mask 掉，这些被 Mask 掉的单词之间没有任何关系，是条件独立的，而有时候这些单词之间是有关系的，XLNet 则考虑了这种关系<ul>
+<li>例如：<br>Whenever she goes to the [MASK] [MASK] she buys a lot of [MASK]<br>三个[MASK]是并行训练，它们三个直接的关系bert是没有考虑的</li>
+</ul>
+</li>
+</ul>
+<h4 id="XLNet"><a href="#XLNet" class="headerlink" title="XLNet"></a>XLNet</h4><ul>
+<li>背景：<br>能不能结合自编码(bert)从左向右学习，和自回归模型(elmo)能够同时学习上下文，也能够避免bert的缺陷呢？</li>
+<li>排列语言建模思想：<br>看上去仍然是个自回归的从左到右的语言模型，但是其实<font color="blue">通过对句子中单词排列组合，把一部分 Ti 下文的单词排到 Ti 的上文位置中</font>，于是，就看到了上文和下文，但是形式上看上去仍然是从左到右在预测后一个单词<img src="/2019/09/19/nlp/XLNet模型/resources/8F1D568BA74AC743D74A6E3625CD007A.jpg">
+<ul>
+<li>这样从左往右也能看见原始Ti的上下文了</li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+	
+    
+	
+      	    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/23/ad/xDeepFM模型/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -2039,407 +2459,6 @@
 
 	
     
-	
-      	    
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/31/rs/总结篇-推荐系统难点/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="雷哥">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/favicon.ico">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="雷哥的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/31/rs/总结篇-推荐系统难点/" itemprop="url">总结篇-推荐系统难点</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-31T20:31:22+08:00">
-                2019-03-31
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/推荐系统/" itemprop="url" rel="index">
-                    <span itemprop="name">推荐系统</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/推荐系统/推荐系统总结篇/" itemprop="url" rel="index">
-                    <span itemprop="name">推荐系统总结篇</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><a href="https://mp.weixin.qq.com/s/0a4Ne9lgx1rmnE1jXfH6zQ" target="_blank" rel="noopener">达观数据个性化推荐系统实践</a><br><a href="https://mp.weixin.qq.com/s/SAmTNxTgtGLZ9cUH81FYgg" target="_blank" rel="noopener">刘志强 奇虎360:机器学习与推荐系统实践</a></p>
-<h4 id="整体过程"><a href="#整体过程" class="headerlink" title="整体过程"></a>整体过程</h4><ul>
-<li>用户<br>推荐系统本质是将人和物品关联起来，而系统对用户的理解也是由浅入深，初来时彼此陌生，需要有一个冷启的过程，逐渐把握用户的喜好。随着用户行为的丰富，系统对用户兴趣的描述也越来越客观，此时便可能得到更准确的用户偏好，进而完成更精准的推荐。然而物极必反，用户对于一个平台的认知与期望也是一样。随着用户的深度使用，势必对推荐系统生出更高的期待和要求。这时，便可能需要系统在满足深度用户某种刁钻的口味，与大众用户的普遍期待中做出某种取舍。用户也就不可避免的出现了流失。因为系统的能力终归有限，而用户的期望无限。</li>
-<li>资源<br>此外资源也会经历类似的过程，新进场的资源虽然天然有某种内容的属性，但其被用户接受，仍然不可避免需要经历一个过程。过程中有些资源会被淘汰，有些则会成长为热门。在不断地引入新资源的过程中，再热门的资源都会有过期的一天。就好比，再会保养的人，也逃不过岁月的流逝。甚至，为了保持系统的实时性，热门的资源需要主动地让出在系统中的曝光份额<img src="/2019/03/31/rs/总结篇-推荐系统难点/resources/E6D14C085DD134BA899AAC947BFA222A.jpg">
-</li>
-</ul>
-<h4 id="如何精准把握用户兴趣"><a href="#如何精准把握用户兴趣" class="headerlink" title="如何精准把握用户兴趣"></a>如何精准把握用户兴趣</h4><p>用户兴趣不仅存在多样性，而且会随着时间的变化而变化</p>
-<ul>
-<li>长短期兴趣画像让模型效果稳定提升</li>
-<li>通过引入时间因子，基于不同的时间周期做用户画像<ul>
-<li>比如基于最近半年的或更久的数据做长期用户画像，基于近一个月或三个月做短期用户画像，同时还会有实时用户画像，基于这三种类型用户画像之间的差异化，能够感知用户的兴趣变更<img src="/2019/03/31/rs/总结篇-推荐系统难点/resources/6D356B47DE2BCDD89642BEA83EFF8C2F.jpg"></li>
-</ul>
-</li>
-<li>基于用户画像后做一个过滤机制，把推荐过或者质量不佳先过滤。这样做排序时会引入一个时间因子做一个衰减，另外也会做机器学习的预测，可以方便地调整推荐顺序。</li>
-<li>接下来做优化，随着时间的推移，对于用户的刻画会更清晰准确</li>
-</ul>
-<h4 id="冷启动"><a href="#冷启动" class="headerlink" title="冷启动"></a>冷启动</h4><ul>
-<li>主要分为:用户冷启动，物品冷启动，系统冷启动</li>
-<li>用户冷启动<ul>
-<li>和其他领域做映射<br>从其他维度或领域的数据来判断新用户对现存物品的喜好。具体解释就是某个用户可能在已有领域current domain和另一领域out domain都有相关行为，可对两个不同领域的行为建立一个mapping，<font color="blue">当新用户来的时候，如果在另一领域有相关行为，可用该mapping作出prediction</font>，得到新用户对item的喜好程度<img src="/2019/03/31/rs/总结篇-推荐系统难点/resources/3C5075A26ABD3D104FE440464149FFDC.jpg"></li>
-<li>先给用户推荐热门内容，等行为多后再进行个性化推荐</li>
-<li>利用注册信息<br>根据用户注册账号时填写的性别、年龄、地址等信息，推荐相关性高的内容或者商品<ul>
-<li>比如说一个人的性别是男、年龄是40岁、职业是老师，那么就会有对应“性别是男、年龄是40岁、职业是老师”的三个相关推荐列表，再根据筛选，确定最终的推荐列表</li>
-</ul>
-</li>
-<li>授权设备信息<br>通过授权，可以获得手机中的位置，通讯录，按照app等，然后通过这些信息来做进一步聚合推荐<ul>
-<li>指的是允许app访问手机的一些信息，比如定位、安装信息、通讯录等，这样就可以推荐通讯录好友喜欢过的内容或商品</li>
-<li>或者说你手机里安装过懂球帝，就可以给你推荐足球相关的内容</li>
-<li>假如你安装了美丽说、蘑菇街、大姨妈等app，就可以判定你是女性了，更进一步还可以判定你是备孕还是少女</li>
-</ul>
-</li>
-<li>首次登录选标签<br>要求用户进来时选择一个或者多个标签，然后收集整理用户感兴趣的范围，去推荐相关性高的内容和商品</li>
-<li>绑定社交账号<br>利用用户的社交网络账号登录（需要用户授权），导入用户在社交网站上的好友信息，然后给用户推荐其好友喜欢的内容或物品</li>
-</ul>
-</li>
-<li>物品冷启动<ul>
-<li>对物品分类，可以使用Item-CF方法，推荐给相关用户</li>
-<li>设置一定概率的曝光机会，然后根据收益进行调整</li>
-</ul>
-</li>
-<li>系统冷启动<ul>
-<li>采用专家标注<br>对物品进行人工的标记，比如电影可以标记心情、剧情类型、类别、故事时间、地点、观众类型、获奖情况、风格、主旨、画面技术等等。在专家标记了一定样本之后使用自然语言理解和机器学习技术，通过分析用户对电影的评价和电影自身的内容属性对新电影进行自我标记。同时还设置了用户反馈界面，通过用户反馈进行改善</li>
-</ul>
-</li>
-</ul>
-<h4 id="回声室效应"><a href="#回声室效应" class="headerlink" title="回声室效应"></a>回声室效应</h4><p>为了满足用户的兴趣。第二部分是重复，如果依赖于内容标签或者内容分类，对于标签或者类目来不断地召回新的推荐结果，这会导致推荐结果没有新鲜感</p>
-<h4 id="性能方面"><a href="#性能方面" class="headerlink" title="性能方面"></a>性能方面</h4><ul>
-<li>采用离线，近实时，实时三层架构解决，可以参考推荐系统架构篇</li>
-</ul>
-<h4 id="其他问题"><a href="#其他问题" class="headerlink" title="其他问题"></a>其他问题</h4><ul>
-<li>精准兴趣<br>在推荐系统中，我们往往使用用户的点击行为来估计用户的喜好类型。然而用户的每次点击未必都是经过其深思熟虑之后的结果，因此行为本身会存在一个置信度的问题。而这个置信度是未知的</li>
-<li>新资源找不到合适用户<br>大量优质资源找不到需要的用户，成为层面资源，而低俗的内容大量曝光</li>
-<li>EE问题</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-	
-    
-	
-      	    
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/30/rs/总结篇-推荐系统架构/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="雷哥">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/favicon.ico">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="雷哥的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/30/rs/总结篇-推荐系统架构/" itemprop="url">总结篇-推荐系统架构</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-30T07:30:21+08:00">
-                2019-03-30
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/推荐系统/" itemprop="url" rel="index">
-                    <span itemprop="name">推荐系统</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/推荐系统/推荐系统总结篇/" itemprop="url" rel="index">
-                    <span itemprop="name">推荐系统总结篇</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><a href="https://mp.weixin.qq.com/s/0a4Ne9lgx1rmnE1jXfH6zQ" target="_blank" rel="noopener">达观数据个性化推荐系统实践</a><br><a href="https://zhuanlan.zhihu.com/p/59528983" target="_blank" rel="noopener">张俊林</a><br><a href="http://www.shuang0420.com/2017/03/13/论文笔记%20-%20Wide%20and%20Deep%20Learning%20for%20Recommender%20Systems/" target="_blank" rel="noopener">GP应用推荐举例</a></p>
-<h4 id="推荐系统应用方向"><a href="#推荐系统应用方向" class="headerlink" title="推荐系统应用方向"></a>推荐系统应用方向</h4><p>个性化推荐，相关推荐，热门推荐。。。<br><img src="/2019/03/30/rs/总结篇-推荐系统架构/resources/6BB63FB58358AAA9C67664EAA8E9A26A.jpg"></p>
-<h4 id="推荐系统设计目标"><a href="#推荐系统设计目标" class="headerlink" title="推荐系统设计目标"></a>推荐系统设计目标</h4><ul>
-<li>功能：功能上要全面些，包括相关推荐、个性化推荐、热门推荐等还包括混合推荐</li>
-<li>效果：效果在不同领域有差异，如在直播领域关注送礼物、打赏收入等，而资讯行业较关注人均点击数量、用户停留时长等；</li>
-<li>性能：性能在不同领域也是有差异的，但是必须是快速、稳定的，不允许出现推荐位置的留白，也就是你的推荐系统可以效果不好但是不能空白，在高并发时要求性能稳定快速。其实在实际业务场景中这三者是相互影响，权衡利弊的<img src="/2019/03/30/rs/总结篇-推荐系统架构/resources/348F4BA3140EE1B899EB1C2B7E8D868B.jpg">
-</li>
-</ul>
-<h4 id="系统层次图"><a href="#系统层次图" class="headerlink" title="系统层次图"></a>系统层次图</h4><ul>
-<li>基础层，对于服务多家客户来说首先是基础运算平台，全部基于Hadoop和Spark。基础存储平台是基于HBase、MySQL、Redis、HDFS等，传输平台是DgIO，主要基于消息队列的方式。</li>
-<li>在组件层有各种各样的组件和算法库，实现多个产品服务都可以复用。对于这些组件也有相应的研发团队进行升级和维护，如文本分类、标签、语义理解都是由文本组处理，对于搜索引擎性能、相关性等的优化升级是由搜索组完成，组件都是共同使用共同维护。<ul>
-<li>组件层有一系列小的组件，基于组件可以做一些模型层的事情，比如推荐相关的做用户画像，因为对于不同行业的用户画像有不同的标准，我们拿到的就是用户id和行为数据，刻画用户画像主要基于向量方式。物品画像主要解决流向，就是物品来了如何及时曝光，这时就需要依据其初始信息进行预估打分，对于已经曝光的物品会记录一段时间的收益情况（点击率、收藏数据等）形成物品画像做一些过滤信息。趋势分析主要是物品曝光后接下来是怎么样的，用户关系主要是基于用户行为分析的，主要做社交关系的推荐。物品关系主要是做算法方面的处理。</li>
-</ul>
-</li>
-<li>算法层主要是包括基于内容的推荐、矩阵分解、协同过滤、深度学习等。基于内容推荐如标签召回、热门召回、内容召回，深度学习各行业都在使用。</li>
-<li>组合层，对各种单一推荐算法的召回结果，使用机器学习的方式进行融合，以达到推荐效果的最优化。</li>
-<li>应用层，目前提供三种推荐，同时还有推荐理由，就是可解释性<img src="/2019/03/30/rs/总结篇-推荐系统架构/resources/8462B373BB26CD4BC997344AECED2D4A.jpg">
-</li>
-</ul>
-<h4 id="整体架构"><a href="#整体架构" class="headerlink" title="整体架构"></a>整体架构</h4><img src="/2019/03/30/rs/总结篇-推荐系统架构/resources/486690233E22E3AC4A925A9A2B5FEDCF.jpg">
-<ul>
-<li>在线部分<ul>
-<li>召回：通过召回环节，将给用户推荐的物品降到千以下规模</li>
-<li>粗排：如果召回阶段返回的物品还是太多，可以加入粗排阶段，这个阶段是可选的，粗排可以通过一些简单排序模型进一步减少往后续环节传递的物品</li>
-<li>精排：使用复杂的模型来对少量物品精准排序</li>
-<li>其他逻辑：即使精排推荐结果出来了，一般并不会直接展示给用户，可能还要上一些业务策略，比如去已读，推荐多样化，加入广告等各种业务策略。之后形成最终推荐结果，将结果展示给用户</li>
-</ul>
-</li>
-<li>近线部分<br>主要目的是<font color="blue">实时收集用户行为反馈</font>，并选择训练实例，实时抽取拼接特征，并近乎实时地更新在线推荐模型。这样做的好处是用户的最新兴趣能够近乎实时地体现到推荐结果里</li>
-<li>离线部分<br>通过对<font color="blue">线上用户点击日志的存储和清理，整理离线训练数据</font>，并周期性地更新推荐模型。对于超大规模数据和机器学习模型来说，往往需要高效地分布式机器学习平台来对离线训练进行支持</li>
-</ul>
-<img src="/2019/03/30/rs/总结篇-推荐系统架构/resources/B03559C0A23985CDE678B71B18B84A36.jpg">
-<ul>
-<li>GP应用推荐举例<img src="/2019/03/30/rs/总结篇-推荐系统架构/resources/0E258B35C68F04D2A827637698CD061A.jpg">
-</li>
-</ul>
-<h4 id="在线部分"><a href="#在线部分" class="headerlink" title="在线部分"></a>在线部分</h4><ul>
-<li>召回阶段<br>将物料从千万级别，降低到百级别<img src="/2019/03/30/rs/总结篇-推荐系统架构/resources/D61302841462A503D6067A318B735A5A.jpg"></li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-	
-    
   </section>
 
   
@@ -2488,7 +2507,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">64</span>
+                <span class="site-state-item-count">66</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

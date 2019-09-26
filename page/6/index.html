@@ -274,6 +274,425 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/01/dl/第二门课-第一周/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/09/01/dl/第二门课-第一周/" itemprop="url">第二门课-第一周</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-01T22:49:03+08:00">
+                2018-09-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/深度学习/" itemprop="url" rel="index">
+                    <span itemprop="name">深度学习</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/深度学习/吴恩达课程总结/" itemprop="url" rel="index">
+                    <span itemprop="name">吴恩达课程总结</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="第一周"><a href="#第一周" class="headerlink" title="第一周"></a>第一周</h3><h4 id="1-1-训练-验证-测试集"><a href="#1-1-训练-验证-测试集" class="headerlink" title="1.1 训练,验证,测试集"></a>1.1 训练,验证,测试集</h4><p>1.训练,验证,测试集 数据一定需要同分布<br> 2.训练,验证,测试集 能够更好的衡量偏差和方差</p>
+<h4 id="1-2-amp-1-3-偏差-方差-Bias-Variance"><a href="#1-2-amp-1-3-偏差-方差-Bias-Variance" class="headerlink" title="1.2&amp;1.3 偏差,方差(Bias/Variance)"></a>1.2&amp;1.3 偏差,方差(Bias/Variance)</h4><p>1.偏差,方差最终的值都是基于人眼的,如果人眼误差也比较高的话,那么训练测试误差比较高也比较正常<br> 2.训练集,测试集数据来自同分布<br> 3.高方差可以解释为：拟合了数据集中的错误样本和中间的一些活跃数据<br> 4.首先看偏差，偏差可以接受后，然后评估下验证集的性能来评估方差<br> 5.一般可以根据训练，测试cost曲线来判断高偏差或者高方差,具体可以参考我<a href="https://github.com/yuancl/ml-algorithm/tree/master/exe5-Regularized-LinearR-and-Bias-Variance" target="_blank" rel="noopener">github:正则化以及偏差方差检测</a></p>
+<h4 id="1-4-amp-1-5-正则化"><a href="#1-4-amp-1-5-正则化" class="headerlink" title="1.4&amp;1.5 正则化"></a>1.4&amp;1.5 正则化</h4><p>1.解决高方差一般有两种方法：一个是正则化，另外是准备更多的数据<br> 2.L2正则化有时候也称为”权重衰减”，因为在用梯度下降计算参数的时候会在前面乘以小于1的数值<br> 3.疑问：为什么很少使用L2做正则化<br> 3.为什么能防止过拟合？(过拟合的本质就是参数过多，参数过大，维数过高)</p>
+<ul>
+<li>a.直观上理解当lambda足够大的时候，权重矩阵w接近于0，就把很多隐藏单元给消除了一样</li>
+<li>b.sigmoid,tanh激活函数的曲线可以发现，当x值在0附件的时候，曲线接近于直线，呈现直线的性质，并不是非直线</li>
+</ul>
+<h4 id="1-6-amp-1-7-正则化-Dropout"><a href="#1-6-amp-1-7-正则化-Dropout" class="headerlink" title="1.6&amp;1.7 正则化(Dropout)"></a>1.6&amp;1.7 正则化(Dropout)</h4><p>1.为了不影响Z[4]的期望值，我们需要用Z[4]a[3]/0.8来修正或弥补我们所需要的那20%<br> 2.在测试阶段不能用dropout，因为我们不需要在测试阶段结果是随机的<br> 3.直观理解Dropout和L2正则比较像<br> 4.不能只依赖任何一个特征，因为都有可能被删除<br> 5.根据过拟合的程度设置keep-prob的值，比如W[1]：7x3，W[2]：7x7,W[3]：7x3,所以W[2]层参数最多，可以设置keep-prob稍小一些，比如0.7，第一层可以设置为1，第一层不应该dropout。<br> 6.过拟合才用Dropout方法，CV上通常没有足够多的数据，所以经常会用到<br> 7.Dropout<strong>缺点</strong>：使代价函数J不再被明确定义，个人理解因为中间的神经元不确定是否被dropout，所以每次都神经元个数什么的都不一样</p>
+<h4 id="1-8-其他正则化方法"><a href="#1-8-其他正则化方法" class="headerlink" title="1.8 其他正则化方法"></a>1.8 其他正则化方法</h4><p>1.数据扩展(通过旋转，缩放，裁剪等)<br> 2.early stoping</p>
+<ul>
+<li><strong>为什么能工作：</strong> 因为随机初始的w值都是比较小的，在刚开始训练的时候也不会很大，在后面迭代次数多的时候，w值就会比较大了，这就会使Loss比较大，这个时候stoping是比较好的</li>
+<li><strong>缺点:</strong> 如果提早停止了梯度下降，也就停止了J的继续优化，不能得到更小的代价函数J</li>
+<li><strong>与正则化lambda比较:</strong> lambda会尝试多轮的值，进行选择</li>
+</ul>
+<h4 id="1-9-归一化输入"><a href="#1-9-归一化输入" class="headerlink" title="1.9 归一化输入"></a>1.9 归一化输入</h4><p>1.标准化:零均值，归一化方差<br> 2.为什么能归一化效果更好</p>
+<ul>
+<li><strong>a.从Loss效果图分析：</strong> 归一化后数据更均匀，可以从任何一点入手进行GD迭代，否则曲线就比较凌乱<br><img src="resources/C9C7B619F7FAA0D0649EA455EA4710A8" alt=""></li>
+<li><strong>b.从sigmoid或者tanh的曲线图分析：</strong> 归一化后区间在0附件的时候，梯度变化最大的<br><img src="resources/9273406DEF474A8262863E9EDDD8598F" alt=""></li>
+</ul>
+<p>3.<strong>不用Normalize：</strong> 如果数据本身就处于相似范围，比如已经是1–2，或者0–1，区别不大：1–100</p>
+<h4 id="1-10-梯度消失或爆炸"><a href="#1-10-梯度消失或爆炸" class="headerlink" title="1.10 梯度消失或爆炸"></a>1.10 梯度消失或爆炸</h4><p>1.这里只讨论了激活函数的指数级数增长或下降，但它也适用于L相关的导数或者梯度问题，比如另一篇文章<a href="https://app.yinxiang.com/shard/s48/nl/12303615/fbbe860b-d780-4ea0-86e2-b3281095f018/" target="_blank" rel="noopener">梯度问题</a>就是讨论的梯度指数问题<br> <img src="resources/A6E21F3566635A3FFFFD3E6CFF2F3A9E" alt=""></p>
+<p>2.见另一篇<a href="https://app.yinxiang.com/shard/s48/nl/12303615/fbbe860b-d780-4ea0-86e2-b3281095f018/" target="_blank" rel="noopener">梯度问题</a></p>
+<h4 id="1-11-神经网络权重初始化"><a href="#1-11-神经网络权重初始化" class="headerlink" title="1.11 神经网络权重初始化"></a>1.11 神经网络权重初始化</h4><p>见权重初始化练习：<a href="https://github.com/yuancl/dl-algorithm/blob/master/2-ImprovingDeepNeuralNetworks/Week1/1.Initialization.ipynb" target="_blank" rel="noopener">Initialization</a><br> <img src="resources/3FA08AC1BC944F534A96C4DD711D4E86" alt=""></p>
+<p>In general, initializing all the weights to zero results in the network failing to break symmetry. This means that every neuron in each layer will learn the same thing<br> 初始化参数全部为0的时候，每一层的梯度变化的一样的，有就是每一层学习到的是一样的，就不会有比较好的结果</p>
+<p>The cost starts very high. This is because with large random-valued weights, the last activation (sigmoid) outputs results that are very close to 0 or 1 for some examples, and when it gets that example wrong it incurs a very high loss for that example. Indeed, when log(a[3])=log(0)log⁡(a[3])=log⁡(0) , the loss goes to infinity.<br> Poor initialization can lead to vanishing/exploding gradients, which also slows down the optimization algorithm.<br> If you train this network longer you will see better results, but initializing with overly large random numbers slows down the optimization.<br> 当随机初始值比较大的时候，最后的输出sigmoid就是0或者1，这个时候如果碰见是0，那么计算lost的时候log(0)就是无限大，所以第一次迭代 Cost after iteration 0: inf<br> 初始化参数过大会使开始训练的时候梯度下降得比较慢，Loss比较大，迭代会比较慢，当然最后也会收敛</p>
+<p>Different initializations lead to different results<br> Random initialization is used to break symmetry and make sure different hidden units can learn different things<br> Don’t intialize to values that are too large<br> He initialization works well for networks with ReLU activations.</p>
+<h4 id="1-12-amp-1-13-梯度的数值逼近及注意项"><a href="#1-12-amp-1-13-梯度的数值逼近及注意项" class="headerlink" title="1.12&amp;1.13 梯度的数值逼近及注意项"></a>1.12&amp;1.13 梯度的数值逼近及注意项</h4><p>1.双边误差比单边误差小<br> 2.误差值如果小于10−7是比较安全的，如果大于10−5就需要多注意下，如果大于10−3那么应该是有bug<br> 3.如果J包含了正则项，那么求梯度D的时候也一定要包含正则项，感觉这个不用担心，因为有正则项的J，用数学公式求梯度函数一定会有正则项<br> 4.Dropout和梯度逼近不能同时使用，个人理解是因为梯度逼近是对最终的<strong>真实</strong>的J做的梯度逼近，而Dropout国产中个的J′去掉了多个神经元并不是真实的J<br> 5.参考<a href="https://github.com/yuancl/ml-algorithm/blob/master/exe4-NeuralNetwork/nn_cost_fun.py" target="_blank" rel="noopener">NeuralNetwork</a>中的梯度的数值逼近计算</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+	
+    
+	
+      	    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/20/ml/聚类/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/20/ml/聚类/" itemprop="url">聚类</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-20T07:15:20+08:00">
+                2018-08-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/机器学习基础/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习基础</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="聚类任务"><a href="#聚类任务" class="headerlink" title="聚类任务"></a>聚类任务</h4><ul>
+<li>在无监督学习中（unsupervised learning）中，训练样本的标记信息是未知的，目标是通过对无标记的训练样本的学习来揭示数据的内在性质及规律，为进一步的数据分析提供基础。此类学习任务中研究最多、<font color="blue">应用最广的是“聚类”（clustering）</font></li>
+<li>聚类试图将数据集中的样本划分为若干通常是不相交的子集，每个子集称为一个“簇”（cluster）。</li>
+<li>聚类既能作为一个单独的过程，用于找寻数据内的分布结构，也可作为分类等其他学习任务的前驱过程。</li>
+</ul>
+<h4 id="性能度量"><a href="#性能度量" class="headerlink" title="性能度量"></a>性能度量</h4><ul>
+<li>聚类性能度量亦称聚类“有效性指标”（validity index）<ul>
+<li>与监督学习中的性能度量作用相似。对聚类结果，我们需通过<font color="blue">某种性能度量来评估其好坏</font>；</li>
+<li>另一方面，若明确了最终将要使用的性能度量，则可直接将其作为聚类过程的优化目标，从而更好地得到符合要求的聚类结果。<br>聚类是将样本集D划分为若干不相交的子集，即样本簇。直观上看，我们希望“物以类聚”，<font color="blue">即同一簇的样本尽可能彼此相似，不同簇的样本尽可能不同</font>。换言之，聚类结果的“簇内相似度”（intra-cluster similarity）高且“簇间相似度”（inter-cluster similarity）低。</li>
+</ul>
+</li>
+<li>聚类性能度量大致有两类：<ul>
+<li>“外部指标”（external index）<br>将聚类结果与某个“参考模型”（reference model）进行比较；<ul>
+<li>常用的聚类性能度量外部指标有：<ul>
+<li>Jaccard系数（Jaccard Coefficient，简称 JC）</li>
+<li>FM指数（Fowlkes and Mallows Index，简称FMI）</li>
+<li>Rand指数（Rand Index，简称RI）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>“内部指标”（internal index）<br>直接考察聚类结果而不利用任何参考模型<ul>
+<li>常用的聚类性能度量内部指标有<ul>
+<li>DB指数（Davies-Bouldin Index，简称DBI）</li>
+<li>Dunn指数（Dunn Index，简称DI）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="距离计算"><a href="#距离计算" class="headerlink" title="距离计算"></a>距离计算</h4><ul>
+<li>给定样本$x_i=（x_{i1}，x_{i2}；…；x_{in}），与x_j=（x_{j1}；x_{j2}；…；x_{jn}）$</li>
+<li>最常用的是”闵可夫斯基距离“（Minkowski distance）<img src="/2018/08/20/ml/聚类/resources/37A273ABD2B1EC581982F7BBECCBE35A.jpg"></li>
+<li>p=2时，闵可夫斯基距离即欧氏距离（Euclidean distance）<img src="/2018/08/20/ml/聚类/resources/E635A778006828C007A4DFF678BB32F7.jpg"></li>
+<li>p=1时，闵可夫斯基距离即曼哈顿距离（Manhattan distance）<img src="/2018/08/20/ml/聚类/resources/78391F39AD86022E73BD024B2FF230C8.jpg">
+</li>
+</ul>
+<h4 id="原型聚类"><a href="#原型聚类" class="headerlink" title="原型聚类"></a>原型聚类</h4><p>原型聚类亦称”<font color="blue">基于原型的聚类</font>“（prototype-based clustering），此类算法<font color="blue">假设聚类结构能通过一组原型刻画</font>，在现实聚类任务中极为常用。</p>
+<ul>
+<li>通常情形下，算法先对原型进行初始化，然后对原型进行迭代更新求解。<font color="blue">采用不同的原型表示、不同的求解方式，将产生不同的算法</font><ul>
+<li><font color="purple">我的理解就是直接通过先假设几个样本就为几类簇，然后再迭代更新</font>
+
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>k均值算法<br>给定样本集$D={x_1，x_2，…，x_m}$，”k均值“（k-means）算法针对聚类所得簇划分$C={C_1，C_2，…，C_k}$最小化平方误差<ul>
+<li>直观来看，上面式子在一定程度上刻画了簇内样本围绕簇均值向量的紧密程度，E值越小则簇内样本相似度越高<img src="/2018/08/20/ml/聚类/resources/E1734D53B25C4D0019F957BEAB0042B7.jpg">
+<ul>
+<li>其中$\mu_i$，是簇$C_i$的均值向量<img src="/2018/08/20/ml/聚类/resources/AE0804FF1B1322B4E95E28E786386EA3.jpg"></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>学习向量量化<br>与k均值算法类似，“学习向量量化”（Learning Vector Quantization，简称LVQ）也是试图找到一组原型向量来刻画聚类结构，但与一般的聚类算法不同的是，LVQ假设数据样本带有类别标记，学习过程用样本的这些监督信息来辅助聚类</p>
+<ul>
+<li>和KMeans的区别：<ul>
+<li>LVQ数据样本带有标签 </li>
+<li>初始化方式不同，LVQ是初始化一组向量，KMeans初始化几个簇点</li>
+<li>迭代方式不同，LVQ是循环找到每个样本点和向量簇最近的向量，然后根据该样本点的类别是否和该向量表示的类别是否相同，另该向量靠近或更远离该点<img src="/2018/08/20/ml/聚类/resources/729572530662A9FC2EFCF920DF512324.jpg">
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>高斯混合聚类<br>与k均值、LVQ用原型向量来刻画聚类结构不同，高斯混合（Mixture-of-Gaussian）聚类采用概率模型来表达聚类原型</p>
+<ul>
+<li>选择了高斯混合模型作为原型表示</li>
+<li><a href="https://blog.csdn.net/lin_limin/article/details/81048411" target="_blank" rel="noopener">结合高斯混合模型理解</a></li>
+</ul>
+</li>
+</ul>
+<h4 id="密度聚类"><a href="#密度聚类" class="headerlink" title="密度聚类"></a>密度聚类</h4><p>密度聚类亦称“基于密度的聚类”（density-based clustering），此类算法<font color="blue">假设聚类结构能通过样本分布的紧密程度确定</font>。通常情况下，密度聚类算法从样本密度的角度来考察样本之间的可连接性，并基于可连接样本不断扩展聚类簇以获得最终的聚类结果。</p>
+<ul>
+<li>DBSCAN是一种著名的密度聚类算法</li>
+</ul>
+<h4 id="层次聚类"><a href="#层次聚类" class="headerlink" title="层次聚类"></a>层次聚类</h4><p>层次聚类（hierarchical clustering）<font color="blue">试图在不同层次对数据集进行划分，从而形成树形的聚类结构</font>。数据集的划分可采用“自底向上”的聚合策略，也可采用“自顶向下”的分拆策略。</p>
+<ul>
+<li>AGNES 是一种采用自底 向上聚合策略的层次聚类算法.它先将数据集中 的每个样本看作一个初始聚类簇，然后在算法运行的每一步中找 出距离最近的两个粟类簇进行合并，该过程不断重复，直至达到预设的聚类簇个数</li>
+<li><a href="https://yuancl.github.io/2019/05/22/ml/层次聚类Louvain/" target="_blank" rel="noopener">Louvain算法</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+	
+    
+	
+      	    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/06/ml/决策树/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1901,383 +2320,6 @@
 
 	
     
-	
-      	    
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/22/ml/PCA/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="雷哥">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/favicon.ico">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="雷哥的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/06/22/ml/PCA/" itemprop="url">PCA</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-22T22:01:10+08:00">
-                2018-06-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/机器学习/" itemprop="url" rel="index">
-                    <span itemprop="name">机器学习</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/机器学习/算法/" itemprop="url" rel="index">
-                    <span itemprop="name">算法</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><a href="http://blog.codinglabs.org/articles/pca-tutorial.html" target="_blank" rel="noopener">参考文章</a></p>
-<h4 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h4><ul>
-<li><p>线性代数相关概念</p>
-<ul>
-<li>对称矩阵:除对角线，其余值一三象限相等</li>
-<li>对角矩阵(diagonal matrix):是一个主对角线之外的元素皆为0的矩阵</li>
-<li>矩阵对角化：如果存在一个矩阵<strong>A</strong>，使$A^{-1}MA$  的结果为对角矩阵，则称矩阵<strong>A</strong>将矩阵<strong>M</strong>  对角化。对于一个矩阵来说，不一定存在将其对角化的矩阵，但是任意一个n×n矩阵如果存在n个线性不相关的特征向量，则该矩阵可被对角化<ul>
-<li>定理（理解特征值和特征向量的作用）：<img src="/2018/06/22/ml/PCA/resources/6A2D68A769C48FF884859CA389ECED5C.jpg"></li>
-</ul>
-</li>
-<li>实对称矩阵<ul>
-<li>实对称矩阵A的不同特征值对应的特征向量是正交的。<font color="red">(PCA算法最终就是将初始值的协方差矩阵变化为实对称矩阵)</font></li>
-<li>实对称矩阵A的特征值都是实数，特征向量都是实向量。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>协方差</p>
-<ul>
-<li>均值描述的是样本集合的中间点，而标准差给我们描述的则是样本集合的各个样本点到均值的距离之平均，都是一维数据<br>$var(X)=\frac{\sum^{n}_{i=1}(X_i-\overline X)(X_i-\overline X)}{n}$</li>
-<li>协方差：协方差就是这样一种用来度量两个随机变量关系的统计量<ul>
-<li>$cov(X,Y)=\frac{\sum^{n}_{i=1}(X_i-\overline X)(Y_i-\overline Y)}{n}$。如果各维度均值都标准化为0，那么就简化为:$cov(X,Y)=\frac{\sum^{n}_{i=1}(X_i)(Y_i)}{n}$</li>
-<li>如果结果为正值，则说明两者是正相关的,否则为负相关。如果为0，表示不相关，也就是正交</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>协方差矩阵</p>
-<ul>
-<li>如果有多维的情况，就可以使用矩阵的思想来看更直观,比如三维的例子:<br>$C = \begin{bmatrix}<br>cov(x,x),cov(x,y),cov(x,z)<br>\<br>cov(y,x),cov(y,y),cov(y,z)<br>\<br>cov(z,x),cov(z,y),cov(z,z)<br>\end{bmatrix}$</li>
-<li>协方差矩阵计算：<ul>
-<li>假设我们只有a和b两个字段(两维度特征)，那么我们将它们按行组成矩阵X<br>$X=\begin{bmatrix}<br>a_1,a_2,a_3….a_n<br>\<br>b_1,b_2,b_3….b_n<br>\end{bmatrix}<br>$</li>
-<li>然后我们用X乘以X的转置，并乘上系数1/m<br>$\frac1mXX^T=\begin{bmatrix}<br>\frac1m\sum^m_{i=1}a_ia_i  \frac1m\sum^m_{i=1}a_ib_i<br>\<br>\frac1m\sum^m_{i=1}a_ib_i  \frac1m\sum^m_{i=1}b_ib_i<br>\end{bmatrix}<br>$</li>
-<li>设我们有m个n维数据记录，将其按列排成n乘m的矩阵X，设$C=1mXX𝖳，则C是一个对称矩阵，其对角线分别个各个字段的方差，而第i行j列和j行i列元素相同，表示i和j两个字段的协方差</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-	
-    
-	
-      	    
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/20/ml/Backpropagation/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="雷哥">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/favicon.ico">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="雷哥的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/06/20/ml/Backpropagation/" itemprop="url">Backpropagation</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-20T08:01:20+08:00">
-                2018-06-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/机器学习/" itemprop="url" rel="index">
-                    <span itemprop="name">机器学习</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/机器学习/算法/" itemprop="url" rel="index">
-                    <span itemprop="name">算法</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><a href="https://www.cnblogs.com/andywenzhi/p/7295262.html?utm_source=itdadao&amp;utm_medium=referral" target="_blank" rel="noopener">参考链接</a></p>
-<h4 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h4><ul>
-<li>BP 算法的目的在于为优化函数（比如梯度下降、其它的高级优化方法）提供梯度值，即使用 BP 算法计算代价函数（cost function）对每个参数的偏导值，其数学形式为：$\frac{\partial}{\partial\theta^l_{ij}}J(\theta)$，并最终得到的值存放在矩阵$\Delta^{(l)}$中。</li>
-</ul>
-<h4 id="网络结构"><a href="#网络结构" class="headerlink" title="网络结构"></a>网络结构</h4><ul>
-<li>简单神经网络结构：<img src="/2018/06/20/ml/Backpropagation/resources/65C926A1DF9A4F2D9EBB22BEC38F663F.jpg"></li>
-<li>单个数据的代价函数：<img src="/2018/06/20/ml/Backpropagation/resources/2A341859393F3EFDA0E5F215414C2CD5.jpg">
-</li>
-</ul>
-<h4 id="神经网络学习算法图概览"><a href="#神经网络学习算法图概览" class="headerlink" title="神经网络学习算法图概览"></a>神经网络学习算法图概览</h4><ul>
-<li><p>清楚一个函数的求导对象：输入值<br>给定一个函数 f(x)，它的首要求导对象是什么？就是它的输入值，是自变量 x。那 f(g(x)) 呢？即把g(x) 当作一个整体作为它的输入值，它的自变量。那么 g(x) 这个整体就是它的首要求导对象。因此，一个函数的求导对象是它的输入值，是它的自变量。弄清楚这一点，才能在求多元函数偏导的链式法则中游刃有余。</p>
-</li>
-<li><p>神经网络中各数据之间的关系——谁是谁的输入值<br>图 3.1 自下而上，每一个框是上面一个框的输入值，也即上面一个框中函数的自变量。这张图明确了神经网络中各数据之间的关系——谁是谁的输入值，图中表现得非常清楚。上段提到一个函数的求导对象是它的输入值，那么通过图 3.1 就能非常方便地使用链式法则，也能清楚地观察到 BP 算法的流程（后面一个小节会给出一个更具体的 BP 流程图）。</p>
-</li>
-<li><p>神经网络的学习(训练)流程(前馈传播和BP算法)<br>对照文首给出的图 1.1 神经网络的模型图，应该很容易理解图 3.1 的含义，它大致地展现了神经网络的学习（训练）流程。前馈传播算法自下而上地向上计算，最终可以得到 a(3)，进一步可以计算得到 J(Θ)。而 BP 算法自顶向下，层层求偏导，最终得到了每个参数的梯度值。下面一个小节将仔细介绍本文的主题，即 BP 算法的流程图解。</p>
-</li>
-</ul>
-<img src="/2018/06/20/ml/Backpropagation/resources/0A913A35D7E650A4E2C65A6A7AF52C4F.jpg">
-<h4 id="BP-算法的直观图解"><a href="#BP-算法的直观图解" class="headerlink" title="BP 算法的直观图解"></a>BP 算法的直观图解</h4><ul>
-<li>BP 算法的流程在这张图中清晰可见：自顶向下（对应神经网络模型为自输出层向输入层）层层求偏导(核心：找准谁是谁的输入，对求偏导尤其重要)</li>
-<li>所以 BP 算法即反向传播算法，<font color="red">就是自顶向下求代价函数$J(\theta)$ 对各个参数$\theta^l_{ij}$ 偏导($\frac{\partial}{\partial\theta^l_{ij}}J(\theta)$)的过程</font>，对应到神经网络模型中即自输出层向输入层层层求偏导<img src="/2018/06/20/ml/Backpropagation/resources/9005E13A2814A7CE44469B4204073DE9.jpg"></li>
-<li><p>从这里可以看出：，为什么要使用BP算法：<font color="red"></font></p>
-<ul>
-<li>自输出层向输入层（即反向传播），逐层求偏导，在这个过程中逐渐得到各个层的参数梯度。</li>
-<li>在反向传播过程中，使用$\delta(l)$ 保存了部分结果，从而避免了大量的重复运算。</li>
-</ul>
-</li>
-<li><p>详细推导计算过程可以参考原文</p>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-	
-    
   </section>
 
   
@@ -2326,7 +2368,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">64</span>
+                <span class="site-state-item-count">66</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

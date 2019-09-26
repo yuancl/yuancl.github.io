@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="NLP,NLP模型理解,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="词向量之DNN模型word2vec-Hierarchical Softmaxword2vec-Negative Sampling 词向量之DNN模型 模型  训练方式：CBOW或者Skip-gram 输入：one-hot向量，n*V矩阵（V表示词汇数量，n表示输入词数） Hidden layer：我们想得到的N维词向量 Output layer：softmax分类   核心就是采用语言模型，学习I">
+<meta name="keywords" content="NLP,NLP模型理解">
+<meta property="og:type" content="article">
+<meta property="og:title" content="word2vec">
+<meta property="og:url" content="http://yoursite.com/2019/09/21/nlp/word2vec/index.html">
+<meta property="og:site_name" content="雷哥的博客">
+<meta property="og:description" content="词向量之DNN模型word2vec-Hierarchical Softmaxword2vec-Negative Sampling 词向量之DNN模型 模型  训练方式：CBOW或者Skip-gram 输入：one-hot向量，n*V矩阵（V表示词汇数量，n表示输入词数） Hidden layer：我们想得到的N维词向量 Output layer：softmax分类   核心就是采用语言模型，学习I">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2019/09/21/nlp/word2vec/resources/22FB6C2C9C68C37E6D199CB84F7C82FB.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/09/21/nlp/word2vec/resources/6E951A455D9ACAC687BA4F6047258DE8.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/09/21/nlp/word2vec/resources/361E25E2BEBDF37B8637B6E3A2301923.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/09/21/nlp/word2vec/resources/FE3A607318B250747461F274D5B9962C.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/09/21/nlp/word2vec/resources/DF6CA2B538357E71E6E6D3CD761746E2.jpg">
+<meta property="og:updated_time" content="2019-09-26T12:05:01.123Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="word2vec">
+<meta name="twitter:description" content="词向量之DNN模型word2vec-Hierarchical Softmaxword2vec-Negative Sampling 词向量之DNN模型 模型  训练方式：CBOW或者Skip-gram 输入：one-hot向量，n*V矩阵（V表示词汇数量，n表示输入词数） Hidden layer：我们想得到的N维词向量 Output layer：softmax分类   核心就是采用语言模型，学习I">
+<meta name="twitter:image" content="http://yoursite.com/2019/09/21/nlp/word2vec/resources/22FB6C2C9C68C37E6D199CB84F7C82FB.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '雷哥'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/09/21/nlp/word2vec/">
+
+
+
+
+
+  <title>word2vec | 雷哥的博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">雷哥的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/21/nlp/word2vec/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雷哥">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雷哥的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">word2vec</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-21T22:34:14+08:00">
+                2019-09-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/NLP/" itemprop="url" rel="index">
+                    <span itemprop="name">NLP</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/NLP/模型理解/" itemprop="url" rel="index">
+                    <span itemprop="name">模型理解</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><a href="https://mp.weixin.qq.com/s?__biz=MzAxMjMwODMyMQ==&amp;mid=2456336047&amp;idx=1&amp;sn=c6d2bd01d5b73b3d71813d5158c8e368&amp;scene=19#wechat_redirect" target="_blank" rel="noopener">词向量之DNN模型</a><br><a href="https://mp.weixin.qq.com/s?__biz=MzAxMjMwODMyMQ==&amp;mid=2456336233&amp;idx=1&amp;sn=01afd6b020693a7808b0a9cec0bcc39b&amp;scene=19#wechat_redirect" target="_blank" rel="noopener">word2vec-Hierarchical Softmax</a><br><a href="https://mp.weixin.qq.com/s?__biz=MzAxMjMwODMyMQ==&amp;mid=2456336355&amp;idx=1&amp;sn=89fe3518051752ce84a3d8f1daf696f8&amp;scene=19#wechat_redirect" target="_blank" rel="noopener">word2vec-Negative Sampling</a></p>
+<h4 id="词向量之DNN模型"><a href="#词向量之DNN模型" class="headerlink" title="词向量之DNN模型"></a>词向量之DNN模型</h4><ul>
+<li>模型<img src="/2019/09/21/nlp/word2vec/resources/22FB6C2C9C68C37E6D199CB84F7C82FB.jpg">
+<ul>
+<li>训练方式：CBOW或者Skip-gram</li>
+<li>输入：one-hot向量，n*V矩阵（V表示词汇数量，n表示输入词数）</li>
+<li>Hidden layer：我们想得到的N维词向量</li>
+<li>Output layer：softmax分类</li>
+</ul>
+</li>
+<li>核心就是采用语言模型，学习Input layer和Hidden layer直接的参数矩阵（词嵌入矩阵）</li>
+<li>训练方式：softmax进行多分类，采用交叉熵作为loss，梯度下来求解方法进行训练</li>
+<li>缺点：<ul>
+<li>从input layer到hidden layer<br>每次我们只是使用了几个单词进行训练，但是在计算梯度的过程却要对整个参数矩阵进行运算，这样计算效率低下</li>
+<li>从hidden layer到output layer<br>采用全连接层并用softmax方式，需要对输出层中每个位置求其概率。为了得到输出层的每个位置的概率，我们需要求得所有单词的得分，如果一个词汇表很庞大的话，这是很耗资源的</li>
+</ul>
+</li>
+</ul>
+<h4 id="word2vec-Hierarchical-Softmax"><a href="#word2vec-Hierarchical-Softmax" class="headerlink" title="word2vec-Hierarchical Softmax"></a>word2vec-Hierarchical Softmax</h4><p><a href="https://yuancl.github.io/2019/08/13/nlp/FastText模型/" target="_blank" rel="noopener">参考FastText</a></p>
+<ul>
+<li>霍夫曼树<br>参考FastText中的霍夫曼链接，总的来说就是让出现频率大的词在树较浅的层次，频率小的出现在较深层次（最少编码也是这个道理）</li>
+<li>网络结构<img src="/2019/09/21/nlp/word2vec/resources/6E951A455D9ACAC687BA4F6047258DE8.jpg">
+<ul>
+<li>模型学习方式同样可以是CBOW或者Skip-gram模式</li>
+<li>Input layer：需要学习的词向量，多个词向量加和平均到映射层</li>
+<li>Output layer：通过加和平均得到的向量，作为输入，通过<br>Hierarchical Softmax进行分类训练</li>
+</ul>
+</li>
+<li>训练过程:<ul>
+<li>需要通过已经词表构造一颗霍夫曼树（通过频率的计算）</li>
+<li>通过$X_w$的输入，就能够通过霍夫曼树确定该输入对应到的叶子节点，同时也就知道了整个路径(类似101001…)</li>
+<li>每一个节点的选择都是通过sigmoid进行二分类</li>
+<li><font color="blue">最后是通过最大似然模型，梯度提升求解方法进行该路径概率的最大值求解</font>（p(step1)*p(step2)…都是二分类模型）<ul>
+<li>通过反向传播求梯度后，通过梯度提升，更改权重向量（节点与节点连线）；同时改变input layer词向量（因为$X_w$只是加权求平均）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>优点：<ul>
+<li>舍去了隐藏层，在CBOW模型从输入层到隐藏层的计算改为直接从输入层将几个词的词向量求和平均作为输出<ul>
+<li>词向量的线性相关性<ul>
+<li>第一个改进在于去除了隐藏层，Word2vec训练词向量的网络结构严格上来说不算是神经网络的结构，也就去掉了非线性的激活函数，所以就能够表示词向量直接是线性相关的</li>
+<li><img src="/2019/09/21/nlp/word2vec/resources/361E25E2BEBDF37B8637B6E3A2301923.jpg"></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>舍去了隐藏层到输出层的全连接结构，换成了霍夫曼树来代替隐藏层到输出层的映射<ul>
+<li>不需要计算所有的非叶子结点，只需要计算找寻某个叶子结点时经过的路径上存在的节点，极大的减少了计算量</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>缺点：<br>比如霍夫曼树的结构是基于贪心的思想，这样训练频率很大的词很有效，但是对词频很低的词很不友好，路径很深（二分类比较多，训练的权重也就比较多）</li>
+</ul>
+<h4 id="word2vec-Negative-Sampling"><a href="#word2vec-Negative-Sampling" class="headerlink" title="word2vec-Negative Sampling"></a>word2vec-Negative Sampling</h4><ul>
+<li>网络结构<img src="/2019/09/21/nlp/word2vec/resources/FE3A607318B250747461F274D5B9962C.jpg"></li>
+<li>训练网络图<img src="/2019/09/21/nlp/word2vec/resources/DF6CA2B538357E71E6E6D3CD761746E2.jpg"></li>
+<li>训练过程：<ul>
+<li>输入：(V,w0)(V,w1)(V,w2)…<ul>
+<li>w0是想预测出来的那个正样本，w1，w2…是跟随随机选取的负样本</li>
+<li>V是上下文，比如cbow方式就是前后单词的向量求和sum</li>
+</ul>
+</li>
+<li>输出也是用的二分类的方法对正负样本进行概率判断</li>
+<li>也是采用的最大似然的方法，对各个正负样本进行概率相乘，使其概率值达最大<ul>
+<li>通过梯度提升的方法，更新每个样本对应的$\theta$向量，以及输入的词向量</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Negative Sampling选取负例词原理<br>基本就是对词出现的频率进行划分，目的是概率性取到不同频率的负样本</li>
+<li>优点：<br>Negative Sampling训练生僻词的词向量会更稳定更快些</li>
+</ul>
+<h4 id="word2vec整体优缺点"><a href="#word2vec整体优缺点" class="headerlink" title="word2vec整体优缺点"></a>word2vec整体优缺点</h4><ul>
+<li>Word2vec训练出来的词向量效果挺好，其训练出来的词向量可以衡量不同词之间的相近程度</li>
+<li>word2vec也存在缺点，因为在使用context（w）中并没有考虑w上下文的词序问题，这就造成了训练时输入层所有的词都是等价的，这样训练出来的词向量归根结底只包含大量语义，语法信息<ul>
+<li>所以一般想拥有比较好的词向量，还是应该在一个有目标导向的神经网络中训练，比如目标是情感分析，在这样的神经网络中去取得第一层embedding层作为词向量，其表达的的效果应该会比word2vec训练出来的效果好得多，当然一般我们可能不需要精准表达的词向量，所以用word2vec来训练出词向量，也是一种可选择的快速效率的方法</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/NLP/" rel="tag"># NLP</a>
+          
+            <a href="/tags/NLP模型理解/" rel="tag"># NLP模型理解</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/19/nlp/XLNet模型/" rel="next" title="XLNet模型">
+                <i class="fa fa-chevron-left"></i> XLNet模型
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/favicon.ico" alt="雷哥">
+          <p class="site-author-name" itemprop="name">雷哥</p>
+           
+              <p class="site-description motion-element" itemprop="description">不积跬步无以至千里</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">66</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/yuancl" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#词向量之DNN模型"><span class="nav-number">1.</span> <span class="nav-text">词向量之DNN模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#word2vec-Hierarchical-Softmax"><span class="nav-number">2.</span> <span class="nav-text">word2vec-Hierarchical Softmax</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#word2vec-Negative-Sampling"><span class="nav-number">3.</span> <span class="nav-text">word2vec-Negative Sampling</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#word2vec整体优缺点"><span class="nav-number">4.</span> <span class="nav-text">word2vec整体优缺点</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-雷哥"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">雷哥</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Gemini
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
